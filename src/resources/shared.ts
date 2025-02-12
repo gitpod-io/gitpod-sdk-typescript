@@ -9,7 +9,7 @@ import { EnvironmentClassesPage, TaskExecutionsPage, TasksPage } from '../pagina
  * after the environment has started. The `post_devcontainer_start` field indicates
  * that the automation should be triggered after the dev container has started.
  */
-export interface AutomationTrigger {
+export interface AutomationTrigge {
   manual?: boolean;
 
   postDevcontainerStart?: boolean;
@@ -647,7 +647,7 @@ export interface TaskMetadata {
   /**
    * triggered_by is a list of trigger that start the task.
    */
-  triggeredBy?: Array<AutomationTrigger>;
+  triggeredBy?: Array<AutomationTrigge>;
 }
 
 export interface TaskSpec {

@@ -203,7 +203,7 @@ export interface ServiceMetadata {
   /**
    * triggered_by is a list of trigger that start the service.
    */
-  triggeredBy?: Array<Shared.AutomationTrigger>;
+  triggeredBy?: Array<Shared.AutomationTrigge>;
 }
 
 export type ServicePhase =
@@ -375,7 +375,7 @@ export namespace ServiceUpdateParams {
 
   export namespace Metadata {
     export interface TriggeredBy {
-      trigger?: Array<Shared.AutomationTrigger>;
+      trigger?: Array<Shared.AutomationTrigge>;
     }
   }
 
