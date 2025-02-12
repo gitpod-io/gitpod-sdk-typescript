@@ -122,7 +122,7 @@ export namespace TaskUpdateParams {
 
   export namespace Metadata {
     export interface TriggeredBy {
-      trigger?: Array<Shared.AutomationTrigge>;
+      trigger?: Array<Shared.AutomationTrigger>;
     }
   }
 
