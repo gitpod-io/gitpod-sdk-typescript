@@ -9,8 +9,8 @@ const client = new Gitpod({
 
 describe('resource editors', () => {
   // skipped: tests are disabled for the time being
-  test.skip('retrieve', async () => {
-    const responsePromise = client.editors.retrieve({});
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.editors.retrieve({ id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,6 +18,11 @@ describe('resource editors', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.editors.retrieve({ id: 'id' });
   });
 
   // skipped: tests are disabled for the time being
@@ -33,8 +38,12 @@ describe('resource editors', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('resolveURL', async () => {
-    const responsePromise = client.editors.resolveURL({});
+  test.skip('resolveURL: only required params', async () => {
+    const responsePromise = client.editors.resolveURL({
+      editorId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      environmentId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,5 +51,14 @@ describe('resource editors', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('resolveURL: required and optional params', async () => {
+    const response = await client.editors.resolveURL({
+      editorId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      environmentId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });
