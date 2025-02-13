@@ -21,8 +21,10 @@ describe('resource environments', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('retrieve', async () => {
-    const responsePromise = client.environments.retrieve({});
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.environments.retrieve({
+      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -30,6 +32,13 @@ describe('resource environments', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.environments.retrieve({
+      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+    });
   });
 
   // skipped: tests are disabled for the time being

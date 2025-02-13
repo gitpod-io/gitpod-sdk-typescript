@@ -64,36 +64,36 @@ export interface SSOConfiguration {
   /**
    * id is the unique identifier of the SSO configuration
    */
-  id?: string;
+  id: string;
+
+  /**
+   * client_id is the client ID of the OIDC application set on the IdP
+   */
+  clientId: string;
+
+  emailDomain: string;
+
+  /**
+   * issuer_url is the URL of the IdP issuer
+   */
+  issuerUrl: string;
+
+  organizationId: string;
+
+  /**
+   * provider_type defines the type of the SSO configuration
+   */
+  providerType: ProviderType;
+
+  /**
+   * state is the state of the SSO configuration
+   */
+  state: SSOConfigurationState;
 
   /**
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
    */
   claims?: Record<string, string>;
-
-  /**
-   * client_id is the client ID of the OIDC application set on the IdP
-   */
-  clientId?: string;
-
-  emailDomain?: string;
-
-  /**
-   * issuer_url is the URL of the IdP issuer
-   */
-  issuerUrl?: string;
-
-  organizationId?: string;
-
-  /**
-   * provider_type defines the type of the SSO configuration
-   */
-  providerType?: ProviderType;
-
-  /**
-   * state is the state of the SSO configuration
-   */
-  state?: SSOConfigurationState;
 }
 
 export type SSOConfigurationState =
@@ -105,14 +105,14 @@ export interface SSOConfigurationCreateResponse {
   /**
    * sso_configuration is the created SSO configuration
    */
-  ssoConfiguration?: SSOConfiguration;
+  ssoConfiguration: SSOConfiguration;
 }
 
 export interface SSOConfigurationRetrieveResponse {
   /**
    * sso_configuration is the SSO configuration identified by the ID
    */
-  ssoConfiguration?: SSOConfiguration;
+  ssoConfiguration: SSOConfiguration;
 }
 
 export type SSOConfigurationUpdateResponse = unknown;
@@ -123,34 +123,39 @@ export interface SSOConfigurationCreateParams {
   /**
    * client_id is the client ID of the OIDC application set on the IdP
    */
-  clientId?: string;
+  clientId: string;
 
   /**
    * client_secret is the client secret of the OIDC application set on the IdP
    */
-  clientSecret?: string;
+  clientSecret: string;
 
   /**
    * email_domain is the domain that is allowed to sign in to the organization
    */
-  emailDomain?: string;
+  emailDomain: string;
 
   /**
    * issuer_url is the URL of the IdP issuer
    */
-  issuerUrl?: string;
+  issuerUrl: string;
 
-  organizationId?: string;
+  organizationId: string;
 }
 
 export interface SSOConfigurationRetrieveParams {
   /**
    * sso_configuration_id is the ID of the SSO configuration to get
    */
-  ssoConfigurationId?: string;
+  ssoConfigurationId: string;
 }
 
 export interface SSOConfigurationUpdateParams {
+  /**
+   * sso_configuration_id is the ID of the SSO configuration to update
+   */
+  ssoConfigurationId: string;
+
   /**
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
    */
@@ -174,11 +179,6 @@ export interface SSOConfigurationUpdateParams {
   issuerUrl?: string | null;
 
   /**
-   * sso_configuration_id is the ID of the SSO configuration to update
-   */
-  ssoConfigurationId?: string;
-
-  /**
    * state is the state of the SSO configuration
    */
   state?: SSOConfigurationState | null;
@@ -189,7 +189,7 @@ export interface SSOConfigurationListParams extends SSOConfigurationsPageParams 
    * Body param: organization_id is the ID of the organization to list SSO
    * configurations for.
    */
-  organizationId?: string;
+  organizationId: string;
 
   /**
    * Body param:
@@ -214,7 +214,7 @@ export namespace SSOConfigurationListParams {
 }
 
 export interface SSOConfigurationDeleteParams {
-  ssoConfigurationId?: string;
+  ssoConfigurationId: string;
 }
 
 export declare namespace SSOConfigurations {
