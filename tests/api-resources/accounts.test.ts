@@ -21,8 +21,8 @@ describe('resource accounts', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('delete', async () => {
-    const responsePromise = client.accounts.delete({});
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.accounts.delete({ accountId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,8 +33,13 @@ describe('resource accounts', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('getSSOLoginURL', async () => {
-    const responsePromise = client.accounts.getSSOLoginURL({});
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.accounts.delete({ accountId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('getSSOLoginURL: only required params', async () => {
+    const responsePromise = client.accounts.getSSOLoginURL({ email: 'dev@stainlessapi.com' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,6 +47,14 @@ describe('resource accounts', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('getSSOLoginURL: required and optional params', async () => {
+    const response = await client.accounts.getSSOLoginURL({
+      email: 'dev@stainlessapi.com',
+      returnTo: 'https://example.com',
+    });
   });
 
   // skipped: tests are disabled for the time being

@@ -62,13 +62,13 @@ export class DomainVerifications extends APIResource {
 export type DomainVerificationsDomainVerificationsPage = DomainVerificationsPage<DomainVerification>;
 
 export interface DomainVerification {
-  id?: string;
+  id: string;
 
-  domain?: string;
+  domain: string;
 
-  organizationId?: string;
+  organizationId: string;
 
-  state?: DomainVerificationState;
+  state: DomainVerificationState;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -160,7 +160,7 @@ export interface DomainVerification {
    * [`ISODateTimeFormat.dateTime()`](<http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()>)
    * to obtain a formatter capable of generating timestamps in this format.
    */
-  verifiedAt?: string;
+  verifiedAt: string;
 }
 
 export type DomainVerificationState =
@@ -169,34 +169,34 @@ export type DomainVerificationState =
   | 'DOMAIN_VERIFICATION_STATE_VERIFIED';
 
 export interface DomainVerificationCreateResponse {
-  domainVerification?: DomainVerification;
+  domainVerification: DomainVerification;
 }
 
 export interface DomainVerificationRetrieveResponse {
-  domainVerification?: DomainVerification;
+  domainVerification: DomainVerification;
 }
 
 export type DomainVerificationDeleteResponse = unknown;
 
 export interface DomainVerificationVerifyResponse {
-  domainVerification?: DomainVerification;
+  domainVerification: DomainVerification;
 }
 
 export interface DomainVerificationCreateParams {
-  domain?: string;
+  domain: string;
 
-  organizationId?: string;
+  organizationId: string;
 }
 
 export interface DomainVerificationRetrieveParams {
-  domainVerificationId?: string;
+  domainVerificationId: string;
 }
 
 export interface DomainVerificationListParams extends DomainVerificationsPageParams {
   /**
    * Body param:
    */
-  organizationId?: string;
+  organizationId: string;
 
   /**
    * Body param:
@@ -221,11 +221,11 @@ export namespace DomainVerificationListParams {
 }
 
 export interface DomainVerificationDeleteParams {
-  domainVerificationId?: string;
+  domainVerificationId: string;
 }
 
 export interface DomainVerificationVerifyParams {
-  domainVerificationId?: string;
+  domainVerificationId: string;
 }
 
 export declare namespace DomainVerifications {

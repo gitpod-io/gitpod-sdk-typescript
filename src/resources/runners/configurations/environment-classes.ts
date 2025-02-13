@@ -46,8 +46,8 @@ export class EnvironmentClasses extends APIResource {
   }
 
   /**
-   * ListEnvironmentClasses returns all environment classes configured for a runner.
-   * buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
+   * buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE ListEnvironmentClasses returns all
+   * environment classes configured for a runner.
    */
   list(
     params: EnvironmentClassListParams,
