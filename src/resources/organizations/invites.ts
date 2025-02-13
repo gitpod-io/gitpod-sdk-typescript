@@ -38,19 +38,19 @@ export interface OrganizationInvite {
    * invite_id is the unique identifier of the invite to join the organization. Use
    * JoinOrganization with this ID to join the organization.
    */
-  inviteId?: string;
+  inviteId: string;
 }
 
 export interface InviteCreateResponse {
-  invite?: OrganizationInvite;
+  invite: OrganizationInvite;
 }
 
 export interface InviteRetrieveResponse {
-  invite?: OrganizationInvite;
+  invite: OrganizationInvite;
 }
 
 export interface InviteGetSummaryResponse {
-  organizationId?: string;
+  organizationId: string;
 
   organizationMemberCount?: number;
 
@@ -58,15 +58,15 @@ export interface InviteGetSummaryResponse {
 }
 
 export interface InviteCreateParams {
-  organizationId?: string;
+  organizationId: string;
 }
 
 export interface InviteRetrieveParams {
-  organizationId?: string;
+  organizationId: string;
 }
 
 export interface InviteGetSummaryParams {
-  inviteId?: string;
+  inviteId: string;
 }
 
 export declare namespace Invites {

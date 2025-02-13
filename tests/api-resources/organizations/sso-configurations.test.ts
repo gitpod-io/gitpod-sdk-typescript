@@ -9,8 +9,14 @@ const client = new Gitpod({
 
 describe('resource ssoConfigurations', () => {
   // skipped: tests are disabled for the time being
-  test.skip('create', async () => {
-    const responsePromise = client.organizations.ssoConfigurations.create({});
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.organizations.ssoConfigurations.create({
+      clientId: 'x',
+      clientSecret: 'x',
+      emailDomain: 'xxxx',
+      issuerUrl: 'https://example.com',
+      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +27,21 @@ describe('resource ssoConfigurations', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('retrieve', async () => {
-    const responsePromise = client.organizations.ssoConfigurations.retrieve({});
+  test.skip('create: required and optional params', async () => {
+    const response = await client.organizations.ssoConfigurations.create({
+      clientId: 'x',
+      clientSecret: 'x',
+      emailDomain: 'xxxx',
+      issuerUrl: 'https://example.com',
+      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.organizations.ssoConfigurations.retrieve({
+      ssoConfigurationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,8 +52,17 @@ describe('resource ssoConfigurations', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('update', async () => {
-    const responsePromise = client.organizations.ssoConfigurations.update({});
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.organizations.ssoConfigurations.retrieve({
+      ssoConfigurationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('update: only required params', async () => {
+    const responsePromise = client.organizations.ssoConfigurations.update({
+      ssoConfigurationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -45,8 +73,23 @@ describe('resource ssoConfigurations', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('list', async () => {
-    const responsePromise = client.organizations.ssoConfigurations.list({});
+  test.skip('update: required and optional params', async () => {
+    const response = await client.organizations.ssoConfigurations.update({
+      ssoConfigurationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      claims: { foo: 'string' },
+      clientId: 'x',
+      clientSecret: 'x',
+      emailDomain: 'xxxx',
+      issuerUrl: 'https://example.com',
+      state: 'SSO_CONFIGURATION_STATE_UNSPECIFIED',
+    });
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('list: only required params', async () => {
+    const responsePromise = client.organizations.ssoConfigurations.list({
+      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,8 +100,20 @@ describe('resource ssoConfigurations', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('delete', async () => {
-    const responsePromise = client.organizations.ssoConfigurations.delete({});
+  test.skip('list: required and optional params', async () => {
+    const response = await client.organizations.ssoConfigurations.list({
+      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      token: 'token',
+      pageSize: 0,
+      pagination: { token: 'token', pageSize: 100 },
+    });
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.organizations.ssoConfigurations.delete({
+      ssoConfigurationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -66,5 +121,12 @@ describe('resource ssoConfigurations', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.organizations.ssoConfigurations.delete({
+      ssoConfigurationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });
