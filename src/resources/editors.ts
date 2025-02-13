@@ -37,40 +37,40 @@ export class Editors extends APIResource {
 export type EditorsEditorsPage = EditorsPage<Editor>;
 
 export interface Editor {
-  id?: string;
+  id: string;
 
-  alias?: string;
+  alias: string;
 
-  iconUrl?: string;
+  iconUrl: string;
 
-  installationInstructions?: string;
+  installationInstructions: string;
 
-  name?: string;
+  name: string;
 
-  shortDescription?: string;
+  shortDescription: string;
 
-  urlTemplate?: string;
+  urlTemplate: string;
 }
 
 export interface EditorRetrieveResponse {
   /**
    * editor contains the editor
    */
-  editor?: Editor;
+  editor: Editor;
 }
 
 export interface EditorResolveURLResponse {
   /**
    * url is the resolved editor URL
    */
-  url?: string;
+  url: string;
 }
 
 export interface EditorRetrieveParams {
   /**
    * id is the ID of the editor to get
    */
-  id?: string;
+  id: string;
 }
 
 export interface EditorListParams extends EditorsPageParams {
@@ -103,17 +103,17 @@ export interface EditorResolveURLParams {
   /**
    * editorId is the ID of the editor to resolve the URL for
    */
-  editorId?: string;
+  editorId: string;
 
   /**
    * environmentId is the ID of the environment to resolve the URL for
    */
-  environmentId?: string;
+  environmentId: string;
 
   /**
    * organizationId is the ID of the organization to resolve the URL for
    */
-  organizationId?: string;
+  organizationId: string;
 }
 
 export declare namespace Editors {
