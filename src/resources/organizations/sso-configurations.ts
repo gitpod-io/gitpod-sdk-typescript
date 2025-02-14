@@ -7,7 +7,40 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class SSOConfigurations extends APIResource {
   /**
-   * CreateSSOConfiguration creates a new SSO configuration for the organization.
+   * Creates or updates SSO configuration for organizational authentication.
+   *
+   * Use this method to:
+   *
+   * - Configure OIDC-based SSO providers
+   * - Set up built-in providers (Google, GitHub, etc.)
+   * - Define custom identity providers
+   * - Manage authentication policies
+   *
+   * ### Examples
+   *
+   * - Configure built-in Google SSO:
+   *
+   *   Sets up SSO using Google Workspace.
+   *
+   *   ```yaml
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   clientId: "012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com"
+   *   clientSecret: "GOCSPX-abcdefghijklmnopqrstuvwxyz123456"
+   *   issuerUrl: "https://accounts.google.com"
+   *   emailDomain: "acme-corp.com"
+   *   ```
+   *
+   * - Configure custom OIDC provider:
+   *
+   *   Sets up SSO with a custom identity provider.
+   *
+   *   ```yaml
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   clientId: "acme-corp-gitpod"
+   *   clientSecret: "secret-token-value"
+   *   issuerUrl: "https://sso.acme-corp.com"
+   *   emailDomain: "acme-corp.com"
+   *   ```
    */
   create(
     body: SSOConfigurationCreateParams,
@@ -17,7 +50,23 @@ export class SSOConfigurations extends APIResource {
   }
 
   /**
-   * GetSSOConfiguration returns an SSO configuration.
+   * Retrieves a specific SSO configuration.
+   *
+   * Use this method to:
+   *
+   * - View SSO provider details
+   * - Check configuration status
+   * - Verify SSO settings
+   *
+   * ### Examples
+   *
+   * - Get SSO configuration:
+   *
+   *   Retrieves details of a specific SSO configuration.
+   *
+   *   ```yaml
+   *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   retrieve(
     body: SSOConfigurationRetrieveParams,
@@ -27,14 +76,73 @@ export class SSOConfigurations extends APIResource {
   }
 
   /**
-   * UpdateSSOConfiguration updates the SSO configuration for the organization.
+   * Updates SSO provider settings and authentication rules.
+   *
+   * Use this method to:
+   *
+   * - Rotate client credentials
+   * - Update provider endpoints
+   * - Modify claim mappings
+   * - Change authentication policies
+   * - Toggle SSO enforcement
+   *
+   * ### Examples
+   *
+   * - Update credentials:
+   *
+   *   Rotates client ID and secret.
+   *
+   *   ```yaml
+   *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   clientId: "new-client-id"
+   *   clientSecret: "new-client-secret"
+   *   ```
+   *
+   * - Update provider status:
+   *
+   *   Activates or deactivates SSO provider.
+   *
+   *   ```yaml
+   *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   state: SSO_CONFIGURATION_STATE_ACTIVE
+   *   ```
    */
   update(body: SSOConfigurationUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateSSOConfiguration', { body, ...options });
   }
 
   /**
-   * ListSSOConfigurations lists all SSO configurations matching provided filters.
+   * Lists and filters SSO configurations for an organization.
+   *
+   * Use this method to:
+   *
+   * - View all SSO providers
+   * - Monitor authentication status
+   * - Audit security settings
+   * - Manage provider configurations
+   *
+   * ### Examples
+   *
+   * - List active configurations:
+   *
+   *   Shows all active SSO providers.
+   *
+   *   ```yaml
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
+   * - List by provider type:
+   *
+   *   Shows custom SSO configurations.
+   *
+   *   ```yaml
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   pagination:
+   *     pageSize: 20
+   *     token: "next-page-token-from-previous-response"
+   *   ```
    */
   list(
     params: SSOConfigurationListParams,
@@ -49,7 +157,23 @@ export class SSOConfigurations extends APIResource {
   }
 
   /**
-   * DeleteSSOConfiguration deletes an SSO configuration.
+   * Removes an SSO configuration from an organization.
+   *
+   * Use this method to:
+   *
+   * - Disable SSO authentication
+   * - Remove outdated providers
+   * - Clean up unused configurations
+   *
+   * ### Examples
+   *
+   * - Delete SSO configuration:
+   *
+   *   Removes a specific SSO configuration.
+   *
+   *   ```yaml
+   *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   delete(body: SSOConfigurationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/DeleteSSOConfiguration', { body, ...options });
