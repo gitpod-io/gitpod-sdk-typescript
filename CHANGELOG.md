@@ -1,0 +1,23 @@
+# Changelog
+
+## 0.1.0-alpha.4 (2025-02-13)
+
+Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.4](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.0.1-alpha.0...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** manual updates ([5c68c60](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/5c68c60a7762bd7b848859694b940cd5dd964d43))
+* **api:** manual updates ([d849bff](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d849bff6aebcaf5f1a105e549aae1adb0a11edc5))
+* **api:** manual updates ([56d5f57](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/56d5f57d2e1f7dea579ce9fe42b17ea62c6c65ad))
+* **api:** manual updates ([d762a2d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d762a2dc396245e439f934a76d027811326622c9))
+* **api:** manual updates ([#6](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/6)) ([78dba3a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/78dba3a84e0f7c8c1756f6409e29839b49139843))
+* **api:** Overview page updates ([#7](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/7)) ([02120d9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/02120d96844eeaa4e0de4c24d05eb79f2eef768e))
+* **api:** switch to new typescript design ([d6254ed](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d6254ed59ff136362bd409ec0700f655d8ac55cd))
+* **api:** update with latest API spec ([#5](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/5)) ([a0e6a16](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a0e6a16857ed8d1cb985303d27c58e8cfc8bfa47))
+
+
+### Chores
+
+* go live ([#1](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/1)) ([92314de](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/92314dea88f7a096397e0e15f0621e86eab33df4))
+* **internal:** migrate to eslint v9 ([#4](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/4)) ([0bbb2de](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0bbb2de50b0c2c8f8f8bfd084da763a2f4a94e1e))
+* **internal:** remove unused method ([#3](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/3)) ([e8497fb](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e8497fb8c7509cd376f8e8513f6b89c847776c2c))
