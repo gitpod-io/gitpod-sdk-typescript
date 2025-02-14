@@ -11,8 +11,8 @@ describe('resource domainVerifications', () => {
   // skipped: tests are disabled for the time being
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.create({
-      domain: 'xxxx',
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domain: 'acme-corp.com',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,15 +26,15 @@ describe('resource domainVerifications', () => {
   // skipped: tests are disabled for the time being
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.create({
-      domain: 'xxxx',
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domain: 'acme-corp.com',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
   // skipped: tests are disabled for the time being
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.retrieve({
-      domainVerificationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -48,14 +48,14 @@ describe('resource domainVerifications', () => {
   // skipped: tests are disabled for the time being
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.retrieve({
-      domainVerificationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 
   // skipped: tests are disabled for the time being
   test.skip('list: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.list({
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -69,17 +69,17 @@ describe('resource domainVerifications', () => {
   // skipped: tests are disabled for the time being
   test.skip('list: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.list({
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       token: 'token',
       pageSize: 0,
-      pagination: { token: 'token', pageSize: 100 },
+      pagination: { token: 'token', pageSize: 20 },
     });
   });
 
   // skipped: tests are disabled for the time being
   test.skip('delete: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.delete({
-      domainVerificationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -93,14 +93,14 @@ describe('resource domainVerifications', () => {
   // skipped: tests are disabled for the time being
   test.skip('delete: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.delete({
-      domainVerificationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 
   // skipped: tests are disabled for the time being
   test.skip('verify: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.verify({
-      domainVerificationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -114,7 +114,7 @@ describe('resource domainVerifications', () => {
   // skipped: tests are disabled for the time being
   test.skip('verify: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.verify({
-      domainVerificationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 });
