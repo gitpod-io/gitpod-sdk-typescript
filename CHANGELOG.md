@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.1 (2025-02-14)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.1](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.1.0-alpha.4...v0.1.1)
+
+### Features
+
+* **api:** dummy change to cause a version PR ([#12](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/12)) ([394d363](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/394d36352fafe2331e4e554fdeaa4c002cf879ea))
+
+
+### Bug Fixes
+
+* **client:** fix export map for index exports, accept BunFile ([#11](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/11)) ([26ada5f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/26ada5f30ba94e0fa0640b1e4645a7c37f30385a))
+
+
+### Chores
+
+* **internal:** update eslint config ([#9](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/9)) ([9729975](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9729975380bd7890239e813c30df668b5a7ff63d))
+
 ## 0.1.0-alpha.4 (2025-02-13)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.4](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.0.1-alpha.0...v0.1.0-alpha.4)
