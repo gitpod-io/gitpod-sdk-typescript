@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { castToError } from './internal/errors';
+import * as Shared from './resources/shared';
 
 export class GitpodError extends Error {}
 
@@ -16,11 +17,26 @@ export class APIError<
   /** JSON body of the response that caused the error */
   readonly error: TError;
 
+  /**
+   * The status code, which should be an enum value of
+   * [google.rpc.Code][google.rpc.Code].
+   */
+  readonly code?: Shared.ErrorCode | undefined;
+  /**
+   * Contains an arbitrary serialized message along with a @type that describes the
+   * type of the serialized message.
+   */
+  readonly detail?: Shared.ArbitraryData | undefined;
+
   constructor(status: TStatus, error: TError, message: string | undefined, headers: THeaders) {
     super(`${APIError.makeMessage(status, error, message)}`);
     this.status = status;
     this.headers = headers;
     this.error = error;
+
+    const data = error as Record<string, any>;
+    this.code = data?.['code'];
+    this.detail = data?.['detail'];
   }
 
   private static makeMessage(status: number | undefined, error: any, message: string | undefined) {

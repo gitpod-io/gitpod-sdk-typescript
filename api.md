@@ -2,8 +2,10 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">ArbitraryData</a></code>
 - <code><a href="./src/resources/shared.ts">AutomationTrigger</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
+- <code><a href="./src/resources/shared.ts">ErrorCode</a></code>
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
