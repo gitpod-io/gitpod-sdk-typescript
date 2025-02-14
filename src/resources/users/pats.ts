@@ -11,10 +11,10 @@ export class Pats extends APIResource {
    * ListPersonalAccessTokens
    */
   list(
-    params: PatListParams | null | undefined = {},
+    params: PatListParams,
     options?: RequestOptions,
   ): PagePromise<PersonalAccessTokensPersonalAccessTokensPage, PersonalAccessToken> {
-    const { token, pageSize, ...body } = params ?? {};
+    const { token, pageSize, ...body } = params;
     return this._client.getAPIList(
       '/gitpod.v1.UserService/ListPersonalAccessTokens',
       PersonalAccessTokensPage<PersonalAccessToken>,
