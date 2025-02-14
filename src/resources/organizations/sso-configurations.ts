@@ -67,13 +67,6 @@ export interface SSOConfiguration {
   id: string;
 
   /**
-   * client_id is the client ID of the OIDC application set on the IdP
-   */
-  clientId: string;
-
-  emailDomain: string;
-
-  /**
    * issuer_url is the URL of the IdP issuer
    */
   issuerUrl: string;
@@ -94,6 +87,13 @@ export interface SSOConfiguration {
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
    */
   claims?: Record<string, string>;
+
+  /**
+   * client_id is the client ID of the OIDC application set on the IdP
+   */
+  clientId?: string;
+
+  emailDomain?: string;
 }
 
 export type SSOConfigurationState =

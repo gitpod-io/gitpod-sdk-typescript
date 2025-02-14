@@ -160,7 +160,7 @@ export interface DomainVerification {
    * [`ISODateTimeFormat.dateTime()`](<http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()>)
    * to obtain a formatter capable of generating timestamps in this format.
    */
-  verifiedAt: string;
+  verifiedAt?: string;
 }
 
 export type DomainVerificationState =
