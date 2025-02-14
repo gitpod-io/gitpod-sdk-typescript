@@ -151,12 +151,6 @@ export interface Account {
   name: string;
 
   /**
-   * public_email_provider is true if the email for the Account matches a known
-   * public email provider
-   */
-  publicEmailProvider: boolean;
-
-  /**
    * A Timestamp represents a point in time independent of any time zone or local
    * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
    * resolution. The count is relative to an epoch at UTC midnight on January 1,
@@ -259,6 +253,12 @@ export interface Account {
    * created through custom SSO
    */
   organizationId?: string | null;
+
+  /**
+   * public_email_provider is true if the email for the Account matches a known
+   * public email provider
+   */
+  publicEmailProvider?: boolean;
 }
 
 export interface AccountMembership {
@@ -266,12 +266,6 @@ export interface AccountMembership {
    * organization_id is the id of the organization the user is a member of
    */
   organizationId: string;
-
-  /**
-   * organization_name is the member count of the organization the user is a member
-   * of
-   */
-  organizationMemberCount: number;
 
   /**
    * organization_name is the name of the organization the user is a member of
@@ -287,6 +281,12 @@ export interface AccountMembership {
    * user_role is the role the user has in the organization
    */
   userRole: Shared.OrganizationRole;
+
+  /**
+   * organization_name is the member count of the organization the user is a member
+   * of
+   */
+  organizationMemberCount?: number;
 }
 
 export interface JoinableOrganization {
@@ -296,28 +296,29 @@ export interface JoinableOrganization {
   organizationId: string;
 
   /**
-   * organization_member_count is the member count of the organization the user can
-   * join
-   */
-  organizationMemberCount: number;
-
-  /**
    * organization_name is the name of the organization the user can join
    */
   organizationName: string;
+
+  /**
+   * organization_member_count is the member count of the organization the user can
+   * join
+   */
+  organizationMemberCount?: number;
 }
 
 export interface LoginProvider {
-  /**
-   * login_url is the URL to redirect the browser agent to for login
-   */
-  loginUrl: string;
-
   /**
    * provider is the provider used by this login method, e.g. "github", "google",
    * "custom"
    */
   provider: string;
+
+  /**
+   * login_url is the URL to redirect the browser agent to for login, when provider
+   * is "custom"
+   */
+  loginUrl?: string;
 }
 
 export interface AccountRetrieveResponse {

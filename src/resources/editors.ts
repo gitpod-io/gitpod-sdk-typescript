@@ -39,17 +39,17 @@ export type EditorsEditorsPage = EditorsPage<Editor>;
 export interface Editor {
   id: string;
 
-  alias: string;
-
-  iconUrl: string;
-
   installationInstructions: string;
 
   name: string;
 
-  shortDescription: string;
-
   urlTemplate: string;
+
+  alias?: string;
+
+  iconUrl?: string;
+
+  shortDescription?: string;
 }
 
 export interface EditorRetrieveResponse {

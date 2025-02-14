@@ -286,11 +286,7 @@ export type SecretUpdateValueResponse = unknown;
 export interface SecretCreateParams {
   /**
    * secret will be mounted as a docker config in the environment VM, mount will have
-   * the docker host value must be a valid registry hostname with optional port:
-   *
-   * ```
-   * this.matches('^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9](:[0-9]+)?$')
-   * ```
+   * the docker registry host
    */
   containerRegistryBasicAuthHost?: string;
 
