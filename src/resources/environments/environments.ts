@@ -887,7 +887,38 @@ export namespace EnvironmentSpec {
      */
     devcontainerFilePath?: string;
 
+    /**
+     * Experimental: dotfiles is the dotfiles configuration of the devcontainer
+     */
+    dotfiles?: Devcontainer.Dotfiles;
+
     session?: string;
+  }
+
+  export namespace Devcontainer {
+    /**
+     * Experimental: dotfiles is the dotfiles configuration of the devcontainer
+     */
+    export interface Dotfiles {
+      /**
+       * URL of a dotfiles Git repository (e.g. https://github.com/owner/repository)
+       */
+      repository: string;
+
+      /**
+       * install_command is the command to run after cloning the dotfiles repository.
+       * Defaults to run the first file of `install.sh`, `install`, `bootstrap.sh`,
+       * `bootstrap`, `setup.sh` and `setup` found in the dotfiles repository's root
+       * folder.
+       */
+      installCommand?: string;
+
+      /**
+       * target_path is the path to clone the dotfiles repository to. Defaults to
+       * `~/dotfiles`.
+       */
+      targetPath?: string;
+    }
   }
 
   /**
@@ -1509,14 +1540,14 @@ export interface EnvironmentCreateResponse {
   /**
    * +resource get environment
    */
-  environment?: Environment;
+  environment: Environment;
 }
 
 export interface EnvironmentRetrieveResponse {
   /**
    * +resource get environment
    */
-  environment?: Environment;
+  environment: Environment;
 }
 
 export type EnvironmentUpdateResponse = unknown;
@@ -1527,14 +1558,14 @@ export interface EnvironmentCreateFromProjectResponse {
   /**
    * +resource get environment
    */
-  environment?: Environment;
+  environment: Environment;
 }
 
 export interface EnvironmentCreateLogsTokenResponse {
   /**
    * access_token is the token that can be used to access the logs of the environment
    */
-  accessToken?: string;
+  accessToken: string;
 }
 
 export type EnvironmentMarkActiveResponse = unknown;

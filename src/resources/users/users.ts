@@ -84,7 +84,7 @@ export interface User {
   /**
    * id is a UUID of the user
    */
-  id?: string;
+  id: string;
 
   /**
    * avatar_url is a link to the user avatar
@@ -202,7 +202,7 @@ export interface User {
 }
 
 export interface UserGetAuthenticatedUserResponse {
-  user?: User;
+  user: User;
 }
 
 export type UserSetSuspendedResponse = unknown;

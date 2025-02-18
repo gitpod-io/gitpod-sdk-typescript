@@ -218,11 +218,11 @@ export class Tasks extends APIResource {
 }
 
 export interface TaskCreateResponse {
-  task?: Shared.Task;
+  task: Shared.Task;
 }
 
 export interface TaskRetrieveResponse {
-  task?: Shared.Task;
+  task: Shared.Task;
 }
 
 export type TaskUpdateResponse = unknown;
@@ -230,7 +230,7 @@ export type TaskUpdateResponse = unknown;
 export type TaskDeleteResponse = unknown;
 
 export interface TaskStartResponse {
-  taskExecution?: Shared.TaskExecution;
+  taskExecution: Shared.TaskExecution;
 }
 
 export interface TaskCreateParams {
