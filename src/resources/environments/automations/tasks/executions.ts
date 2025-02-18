@@ -108,7 +108,7 @@ export class Executions extends APIResource {
 }
 
 export interface ExecutionRetrieveResponse {
-  taskExecution?: Shared.TaskExecution;
+  taskExecution: Shared.TaskExecution;
 }
 
 export type ExecutionStopResponse = unknown;
