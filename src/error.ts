@@ -22,11 +22,6 @@ export class APIError<
    * [google.rpc.Code][google.rpc.Code].
    */
   readonly code?: Shared.ErrorCode | undefined;
-  /**
-   * Contains an arbitrary serialized message along with a @type that describes the
-   * type of the serialized message.
-   */
-  readonly detail?: Shared.ArbitraryData | undefined;
 
   constructor(status: TStatus, error: TError, message: string | undefined, headers: THeaders) {
     super(`${APIError.makeMessage(status, error, message)}`);
@@ -36,7 +31,6 @@ export class APIError<
 
     const data = error as Record<string, any>;
     this.code = data?.['code'];
-    this.detail = data?.['detail'];
   }
 
   private static makeMessage(status: number | undefined, error: any, message: string | undefined) {
