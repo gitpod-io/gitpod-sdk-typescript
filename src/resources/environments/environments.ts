@@ -406,7 +406,7 @@ export interface Environment {
    * ID is a unique identifier of this environment. No other environment with the
    * same name must be managed by this environment manager
    */
-  id?: string;
+  id: string;
 
   /**
    * EnvironmentMetadata is data associated with an environment that's required for

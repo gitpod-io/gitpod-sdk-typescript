@@ -7,14 +7,47 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Editors extends APIResource {
   /**
-   * GetEditor returns the editor with the given ID
+   * Gets details about a specific editor.
+   *
+   * Use this method to:
+   *
+   * - View editor information
+   * - Get editor configuration
+   *
+   * ### Examples
+   *
+   * - Get editor details:
+   *
+   *   Retrieves information about a specific editor.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   retrieve(body: EditorRetrieveParams, options?: RequestOptions): APIPromise<EditorRetrieveResponse> {
     return this._client.post('/gitpod.v1.EditorService/GetEditor', { body, ...options });
   }
 
   /**
-   * ListEditors lists all editors available to the caller
+   * Lists all available code editors.
+   *
+   * Use this method to:
+   *
+   * - View supported editors
+   * - Get editor capabilities
+   * - Browse editor options
+   * - Check editor availability
+   *
+   * ### Examples
+   *
+   * - List editors:
+   *
+   *   Shows all available editors with pagination.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(params: EditorListParams, options?: RequestOptions): PagePromise<EditorsEditorsPage, Editor> {
     const { token, pageSize, ...body } = params;
@@ -27,7 +60,26 @@ export class Editors extends APIResource {
   }
 
   /**
-   * ResolveEditorURL resolves the editor's URL for an environment
+   * Resolves the URL for accessing an editor in a specific environment.
+   *
+   * Use this method to:
+   *
+   * - Get editor access URLs
+   * - Launch editors for environments
+   * - Set up editor connections
+   * - Configure editor access
+   *
+   * ### Examples
+   *
+   * - Resolve editor URL:
+   *
+   *   Gets the URL for accessing an editor in an environment.
+   *
+   *   ```yaml
+   *   editorId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   ```
    */
   resolveURL(body: EditorResolveURLParams, options?: RequestOptions): APIPromise<EditorResolveURLResponse> {
     return this._client.post('/gitpod.v1.EditorService/ResolveEditorURL', { body, ...options });

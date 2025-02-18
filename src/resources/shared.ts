@@ -35,7 +35,7 @@ export interface EnvironmentClass {
   /**
    * id is the unique identifier of the environment class
    */
-  id?: string;
+  id: string;
 
   /**
    * configuration describes the configuration of the environment class
@@ -131,7 +131,7 @@ export interface Subject {
 }
 
 export interface Task {
-  id?: string;
+  id: string;
 
   /**
    * dependencies specifies the IDs of the automations this task depends on.

@@ -20,7 +20,24 @@ export class Users extends APIResource {
   pats: PatsAPI.Pats = new PatsAPI.Pats(this._client);
 
   /**
-   * GetAuthenticatedUser allows to retrieve the current user.
+   * Gets information about the currently authenticated user.
+   *
+   * Use this method to:
+   *
+   * - Get user profile information
+   * - Check authentication status
+   * - Retrieve user settings
+   * - Verify account details
+   *
+   * ### Examples
+   *
+   * - Get current user:
+   *
+   *   Retrieves details about the authenticated user.
+   *
+   *   ```yaml
+   *   {}
+   *   ```
    */
   getAuthenticatedUser(
     body: UserGetAuthenticatedUserParams,
@@ -30,7 +47,33 @@ export class Users extends APIResource {
   }
 
   /**
-   * SetSuspended sets the suspended state of the user.
+   * Sets whether a user account is suspended.
+   *
+   * Use this method to:
+   *
+   * - Suspend problematic users
+   * - Reactivate suspended accounts
+   * - Manage user access
+   *
+   * ### Examples
+   *
+   * - Suspend user:
+   *
+   *   Suspends a user account.
+   *
+   *   ```yaml
+   *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *   suspended: true
+   *   ```
+   *
+   * - Reactivate user:
+   *
+   *   Removes suspension from a user account.
+   *
+   *   ```yaml
+   *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *   suspended: false
+   *   ```
    */
   setSuspended(body: UserSetSuspendedParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.UserService/SetSuspended', { body, ...options });

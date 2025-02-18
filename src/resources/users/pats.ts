@@ -8,7 +8,26 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Pats extends APIResource {
   /**
-   * ListPersonalAccessTokens
+   * Lists personal access tokens with optional filtering.
+   *
+   * Use this method to:
+   *
+   * - View all active tokens
+   * - Audit token usage
+   * - Manage token lifecycle
+   *
+   * ### Examples
+   *
+   * - List user tokens:
+   *
+   *   Shows all tokens for specific users.
+   *
+   *   ```yaml
+   *   filter:
+   *     userIds: ["f53d2330-3795-4c5d-a1f3-453121af9c60"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(
     params: PatListParams,
@@ -23,14 +42,46 @@ export class Pats extends APIResource {
   }
 
   /**
-   * DeletePersonalAccessToken
+   * Deletes a personal access token.
+   *
+   * Use this method to:
+   *
+   * - Revoke token access
+   * - Remove unused tokens
+   * - Rotate credentials
+   *
+   * ### Examples
+   *
+   * - Delete token:
+   *
+   *   Permanently revokes a token.
+   *
+   *   ```yaml
+   *   personalAccessTokenId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   delete(body: PatDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.UserService/DeletePersonalAccessToken', { body, ...options });
   }
 
   /**
-   * GetPersonalAccessToken
+   * Gets details about a specific personal access token.
+   *
+   * Use this method to:
+   *
+   * - View token metadata
+   * - Check token expiration
+   * - Monitor token usage
+   *
+   * ### Examples
+   *
+   * - Get token details:
+   *
+   *   Retrieves information about a specific token.
+   *
+   *   ```yaml
+   *   personalAccessTokenId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   get(body: PatGetParams, options?: RequestOptions): APIPromise<PatGetResponse> {
     return this._client.post('/gitpod.v1.UserService/GetPersonalAccessToken', { body, ...options });
