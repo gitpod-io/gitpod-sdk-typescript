@@ -38,6 +38,12 @@ export interface EnvironmentClass {
   id: string;
 
   /**
+   * runner_id is the unique identifier of the runner the environment class belongs
+   * to
+   */
+  runnerId: string;
+
+  /**
    * configuration describes the configuration of the environment class
    */
   configuration?: Array<FieldValue>;
@@ -57,12 +63,6 @@ export interface EnvironmentClass {
    * environments.
    */
   enabled?: boolean;
-
-  /**
-   * runner_id is the unique identifier of the runner the environment class belongs
-   * to
-   */
-  runnerId?: string;
 }
 
 /**
@@ -146,7 +146,7 @@ export interface Task {
 }
 
 export interface TaskExecution {
-  id?: string;
+  id: string;
 
   metadata?: TaskExecutionMetadata;
 

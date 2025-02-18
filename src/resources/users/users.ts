@@ -202,7 +202,7 @@ export interface User {
 }
 
 export interface UserGetAuthenticatedUserResponse {
-  user?: User;
+  user: User;
 }
 
 export type UserSetSuspendedResponse = unknown;

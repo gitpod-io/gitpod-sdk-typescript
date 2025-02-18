@@ -501,11 +501,11 @@ export interface ServiceStatus {
 }
 
 export interface ServiceCreateResponse {
-  service?: Service;
+  service: Service;
 }
 
 export interface ServiceRetrieveResponse {
-  service?: Service;
+  service: Service;
 }
 
 export type ServiceUpdateResponse = unknown;

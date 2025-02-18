@@ -1509,14 +1509,14 @@ export interface EnvironmentCreateResponse {
   /**
    * +resource get environment
    */
-  environment?: Environment;
+  environment: Environment;
 }
 
 export interface EnvironmentRetrieveResponse {
   /**
    * +resource get environment
    */
-  environment?: Environment;
+  environment: Environment;
 }
 
 export type EnvironmentUpdateResponse = unknown;
@@ -1527,14 +1527,14 @@ export interface EnvironmentCreateFromProjectResponse {
   /**
    * +resource get environment
    */
-  environment?: Environment;
+  environment: Environment;
 }
 
 export interface EnvironmentCreateLogsTokenResponse {
   /**
    * access_token is the token that can be used to access the logs of the environment
    */
-  accessToken?: string;
+  accessToken: string;
 }
 
 export type EnvironmentMarkActiveResponse = unknown;

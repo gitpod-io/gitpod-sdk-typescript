@@ -379,7 +379,7 @@ export interface PersonalAccessToken {
 export type PatDeleteResponse = unknown;
 
 export interface PatGetResponse {
-  pat?: PersonalAccessToken;
+  pat: PersonalAccessToken;
 }
 
 export interface PatListParams extends PersonalAccessTokensPageParams {
