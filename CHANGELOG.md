@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 (2025-02-18)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.3.0...v0.3.1)
+
+### Features
+
+* **api:** manual updates ([#28](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/28)) ([fce5f5e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fce5f5ef736814ab37d5bb7de15d68a5a42d7ace))
+
 ## 0.3.0 (2025-02-18)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.2.0...v0.3.0)

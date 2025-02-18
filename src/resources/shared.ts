@@ -2,20 +2,6 @@
 
 import * as Shared from './shared';
 import { EnvironmentClassesPage, TaskExecutionsPage, TasksPage } from '../pagination';
-import { type Uploadable } from '../uploads';
-
-/**
- * Contains an arbitrary serialized message along with a @type that describes the
- * type of the serialized message.
- */
-export interface ArbitraryData {
-  debug?: Record<string, unknown>;
-
-  type?: string;
-
-  value?: Uploadable;
-  [k: string]: unknown;
-}
 
 /**
  * An AutomationTrigger represents a trigger for an automation action. The
