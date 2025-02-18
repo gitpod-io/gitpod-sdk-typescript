@@ -10,7 +10,7 @@ const client = new Gitpod({
 describe('resource editors', () => {
   // skipped: tests are disabled for the time being
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.editors.retrieve({ id: 'id' });
+    const responsePromise = client.editors.retrieve({ id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource editors', () => {
 
   // skipped: tests are disabled for the time being
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.editors.retrieve({ id: 'id' });
+    const response = await client.editors.retrieve({ id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' });
   });
 
   // skipped: tests are disabled for the time being
@@ -40,9 +40,9 @@ describe('resource editors', () => {
   // skipped: tests are disabled for the time being
   test.skip('resolveURL: only required params', async () => {
     const responsePromise = client.editors.resolveURL({
-      editorId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      environmentId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      editorId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -56,9 +56,9 @@ describe('resource editors', () => {
   // skipped: tests are disabled for the time being
   test.skip('resolveURL: required and optional params', async () => {
     const response = await client.editors.resolveURL({
-      editorId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      environmentId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      editorId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 });

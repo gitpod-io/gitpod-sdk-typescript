@@ -48,7 +48,40 @@ export class Automations extends APIResource {
   tasks: TasksAPI.Tasks = new TasksAPI.Tasks(this._client);
 
   /**
-   * UpsertAutomationsFile upserts the automations file for the given environment.
+   * Upserts the automations file for the given environment.
+   *
+   * Use this method to:
+   *
+   * - Configure environment automations
+   * - Update automation settings
+   * - Manage automation files
+   *
+   * ### Examples
+   *
+   * - Update automations file:
+   *
+   *   Updates or creates the automations configuration.
+   *
+   *   ```yaml
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   automationsFile:
+   *     services:
+   *       web-server:
+   *         name: "Web Server"
+   *         description: "Development web server"
+   *         commands:
+   *           start: "npm run dev"
+   *           ready: "curl -s http://localhost:3000"
+   *         triggeredBy:
+   *           - postDevcontainerStart
+   *     tasks:
+   *       build:
+   *         name: "Build Project"
+   *         description: "Builds the project artifacts"
+   *         command: "npm run build"
+   *         triggeredBy:
+   *           - postEnvironmentStart
+   *   ```
    */
   upsert(body: AutomationUpsertParams, options?: RequestOptions): APIPromise<AutomationUpsertResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpsertAutomationsFile', {
