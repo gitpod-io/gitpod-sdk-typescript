@@ -7,7 +7,23 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Identity extends APIResource {
   /**
-   * ExchangeToken trades an exchange token for a new access token.
+   * Exchanges an exchange token for a new access token.
+   *
+   * Use this method to:
+   *
+   * - Convert exchange tokens to access tokens
+   * - Obtain new access credentials
+   * - Complete token exchange flows
+   *
+   * ### Examples
+   *
+   * - Exchange token:
+   *
+   *   Trades an exchange token for an access token.
+   *
+   *   ```yaml
+   *   exchangeToken: "exchange-token-value"
+   *   ```
    */
   exchangeToken(
     body: IdentityExchangeTokenParams,
@@ -17,7 +33,24 @@ export class Identity extends APIResource {
   }
 
   /**
-   * GetAuthenticatedIdentity allows to retrieve the current identity.
+   * Retrieves information about the currently authenticated identity.
+   *
+   * Use this method to:
+   *
+   * - Get current user information
+   * - Check authentication status
+   * - Retrieve organization context
+   * - Validate authentication principal
+   *
+   * ### Examples
+   *
+   * - Get current identity:
+   *
+   *   Retrieves details about the authenticated user.
+   *
+   *   ```yaml
+   *   {}
+   *   ```
    */
   getAuthenticatedIdentity(
     body: IdentityGetAuthenticatedIdentityParams,
@@ -27,8 +60,34 @@ export class Identity extends APIResource {
   }
 
   /**
-   * GetIDToken returns a token that can be used to authenticate the user against the
-   * other services.
+   * Gets an ID token for authenticating with other services.
+   *
+   * Use this method to:
+   *
+   * - Obtain authentication tokens for service-to-service calls
+   * - Access protected resources
+   * - Generate scoped access tokens
+   *
+   * ### Examples
+   *
+   * - Get token for single service:
+   *
+   *   Retrieves a token for authenticating with one service.
+   *
+   *   ```yaml
+   *   audience:
+   *     - "https://api.gitpod.io"
+   *   ```
+   *
+   * - Get token for multiple services:
+   *
+   *   Retrieves a token valid for multiple services.
+   *
+   *   ```yaml
+   *   audience:
+   *     - "https://api.gitpod.io"
+   *     - "https://ws.gitpod.io"
+   *   ```
    */
   getIDToken(
     body: IdentityGetIDTokenParams,

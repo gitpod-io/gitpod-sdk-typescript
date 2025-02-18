@@ -9,7 +9,24 @@ import { RequestOptions } from '../../../../internal/request-options';
 
 export class Executions extends APIResource {
   /**
-   * GetTaskExecution
+   * Gets details about a specific task execution.
+   *
+   * Use this method to:
+   *
+   * - Monitor execution progress
+   * - View execution logs
+   * - Check execution status
+   * - Debug failed executions
+   *
+   * ### Examples
+   *
+   * - Get execution details:
+   *
+   *   Retrieves information about a specific task execution.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   retrieve(body: ExecutionRetrieveParams, options?: RequestOptions): APIPromise<ExecutionRetrieveResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetTaskExecution', {
@@ -19,7 +36,37 @@ export class Executions extends APIResource {
   }
 
   /**
-   * ListTaskExecutions
+   * Lists executions of automation tasks.
+   *
+   * Use this method to:
+   *
+   * - View task execution history
+   * - Monitor running tasks
+   * - Track task completion status
+   *
+   * ### Examples
+   *
+   * - List all executions:
+   *
+   *   Shows execution history for all tasks.
+   *
+   *   ```yaml
+   *   filter:
+   *     environmentIds: ["07e03a28-65a5-4d98-b532-8ea67b188048"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
+   * - Filter by phase:
+   *
+   *   Lists executions in specific phases.
+   *
+   *   ```yaml
+   *   filter:
+   *     phases: ["TASK_EXECUTION_PHASE_RUNNING", "TASK_EXECUTION_PHASE_FAILED"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(
     params: ExecutionListParams,
@@ -34,7 +81,23 @@ export class Executions extends APIResource {
   }
 
   /**
-   * StopTaskExecution
+   * Stops a running task execution.
+   *
+   * Use this method to:
+   *
+   * - Cancel long-running tasks
+   * - Stop failed executions
+   * - Interrupt task processing
+   *
+   * ### Examples
+   *
+   * - Stop execution:
+   *
+   *   Stops a running task execution.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   stop(body: ExecutionStopParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/StopTaskExecution', {

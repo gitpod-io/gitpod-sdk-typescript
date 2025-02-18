@@ -11,7 +11,7 @@ describe('resource invites', () => {
   // skipped: tests are disabled for the time being
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.invites.create({
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,7 +25,7 @@ describe('resource invites', () => {
   // skipped: tests are disabled for the time being
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.invites.create({
-      organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
@@ -53,7 +53,7 @@ describe('resource invites', () => {
   // skipped: tests are disabled for the time being
   test.skip('getSummary: only required params', async () => {
     const responsePromise = client.organizations.invites.getSummary({
-      inviteId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -67,7 +67,7 @@ describe('resource invites', () => {
   // skipped: tests are disabled for the time being
   test.skip('getSummary: required and optional params', async () => {
     const response = await client.organizations.invites.getSummary({
-      inviteId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 });

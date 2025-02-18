@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.0 (2025-02-18)
+
+Full Changelog: [v0.1.2...v0.2.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.1.2...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([#20](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/20)) ([e935d2b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e935d2b37a8710c5f8d002b1c6f32529706a4693))
+* **api:** manual updates ([#22](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/22)) ([8eea1c9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8eea1c93c572b76e4317f58e8d5549c4b49387f3))
+* **api:** Organizations Open API docs ([#18](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/18)) ([c6c8b20](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c6c8b2098433a1246329f4dec7371e2ae2963b01))
+
+
+### Chores
+
+* **internal:** fix tests not always being type checked ([#21](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/21)) ([5b68e63](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/5b68e634ad747b78ee55b4d30920f010953422be))
+
 ## 0.1.2 (2025-02-14)
 
 Full Changelog: [v0.1.1...v0.1.2](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.1.1...v0.1.2)

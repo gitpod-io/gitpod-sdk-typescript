@@ -348,7 +348,8 @@ export interface Runner {
 
 export type RunnerCapability =
   | 'RUNNER_CAPABILITY_UNSPECIFIED'
-  | 'RUNNER_CAPABILITY_FETCH_LOCAL_SCM_INTEGRATIONS';
+  | 'RUNNER_CAPABILITY_FETCH_LOCAL_SCM_INTEGRATIONS'
+  | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY';
 
 export interface RunnerConfiguration {
   /**
@@ -579,7 +580,71 @@ export interface RunnerCheckAuthenticationForHostResponse {
 
   patSupported?: boolean;
 
+  /**
+   * scm_id is the unique identifier of the SCM provider
+   */
   scmId?: string;
+
+  /**
+   * scm_name is the human-readable name of the SCM provider (e.g., "GitHub",
+   * "GitLab")
+   */
+  scmName?: string;
+
+  /**
+   * supports_oauth2 indicates that the host supports OAuth2 authentication
+   */
+  supportsOauth2?: RunnerCheckAuthenticationForHostResponse.SupportsOauth2;
+
+  /**
+   * supports_pat indicates that the host supports Personal Access Token
+   * authentication
+   */
+  supportsPat?: RunnerCheckAuthenticationForHostResponse.SupportsPat;
+}
+
+export namespace RunnerCheckAuthenticationForHostResponse {
+  /**
+   * supports_oauth2 indicates that the host supports OAuth2 authentication
+   */
+  export interface SupportsOauth2 {
+    /**
+     * auth_url is the URL where users can authenticate
+     */
+    authUrl?: string;
+
+    /**
+     * docs_url is the URL to the documentation explaining this authentication method
+     */
+    docsUrl?: string;
+  }
+
+  /**
+   * supports_pat indicates that the host supports Personal Access Token
+   * authentication
+   */
+  export interface SupportsPat {
+    /**
+     * create_url is the URL where users can create a new Personal Access Token
+     */
+    createUrl?: string;
+
+    /**
+     * docs_url is the URL to the documentation explaining PAT usage for this host
+     */
+    docsUrl?: string;
+
+    /**
+     * example is an example of a Personal Access Token
+     */
+    example?: string;
+
+    /**
+     * required_scopes is the list of permissions required for the Personal Access
+     * Token
+     */
+    requiredScopes?: Array<string>;
+  }
 }
 
 export interface RunnerCreateRunnerTokenResponse {

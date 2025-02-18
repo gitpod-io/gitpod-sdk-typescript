@@ -2,6 +2,20 @@
 
 import * as Shared from './shared';
 import { EnvironmentClassesPage, TaskExecutionsPage, TasksPage } from '../pagination';
+import { type Uploadable } from '../uploads';
+
+/**
+ * Contains an arbitrary serialized message along with a @type that describes the
+ * type of the serialized message.
+ */
+export interface ArbitraryData {
+  debug?: Record<string, unknown>;
+
+  type?: string;
+
+  value?: Uploadable;
+  [k: string]: unknown;
+}
 
 /**
  * An AutomationTrigger represents a trigger for an automation action. The
@@ -21,7 +35,7 @@ export interface EnvironmentClass {
   /**
    * id is the unique identifier of the environment class
    */
-  id?: string;
+  id: string;
 
   /**
    * configuration describes the configuration of the environment class
@@ -50,6 +64,28 @@ export interface EnvironmentClass {
    */
   runnerId?: string;
 }
+
+/**
+ * The status code, which should be an enum value of
+ * [google.rpc.Code][google.rpc.Code].
+ */
+export type ErrorCode =
+  | 'canceled'
+  | 'unknown'
+  | 'invalid_argument'
+  | 'deadline_exceeded'
+  | 'not_found'
+  | 'already_exists'
+  | 'permission_denied'
+  | 'resource_exhausted'
+  | 'failed_precondition'
+  | 'aborted'
+  | 'out_of_range'
+  | 'unimplemented'
+  | 'internal'
+  | 'unavailable'
+  | 'data_loss'
+  | 'unauthenticated';
 
 export interface FieldValue {
   key?: string;
@@ -95,7 +131,7 @@ export interface Subject {
 }
 
 export interface Task {
-  id?: string;
+  id: string;
 
   /**
    * dependencies specifies the IDs of the automations this task depends on.

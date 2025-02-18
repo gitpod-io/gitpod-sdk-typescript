@@ -20,28 +20,145 @@ export class Tasks extends APIResource {
   executions: ExecutionsAPI.Executions = new ExecutionsAPI.Executions(this._client);
 
   /**
-   * CreateTask
+   * Creates a new automation task.
+   *
+   * Use this method to:
+   *
+   * - Define one-off or scheduled tasks
+   * - Set up build or test automation
+   * - Configure task dependencies
+   * - Specify execution environments
+   *
+   * ### Examples
+   *
+   * - Create basic task:
+   *
+   *   Creates a simple build task.
+   *
+   *   ```yaml
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   metadata:
+   *     reference: "build"
+   *     name: "Build Project"
+   *     description: "Builds the project artifacts"
+   *     triggeredBy:
+   *       - postEnvironmentStart: true
+   *   spec:
+   *     command: "npm run build"
+   *   ```
+   *
+   * - Create task with dependencies:
+   *
+   *   Creates a task that depends on other services.
+   *
+   *   ```yaml
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   metadata:
+   *     reference: "test"
+   *     name: "Run Tests"
+   *     description: "Runs the test suite"
+   *   spec:
+   *     command: "npm test"
+   *   dependsOn: ["d2c94c27-3b76-4a42-b88c-95a85e392c68"]
+   *   ```
    */
   create(body: TaskCreateParams, options?: RequestOptions): APIPromise<TaskCreateResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/CreateTask', { body, ...options });
   }
 
   /**
-   * GetTask
+   * Gets details about a specific automation task.
+   *
+   * Use this method to:
+   *
+   * - Check task configuration
+   * - View task dependencies
+   * - Monitor task status
+   *
+   * ### Examples
+   *
+   * - Get task details:
+   *
+   *   Retrieves information about a specific task.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   retrieve(body: TaskRetrieveParams, options?: RequestOptions): APIPromise<TaskRetrieveResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetTask', { body, ...options });
   }
 
   /**
-   * UpdateTask
+   * Updates an automation task configuration.
+   *
+   * Use this method to:
+   *
+   * - Modify task commands
+   * - Update task triggers
+   * - Change dependencies
+   * - Adjust execution settings
+   *
+   * ### Examples
+   *
+   * - Update command:
+   *
+   *   Changes the task's command.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   spec:
+   *     command: "npm run test:coverage"
+   *   ```
+   *
+   * - Update triggers:
+   *
+   *   Modifies when the task runs.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   metadata:
+   *     triggeredBy:
+   *       trigger:
+   *         - postEnvironmentStart: true
+   *   ```
    */
   update(body: TaskUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpdateTask', { body, ...options });
   }
 
   /**
-   * ListTasks
+   * Lists automation tasks with optional filtering.
+   *
+   * Use this method to:
+   *
+   * - View all tasks in an environment
+   * - Filter tasks by reference
+   * - Monitor task status
+   *
+   * ### Examples
+   *
+   * - List environment tasks:
+   *
+   *   Shows all tasks for an environment.
+   *
+   *   ```yaml
+   *   filter:
+   *     environmentIds: ["07e03a28-65a5-4d98-b532-8ea67b188048"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
+   * - Filter by reference:
+   *
+   *   Lists tasks matching specific references.
+   *
+   *   ```yaml
+   *   filter:
+   *     references: ["build", "test"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(params: TaskListParams, options?: RequestOptions): PagePromise<TasksTasksPage, Shared.Task> {
     const { token, pageSize, ...body } = params;
@@ -53,15 +170,47 @@ export class Tasks extends APIResource {
   }
 
   /**
-   * DeleteTask
+   * Deletes an automation task.
+   *
+   * Use this method to:
+   *
+   * - Remove unused tasks
+   * - Clean up task configurations
+   * - Delete obsolete automations
+   *
+   * ### Examples
+   *
+   * - Delete task:
+   *
+   *   Removes a task and its configuration.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   delete(body: TaskDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/DeleteTask', { body, ...options });
   }
 
   /**
-   * StartTask starts a task, i.e. creates a task execution. This call does not block
-   * until the task is started; the task will be started asynchronously.
+   * Starts a task by creating a new task execution. This call does not block until
+   * the task is started; the task will be started asynchronously.
+   *
+   * Use this method to:
+   *
+   * - Trigger task execution
+   * - Run one-off tasks
+   * - Start scheduled tasks immediately
+   *
+   * ### Examples
+   *
+   * - Start task:
+   *
+   *   Creates a new execution of a task.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   start(body: TaskStartParams, options?: RequestOptions): APIPromise<TaskStartResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/StartTask', { body, ...options });
