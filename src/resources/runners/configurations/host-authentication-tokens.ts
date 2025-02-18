@@ -71,7 +71,7 @@ export class HostAuthenticationTokens extends APIResource {
 export type HostAuthenticationTokensTokensPage = TokensPage<HostAuthenticationToken>;
 
 export interface HostAuthenticationToken {
-  id?: string;
+  id: string;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -180,11 +180,11 @@ export type HostAuthenticationTokenSource =
   | 'HOST_AUTHENTICATION_TOKEN_SOURCE_PAT';
 
 export interface HostAuthenticationTokenCreateResponse {
-  token?: HostAuthenticationToken;
+  token: HostAuthenticationToken;
 }
 
 export interface HostAuthenticationTokenRetrieveResponse {
-  token?: HostAuthenticationToken;
+  token: HostAuthenticationToken;
 }
 
 export type HostAuthenticationTokenUpdateResponse = unknown;

@@ -57,11 +57,11 @@ export interface RunnerPolicy {
 export type RunnerRole = 'RUNNER_ROLE_UNSPECIFIED' | 'RUNNER_ROLE_ADMIN' | 'RUNNER_ROLE_USER';
 
 export interface PolicyCreateResponse {
-  policy?: RunnerPolicy;
+  policy: RunnerPolicy;
 }
 
 export interface PolicyUpdateResponse {
-  policy?: RunnerPolicy;
+  policy: RunnerPolicy;
 }
 
 export type PolicyDeleteResponse = unknown;

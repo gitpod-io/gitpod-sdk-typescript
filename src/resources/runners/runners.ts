@@ -550,6 +550,8 @@ export interface RunnerStatus {
 }
 
 export interface RunnerCreateResponse {
+  runner: Runner;
+
   /**
    * deprecated, will be removed. Use exchange_token instead.
    */
@@ -561,12 +563,10 @@ export interface RunnerCreateResponse {
    * expires after 24 hours.
    */
   exchangeToken?: string;
-
-  runner?: Runner;
 }
 
 export interface RunnerRetrieveResponse {
-  runner?: Runner;
+  runner: Runner;
 }
 
 export type RunnerUpdateResponse = unknown;
