@@ -1145,7 +1145,6 @@ export declare namespace Gitpod {
     type UserSetSuspendedParams as UserSetSuspendedParams,
   };
 
-  export type ArbitraryData = API.ArbitraryData;
   export type AutomationTrigger = API.AutomationTrigger;
   export type EnvironmentClass = API.EnvironmentClass;
   export type ErrorCode = API.ErrorCode;
