@@ -60,8 +60,29 @@ export class Configurations extends APIResource {
   scmIntegrations: ScmIntegrationsAPI.ScmIntegrations = new ScmIntegrationsAPI.ScmIntegrations(this._client);
 
   /**
-   * ValidateRunnerConfiguration validates a runner configuration (e.g. environment
-   * class, SCM integration) with the runner.
+   * Validates a runner configuration.
+   *
+   * Use this method to:
+   *
+   * - Check configuration validity
+   * - Verify integration settings
+   * - Validate environment classes
+   *
+   * ### Examples
+   *
+   * - Validate SCM integration:
+   *
+   *   Checks if an SCM integration is valid.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   scmIntegration:
+   *     id: "integration-id"
+   *     scmId: "github"
+   *     host: "github.com"
+   *     oauthClientId: "client_id"
+   *     oauthPlaintextClientSecret: "client_secret"
+   *   ```
    */
   validate(
     body: ConfigurationValidateParams,
