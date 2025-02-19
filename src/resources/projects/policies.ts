@@ -7,21 +7,75 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Policies extends APIResource {
   /**
-   * CreateProjectPolicy creates a Project Policy.
+   * Creates a new policy for a project.
+   *
+   * Use this method to:
+   *
+   * - Set up access controls
+   * - Define group permissions
+   * - Configure role-based access
+   *
+   * ### Examples
+   *
+   * - Create admin policy:
+   *
+   *   Grants admin access to a group.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *   role: PROJECT_ROLE_ADMIN
+   *   ```
    */
   create(body: PolicyCreateParams, options?: RequestOptions): APIPromise<PolicyCreateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/CreateProjectPolicy', { body, ...options });
   }
 
   /**
-   * UpdateProjectPolicy updates a Project Policy.
+   * Updates an existing project policy.
+   *
+   * Use this method to:
+   *
+   * - Modify access levels
+   * - Change group roles
+   * - Update permissions
+   *
+   * ### Examples
+   *
+   * - Update policy role:
+   *
+   *   Changes a group's access level.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *   role: PROJECT_ROLE_EDITOR
+   *   ```
    */
   update(body: PolicyUpdateParams, options?: RequestOptions): APIPromise<PolicyUpdateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/UpdateProjectPolicy', { body, ...options });
   }
 
   /**
-   * ListProjectPolicies lists policies for a project.
+   * Lists policies for a project.
+   *
+   * Use this method to:
+   *
+   * - View access controls
+   * - Check policy configurations
+   * - Audit permissions
+   *
+   * ### Examples
+   *
+   * - List policies:
+   *
+   *   Shows all policies for a project.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(
     params: PolicyListParams,
@@ -36,7 +90,24 @@ export class Policies extends APIResource {
   }
 
   /**
-   * DeleteProjectPolicy deletes a Project Policy.
+   * Deletes a project policy.
+   *
+   * Use this method to:
+   *
+   * - Remove access controls
+   * - Revoke permissions
+   * - Clean up policies
+   *
+   * ### Examples
+   *
+   * - Delete policy:
+   *
+   *   Removes a group's access policy.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *   ```
    */
   delete(body: PolicyDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.ProjectService/DeleteProjectPolicy', { body, ...options });

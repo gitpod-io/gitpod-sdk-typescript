@@ -24,28 +24,128 @@ export class Projects extends APIResource {
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
 
   /**
-   * CreateProject creates a new Project.
+   * Creates a new project with specified configuration.
+   *
+   * Use this method to:
+   *
+   * - Set up development projects
+   * - Configure project environments
+   * - Define project settings
+   * - Initialize project content
+   *
+   * ### Examples
+   *
+   * - Create basic project:
+   *
+   *   Creates a project with minimal configuration.
+   *
+   *   ```yaml
+   *   name: "Web Application"
+   *   environmentClass:
+   *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   initializer:
+   *     specs:
+   *       - git:
+   *           remoteUri: "https://github.com/org/repo"
+   *   ```
+   *
+   * - Create project with devcontainer:
+   *
+   *   Creates a project with custom development container.
+   *
+   *   ```yaml
+   *   name: "Backend Service"
+   *   environmentClass:
+   *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   initializer:
+   *     specs:
+   *       - git:
+   *           remoteUri: "https://github.com/org/backend"
+   *   devcontainerFilePath: ".devcontainer/devcontainer.json"
+   *   automationsFilePath: ".gitpod/automations.yaml"
+   *   ```
    */
   create(body: ProjectCreateParams, options?: RequestOptions): APIPromise<ProjectCreateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/CreateProject', { body, ...options });
   }
 
   /**
-   * GetProject retrieves a single Project.
+   * Gets details about a specific project.
+   *
+   * Use this method to:
+   *
+   * - View project configuration
+   * - Check project status
+   * - Get project metadata
+   *
+   * ### Examples
+   *
+   * - Get project details:
+   *
+   *   Retrieves information about a specific project.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   ```
    */
   retrieve(body: ProjectRetrieveParams, options?: RequestOptions): APIPromise<ProjectRetrieveResponse> {
     return this._client.post('/gitpod.v1.ProjectService/GetProject', { body, ...options });
   }
 
   /**
-   * UpdateProject updates the properties of a Project.
+   * Updates a project's configuration.
+   *
+   * Use this method to:
+   *
+   * - Modify project settings
+   * - Update environment class
+   * - Change project name
+   * - Configure initializers
+   *
+   * ### Examples
+   *
+   * - Update project name:
+   *
+   *   Changes the project's display name.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   name: "New Project Name"
+   *   ```
+   *
+   * - Update environment class:
+   *
+   *   Changes the project's environment class.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   environmentClass:
+   *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   update(body: ProjectUpdateParams, options?: RequestOptions): APIPromise<ProjectUpdateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/UpdateProject', { body, ...options });
   }
 
   /**
-   * ListProjects lists all projects the caller has access to.
+   * Lists projects with optional filtering.
+   *
+   * Use this method to:
+   *
+   * - View all accessible projects
+   * - Browse project configurations
+   * - Monitor project status
+   *
+   * ### Examples
+   *
+   * - List projects:
+   *
+   *   Shows all projects with pagination.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(params: ProjectListParams, options?: RequestOptions): PagePromise<ProjectsProjectsPage, Project> {
     const { token, pageSize, ...body } = params;
@@ -58,14 +158,47 @@ export class Projects extends APIResource {
   }
 
   /**
-   * DeleteProject deletes the specified project.
+   * Deletes a project permanently.
+   *
+   * Use this method to:
+   *
+   * - Remove unused projects
+   * - Clean up test projects
+   * - Delete obsolete configurations
+   *
+   * ### Examples
+   *
+   * - Delete project:
+   *
+   *   Permanently removes a project.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   ```
    */
   delete(body: ProjectDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.ProjectService/DeleteProject', { body, ...options });
   }
 
   /**
-   * CreateProject creates a new Project using an environment as template.
+   * Creates a new project using an existing environment as a template.
+   *
+   * Use this method to:
+   *
+   * - Clone environment configurations
+   * - Create projects from templates
+   * - Share environment setups
+   *
+   * ### Examples
+   *
+   * - Create from environment:
+   *
+   *   Creates a project based on existing environment.
+   *
+   *   ```yaml
+   *   name: "Frontend Project"
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   ```
    */
   createFromEnvironment(
     body: ProjectCreateFromEnvironmentParams,
