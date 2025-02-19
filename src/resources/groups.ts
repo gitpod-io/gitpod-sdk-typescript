@@ -6,7 +6,35 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Groups extends APIResource {
   /**
-   * ListGroups lists groups
+   * Lists groups with optional pagination.
+   *
+   * Use this method to:
+   *
+   * - View all groups
+   * - Check group memberships
+   * - Monitor group configurations
+   * - Audit group access
+   *
+   * ### Examples
+   *
+   * - List all groups:
+   *
+   *   Shows all groups with pagination.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
+   * - List with custom page size:
+   *
+   *   Shows groups with specified page size.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 50
+   *     token: "next-page-token-from-previous-response"
+   *   ```
    */
   list(params: GroupListParams, options?: RequestOptions): PagePromise<GroupsGroupsPage, Group> {
     const { token, pageSize, ...body } = params;

@@ -23,7 +23,7 @@ describe('resource projects', () => {
   // skipped: tests are disabled for the time being
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.create({
-      environmentClass: { environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', localRunner: true },
+      environmentClass: { environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68', localRunner: true },
       initializer: {
         specs: [
           {
@@ -31,7 +31,7 @@ describe('resource projects', () => {
             git: {
               checkoutLocation: 'checkoutLocation',
               cloneTarget: 'cloneTarget',
-              remoteUri: 'remoteUri',
+              remoteUri: 'https://github.com/org/repo',
               targetMode: 'CLONE_TARGET_MODE_UNSPECIFIED',
               upstreamRemoteUri: 'upstreamRemoteUri',
             },
@@ -40,7 +40,7 @@ describe('resource projects', () => {
       },
       automationsFilePath: 'automationsFilePath',
       devcontainerFilePath: 'devcontainerFilePath',
-      name: 'x',
+      name: 'Web Application',
     });
   });
 
