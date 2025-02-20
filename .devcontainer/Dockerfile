@@ -16,7 +16,7 @@ RUN ln -sf /usr/bin/yarnpkg /usr/bin/yarn
 
 WORKDIR /workspace
 
-COPY package.json /workspace/
+COPY package.json yarn.lock /workspace/
 
 RUN yarn install
 
