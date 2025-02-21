@@ -409,19 +409,19 @@ export interface Environment {
   id: string;
 
   /**
-   * EnvironmentMetadata is data associated with an environment that's required for
-   * other parts of the system to function
+   * Metadata is data associated with this environment that's required for other
+   * parts of Gitpod to function
    */
   metadata?: EnvironmentMetadata;
 
   /**
-   * EnvironmentSpec specifies the configuration of an environment for an environment
-   * start
+   * Spec is the configuration of the environment that's required for the runner to
+   * start the environment
    */
   spec?: EnvironmentSpec;
 
   /**
-   * EnvironmentStatus describes an environment status
+   * Status is the current status of the environment
    */
   status?: EnvironmentStatus;
 }
@@ -438,94 +438,8 @@ export interface EnvironmentActivitySignal {
   source?: string;
 
   /**
-   * A Timestamp represents a point in time independent of any time zone or local
-   * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
-   * resolution. The count is relative to an epoch at UTC midnight on January 1,
-   * 1970, in the proleptic Gregorian calendar which extends the Gregorian calendar
-   * backwards to year one.
-   *
-   * All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
-   * second table is needed for interpretation, using a
-   * [24-hour linear smear](https://developers.google.com/time/smear).
-   *
-   * The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
-   * restricting to that range, we ensure that we can convert to and from
-   * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
-   *
-   * # Examples
-   *
-   * Example 1: Compute Timestamp from POSIX `time()`.
-   *
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds(time(NULL));
-   *      timestamp.set_nanos(0);
-   *
-   * Example 2: Compute Timestamp from POSIX `gettimeofday()`.
-   *
-   *      struct timeval tv;
-   *      gettimeofday(&tv, NULL);
-   *
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds(tv.tv_sec);
-   *      timestamp.set_nanos(tv.tv_usec * 1000);
-   *
-   * Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
-   *
-   *      FILETIME ft;
-   *      GetSystemTimeAsFileTime(&ft);
-   *      UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
-   *
-   *      // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
-   *      // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
-   *      timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
-   *
-   * Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
-   *
-   *      long millis = System.currentTimeMillis();
-   *
-   *      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
-   *          .setNanos((int) ((millis % 1000) * 1000000)).build();
-   *
-   * Example 5: Compute Timestamp from Java `Instant.now()`.
-   *
-   *      Instant now = Instant.now();
-   *
-   *      Timestamp timestamp =
-   *          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
-   *              .setNanos(now.getNano()).build();
-   *
-   * Example 6: Compute Timestamp from current time in Python.
-   *
-   *      timestamp = Timestamp()
-   *      timestamp.GetCurrentTime()
-   *
-   * # JSON Mapping
-   *
-   * In JSON format, the Timestamp type is encoded as a string in the
-   * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the format is
-   * "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z" where {year} is always
-   * expressed using four digits while {month}, {day}, {hour}, {min}, and {sec} are
-   * zero-padded to two digits each. The fractional seconds, which can go up to 9
-   * digits (i.e. up to 1 nanosecond resolution), are optional. The "Z" suffix
-   * indicates the timezone ("UTC"); the timezone is required. A proto3 JSON
-   * serializer should always use UTC (as indicated by "Z") when printing the
-   * Timestamp type and a proto3 JSON parser should be able to accept both UTC and
-   * other timezones (as indicated by an offset).
-   *
-   * For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past 01:30 UTC on
-   * January 15, 2017.
-   *
-   * In JavaScript, one can convert a Date object to this format using the standard
-   * [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * method. In Python, a standard `datetime.datetime` object can be converted to
-   * this format using
-   * [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with the
-   * time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use the
-   * Joda Time's
-   * [`ISODateTimeFormat.dateTime()`](<http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()>)
-   * to obtain a formatter capable of generating timestamps in this format.
+   * timestamp of when the activity was observed by the source. Only reported every 5
+   * minutes. Zero value means no activity was observed.
    */
   timestamp?: string;
 }
@@ -542,94 +456,7 @@ export interface EnvironmentMetadata {
   annotations?: Record<string, string>;
 
   /**
-   * A Timestamp represents a point in time independent of any time zone or local
-   * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
-   * resolution. The count is relative to an epoch at UTC midnight on January 1,
-   * 1970, in the proleptic Gregorian calendar which extends the Gregorian calendar
-   * backwards to year one.
-   *
-   * All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
-   * second table is needed for interpretation, using a
-   * [24-hour linear smear](https://developers.google.com/time/smear).
-   *
-   * The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
-   * restricting to that range, we ensure that we can convert to and from
-   * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
-   *
-   * # Examples
-   *
-   * Example 1: Compute Timestamp from POSIX `time()`.
-   *
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds(time(NULL));
-   *      timestamp.set_nanos(0);
-   *
-   * Example 2: Compute Timestamp from POSIX `gettimeofday()`.
-   *
-   *      struct timeval tv;
-   *      gettimeofday(&tv, NULL);
-   *
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds(tv.tv_sec);
-   *      timestamp.set_nanos(tv.tv_usec * 1000);
-   *
-   * Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
-   *
-   *      FILETIME ft;
-   *      GetSystemTimeAsFileTime(&ft);
-   *      UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
-   *
-   *      // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
-   *      // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
-   *      timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
-   *
-   * Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
-   *
-   *      long millis = System.currentTimeMillis();
-   *
-   *      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
-   *          .setNanos((int) ((millis % 1000) * 1000000)).build();
-   *
-   * Example 5: Compute Timestamp from Java `Instant.now()`.
-   *
-   *      Instant now = Instant.now();
-   *
-   *      Timestamp timestamp =
-   *          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
-   *              .setNanos(now.getNano()).build();
-   *
-   * Example 6: Compute Timestamp from current time in Python.
-   *
-   *      timestamp = Timestamp()
-   *      timestamp.GetCurrentTime()
-   *
-   * # JSON Mapping
-   *
-   * In JSON format, the Timestamp type is encoded as a string in the
-   * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the format is
-   * "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z" where {year} is always
-   * expressed using four digits while {month}, {day}, {hour}, {min}, and {sec} are
-   * zero-padded to two digits each. The fractional seconds, which can go up to 9
-   * digits (i.e. up to 1 nanosecond resolution), are optional. The "Z" suffix
-   * indicates the timezone ("UTC"); the timezone is required. A proto3 JSON
-   * serializer should always use UTC (as indicated by "Z") when printing the
-   * Timestamp type and a proto3 JSON parser should be able to accept both UTC and
-   * other timezones (as indicated by an offset).
-   *
-   * For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past 01:30 UTC on
-   * January 15, 2017.
-   *
-   * In JavaScript, one can convert a Date object to this format using the standard
-   * [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * method. In Python, a standard `datetime.datetime` object can be converted to
-   * this format using
-   * [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with the
-   * time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use the
-   * Joda Time's
-   * [`ISODateTimeFormat.dateTime()`](<http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()>)
-   * to obtain a formatter capable of generating timestamps in this format.
+   * Time when the Environment was created.
    */
   createdAt?: string;
 
@@ -639,94 +466,8 @@ export interface EnvironmentMetadata {
   creator?: Shared.Subject;
 
   /**
-   * A Timestamp represents a point in time independent of any time zone or local
-   * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
-   * resolution. The count is relative to an epoch at UTC midnight on January 1,
-   * 1970, in the proleptic Gregorian calendar which extends the Gregorian calendar
-   * backwards to year one.
-   *
-   * All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
-   * second table is needed for interpretation, using a
-   * [24-hour linear smear](https://developers.google.com/time/smear).
-   *
-   * The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
-   * restricting to that range, we ensure that we can convert to and from
-   * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
-   *
-   * # Examples
-   *
-   * Example 1: Compute Timestamp from POSIX `time()`.
-   *
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds(time(NULL));
-   *      timestamp.set_nanos(0);
-   *
-   * Example 2: Compute Timestamp from POSIX `gettimeofday()`.
-   *
-   *      struct timeval tv;
-   *      gettimeofday(&tv, NULL);
-   *
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds(tv.tv_sec);
-   *      timestamp.set_nanos(tv.tv_usec * 1000);
-   *
-   * Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
-   *
-   *      FILETIME ft;
-   *      GetSystemTimeAsFileTime(&ft);
-   *      UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
-   *
-   *      // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
-   *      // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
-   *      Timestamp timestamp;
-   *      timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
-   *      timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
-   *
-   * Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
-   *
-   *      long millis = System.currentTimeMillis();
-   *
-   *      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
-   *          .setNanos((int) ((millis % 1000) * 1000000)).build();
-   *
-   * Example 5: Compute Timestamp from Java `Instant.now()`.
-   *
-   *      Instant now = Instant.now();
-   *
-   *      Timestamp timestamp =
-   *          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
-   *              .setNanos(now.getNano()).build();
-   *
-   * Example 6: Compute Timestamp from current time in Python.
-   *
-   *      timestamp = Timestamp()
-   *      timestamp.GetCurrentTime()
-   *
-   * # JSON Mapping
-   *
-   * In JSON format, the Timestamp type is encoded as a string in the
-   * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the format is
-   * "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z" where {year} is always
-   * expressed using four digits while {month}, {day}, {hour}, {min}, and {sec} are
-   * zero-padded to two digits each. The fractional seconds, which can go up to 9
-   * digits (i.e. up to 1 nanosecond resolution), are optional. The "Z" suffix
-   * indicates the timezone ("UTC"); the timezone is required. A proto3 JSON
-   * serializer should always use UTC (as indicated by "Z") when printing the
-   * Timestamp type and a proto3 JSON parser should be able to accept both UTC and
-   * other timezones (as indicated by an offset).
-   *
-   * For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past 01:30 UTC on
-   * January 15, 2017.
-   *
-   * In JavaScript, one can convert a Date object to this format using the standard
-   * [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * method. In Python, a standard `datetime.datetime` object can be converted to
-   * this format using
-   * [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with the
-   * time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use the
-   * Joda Time's
-   * [`ISODateTimeFormat.dateTime()`](<http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()>)
-   * to obtain a formatter capable of generating timestamps in this format.
+   * Time when the Environment was last started (i.e. CreateEnvironment or
+   * StartEnvironment were called).
    */
   lastStartedAt?: string;
 
@@ -775,7 +516,7 @@ export type EnvironmentPhase =
  */
 export interface EnvironmentSpec {
   /**
-   * Admission level describes who can access an environment instance and its ports.
+   * admission controlls who can access the environment and its ports.
    */
   admission?: AdmissionLevel;
 
@@ -866,7 +607,7 @@ export namespace EnvironmentSpec {
     gitUsername?: string;
 
     /**
-     * EnvironmentInitializer specifies how an environment is to be initialized
+     * initializer configures how the environment is to be initialized
      */
     initializer?: ProjectsAPI.EnvironmentInitializer;
 
@@ -904,20 +645,6 @@ export namespace EnvironmentSpec {
        * URL of a dotfiles Git repository (e.g. https://github.com/owner/repository)
        */
       repository: string;
-
-      /**
-       * install_command is the command to run after cloning the dotfiles repository.
-       * Defaults to run the first file of `install.sh`, `install`, `bootstrap.sh`,
-       * `bootstrap`, `setup.sh` and `setup` found in the dotfiles repository's root
-       * folder.
-       */
-      installCommand?: string;
-
-      /**
-       * target_path is the path to clone the dotfiles repository to. Defaults to
-       * `~/dotfiles`.
-       */
-      targetPath?: string;
     }
   }
 
@@ -935,7 +662,7 @@ export namespace EnvironmentSpec {
 
   export interface Port {
     /**
-     * Admission level describes who can access an environment instance and its ports.
+     * policy of this port
      */
     admission?: EnvironmentsAPI.AdmissionLevel;
 
@@ -1005,63 +732,8 @@ export namespace EnvironmentSpec {
    */
   export interface Timeout {
     /**
-     * A Duration represents a signed, fixed-length span of time represented as a count
-     * of seconds and fractions of seconds at nanosecond resolution. It is independent
-     * of any calendar and concepts like "day" or "month". It is related to Timestamp
-     * in that the difference between two Timestamp values is a Duration and it can be
-     * added or subtracted from a Timestamp. Range is approximately +-10,000 years.
-     *
-     * # Examples
-     *
-     * Example 1: Compute Duration from two Timestamps in pseudo code.
-     *
-     *      Timestamp start = ...;
-     *      Timestamp end = ...;
-     *      Duration duration = ...;
-     *
-     *      duration.seconds = end.seconds - start.seconds;
-     *      duration.nanos = end.nanos - start.nanos;
-     *
-     *      if (duration.seconds < 0 && duration.nanos > 0) {
-     *        duration.seconds += 1;
-     *        duration.nanos -= 1000000000;
-     *      } else if (duration.seconds > 0 && duration.nanos < 0) {
-     *        duration.seconds -= 1;
-     *        duration.nanos += 1000000000;
-     *      }
-     *
-     * Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.
-     *
-     *      Timestamp start = ...;
-     *      Duration duration = ...;
-     *      Timestamp end = ...;
-     *
-     *      end.seconds = start.seconds + duration.seconds;
-     *      end.nanos = start.nanos + duration.nanos;
-     *
-     *      if (end.nanos < 0) {
-     *        end.seconds -= 1;
-     *        end.nanos += 1000000000;
-     *      } else if (end.nanos >= 1000000000) {
-     *        end.seconds += 1;
-     *        end.nanos -= 1000000000;
-     *      }
-     *
-     * Example 3: Compute Duration from datetime.timedelta in Python.
-     *
-     *      td = datetime.timedelta(days=3, minutes=10)
-     *      duration = Duration()
-     *      duration.FromTimedelta(td)
-     *
-     * # JSON Mapping
-     *
-     * In JSON format, the Duration type is encoded as a string rather than an object,
-     * where the string ends in the suffix "s" (indicating seconds) and is preceded by
-     * the number of seconds, with nanoseconds expressed as fractional seconds. For
-     * example, 3 seconds with 0 nanoseconds should be encoded in JSON format as "3s",
-     * while 3 seconds and 1 nanosecond should be expressed in JSON format as
-     * "3.000000001s", and 3 seconds and 1 microsecond should be expressed in JSON
-     * format as "3.000001s".
+     * inacitivity is the maximum time of disconnection before the environment is
+     * stopped or paused. Minimum duration is 30 minutes. Set to 0 to disable.
      */
     disconnected?: string;
   }
@@ -1072,7 +744,7 @@ export namespace EnvironmentSpec {
  */
 export interface EnvironmentStatus {
   /**
-   * EnvironmentActivitySignal used to signal activity for an environment.
+   * activity_signal is the last activity signal for the environment.
    */
   activitySignal?: EnvironmentActivitySignal;
 
@@ -1116,7 +788,7 @@ export interface EnvironmentStatus {
   phase?: EnvironmentPhase;
 
   /**
-   * RunnerACK is the acknowledgement from the runner that is has received the
+   * runner_ack contains the acknowledgement from the runner that is has received the
    * environment spec.
    */
   runnerAck?: EnvironmentStatus.RunnerAck;
@@ -1474,7 +1146,7 @@ export namespace EnvironmentStatus {
   }
 
   /**
-   * RunnerACK is the acknowledgement from the runner that is has received the
+   * runner_ack contains the acknowledgement from the runner that is has received the
    * environment spec.
    */
   export interface RunnerAck {
@@ -1576,8 +1248,8 @@ export type EnvironmentStopResponse = unknown;
 
 export interface EnvironmentCreateParams {
   /**
-   * EnvironmentSpec specifies the configuration of an environment for an environment
-   * start
+   * spec is the configuration of the environment that's required for the to start
+   * the environment
    */
   spec?: EnvironmentSpec;
 }
@@ -1661,7 +1333,7 @@ export namespace EnvironmentUpdateParams {
       gitUsername?: string | null;
 
       /**
-       * EnvironmentInitializer specifies how an environment is to be initialized
+       * initializer configures how the environment is to be initialized
        */
       initializer?: ProjectsAPI.EnvironmentInitializer | null;
 
@@ -1690,7 +1362,7 @@ export namespace EnvironmentUpdateParams {
 
     export interface Port {
       /**
-       * Admission level describes who can access an environment instance and its ports.
+       * policy of this port
        */
       admission?: EnvironmentsAPI.AdmissionLevel;
 
@@ -1723,63 +1395,8 @@ export namespace EnvironmentUpdateParams {
      */
     export interface Timeout {
       /**
-       * A Duration represents a signed, fixed-length span of time represented as a count
-       * of seconds and fractions of seconds at nanosecond resolution. It is independent
-       * of any calendar and concepts like "day" or "month". It is related to Timestamp
-       * in that the difference between two Timestamp values is a Duration and it can be
-       * added or subtracted from a Timestamp. Range is approximately +-10,000 years.
-       *
-       * # Examples
-       *
-       * Example 1: Compute Duration from two Timestamps in pseudo code.
-       *
-       *      Timestamp start = ...;
-       *      Timestamp end = ...;
-       *      Duration duration = ...;
-       *
-       *      duration.seconds = end.seconds - start.seconds;
-       *      duration.nanos = end.nanos - start.nanos;
-       *
-       *      if (duration.seconds < 0 && duration.nanos > 0) {
-       *        duration.seconds += 1;
-       *        duration.nanos -= 1000000000;
-       *      } else if (duration.seconds > 0 && duration.nanos < 0) {
-       *        duration.seconds -= 1;
-       *        duration.nanos += 1000000000;
-       *      }
-       *
-       * Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.
-       *
-       *      Timestamp start = ...;
-       *      Duration duration = ...;
-       *      Timestamp end = ...;
-       *
-       *      end.seconds = start.seconds + duration.seconds;
-       *      end.nanos = start.nanos + duration.nanos;
-       *
-       *      if (end.nanos < 0) {
-       *        end.seconds -= 1;
-       *        end.nanos += 1000000000;
-       *      } else if (end.nanos >= 1000000000) {
-       *        end.seconds += 1;
-       *        end.nanos -= 1000000000;
-       *      }
-       *
-       * Example 3: Compute Duration from datetime.timedelta in Python.
-       *
-       *      td = datetime.timedelta(days=3, minutes=10)
-       *      duration = Duration()
-       *      duration.FromTimedelta(td)
-       *
-       * # JSON Mapping
-       *
-       * In JSON format, the Duration type is encoded as a string rather than an object,
-       * where the string ends in the suffix "s" (indicating seconds) and is preceded by
-       * the number of seconds, with nanoseconds expressed as fractional seconds. For
-       * example, 3 seconds with 0 nanoseconds should be encoded in JSON format as "3s",
-       * while 3 seconds and 1 nanosecond should be expressed in JSON format as
-       * "3.000000001s", and 3 seconds and 1 microsecond should be expressed in JSON
-       * format as "3.000001s".
+       * inacitivity is the maximum time of disconnection before the environment is
+       * stopped or paused. Minimum duration is 30 minutes. Set to 0 to disable.
        */
       disconnected?: string | null;
     }
@@ -1869,8 +1486,9 @@ export interface EnvironmentCreateFromProjectParams {
   projectId?: string;
 
   /**
-   * EnvironmentSpec specifies the configuration of an environment for an environment
-   * start
+   * Spec is the configuration of the environment that's required for the runner to
+   * start the environment Configuration already defined in the Project will override
+   * parts of the spec, if set
    */
   spec?: EnvironmentSpec;
 }
@@ -1887,7 +1505,7 @@ export interface EnvironmentCreateLogsTokenParams {
 
 export interface EnvironmentMarkActiveParams {
   /**
-   * EnvironmentActivitySignal used to signal activity for an environment.
+   * activity_signal specifies the activity.
    */
   activitySignal?: EnvironmentActivitySignal;
 
