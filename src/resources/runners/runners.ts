@@ -35,30 +35,135 @@ export class Runners extends APIResource {
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
 
   /**
-   * CreateRunner creates a new runner with the server. Registrations are very
-   * short-lived and must be renewed every 30 seconds. Runners can be registered for
-   * an entire organisation or a single user.
+   * Creates a new runner registration with the server. Registrations are very
+   * short-lived and must be renewed every 30 seconds.
+   *
+   * Use this method to:
+   *
+   * - Register organization runners
+   * - Set up runner configurations
+   * - Initialize runner credentials
+   * - Configure auto-updates
+   *
+   * ### Examples
+   *
+   * - Create cloud runner:
+   *
+   *   Creates a new runner in AWS EC2.
+   *
+   *   ```yaml
+   *   name: "Production Runner"
+   *   provider: RUNNER_PROVIDER_AWS_EC2
+   *   spec:
+   *     desiredPhase: RUNNER_PHASE_ACTIVE
+   *     configuration:
+   *       region: "us-west"
+   *       releaseChannel: RUNNER_RELEASE_CHANNEL_STABLE
+   *       autoUpdate: true
+   *   ```
+   *
+   * - Create local runner:
+   *
+   *   Creates a new local runner on Linux.
+   *
+   *   ```yaml
+   *   name: "Local Development Runner"
+   *   provider: RUNNER_PROVIDER_LINUX_HOST
+   *   spec:
+   *     desiredPhase: RUNNER_PHASE_ACTIVE
+   *     configuration:
+   *       releaseChannel: RUNNER_RELEASE_CHANNEL_LATEST
+   *       autoUpdate: true
+   *   ```
    */
   create(body: RunnerCreateParams, options?: RequestOptions): APIPromise<RunnerCreateResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CreateRunner', { body, ...options });
   }
 
   /**
-   * GetRunner returns a single runner.
+   * Gets details about a specific runner.
+   *
+   * Use this method to:
+   *
+   * - Check runner status
+   * - View runner configuration
+   * - Monitor runner health
+   * - Verify runner capabilities
+   *
+   * ### Examples
+   *
+   * - Get runner details:
+   *
+   *   Retrieves information about a specific runner.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   retrieve(body: RunnerRetrieveParams, options?: RequestOptions): APIPromise<RunnerRetrieveResponse> {
     return this._client.post('/gitpod.v1.RunnerService/GetRunner', { body, ...options });
   }
 
   /**
-   * UpdateRunner updates an environment runner.
+   * Updates a runner's configuration.
+   *
+   * Use this method to:
+   *
+   * - Modify runner settings
+   * - Update release channels
+   * - Change runner status
+   * - Configure auto-update settings
+   *
+   * ### Examples
+   *
+   * - Update configuration:
+   *
+   *   Changes runner settings.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   name: "Updated Runner Name"
+   *   spec:
+   *     configuration:
+   *       releaseChannel: RUNNER_RELEASE_CHANNEL_LATEST
+   *       autoUpdate: true
+   *   ```
    */
   update(body: RunnerUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/UpdateRunner', { body, ...options });
   }
 
   /**
-   * ListRunners returns all runners registered in the scope.
+   * Lists all registered runners with optional filtering.
+   *
+   * Use this method to:
+   *
+   * - View all available runners
+   * - Filter by runner type
+   * - Monitor runner status
+   * - Check runner availability
+   *
+   * ### Examples
+   *
+   * - List all runners:
+   *
+   *   Shows all runners with pagination.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
+   * - Filter by provider:
+   *
+   *   Lists only AWS EC2 runners.
+   *
+   *   ```yaml
+   *   filter:
+   *     providers: ["RUNNER_PROVIDER_AWS_EC2"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(params: RunnerListParams, options?: RequestOptions): PagePromise<RunnersRunnersPage, Runner> {
     const { token, pageSize, ...body } = params;
@@ -71,17 +176,46 @@ export class Runners extends APIResource {
   }
 
   /**
-   * DeleteRunner deletes an environment runner.
+   * Deletes a runner permanently.
+   *
+   * Use this method to:
+   *
+   * - Remove unused runners
+   * - Clean up runner registrations
+   * - Delete obsolete runners
+   *
+   * ### Examples
+   *
+   * - Delete runner:
+   *
+   *   Permanently removes a runner.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   delete(body: RunnerDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/DeleteRunner', { body, ...options });
   }
 
   /**
-   * CheckAuthenticationForHost asks a runner if the user is authenticated against a
-   * particular host, e.g. an SCM system. If not, this function will return a URL
-   * that the user should visit to authenticate, or indicate that Personal Access
-   * Tokens are supported.
+   * Checks if a user is authenticated for a specific host.
+   *
+   * Use this method to:
+   *
+   * - Verify authentication status
+   * - Get authentication URLs
+   * - Check PAT support
+   *
+   * ### Examples
+   *
+   * - Check authentication:
+   *
+   *   Verifies authentication for a host.
+   *
+   *   ```yaml
+   *   host: "github.com"
+   *   ```
    */
   checkAuthenticationForHost(
     body: RunnerCheckAuthenticationForHostParams,
@@ -91,9 +225,25 @@ export class Runners extends APIResource {
   }
 
   /**
-   * CreateRunnerToken returns a token that can be used to authenticate as the
-   * runner. Use this call to renew an outdated token - this does not expire any
-   * previously issued tokens.
+   * Creates a new authentication token for a runner.
+   *
+   * Use this method to:
+   *
+   * - Generate runner credentials
+   * - Renew expired tokens
+   * - Set up runner authentication
+   *
+   * Note: This does not expire previously issued tokens.
+   *
+   * ### Examples
+   *
+   * - Create token:
+   *
+   *   Creates a new token for runner authentication.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   createRunnerToken(
     body: RunnerCreateRunnerTokenParams,
@@ -103,18 +253,30 @@ export class Runners extends APIResource {
   }
 
   /**
-   * ParseContextURL asks a runner to parse a context URL, and return the parsed
-   * result.
+   * Parses a context URL and returns the parsed result.
    *
-   * This call returns
+   * Use this method to:
    *
-   * - FAILED_PRECONDITION if the user requires authentication on the runner to
-   *   access the context URL
-   * - PERMISSION_DENIED if the user is not allowed to access the context URL using
-   *   the credentials they have
-   * - INVALID_ARGUMENT if the context URL is invalid
-   * - NOT_FOUND if the repository or branch indicated by the context URL does not
-   *   exist
+   * - Validate context URLs
+   * - Check repository access
+   * - Verify branch existence
+   *
+   * Returns:
+   *
+   * - FAILED_PRECONDITION if authentication is required
+   * - PERMISSION_DENIED if access is not allowed
+   * - INVALID_ARGUMENT if URL is invalid
+   * - NOT_FOUND if repository/branch doesn't exist
+   *
+   * ### Examples
+   *
+   * - Parse URL:
+   *
+   *   Parses and validates a context URL.
+   *
+   *   ```yaml
+   *   contextUrl: "https://github.com/org/repo/tree/main"
+   *   ```
    */
   parseContextURL(
     body: RunnerParseContextURLParams,

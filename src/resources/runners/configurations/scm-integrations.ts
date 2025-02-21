@@ -7,7 +7,27 @@ import { RequestOptions } from '../../../internal/request-options';
 
 export class ScmIntegrations extends APIResource {
   /**
-   * CreateSCMIntegration creates a new SCM integration on a runner.
+   * Creates a new SCM integration for a runner.
+   *
+   * Use this method to:
+   *
+   * - Configure source control access
+   * - Set up repository integrations
+   * - Enable code synchronization
+   *
+   * ### Examples
+   *
+   * - Create GitHub integration:
+   *
+   *   Sets up GitHub SCM integration.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   scmId: "github"
+   *   host: "github.com"
+   *   oauthClientId: "client_id"
+   *   oauthPlaintextClientSecret: "client_secret"
+   *   ```
    */
   create(
     body: ScmIntegrationCreateParams,
@@ -20,7 +40,23 @@ export class ScmIntegrations extends APIResource {
   }
 
   /**
-   * GetSCMIntegration returns a single SCM integration configured for a runner.
+   * Gets details about a specific SCM integration.
+   *
+   * Use this method to:
+   *
+   * - View integration settings
+   * - Check integration status
+   * - Verify configuration
+   *
+   * ### Examples
+   *
+   * - Get integration details:
+   *
+   *   Retrieves information about a specific integration.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   retrieve(
     body: ScmIntegrationRetrieveParams,
@@ -30,7 +66,25 @@ export class ScmIntegrations extends APIResource {
   }
 
   /**
-   * UpdateSCMIntegration updates an existing SCM integration on a runner.
+   * Updates an existing SCM integration.
+   *
+   * Use this method to:
+   *
+   * - Modify integration settings
+   * - Update credentials
+   * - Change configuration
+   *
+   * ### Examples
+   *
+   * - Update integration:
+   *
+   *   Updates OAuth credentials.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   oauthClientId: "new_client_id"
+   *   oauthPlaintextClientSecret: "new_client_secret"
+   *   ```
    */
   update(body: ScmIntegrationUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateSCMIntegration', {
@@ -40,7 +94,26 @@ export class ScmIntegrations extends APIResource {
   }
 
   /**
-   * ListSCMIntegrations returns all SCM integrations configured for a runner.
+   * Lists SCM integrations for a runner.
+   *
+   * Use this method to:
+   *
+   * - View all integrations
+   * - Monitor integration status
+   * - Check available SCMs
+   *
+   * ### Examples
+   *
+   * - List integrations:
+   *
+   *   Shows all SCM integrations.
+   *
+   *   ```yaml
+   *   filter:
+   *     runnerIds: ["d2c94c27-3b76-4a42-b88c-95a85e392c68"]
+   *   pagination:
+   *     pageSize: 20
+   *   ```
    */
   list(
     params: ScmIntegrationListParams,
@@ -55,7 +128,23 @@ export class ScmIntegrations extends APIResource {
   }
 
   /**
-   * DeleteSCMIntegration deletes an existing SCM integration on a runner.
+   * Deletes an SCM integration.
+   *
+   * Use this method to:
+   *
+   * - Remove unused integrations
+   * - Clean up configurations
+   * - Revoke SCM access
+   *
+   * ### Examples
+   *
+   * - Delete integration:
+   *
+   *   Removes an SCM integration.
+   *
+   *   ```yaml
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
    */
   delete(body: ScmIntegrationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteSCMIntegration', {
