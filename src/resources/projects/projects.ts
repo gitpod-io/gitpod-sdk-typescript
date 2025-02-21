@@ -249,7 +249,7 @@ export namespace EnvironmentInitializer {
       remoteUri?: string;
 
       /**
-       * CloneTargetMode is the target state in which we want to leave a GitEnvironment
+       * the target mode determines what gets checked out
        */
       targetMode?:
         | 'CLONE_TARGET_MODE_UNSPECIFIED'
@@ -287,7 +287,7 @@ export interface Project {
   devcontainerFilePath?: string;
 
   /**
-   * EnvironmentInitializer specifies how an environment is to be initialized
+   * initializer is the content initializer
    */
   initializer?: EnvironmentInitializer;
 
@@ -547,7 +547,7 @@ export interface ProjectCreateParams {
   environmentClass: ProjectEnvironmentClass;
 
   /**
-   * EnvironmentInitializer specifies how an environment is to be initialized
+   * initializer is the content initializer
    */
   initializer: EnvironmentInitializer;
 
@@ -605,7 +605,7 @@ export interface ProjectUpdateParams {
   environmentClass?: ProjectEnvironmentClass | null;
 
   /**
-   * EnvironmentInitializer specifies how an environment is to be initialized
+   * initializer is the content initializer
    */
   initializer?: EnvironmentInitializer | null;
 
