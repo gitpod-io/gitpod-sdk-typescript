@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0 (2025-02-21)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** manual updates ([#38](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/38)) ([56c63d2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/56c63d2b9185af120ba39e37a9a5bb2516cf33d6))
+* **client:** improve logging ([#40](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/40)) ([65d2c1f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/65d2c1f8660acb73bcf781ced4729f969cd31296))
+
 ## 0.4.0 (2025-02-21)
 
 Full Changelog: [v0.3.1...v0.4.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.3.1...v0.4.0)
