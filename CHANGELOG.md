@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.0 (2025-02-21)
+
+Full Changelog: [v0.3.1...v0.4.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.3.1...v0.4.0)
+
+### Features
+
+* add lib and examples ([#36](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/36)) ([1b0851c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1b0851cdf0944a6a784dd4cf370fa967aaf56a5f))
+* **api:** manual updates ([#33](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/33)) ([6c0b9a6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/6c0b9a6c1140068f2838f8451e375813f8181eb7))
+
+
+### Bug Fixes
+
+* optimize sse chunk reading off-by-one error ([#31](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/31)) ([ff08afe](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ff08afe756856c253787602bc15f85557425ba01))
+
 ## 0.3.1 (2025-02-18)
 
 Full Changelog: [v0.3.0...v0.3.1](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.3.0...v0.3.1)
