@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.5.1 (2025-03-04)
+
+Full Changelog: [v0.5.0...v0.5.1](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.5.0...v0.5.1)
+
+### Bug Fixes
+
+* **client:** fix TypeError with undefined File ([#50](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/50)) ([1262a7b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1262a7bcd5e0619e1eaef399ee967b629c79ce09))
+* **internal:** clean up undefined File test ([#51](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/51)) ([e1e0fb5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e1e0fb509bfd526c9a8183480ad88330f0c7b240))
+* **internal:** return in castToError instead of throwing ([#43](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/43)) ([2f70ad9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2f70ad9e95854605f9f38c401d49f8422d62af75))
+* **tests:** manually reset node:buffer File ([#52](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/52)) ([2eded46](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2eded46344af89fbaef371ab685056b8952aa946))
+
+
+### Chores
+
+* **client:** only accept standard types for file uploads ([#47](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/47)) ([cd888bc](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/cd888bc3c16d0d2cbf3b3c96ab23dc7d46360598))
+* **internal:** constrain synckit dev dependency ([#49](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/49)) ([41da630](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/41da630123709c225f8c173bbd2aace382d0e865))
+* **internal:** fix tests failing on node v18 ([#48](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/48)) ([c1031bd](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c1031bd67090cc27d55472a5a32ee70df9ee781e))
+* **internal:** remove unnecessary todo ([#45](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/45)) ([bd9e536](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/bd9e5361115c7f9adc8c8d9798f38a04b55ab03c))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#46](https://github.com/gitpod-io/gitpod-sdk-typescript/issues/46)) ([6450e47](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/6450e47a5f12103274528a67028b91a01b9c55b8))
+
 ## 0.5.0 (2025-02-21)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.4.0...v0.5.0)
