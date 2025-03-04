@@ -50,6 +50,9 @@
     "typescript": "^4.8.2",
     "typescript-eslint": "^8.24.0"
   },
+  "resolutions": {
+    "synckit": "0.8.8"
+  },
   "imports": {
     "@gitpod/sdk": ".",
     "@gitpod/sdk/*": "./src/*"
