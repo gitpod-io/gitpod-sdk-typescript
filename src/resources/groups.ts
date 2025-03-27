@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { GroupsPage, type GroupsPageParams, PagePromise } from '../pagination';
+import { APIResource } from '../core/resource';
+import { GroupsPage, type GroupsPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Groups extends APIResource {

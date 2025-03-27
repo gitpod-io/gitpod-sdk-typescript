@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as RunnersAPI from './runners';
 import * as Shared from '../shared';
 import * as PoliciesAPI from './policies';
@@ -26,8 +26,8 @@ import {
   FieldValidationError,
   ScmIntegrationValidationResult,
 } from './configurations/configurations';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, RunnersPage, type RunnersPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, RunnersPage, type RunnersPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Runners extends APIResource {

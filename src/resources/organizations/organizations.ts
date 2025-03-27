@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as DomainVerificationsAPI from './domain-verifications';
 import {
@@ -46,14 +46,14 @@ import {
   SSOConfigurations,
   SSOConfigurationsSSOConfigurationsPage,
 } from './sso-configurations';
-import { APIPromise } from '../../api-promise';
+import { APIPromise } from '../../core/api-promise';
 import {
   MembersPage,
   type MembersPageParams,
   OrganizationsPage,
   type OrganizationsPageParams,
   PagePromise,
-} from '../../pagination';
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Organizations extends APIResource {

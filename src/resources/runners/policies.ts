@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, PoliciesPage, type PoliciesPageParams } from '../../pagination';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, PoliciesPage, type PoliciesPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Policies extends APIResource {

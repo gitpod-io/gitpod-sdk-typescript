@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from '@gitpod/sdk/api-promise';
+import { APIPromise } from '@gitpod/sdk/core/api-promise';
 
 import util from 'node:util';
 import Gitpod from '@gitpod/sdk';

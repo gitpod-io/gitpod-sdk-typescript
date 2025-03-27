@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as EnvironmentsAPI from './environments';
 import * as Shared from '../shared';
 import * as ClassesAPI from './classes';
@@ -14,8 +14,8 @@ import {
   Automations,
   AutomationsFile as AutomationsAPIAutomationsFile,
 } from './automations/automations';
-import { APIPromise } from '../../api-promise';
-import { EnvironmentsPage, type EnvironmentsPageParams, PagePromise } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { EnvironmentsPage, type EnvironmentsPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Environments extends APIResource {
