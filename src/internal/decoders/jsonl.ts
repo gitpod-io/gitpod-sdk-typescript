@@ -1,4 +1,4 @@
-import { GitpodError } from '../../error';
+import { GitpodError } from '../../core/error';
 import { ReadableStreamToAsyncIterable } from '../shims';
 import { LineDecoder, type Bytes } from './line';
 

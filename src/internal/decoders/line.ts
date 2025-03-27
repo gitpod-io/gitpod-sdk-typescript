@@ -1,4 +1,4 @@
-import { GitpodError } from '../../error';
+import { GitpodError } from '../../core/error';
 
 export type Bytes = string | ArrayBuffer | Uint8Array | null | undefined;
 

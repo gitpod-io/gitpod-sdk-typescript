@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import { EnvironmentClassesPage, TaskExecutionsPage, TasksPage } from '../pagination';
+import { EnvironmentClassesPage, TaskExecutionsPage, TasksPage } from '../core/pagination';
 
 /**
  * An AutomationTrigger represents a trigger for an automation action. The
