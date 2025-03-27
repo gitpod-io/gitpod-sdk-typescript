@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../../resource';
+import { APIResource } from '../../../../core/resource';
 import * as Shared from '../../../shared';
 import { TasksTasksPage } from '../../../shared';
 import * as ExecutionsAPI from './executions';
@@ -12,8 +12,8 @@ import {
   ExecutionStopResponse,
   Executions,
 } from './executions';
-import { APIPromise } from '../../../../api-promise';
-import { PagePromise, TasksPage, type TasksPageParams } from '../../../../pagination';
+import { APIPromise } from '../../../../core/api-promise';
+import { PagePromise, TasksPage, type TasksPageParams } from '../../../../core/pagination';
 import { RequestOptions } from '../../../../internal/request-options';
 
 export class Tasks extends APIResource {
