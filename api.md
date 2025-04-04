@@ -174,7 +174,7 @@ Types:
 Methods:
 
 - <code title="post /gitpod.v1.EventService/ListAuditLogs">client.events.<a href="./src/resources/events.ts">list</a>({ ...params }) -> EventListResponsesEntriesPage</code>
-- <code title="post /gitpod.v1.EventService/WatchEvents">client.events.<a href="./src/resources/events.ts">watch</a>({ ...params }) -> JSONLDecoder&lt;EventWatchResponse&gt;</code>
+- <code title="post /gitpod.v1.EventService/WatchEvents">client.events.<a href="./src/resources/events.ts">watch</a>({ ...params }) -> EventWatchResponse</code>
 
 # Groups
 
