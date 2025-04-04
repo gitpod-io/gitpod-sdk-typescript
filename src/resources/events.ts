@@ -79,9 +79,12 @@ export class Events extends APIResource {
           { 'Content-Type': 'application/jsonl', Accept: 'application/jsonl' },
           options?.headers,
         ]),
+        stream: true,
         __binaryResponse: true,
       })
-      ._thenUnwrap((_, props) => JSONLDecoder.fromResponse(props.response, props.controller));
+      ._thenUnwrap((_, props) => JSONLDecoder.fromResponse(props.response, props.controller)) as APIPromise<
+      JSONLDecoder<EventWatchResponse>
+    >;
   }
 }
 
