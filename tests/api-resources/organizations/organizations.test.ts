@@ -179,7 +179,7 @@ describe('resource organizations', () => {
     const response = await client.organizations.setRole({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
-      role: 'ORGANIZATION_ROLE_UNSPECIFIED',
+      role: 'ORGANIZATION_ROLE_MEMBER',
     });
   });
 });
