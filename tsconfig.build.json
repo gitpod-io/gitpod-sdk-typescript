@@ -6,7 +6,7 @@
     "rootDir": "./dist/src",
     "paths": {
       "@gitpod/sdk/*": ["dist/src/*"],
-      "@gitpod/sdk": ["dist/src/index.ts"],
+      "@gitpod/sdk": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
