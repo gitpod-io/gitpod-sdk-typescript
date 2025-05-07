@@ -288,6 +288,35 @@ export class Runners extends APIResource {
 
 export type RunnersRunnersPage = RunnersPage<Runner>;
 
+export type LogLevel =
+  | 'LOG_LEVEL_UNSPECIFIED'
+  | 'LOG_LEVEL_DEBUG'
+  | 'LOG_LEVEL_INFO'
+  | 'LOG_LEVEL_WARN'
+  | 'LOG_LEVEL_ERROR';
+
+export interface MetricsConfiguration {
+  /**
+   * enabled indicates whether the runner should collect metrics
+   */
+  enabled?: boolean;
+
+  /**
+   * password is the password to use for the metrics collector
+   */
+  password?: string;
+
+  /**
+   * url is the URL of the metrics collector
+   */
+  url?: string;
+
+  /**
+   * username is the username to use for the metrics collector
+   */
+  username?: string;
+}
+
 export interface Runner {
   /**
    * Time when the Runner was created.
@@ -335,13 +364,26 @@ export interface Runner {
 export type RunnerCapability =
   | 'RUNNER_CAPABILITY_UNSPECIFIED'
   | 'RUNNER_CAPABILITY_FETCH_LOCAL_SCM_INTEGRATIONS'
-  | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY';
+  | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY'
+  | 'RUNNER_CAPABILITY_AGENT_EXECUTION'
+  | 'RUNNER_CAPABILITY_ALLOW_ENV_TOKEN_POPULATION'
+  | 'RUNNER_CAPABILITY_DEFAULT_DEV_CONTAINER_IMAGE';
 
 export interface RunnerConfiguration {
   /**
    * auto_update indicates whether the runner should automatically update itself.
    */
   autoUpdate?: boolean;
+
+  /**
+   * log_level is the log level for the runner
+   */
+  logLevel?: LogLevel;
+
+  /**
+   * metrics contains configuration for the runner's metrics collection
+   */
+  metrics?: MetricsConfiguration;
 
   /**
    * Region to deploy the runner in, if applicable. This is mainly used for remote
@@ -570,6 +612,11 @@ export interface RunnerParseContextURLResponse {
   git?: RunnerParseContextURLResponse.Git;
 
   originalContextUrl?: string;
+
+  /**
+   * project_ids is a list of projects to which the context URL belongs to.
+   */
+  projectIds?: Array<string>;
 }
 
 export namespace RunnerParseContextURLResponse {
@@ -659,9 +706,46 @@ export namespace RunnerUpdateParams {
       autoUpdate?: boolean | null;
 
       /**
+       * log_level is the log level for the runner
+       */
+      logLevel?: RunnersAPI.LogLevel | null;
+
+      /**
+       * metrics contains configuration for the runner's metrics collection
+       */
+      metrics?: Configuration.Metrics | null;
+
+      /**
        * The release channel the runner is on
        */
       releaseChannel?: RunnersAPI.RunnerReleaseChannel | null;
+    }
+
+    export namespace Configuration {
+      /**
+       * metrics contains configuration for the runner's metrics collection
+       */
+      export interface Metrics {
+        /**
+         * enabled indicates whether the runner should collect metrics
+         */
+        enabled?: boolean | null;
+
+        /**
+         * password is the password to use for the metrics collector
+         */
+        password?: string | null;
+
+        /**
+         * url is the URL of the metrics collector
+         */
+        url?: string | null;
+
+        /**
+         * username is the username to use for the metrics collector
+         */
+        username?: string | null;
+      }
     }
   }
 }
@@ -747,6 +831,8 @@ Runners.Policies = Policies;
 
 export declare namespace Runners {
   export {
+    type LogLevel as LogLevel,
+    type MetricsConfiguration as MetricsConfiguration,
     type Runner as Runner,
     type RunnerCapability as RunnerCapability,
     type RunnerConfiguration as RunnerConfiguration,

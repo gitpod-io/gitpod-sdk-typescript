@@ -78,6 +78,27 @@ describe('resource environments', () => {
   });
 
   // skipped: tests are disabled for the time being
+  test.skip('createEnvironmentToken: only required params', async () => {
+    const responsePromise = client.environments.createEnvironmentToken({
+      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('createEnvironmentToken: required and optional params', async () => {
+    const response = await client.environments.createEnvironmentToken({
+      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+    });
+  });
+
+  // skipped: tests are disabled for the time being
   test.skip('createFromProject', async () => {
     const responsePromise = client.environments.createFromProject({});
     const rawResponse = await responsePromise.asResponse();

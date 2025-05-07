@@ -35,8 +35,6 @@ import {
   LoginProvidersPageResponse,
   type MembersPageParams,
   MembersPageResponse,
-  type OrganizationsPageParams,
-  OrganizationsPageResponse,
   type PersonalAccessTokensPageParams,
   PersonalAccessTokensPageResponse,
   type PoliciesPageParams,
@@ -101,6 +99,7 @@ import {
 } from './resources/events';
 import { Group, GroupListParams, Groups, GroupsGroupsPage } from './resources/groups';
 import {
+  IDTokenVersion,
   Identity,
   IdentityExchangeTokenParams,
   IdentityExchangeTokenResponse,
@@ -118,6 +117,7 @@ import {
   SecretGetValueParams,
   SecretGetValueResponse,
   SecretListParams,
+  SecretScope,
   SecretUpdateValueParams,
   SecretUpdateValueResponse,
   Secrets,
@@ -130,6 +130,8 @@ import {
   AdmissionLevel,
   Environment,
   EnvironmentActivitySignal,
+  EnvironmentCreateEnvironmentTokenParams,
+  EnvironmentCreateEnvironmentTokenResponse,
   EnvironmentCreateFromProjectParams,
   EnvironmentCreateFromProjectResponse,
   EnvironmentCreateLogsTokenParams,
@@ -168,18 +170,16 @@ import {
   OrganizationLeaveParams,
   OrganizationLeaveResponse,
   OrganizationListMembersParams,
-  OrganizationListParams,
   OrganizationMember,
   OrganizationMembersMembersPage,
   OrganizationRetrieveParams,
   OrganizationRetrieveResponse,
   OrganizationSetRoleParams,
   OrganizationSetRoleResponse,
+  OrganizationTier,
   OrganizationUpdateParams,
   OrganizationUpdateResponse,
   Organizations,
-  OrganizationsOrganizationsPage,
-  Scope,
 } from './resources/organizations/organizations';
 import {
   EnvironmentInitializer,
@@ -201,6 +201,8 @@ import {
   ProjectsProjectsPage,
 } from './resources/projects/projects';
 import {
+  LogLevel,
+  MetricsConfiguration,
   Runner,
   RunnerCapability,
   RunnerCheckAuthenticationForHostParams,
@@ -973,12 +975,6 @@ export declare namespace Gitpod {
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
 
-  export import OrganizationsPage = Pagination.OrganizationsPage;
-  export {
-    type OrganizationsPageParams as OrganizationsPageParams,
-    type OrganizationsPageResponse as OrganizationsPageResponse,
-  };
-
   export import PersonalAccessTokensPage = Pagination.PersonalAccessTokensPage;
   export {
     type PersonalAccessTokensPageParams as PersonalAccessTokensPageParams,
@@ -1058,6 +1054,7 @@ export declare namespace Gitpod {
     type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
     type EnvironmentUpdateResponse as EnvironmentUpdateResponse,
     type EnvironmentDeleteResponse as EnvironmentDeleteResponse,
+    type EnvironmentCreateEnvironmentTokenResponse as EnvironmentCreateEnvironmentTokenResponse,
     type EnvironmentCreateFromProjectResponse as EnvironmentCreateFromProjectResponse,
     type EnvironmentCreateLogsTokenResponse as EnvironmentCreateLogsTokenResponse,
     type EnvironmentMarkActiveResponse as EnvironmentMarkActiveResponse,
@@ -1069,6 +1066,7 @@ export declare namespace Gitpod {
     type EnvironmentUpdateParams as EnvironmentUpdateParams,
     type EnvironmentListParams as EnvironmentListParams,
     type EnvironmentDeleteParams as EnvironmentDeleteParams,
+    type EnvironmentCreateEnvironmentTokenParams as EnvironmentCreateEnvironmentTokenParams,
     type EnvironmentCreateFromProjectParams as EnvironmentCreateFromProjectParams,
     type EnvironmentCreateLogsTokenParams as EnvironmentCreateLogsTokenParams,
     type EnvironmentMarkActiveParams as EnvironmentMarkActiveParams,
@@ -1096,6 +1094,7 @@ export declare namespace Gitpod {
 
   export {
     Identity as Identity,
+    type IDTokenVersion as IDTokenVersion,
     type IdentityExchangeTokenResponse as IdentityExchangeTokenResponse,
     type IdentityGetAuthenticatedIdentityResponse as IdentityGetAuthenticatedIdentityResponse,
     type IdentityGetIDTokenResponse as IdentityGetIDTokenResponse,
@@ -1109,7 +1108,7 @@ export declare namespace Gitpod {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type Scope as Scope,
+    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -1117,12 +1116,10 @@ export declare namespace Gitpod {
     type OrganizationJoinResponse as OrganizationJoinResponse,
     type OrganizationLeaveResponse as OrganizationLeaveResponse,
     type OrganizationSetRoleResponse as OrganizationSetRoleResponse,
-    type OrganizationsOrganizationsPage as OrganizationsOrganizationsPage,
     type OrganizationMembersMembersPage as OrganizationMembersMembersPage,
     type OrganizationCreateParams as OrganizationCreateParams,
     type OrganizationRetrieveParams as OrganizationRetrieveParams,
     type OrganizationUpdateParams as OrganizationUpdateParams,
-    type OrganizationListParams as OrganizationListParams,
     type OrganizationDeleteParams as OrganizationDeleteParams,
     type OrganizationJoinParams as OrganizationJoinParams,
     type OrganizationLeaveParams as OrganizationLeaveParams,
@@ -1152,6 +1149,8 @@ export declare namespace Gitpod {
 
   export {
     Runners as Runners,
+    type LogLevel as LogLevel,
+    type MetricsConfiguration as MetricsConfiguration,
     type Runner as Runner,
     type RunnerCapability as RunnerCapability,
     type RunnerConfiguration as RunnerConfiguration,
@@ -1182,6 +1181,7 @@ export declare namespace Gitpod {
   export {
     Secrets as Secrets,
     type Secret as Secret,
+    type SecretScope as SecretScope,
     type SecretCreateResponse as SecretCreateResponse,
     type SecretDeleteResponse as SecretDeleteResponse,
     type SecretGetValueResponse as SecretGetValueResponse,

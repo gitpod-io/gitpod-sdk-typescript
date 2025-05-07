@@ -281,6 +281,12 @@ export namespace TaskExecutionStatus {
     failureMessage?: string;
 
     /**
+     * output contains the output of the task execution. setting an output field to
+     * empty string will unset it.
+     */
+    output?: Record<string, string>;
+
+    /**
      * phase is the current phase of the execution step
      */
     phase?: Shared.TaskExecutionPhase;

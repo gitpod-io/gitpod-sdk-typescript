@@ -78,9 +78,37 @@ export namespace RunnerConfigurationSchema {
     }
 
     export interface Enum {
+      /**
+       * @deprecated deprecated, will be removed, use default_value instead
+       */
       default?: string;
 
+      defaultValue?: Enum.DefaultValue;
+
+      possibleValues?: Array<Enum.PossibleValue>;
+
+      /**
+       * @deprecated deprecated, will be removed, use possible_values instead
+       */
       values?: Array<string>;
+    }
+
+    export namespace Enum {
+      export interface DefaultValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
+
+      export interface PossibleValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
     }
 
     export interface Int {
@@ -130,9 +158,37 @@ export namespace RunnerConfigurationSchema {
     }
 
     export interface Enum {
+      /**
+       * @deprecated deprecated, will be removed, use default_value instead
+       */
       default?: string;
 
+      defaultValue?: Enum.DefaultValue;
+
+      possibleValues?: Array<Enum.PossibleValue>;
+
+      /**
+       * @deprecated deprecated, will be removed, use possible_values instead
+       */
       values?: Array<string>;
+    }
+
+    export namespace Enum {
+      export interface DefaultValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
+
+      export interface PossibleValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
     }
 
     export interface Int {

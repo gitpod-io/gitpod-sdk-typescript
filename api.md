@@ -68,6 +68,7 @@ Types:
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentRetrieveResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentUpdateResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentDeleteResponse</a></code>
+- <code><a href="./src/resources/environments/environments.ts">EnvironmentCreateEnvironmentTokenResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentCreateFromProjectResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentCreateLogsTokenResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentMarkActiveResponse</a></code>
@@ -81,6 +82,7 @@ Methods:
 - <code title="post /gitpod.v1.EnvironmentService/UpdateEnvironment">client.environments.<a href="./src/resources/environments/environments.ts">update</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.EnvironmentService/ListEnvironments">client.environments.<a href="./src/resources/environments/environments.ts">list</a>({ ...params }) -> EnvironmentsEnvironmentsPage</code>
 - <code title="post /gitpod.v1.EnvironmentService/DeleteEnvironment">client.environments.<a href="./src/resources/environments/environments.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.EnvironmentService/CreateEnvironmentAccessToken">client.environments.<a href="./src/resources/environments/environments.ts">createEnvironmentToken</a>({ ...params }) -> EnvironmentCreateEnvironmentTokenResponse</code>
 - <code title="post /gitpod.v1.EnvironmentService/CreateEnvironmentFromProject">client.environments.<a href="./src/resources/environments/environments.ts">createFromProject</a>({ ...params }) -> EnvironmentCreateFromProjectResponse</code>
 - <code title="post /gitpod.v1.EnvironmentService/CreateEnvironmentLogsToken">client.environments.<a href="./src/resources/environments/environments.ts">createLogsToken</a>({ ...params }) -> EnvironmentCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.EnvironmentService/MarkEnvironmentActive">client.environments.<a href="./src/resources/environments/environments.ts">markActive</a>({ ...params }) -> unknown</code>
@@ -190,6 +192,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/identity.ts">IDTokenVersion</a></code>
 - <code><a href="./src/resources/identity.ts">IdentityExchangeTokenResponse</a></code>
 - <code><a href="./src/resources/identity.ts">IdentityGetAuthenticatedIdentityResponse</a></code>
 - <code><a href="./src/resources/identity.ts">IdentityGetIDTokenResponse</a></code>
@@ -207,7 +210,7 @@ Types:
 - <code><a href="./src/resources/organizations/organizations.ts">InviteDomains</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationMember</a></code>
-- <code><a href="./src/resources/organizations/organizations.ts">Scope</a></code>
+- <code><a href="./src/resources/organizations/organizations.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationCreateResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationUpdateResponse</a></code>
@@ -221,7 +224,6 @@ Methods:
 - <code title="post /gitpod.v1.OrganizationService/CreateOrganization">client.organizations.<a href="./src/resources/organizations/organizations.ts">create</a>({ ...params }) -> OrganizationCreateResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/GetOrganization">client.organizations.<a href="./src/resources/organizations/organizations.ts">retrieve</a>({ ...params }) -> OrganizationRetrieveResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/UpdateOrganization">client.organizations.<a href="./src/resources/organizations/organizations.ts">update</a>({ ...params }) -> OrganizationUpdateResponse</code>
-- <code title="post /gitpod.v1.OrganizationService/ListOrganizations">client.organizations.<a href="./src/resources/organizations/organizations.ts">list</a>({ ...params }) -> OrganizationsOrganizationsPage</code>
 - <code title="post /gitpod.v1.OrganizationService/DeleteOrganization">client.organizations.<a href="./src/resources/organizations/organizations.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.OrganizationService/JoinOrganization">client.organizations.<a href="./src/resources/organizations/organizations.ts">join</a>({ ...params }) -> OrganizationJoinResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/LeaveOrganization">client.organizations.<a href="./src/resources/organizations/organizations.ts">leave</a>({ ...params }) -> unknown</code>
@@ -261,6 +263,19 @@ Methods:
 - <code title="post /gitpod.v1.OrganizationService/CreateOrganizationInvite">client.organizations.invites.<a href="./src/resources/organizations/invites.ts">create</a>({ ...params }) -> InviteCreateResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/GetOrganizationInvite">client.organizations.invites.<a href="./src/resources/organizations/invites.ts">retrieve</a>({ ...params }) -> InviteRetrieveResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/GetOrganizationInviteSummary">client.organizations.invites.<a href="./src/resources/organizations/invites.ts">getSummary</a>({ ...params }) -> InviteGetSummaryResponse</code>
+
+## Policies
+
+Types:
+
+- <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">PolicyRetrieveResponse</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">PolicyUpdateResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.OrganizationService/GetOrganizationPolicies">client.organizations.policies.<a href="./src/resources/organizations/policies.ts">retrieve</a>({ ...params }) -> PolicyRetrieveResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/UpdateOrganizationPolicies">client.organizations.policies.<a href="./src/resources/organizations/policies.ts">update</a>({ ...params }) -> unknown</code>
 
 ## SSOConfigurations
 
@@ -326,6 +341,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/runners/runners.ts">LogLevel</a></code>
+- <code><a href="./src/resources/runners/runners.ts">MetricsConfiguration</a></code>
 - <code><a href="./src/resources/runners/runners.ts">Runner</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCapability</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerConfiguration</a></code>
@@ -453,6 +470,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/secrets.ts">Secret</a></code>
+- <code><a href="./src/resources/secrets.ts">SecretScope</a></code>
 - <code><a href="./src/resources/secrets.ts">SecretCreateResponse</a></code>
 - <code><a href="./src/resources/secrets.ts">SecretDeleteResponse</a></code>
 - <code><a href="./src/resources/secrets.ts">SecretGetValueResponse</a></code>
@@ -478,6 +496,19 @@ Methods:
 
 - <code title="post /gitpod.v1.UserService/GetAuthenticatedUser">client.users.<a href="./src/resources/users/users.ts">getAuthenticatedUser</a>({ ...params }) -> UserGetAuthenticatedUserResponse</code>
 - <code title="post /gitpod.v1.UserService/SetSuspended">client.users.<a href="./src/resources/users/users.ts">setSuspended</a>({ ...params }) -> unknown</code>
+
+## Dotfiles
+
+Types:
+
+- <code><a href="./src/resources/users/dotfiles.ts">DotfilesConfiguration</a></code>
+- <code><a href="./src/resources/users/dotfiles.ts">DotfileGetResponse</a></code>
+- <code><a href="./src/resources/users/dotfiles.ts">DotfileSetResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.UserService/GetDotfilesConfiguration">client.users.dotfiles.<a href="./src/resources/users/dotfiles.ts">get</a>({ ...params }) -> DotfileGetResponse</code>
+- <code title="post /gitpod.v1.UserService/SetDotfilesConfiguration">client.users.dotfiles.<a href="./src/resources/users/dotfiles.ts">set</a>({ ...params }) -> unknown</code>
 
 ## Pats
 

@@ -394,6 +394,12 @@ export interface ServiceStatus {
   logUrl?: string;
 
   /**
+   * output contains the output of the service. setting an output field to empty
+   * string will unset it.
+   */
+  output?: Record<string, string>;
+
+  /**
    * phase is the current phase of the service.
    */
   phase?: ServicePhase;
@@ -506,6 +512,11 @@ export namespace ServiceUpdateParams {
     failureMessage?: string | null;
 
     logUrl?: string | null;
+
+    /**
+     * setting an output field to empty string will unset it.
+     */
+    output?: Record<string, string>;
 
     phase?: ServicesAPI.ServicePhase | null;
 

@@ -293,6 +293,12 @@ export interface Project {
 
   metadata?: ProjectMetadata;
 
+  /**
+   * technical_description is a detailed technical description of the project This
+   * field is not returned by default in GetProject or ListProjects responses
+   */
+  technicalDescription?: string;
+
   usedBy?: Project.UsedBy;
 }
 
@@ -572,6 +578,12 @@ export interface ProjectCreateParams {
   devcontainerFilePath?: string;
 
   name?: string;
+
+  /**
+   * technical_description is a detailed technical description of the project This
+   * field is not returned by default in GetProject or ListProjects responses 8KB max
+   */
+  technicalDescription?: string;
 }
 
 export interface ProjectRetrieveParams {
@@ -615,9 +627,20 @@ export interface ProjectUpdateParams {
    * project_id specifies the project identifier
    */
   projectId?: string;
+
+  /**
+   * technical_description is a detailed technical description of the project This
+   * field is not returned by default in GetProject or ListProjects responses 8KB max
+   */
+  technicalDescription?: string | null;
 }
 
 export interface ProjectListParams extends ProjectsPageParams {
+  /**
+   * Body param:
+   */
+  filter?: ProjectListParams.Filter;
+
   /**
    * Body param: pagination contains the pagination options for listing organizations
    */
@@ -625,6 +648,13 @@ export interface ProjectListParams extends ProjectsPageParams {
 }
 
 export namespace ProjectListParams {
+  export interface Filter {
+    /**
+     * project_ids filters the response to only projects with these IDs
+     */
+    projectIds?: Array<string>;
+  }
+
   /**
    * pagination contains the pagination options for listing organizations
    */

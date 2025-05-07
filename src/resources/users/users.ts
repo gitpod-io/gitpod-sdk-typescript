@@ -2,6 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as DotfilesAPI from './dotfiles';
+import {
+  DotfileGetParams,
+  DotfileGetResponse,
+  DotfileSetParams,
+  DotfileSetResponse,
+  Dotfiles,
+  DotfilesConfiguration,
+} from './dotfiles';
 import * as PatsAPI from './pats';
 import {
   PatDeleteParams,
@@ -17,6 +26,7 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Users extends APIResource {
+  dotfiles: DotfilesAPI.Dotfiles = new DotfilesAPI.Dotfiles(this._client);
   pats: PatsAPI.Pats = new PatsAPI.Pats(this._client);
 
   /**
@@ -130,6 +140,7 @@ export interface UserSetSuspendedParams {
   userId?: string;
 }
 
+Users.Dotfiles = Dotfiles;
 Users.Pats = Pats;
 
 export declare namespace Users {
@@ -139,6 +150,15 @@ export declare namespace Users {
     type UserSetSuspendedResponse as UserSetSuspendedResponse,
     type UserGetAuthenticatedUserParams as UserGetAuthenticatedUserParams,
     type UserSetSuspendedParams as UserSetSuspendedParams,
+  };
+
+  export {
+    Dotfiles as Dotfiles,
+    type DotfilesConfiguration as DotfilesConfiguration,
+    type DotfileGetResponse as DotfileGetResponse,
+    type DotfileSetResponse as DotfileSetResponse,
+    type DotfileGetParams as DotfileGetParams,
+    type DotfileSetParams as DotfileSetParams,
   };
 
   export {

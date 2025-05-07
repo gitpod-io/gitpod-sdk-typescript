@@ -30,7 +30,7 @@ export {
   type InviteDomains,
   type Organization,
   type OrganizationMember,
-  type Scope,
+  type OrganizationTier,
   type OrganizationCreateResponse,
   type OrganizationRetrieveResponse,
   type OrganizationUpdateResponse,
@@ -41,15 +41,21 @@ export {
   type OrganizationCreateParams,
   type OrganizationRetrieveParams,
   type OrganizationUpdateParams,
-  type OrganizationListParams,
   type OrganizationDeleteParams,
   type OrganizationJoinParams,
   type OrganizationLeaveParams,
   type OrganizationListMembersParams,
   type OrganizationSetRoleParams,
-  type OrganizationsOrganizationsPage,
   type OrganizationMembersMembersPage,
 } from './organizations';
+export {
+  Policies,
+  type OrganizationPolicies,
+  type PolicyRetrieveResponse,
+  type PolicyUpdateResponse,
+  type PolicyRetrieveParams,
+  type PolicyUpdateParams,
+} from './policies';
 export {
   SSOConfigurations,
   type ProviderType,
