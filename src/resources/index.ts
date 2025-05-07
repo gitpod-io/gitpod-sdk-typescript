@@ -39,6 +39,7 @@ export {
   type EnvironmentRetrieveResponse,
   type EnvironmentUpdateResponse,
   type EnvironmentDeleteResponse,
+  type EnvironmentCreateEnvironmentTokenResponse,
   type EnvironmentCreateFromProjectResponse,
   type EnvironmentCreateLogsTokenResponse,
   type EnvironmentMarkActiveResponse,
@@ -49,6 +50,7 @@ export {
   type EnvironmentUpdateParams,
   type EnvironmentListParams,
   type EnvironmentDeleteParams,
+  type EnvironmentCreateEnvironmentTokenParams,
   type EnvironmentCreateFromProjectParams,
   type EnvironmentCreateLogsTokenParams,
   type EnvironmentMarkActiveParams,
@@ -69,6 +71,7 @@ export {
 export { Groups, type Group, type GroupListParams, type GroupsGroupsPage } from './groups';
 export {
   Identity,
+  type IDTokenVersion,
   type IdentityExchangeTokenResponse,
   type IdentityGetAuthenticatedIdentityResponse,
   type IdentityGetIDTokenResponse,
@@ -81,7 +84,7 @@ export {
   type InviteDomains,
   type Organization,
   type OrganizationMember,
-  type Scope,
+  type OrganizationTier,
   type OrganizationCreateResponse,
   type OrganizationRetrieveResponse,
   type OrganizationUpdateResponse,
@@ -92,13 +95,11 @@ export {
   type OrganizationCreateParams,
   type OrganizationRetrieveParams,
   type OrganizationUpdateParams,
-  type OrganizationListParams,
   type OrganizationDeleteParams,
   type OrganizationJoinParams,
   type OrganizationLeaveParams,
   type OrganizationListMembersParams,
   type OrganizationSetRoleParams,
-  type OrganizationsOrganizationsPage,
   type OrganizationMembersMembersPage,
 } from './organizations/organizations';
 export {
@@ -122,6 +123,8 @@ export {
 } from './projects/projects';
 export {
   Runners,
+  type LogLevel,
+  type MetricsConfiguration,
   type Runner,
   type RunnerCapability,
   type RunnerConfiguration,
@@ -151,6 +154,7 @@ export {
 export {
   Secrets,
   type Secret,
+  type SecretScope,
   type SecretCreateResponse,
   type SecretDeleteResponse,
   type SecretGetValueResponse,

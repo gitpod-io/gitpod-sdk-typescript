@@ -256,6 +256,32 @@ export class Environments extends APIResource {
   }
 
   /**
+   * Creates an access token for the environment.
+   *
+   * Generated tokens are valid for one hour and provide environment-specific access
+   * permissions. The token is scoped to a specific environment.
+   *
+   * ### Examples
+   *
+   * - Generate environment token:
+   *
+   *   Creates a temporary access token for accessing an environment.
+   *
+   *   ```yaml
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   ```
+   */
+  createEnvironmentToken(
+    body: EnvironmentCreateEnvironmentTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentCreateEnvironmentTokenResponse> {
+    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentAccessToken', {
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Creates an environment from an existing project configuration and starts it.
    *
    * This method uses project settings as defaults but allows overriding specific
@@ -619,6 +645,12 @@ export namespace EnvironmentSpec {
    */
   export interface Devcontainer {
     /**
+     * default_devcontainer_image is the default image that is used to start the
+     * devcontainer if no devcontainer config file is found
+     */
+    defaultDevcontainerImage?: string;
+
+    /**
      * devcontainer_file_path is the path to the devcontainer file relative to the repo
      * root path must not be absolute (start with a /):
      *
@@ -678,6 +710,11 @@ export namespace EnvironmentSpec {
   }
 
   export interface Secret {
+    /**
+     * id is the unique identifier of the secret.
+     */
+    id?: string;
+
     /**
      * container_registry_basic_auth_host is the hostname of the container registry
      * that supports basic auth
@@ -862,6 +899,12 @@ export namespace EnvironmentStatus {
      * environment.
      */
     session?: string;
+
+    /**
+     * warning_message contains warnings, e.g. when no triggers are defined in the
+     * automations file.
+     */
+    warningMessage?: string;
   }
 
   /**
@@ -1163,6 +1206,11 @@ export namespace EnvironmentStatus {
 
   export interface Secret {
     /**
+     * id is the unique identifier of the secret.
+     */
+    id?: string;
+
+    /**
      * failure_message contains the reason the secret failed to be materialize.
      */
     failureMessage?: string;
@@ -1225,6 +1273,13 @@ export interface EnvironmentRetrieveResponse {
 export type EnvironmentUpdateResponse = unknown;
 
 export type EnvironmentDeleteResponse = unknown;
+
+export interface EnvironmentCreateEnvironmentTokenResponse {
+  /**
+   * access_token is the token that can be used for environment authentication
+   */
+  accessToken: string;
+}
 
 export interface EnvironmentCreateFromProjectResponse {
   /**
@@ -1482,6 +1537,14 @@ export interface EnvironmentDeleteParams {
   force?: boolean;
 }
 
+export interface EnvironmentCreateEnvironmentTokenParams {
+  /**
+   * environment_id specifies the environment for which the access token should be
+   * created.
+   */
+  environmentId: string;
+}
+
 export interface EnvironmentCreateFromProjectParams {
   projectId?: string;
 
@@ -1547,6 +1610,7 @@ export declare namespace Environments {
     type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
     type EnvironmentUpdateResponse as EnvironmentUpdateResponse,
     type EnvironmentDeleteResponse as EnvironmentDeleteResponse,
+    type EnvironmentCreateEnvironmentTokenResponse as EnvironmentCreateEnvironmentTokenResponse,
     type EnvironmentCreateFromProjectResponse as EnvironmentCreateFromProjectResponse,
     type EnvironmentCreateLogsTokenResponse as EnvironmentCreateLogsTokenResponse,
     type EnvironmentMarkActiveResponse as EnvironmentMarkActiveResponse,
@@ -1558,6 +1622,7 @@ export declare namespace Environments {
     type EnvironmentUpdateParams as EnvironmentUpdateParams,
     type EnvironmentListParams as EnvironmentListParams,
     type EnvironmentDeleteParams as EnvironmentDeleteParams,
+    type EnvironmentCreateEnvironmentTokenParams as EnvironmentCreateEnvironmentTokenParams,
     type EnvironmentCreateFromProjectParams as EnvironmentCreateFromProjectParams,
     type EnvironmentCreateLogsTokenParams as EnvironmentCreateLogsTokenParams,
     type EnvironmentMarkActiveParams as EnvironmentMarkActiveParams,

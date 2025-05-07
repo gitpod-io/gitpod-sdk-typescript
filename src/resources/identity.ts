@@ -97,6 +97,8 @@ export class Identity extends APIResource {
   }
 }
 
+export type IDTokenVersion = 'ID_TOKEN_VERSION_UNSPECIFIED' | 'ID_TOKEN_VERSION_V1' | 'ID_TOKEN_VERSION_V2';
+
 export interface IdentityExchangeTokenResponse {
   /**
    * access_token is the new access token
@@ -130,10 +132,16 @@ export interface IdentityGetAuthenticatedIdentityParams {
 
 export interface IdentityGetIDTokenParams {
   audience?: Array<string>;
+
+  /**
+   * version is the version of the ID token.
+   */
+  version?: IDTokenVersion;
 }
 
 export declare namespace Identity {
   export {
+    type IDTokenVersion as IDTokenVersion,
     type IdentityExchangeTokenResponse as IdentityExchangeTokenResponse,
     type IdentityGetAuthenticatedIdentityResponse as IdentityGetAuthenticatedIdentityResponse,
     type IdentityGetIDTokenResponse as IdentityGetIDTokenResponse,

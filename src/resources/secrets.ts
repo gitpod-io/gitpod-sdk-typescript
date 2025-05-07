@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as SecretsAPI from './secrets';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { PagePromise, SecretsPage, type SecretsPageParams } from '../core/pagination';
@@ -57,25 +58,7 @@ export class Secrets extends APIResource {
   }
 
   /**
-   * Lists secrets with optional filtering.
-   *
-   * Use this method to:
-   *
-   * - View all project secrets
-   * - Filter secrets by project
-   *
-   * ### Examples
-   *
-   * - List project secrets:
-   *
-   *   Shows all secrets for a project.
-   *
-   *   ```yaml
-   *   filter:
-   *     projectIds: ["b0e12f6c-4c67-429d-a4a6-d9838b5da047"]
-   *   pagination:
-   *     pageSize: 20
-   *   ```
+   * ListSecrets
    */
   list(params: SecretListParams, options?: RequestOptions): PagePromise<SecretsSecretsPage, Secret> {
     const { token, pageSize, ...body } = params;
@@ -280,9 +263,11 @@ export interface Secret {
   name?: string;
 
   /**
-   * The Project ID this Secret belongs to
+   * @deprecated The Project ID this Secret belongs to Deprecated: use scope instead
    */
   projectId?: string;
+
+  scope?: SecretScope;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -377,6 +362,18 @@ export interface Secret {
   updatedAt?: string;
 }
 
+export interface SecretScope {
+  /**
+   * project_id is the Project ID this Secret belongs to
+   */
+  projectId?: string;
+
+  /**
+   * user_id is the User ID this Secret belongs to
+   */
+  userId?: string;
+}
+
 export interface SecretCreateResponse {
   secret?: Secret;
 }
@@ -392,12 +389,7 @@ export type SecretUpdateValueResponse = unknown;
 export interface SecretCreateParams {
   /**
    * secret will be mounted as a docker config in the environment VM, mount will have
-   * the docker registry host value must be a valid registry host (e.g.
-   * registry.docker.com, https://registry.docker.com, ghcr.io:5050):
-   *
-   * ```
-   * this.matches('^[a-zA-Z0-9.-/:]+(:[0-9]+)?$')
-   * ```
+   * the docker registry host
    */
   containerRegistryBasicAuthHost?: string;
 
@@ -420,9 +412,15 @@ export interface SecretCreateParams {
   name?: string;
 
   /**
-   * project_id is the ProjectID this Secret belongs to
+   * @deprecated project_id is the ProjectID this Secret belongs to Deprecated: use
+   * scope instead
    */
   projectId?: string;
+
+  /**
+   * scope is the scope of the secret
+   */
+  scope?: SecretScope;
 
   /**
    * value is the plaintext value of the secret
@@ -445,9 +443,16 @@ export interface SecretListParams extends SecretsPageParams {
 export namespace SecretListParams {
   export interface Filter {
     /**
-     * project_ids filters the response to only Secrets used by these Project IDs
+     * @deprecated project_ids filters the response to only Secrets used by these
+     * Project IDs Deprecated: use scope instead. Values in project_ids will be
+     * ignored.
      */
     projectIds?: Array<string>;
+
+    /**
+     * scope is the scope of the secrets to list
+     */
+    scope?: SecretsAPI.SecretScope;
   }
 
   /**
@@ -488,6 +493,7 @@ export interface SecretUpdateValueParams {
 export declare namespace Secrets {
   export {
     type Secret as Secret,
+    type SecretScope as SecretScope,
     type SecretCreateResponse as SecretCreateResponse,
     type SecretDeleteResponse as SecretDeleteResponse,
     type SecretGetValueResponse as SecretGetValueResponse,

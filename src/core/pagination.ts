@@ -608,61 +608,6 @@ export class MembersPage<Item> extends AbstractPage<Item> implements MembersPage
   }
 }
 
-export interface OrganizationsPageResponse<Item> {
-  organizations: Array<Item>;
-
-  pagination: OrganizationsPageResponse.Pagination;
-}
-
-export namespace OrganizationsPageResponse {
-  export interface Pagination {
-    nextToken?: string;
-  }
-}
-
-export interface OrganizationsPageParams {
-  pageSize?: number;
-
-  token?: string;
-}
-
-export class OrganizationsPage<Item> extends AbstractPage<Item> implements OrganizationsPageResponse<Item> {
-  organizations: Array<Item>;
-
-  pagination: OrganizationsPageResponse.Pagination;
-
-  constructor(
-    client: Gitpod,
-    response: Response,
-    body: OrganizationsPageResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
-    super(client, response, body, options);
-
-    this.organizations = body.organizations || [];
-    this.pagination = body.pagination || {};
-  }
-
-  getPaginatedItems(): Item[] {
-    return this.organizations ?? [];
-  }
-
-  nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken;
-    if (!cursor) {
-      return null;
-    }
-
-    return {
-      ...this.options,
-      query: {
-        ...maybeObj(this.options.query),
-        token: cursor,
-      },
-    };
-  }
-}
-
 export interface PersonalAccessTokensPageResponse<Item> {
   pagination: PersonalAccessTokensPageResponse.Pagination;
 

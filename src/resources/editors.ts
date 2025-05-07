@@ -29,7 +29,8 @@ export class Editors extends APIResource {
   }
 
   /**
-   * Lists all available code editors.
+   * Lists all available code editors, optionally filtered to those allowed in an
+   * organization.
    *
    * Use this method to:
    *
@@ -47,6 +48,18 @@ export class Editors extends APIResource {
    *   ```yaml
    *   pagination:
    *     pageSize: 20
+   *   ```
+   *
+   * - List editors available to the organization:
+   *
+   *   Shows all available editors that are allowed by the policies enforced in the
+   *   organization with pagination.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 20
+   *   filter:
+   *     allowedByPolicy: true
    *   ```
    */
   list(params: EditorListParams, options?: RequestOptions): PagePromise<EditorsEditorsPage, Editor> {
@@ -127,12 +140,28 @@ export interface EditorRetrieveParams {
 
 export interface EditorListParams extends EditorsPageParams {
   /**
+   * Body param: filter contains the filter options for listing editors
+   */
+  filter?: EditorListParams.Filter;
+
+  /**
    * Body param: pagination contains the pagination options for listing environments
    */
   pagination?: EditorListParams.Pagination;
 }
 
 export namespace EditorListParams {
+  /**
+   * filter contains the filter options for listing editors
+   */
+  export interface Filter {
+    /**
+     * allowed_by_policy filters the response to only editors that are allowed by the
+     * policies enforced in the organization
+     */
+    allowedByPolicy?: boolean;
+  }
+
   /**
    * pagination contains the pagination options for listing environments
    */
