@@ -484,6 +484,16 @@ Methods:
 - <code title="post /gitpod.v1.SecretService/GetSecretValue">client.secrets.<a href="./src/resources/secrets.ts">getValue</a>({ ...params }) -> SecretGetValueResponse</code>
 - <code title="post /gitpod.v1.SecretService/UpdateSecretValue">client.secrets.<a href="./src/resources/secrets.ts">updateValue</a>({ ...params }) -> unknown</code>
 
+# Usage
+
+Types:
+
+- <code><a href="./src/resources/usage.ts">EnvironmentSession</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.UsageService/ListEnvironmentSessions">client.usage.<a href="./src/resources/usage.ts">listEnvironmentSessions</a>({ ...params }) -> EnvironmentSessionsSessionsPage</code>
+
 # Users
 
 Types:

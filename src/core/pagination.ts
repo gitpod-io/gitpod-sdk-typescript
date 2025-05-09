@@ -941,6 +941,61 @@ export class ServicesPage<Item> extends AbstractPage<Item> implements ServicesPa
   }
 }
 
+export interface SessionsPageResponse<Item> {
+  pagination: SessionsPageResponse.Pagination;
+
+  sessions: Array<Item>;
+}
+
+export namespace SessionsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface SessionsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class SessionsPage<Item> extends AbstractPage<Item> implements SessionsPageResponse<Item> {
+  pagination: SessionsPageResponse.Pagination;
+
+  sessions: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: SessionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.sessions = body.sessions || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.sessions ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface SSOConfigurationsPageResponse<Item> {
   pagination: SSOConfigurationsPageResponse.Pagination;
 
