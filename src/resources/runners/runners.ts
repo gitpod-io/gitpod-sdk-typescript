@@ -376,6 +376,13 @@ export interface RunnerConfiguration {
   autoUpdate?: boolean;
 
   /**
+   * devcontainer_image_cache_enabled controls whether the devcontainer build cache
+   * is enabled for this runner. Only takes effect on supported runners, currently
+   * only AWS EC2 runners.
+   */
+  devcontainerImageCacheEnabled?: boolean;
+
+  /**
    * log_level is the log level for the runner
    */
   logLevel?: LogLevel;
@@ -704,6 +711,12 @@ export namespace RunnerUpdateParams {
        * auto_update indicates whether the runner should automatically update itself.
        */
       autoUpdate?: boolean | null;
+
+      /**
+       * devcontainer_image_cache_enabled controls whether the shared devcontainer build
+       * cache is enabled for this runner.
+       */
+      devcontainerImageCacheEnabled?: boolean | null;
 
       /**
        * log_level is the log level for the runner
