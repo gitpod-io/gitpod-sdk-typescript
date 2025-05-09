@@ -167,6 +167,12 @@ export {
   type SecretsSecretsPage,
 } from './secrets';
 export {
+  Usage,
+  type EnvironmentSession,
+  type UsageListEnvironmentSessionsParams,
+  type EnvironmentSessionsSessionsPage,
+} from './usage';
+export {
   Users,
   type User,
   type UserGetAuthenticatedUserResponse,

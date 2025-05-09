@@ -49,6 +49,8 @@ import {
   SecretsPageResponse,
   type ServicesPageParams,
   ServicesPageResponse,
+  type SessionsPageParams,
+  SessionsPageResponse,
   type TaskExecutionsPageParams,
   TaskExecutionsPageResponse,
   type TasksPageParams,
@@ -123,6 +125,12 @@ import {
   Secrets,
   SecretsSecretsPage,
 } from './resources/secrets';
+import {
+  EnvironmentSession,
+  EnvironmentSessionsSessionsPage,
+  Usage,
+  UsageListEnvironmentSessionsParams,
+} from './resources/usage';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -917,6 +925,7 @@ export class Gitpod {
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
+  usage: API.Usage = new API.Usage(this);
   users: API.Users = new API.Users(this);
 }
 Gitpod.Accounts = Accounts;
@@ -929,6 +938,7 @@ Gitpod.Organizations = Organizations;
 Gitpod.Projects = Projects;
 Gitpod.Runners = Runners;
 Gitpod.Secrets = Secrets;
+Gitpod.Usage = Usage;
 Gitpod.Users = Users;
 export declare namespace Gitpod {
   export type RequestOptions = Opts.RequestOptions;
@@ -995,6 +1005,9 @@ export declare namespace Gitpod {
 
   export import ServicesPage = Pagination.ServicesPage;
   export { type ServicesPageParams as ServicesPageParams, type ServicesPageResponse as ServicesPageResponse };
+
+  export import SessionsPage = Pagination.SessionsPage;
+  export { type SessionsPageParams as SessionsPageParams, type SessionsPageResponse as SessionsPageResponse };
 
   export import SSOConfigurationsPage = Pagination.SSOConfigurationsPage;
   export {
@@ -1192,6 +1205,13 @@ export declare namespace Gitpod {
     type SecretDeleteParams as SecretDeleteParams,
     type SecretGetValueParams as SecretGetValueParams,
     type SecretUpdateValueParams as SecretUpdateValueParams,
+  };
+
+  export {
+    Usage as Usage,
+    type EnvironmentSession as EnvironmentSession,
+    type EnvironmentSessionsSessionsPage as EnvironmentSessionsSessionsPage,
+    type UsageListEnvironmentSessionsParams as UsageListEnvironmentSessionsParams,
   };
 
   export {
