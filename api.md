@@ -6,6 +6,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">ErrorCode</a></code>
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
+- <code><a href="./src/resources/shared.ts">Gateway</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
@@ -31,12 +32,14 @@ Types:
 - <code><a href="./src/resources/accounts.ts">AccountRetrieveResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountDeleteResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountGetSSOLoginURLResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountListJoinableOrganizationsResponse</a></code>
 
 Methods:
 
 - <code title="post /gitpod.v1.AccountService/GetAccount">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>({ ...params }) -> AccountRetrieveResponse</code>
 - <code title="post /gitpod.v1.AccountService/DeleteAccount">client.accounts.<a href="./src/resources/accounts.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.AccountService/GetSSOLoginURL">client.accounts.<a href="./src/resources/accounts.ts">getSSOLoginURL</a>({ ...params }) -> AccountGetSSOLoginURLResponse</code>
+- <code title="post /gitpod.v1.AccountService/ListJoinableOrganizations">client.accounts.<a href="./src/resources/accounts.ts">listJoinableOrganizations</a>({ ...params }) -> AccountListJoinableOrganizationsResponse</code>
 - <code title="post /gitpod.v1.AccountService/ListLoginProviders">client.accounts.<a href="./src/resources/accounts.ts">listLoginProviders</a>({ ...params }) -> LoginProvidersLoginProvidersPage</code>
 
 # Editors
@@ -74,6 +77,7 @@ Types:
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentMarkActiveResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentStartResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentStopResponse</a></code>
+- <code><a href="./src/resources/environments/environments.ts">EnvironmentUnarchiveResponse</a></code>
 
 Methods:
 
@@ -88,6 +92,7 @@ Methods:
 - <code title="post /gitpod.v1.EnvironmentService/MarkEnvironmentActive">client.environments.<a href="./src/resources/environments/environments.ts">markActive</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.EnvironmentService/StartEnvironment">client.environments.<a href="./src/resources/environments/environments.ts">start</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.EnvironmentService/StopEnvironment">client.environments.<a href="./src/resources/environments/environments.ts">stop</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.EnvironmentService/UnarchiveEnvironment">client.environments.<a href="./src/resources/environments/environments.ts">unarchive</a>({ ...params }) -> unknown</code>
 
 ## Automations
 
@@ -177,6 +182,12 @@ Methods:
 
 - <code title="post /gitpod.v1.EventService/ListAuditLogs">client.events.<a href="./src/resources/events.ts">list</a>({ ...params }) -> EventListResponsesEntriesPage</code>
 - <code title="post /gitpod.v1.EventService/WatchEvents">client.events.<a href="./src/resources/events.ts">watch</a>({ ...params }) -> EventWatchResponse</code>
+
+# Gateways
+
+Methods:
+
+- <code title="post /gitpod.v1.GatewayService/ListGateways">client.gateways.<a href="./src/resources/gateways.ts">list</a>({ ...params }) -> GatewaysGatewaysPage</code>
 
 # Groups
 
@@ -341,6 +352,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/runners/runners.ts">GatewayInfo</a></code>
 - <code><a href="./src/resources/runners/runners.ts">LogLevel</a></code>
 - <code><a href="./src/resources/runners/runners.ts">MetricsConfiguration</a></code>
 - <code><a href="./src/resources/runners/runners.ts">Runner</a></code>
@@ -488,11 +500,11 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/usage.ts">EnvironmentSession</a></code>
+- <code><a href="./src/resources/usage.ts">EnvironmentUsageRecord</a></code>
 
 Methods:
 
-- <code title="post /gitpod.v1.UsageService/ListEnvironmentSessions">client.usage.<a href="./src/resources/usage.ts">listEnvironmentSessions</a>({ ...params }) -> EnvironmentSessionsSessionsPage</code>
+- <code title="post /gitpod.v1.UsageService/ListEnvironmentUsageRecords">client.usage.<a href="./src/resources/usage.ts">listEnvironmentRuntimeRecords</a>({ ...params }) -> EnvironmentUsageRecordsRecordsPage</code>
 
 # Users
 

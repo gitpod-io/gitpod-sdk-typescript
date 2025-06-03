@@ -41,6 +41,19 @@ export class SSOConfigurations extends APIResource {
    *   issuerUrl: "https://sso.acme-corp.com"
    *   emailDomain: "acme-corp.com"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const ssoConfiguration =
+   *   await client.organizations.ssoConfigurations.create({
+   *     clientId:
+   *       '012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com',
+   *     clientSecret: 'GOCSPX-abcdefghijklmnopqrstuvwxyz123456',
+   *     emailDomain: 'acme-corp.com',
+   *     issuerUrl: 'https://accounts.google.com',
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   });
+   * ```
    */
   create(
     body: SSOConfigurationCreateParams,
@@ -67,6 +80,15 @@ export class SSOConfigurations extends APIResource {
    *   ```yaml
    *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const ssoConfiguration =
+   *   await client.organizations.ssoConfigurations.retrieve({
+   *     ssoConfigurationId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   retrieve(
     body: SSOConfigurationRetrieveParams,
@@ -106,6 +128,17 @@ export class SSOConfigurations extends APIResource {
    *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   state: SSO_CONFIGURATION_STATE_ACTIVE
    *   ```
+   *
+   * @example
+   * ```ts
+   * const ssoConfiguration =
+   *   await client.organizations.ssoConfigurations.update({
+   *     ssoConfigurationId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     clientId: 'new-client-id',
+   *     clientSecret: 'new-client-secret',
+   *   });
+   * ```
    */
   update(body: SSOConfigurationUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateSSOConfiguration', { body, ...options });
@@ -143,6 +176,19 @@ export class SSOConfigurations extends APIResource {
    *     pageSize: 20
    *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const ssoConfiguration of client.organizations.ssoConfigurations.list(
+   *   {
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: SSOConfigurationListParams,
@@ -174,6 +220,15 @@ export class SSOConfigurations extends APIResource {
    *   ```yaml
    *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const ssoConfiguration =
+   *   await client.organizations.ssoConfigurations.delete({
+   *     ssoConfigurationId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   delete(body: SSOConfigurationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/DeleteSSOConfiguration', { body, ...options });

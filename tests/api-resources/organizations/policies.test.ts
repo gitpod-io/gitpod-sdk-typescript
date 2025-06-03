@@ -56,6 +56,7 @@ describe('resource policies', () => {
       maximumRunningEnvironmentsPerUser: '5',
       membersCreateProjects: true,
       membersRequireProjects: true,
+      portSharingDisabled: true,
     });
   });
 });

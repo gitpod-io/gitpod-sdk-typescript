@@ -388,6 +388,61 @@ export class EnvironmentsPage<Item> extends AbstractPage<Item> implements Enviro
   }
 }
 
+export interface GatewaysPageResponse<Item> {
+  gateways: Array<Item>;
+
+  pagination: GatewaysPageResponse.Pagination;
+}
+
+export namespace GatewaysPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface GatewaysPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class GatewaysPage<Item> extends AbstractPage<Item> implements GatewaysPageResponse<Item> {
+  gateways: Array<Item>;
+
+  pagination: GatewaysPageResponse.Pagination;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: GatewaysPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.gateways = body.gateways || [];
+    this.pagination = body.pagination || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.gateways ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface GroupsPageResponse<Item> {
   groups: Array<Item>;
 
@@ -776,6 +831,61 @@ export class ProjectsPage<Item> extends AbstractPage<Item> implements ProjectsPa
   }
 }
 
+export interface RecordsPageResponse<Item> {
+  pagination: RecordsPageResponse.Pagination;
+
+  records: Array<Item>;
+}
+
+export namespace RecordsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface RecordsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class RecordsPage<Item> extends AbstractPage<Item> implements RecordsPageResponse<Item> {
+  pagination: RecordsPageResponse.Pagination;
+
+  records: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: RecordsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.records = body.records || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.records ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface RunnersPageResponse<Item> {
   pagination: RunnersPageResponse.Pagination;
 
@@ -923,61 +1033,6 @@ export class ServicesPage<Item> extends AbstractPage<Item> implements ServicesPa
 
   getPaginatedItems(): Item[] {
     return this.services ?? [];
-  }
-
-  nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken;
-    if (!cursor) {
-      return null;
-    }
-
-    return {
-      ...this.options,
-      query: {
-        ...maybeObj(this.options.query),
-        token: cursor,
-      },
-    };
-  }
-}
-
-export interface SessionsPageResponse<Item> {
-  pagination: SessionsPageResponse.Pagination;
-
-  sessions: Array<Item>;
-}
-
-export namespace SessionsPageResponse {
-  export interface Pagination {
-    nextToken?: string;
-  }
-}
-
-export interface SessionsPageParams {
-  pageSize?: number;
-
-  token?: string;
-}
-
-export class SessionsPage<Item> extends AbstractPage<Item> implements SessionsPageResponse<Item> {
-  pagination: SessionsPageResponse.Pagination;
-
-  sessions: Array<Item>;
-
-  constructor(
-    client: Gitpod,
-    response: Response,
-    body: SessionsPageResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
-    super(client, response, body, options);
-
-    this.pagination = body.pagination || {};
-    this.sessions = body.sessions || [];
-  }
-
-  getPaginatedItems(): Item[] {
-    return this.sessions ?? [];
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {

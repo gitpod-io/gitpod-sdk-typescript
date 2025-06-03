@@ -61,6 +61,21 @@ export class Tasks extends APIResource {
    *     command: "npm test"
    *   dependsOn: ["d2c94c27-3b76-4a42-b88c-95a85e392c68"]
    *   ```
+   *
+   * @example
+   * ```ts
+   * const task =
+   *   await client.environments.automations.tasks.create({
+   *     environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *     metadata: {
+   *       description: 'Builds the project artifacts',
+   *       name: 'Build Project',
+   *       reference: 'build',
+   *       triggeredBy: [{ postEnvironmentStart: true }],
+   *     },
+   *     spec: { command: 'npm run build' },
+   *   });
+   * ```
    */
   create(body: TaskCreateParams, options?: RequestOptions): APIPromise<TaskCreateResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/CreateTask', { body, ...options });
@@ -84,6 +99,14 @@ export class Tasks extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const task =
+   *   await client.environments.automations.tasks.retrieve({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   retrieve(body: TaskRetrieveParams, options?: RequestOptions): APIPromise<TaskRetrieveResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetTask', { body, ...options });
@@ -122,6 +145,15 @@ export class Tasks extends APIResource {
    *       trigger:
    *         - postEnvironmentStart: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const task =
+   *   await client.environments.automations.tasks.update({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     spec: { command: 'npm run test:coverage' },
+   *   });
+   * ```
    */
   update(body: TaskUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpdateTask', { body, ...options });
@@ -159,6 +191,19 @@ export class Tasks extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const task of client.environments.automations.tasks.list(
+   *   {
+   *     filter: { references: ['build', 'test'] },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: TaskListParams, options?: RequestOptions): PagePromise<TasksTasksPage, Shared.Task> {
     const { token, pageSize, ...body } = params;
@@ -187,6 +232,14 @@ export class Tasks extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const task =
+   *   await client.environments.automations.tasks.delete({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   delete(body: TaskDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/DeleteTask', { body, ...options });
@@ -211,6 +264,14 @@ export class Tasks extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.automations.tasks.start({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   start(body: TaskStartParams, options?: RequestOptions): APIPromise<TaskStartResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/StartTask', { body, ...options });

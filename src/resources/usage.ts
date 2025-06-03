@@ -1,21 +1,21 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { PagePromise, SessionsPage, type SessionsPageParams } from '../core/pagination';
+import { PagePromise, RecordsPage, type RecordsPageParams } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Usage extends APIResource {
   /**
-   * Lists completed environment sessions within a specified date range.
+   * Lists completed environment runtime records within a specified date range.
    *
-   * Returns a list of environment sessions that were completed within the specified
-   * date range. Currently running sessions are not included.
+   * Returns a list of environment runtime records that were completed within the
+   * specified date range. Records of currently running environments are not
+   * included.
    *
    * Use this method to:
    *
-   * - View environment sessions
+   * - View environment runtime records
    * - Filter by project
-   * - Monitor session activity
    * - Create custom usage reports
    *
    * ### Example
@@ -29,95 +29,118 @@ export class Usage extends APIResource {
    * pagination:
    *   pageSize: 100
    * ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const environmentUsageRecord of client.usage.listEnvironmentRuntimeRecords(
+   *   {
+   *     filter: {
+   *       dateRange: {
+   *         endTime: '2024-01-02T00:00:00Z',
+   *         startTime: '2024-01-01T00:00:00Z',
+   *       },
+   *       projectId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     },
+   *     pagination: { pageSize: 100 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
-  listEnvironmentSessions(
-    params: UsageListEnvironmentSessionsParams,
+  listEnvironmentRuntimeRecords(
+    params: UsageListEnvironmentRuntimeRecordsParams,
     options?: RequestOptions,
-  ): PagePromise<EnvironmentSessionsSessionsPage, EnvironmentSession> {
+  ): PagePromise<EnvironmentUsageRecordsRecordsPage, EnvironmentUsageRecord> {
     const { token, pageSize, ...body } = params;
     return this._client.getAPIList(
-      '/gitpod.v1.UsageService/ListEnvironmentSessions',
-      SessionsPage<EnvironmentSession>,
+      '/gitpod.v1.UsageService/ListEnvironmentUsageRecords',
+      RecordsPage<EnvironmentUsageRecord>,
       { query: { token, pageSize }, body, method: 'post', ...options },
     );
   }
 }
 
-export type EnvironmentSessionsSessionsPage = SessionsPage<EnvironmentSession>;
+export type EnvironmentUsageRecordsRecordsPage = RecordsPage<EnvironmentUsageRecord>;
 
-export interface EnvironmentSession {
+/**
+ * EnvironmentUsageRecord represents a record of an environment from start to stop.
+ */
+export interface EnvironmentUsageRecord {
   /**
-   * Environment session ID.
+   * Environment usage record ID.
    */
   id?: string;
 
   /**
-   * Time when the session was created.
+   * Time when the environment was created.
    */
   createdAt?: string;
 
   /**
-   * Environment class ID associated with the session.
+   * Environment class ID associated with the record.
    */
   environmentClassId?: string;
 
   /**
-   * Environment ID associated with the session.
+   * Environment ID associated with the record.
    */
   environmentId?: string;
 
   /**
-   * Project ID associated with the session (if available).
+   * Project ID associated with the environment (if available).
    */
   projectId?: string;
 
   /**
-   * Runner ID associated with the session.
+   * Runner ID associated with the environment.
    */
   runnerId?: string;
 
   /**
-   * Time when the session was stopped.
+   * Time when the environment was stopped.
    */
   stoppedAt?: string;
 
   /**
-   * User ID that created the session.
+   * User ID is the ID of the user who created the environment associated with the
+   * record.
    */
   userId?: string;
 }
 
-export interface UsageListEnvironmentSessionsParams extends SessionsPageParams {
+export interface UsageListEnvironmentRuntimeRecordsParams extends RecordsPageParams {
   /**
    * Body param: Filter options.
    */
-  filter?: UsageListEnvironmentSessionsParams.Filter;
+  filter?: UsageListEnvironmentRuntimeRecordsParams.Filter;
 
   /**
    * Body param: Pagination options.
    */
-  pagination?: UsageListEnvironmentSessionsParams.Pagination;
+  pagination?: UsageListEnvironmentRuntimeRecordsParams.Pagination;
 }
 
-export namespace UsageListEnvironmentSessionsParams {
+export namespace UsageListEnvironmentRuntimeRecordsParams {
   /**
    * Filter options.
    */
   export interface Filter {
     /**
-     * Date range to query sessions within.
+     * Date range to query runtime records within.
      */
     dateRange: Filter.DateRange;
 
     /**
-     * Optional project ID to filter sessions by.
+     * Optional project ID to filter runtime records by.
      */
     projectId?: string;
   }
 
   export namespace Filter {
     /**
-     * Date range to query sessions within.
+     * Date range to query runtime records within.
      */
     export interface DateRange {
       /**
@@ -152,8 +175,8 @@ export namespace UsageListEnvironmentSessionsParams {
 
 export declare namespace Usage {
   export {
-    type EnvironmentSession as EnvironmentSession,
-    type EnvironmentSessionsSessionsPage as EnvironmentSessionsSessionsPage,
-    type UsageListEnvironmentSessionsParams as UsageListEnvironmentSessionsParams,
+    type EnvironmentUsageRecord as EnvironmentUsageRecord,
+    type EnvironmentUsageRecordsRecordsPage as EnvironmentUsageRecordsRecordsPage,
+    type UsageListEnvironmentRuntimeRecordsParams as UsageListEnvironmentRuntimeRecordsParams,
   };
 }

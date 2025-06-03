@@ -48,6 +48,11 @@ export class Users extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.getAuthenticatedUser();
+   * ```
    */
   getAuthenticatedUser(
     body: UserGetAuthenticatedUserParams,
@@ -84,6 +89,13 @@ export class Users extends APIResource {
    *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   suspended: false
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.setSuspended({
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   * });
+   * ```
    */
   setSuspended(body: UserSetSuspendedParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.UserService/SetSuspended', { body, ...options });

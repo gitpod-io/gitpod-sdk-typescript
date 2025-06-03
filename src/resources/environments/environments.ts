@@ -84,6 +84,28 @@ export class Environments extends APIResource {
    *         admission: "ADMISSION_LEVEL_EVERYONE"
    *         name: "Web App"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const environment = await client.environments.create({
+   *   spec: {
+   *     content: {
+   *       initializer: {
+   *         specs: [
+   *           {
+   *             contextUrl: {
+   *               url: 'https://github.com/gitpod-io/gitpod',
+   *             },
+   *           },
+   *         ],
+   *       },
+   *     },
+   *     machine: {
+   *       class: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     },
+   *   },
+   * });
+   * ```
    */
   create(body: EnvironmentCreateParams, options?: RequestOptions): APIPromise<EnvironmentCreateResponse> {
     return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironment', { body, ...options });
@@ -110,6 +132,13 @@ export class Environments extends APIResource {
    *   ```yaml
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const environment = await client.environments.retrieve({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
    */
   retrieve(
     body: EnvironmentRetrieveParams,
@@ -169,6 +198,21 @@ export class Environments extends APIResource {
    *
    * Note: Machine class changes require stopping the environment and creating a new
    * one.
+   *
+   * @example
+   * ```ts
+   * const environment = await client.environments.update({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *   spec: {
+   *     sshPublicKeys: [
+   *       {
+   *         id: '0194b7c1-c954-718d-91a4-9a742aa5fc11',
+   *         value: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI...',
+   *       },
+   *     ],
+   *   },
+   * });
+   * ```
    */
   update(body: EnvironmentUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentService/UpdateEnvironment', { body, ...options });
@@ -212,6 +256,21 @@ export class Environments extends APIResource {
    *   filter:
    *     statusPhases: ["ENVIRONMENT_PHASE_STOPPED", "ENVIRONMENT_PHASE_DELETED"]
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const environment of client.environments.list({
+   *   filter: {
+   *     creatorIds: ['f53d2330-3795-4c5d-a1f3-453121af9c60'],
+   *     runnerIds: [
+   *       'e6aa9c54-89d3-42c1-ac31-bd8d8f1concentrate',
+   *     ],
+   *   },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: EnvironmentListParams,
@@ -250,6 +309,13 @@ export class Environments extends APIResource {
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   force: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const environment = await client.environments.delete({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
    */
   delete(body: EnvironmentDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentService/DeleteEnvironment', { body, ...options });
@@ -270,6 +336,14 @@ export class Environments extends APIResource {
    *   ```yaml
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.createEnvironmentToken({
+   *     environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *   });
+   * ```
    */
   createEnvironmentToken(
     body: EnvironmentCreateEnvironmentTokenParams,
@@ -312,6 +386,20 @@ export class Environments extends APIResource {
    *     timeout:
    *       disconnected: "14400s" # 4 hours in seconds
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.createFromProject({
+   *     projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     spec: {
+   *       machine: {
+   *         class: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *       },
+   *       timeout: { disconnected: '14400s' },
+   *     },
+   *   });
+   * ```
    */
   createFromProject(
     body: EnvironmentCreateFromProjectParams,
@@ -338,6 +426,13 @@ export class Environments extends APIResource {
    *   ```yaml
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.environments.createLogsToken({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
    */
   createLogsToken(
     body: EnvironmentCreateLogsTokenParams,
@@ -367,6 +462,17 @@ export class Environments extends APIResource {
    *     source: "VS Code"
    *     timestamp: "2025-02-12T14:30:00Z"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.environments.markActive({
+   *   activitySignal: {
+   *     source: 'VS Code',
+   *     timestamp: '2025-02-12T14:30:00Z',
+   *   },
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
    */
   markActive(body: EnvironmentMarkActiveParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentService/MarkEnvironmentActive', { body, ...options });
@@ -388,6 +494,13 @@ export class Environments extends APIResource {
    *   ```yaml
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.environments.start({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
    */
   start(body: EnvironmentStartParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentService/StartEnvironment', { body, ...options });
@@ -408,9 +521,38 @@ export class Environments extends APIResource {
    *   ```yaml
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.environments.stop({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
    */
   stop(body: EnvironmentStopParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentService/StopEnvironment', { body, ...options });
+  }
+
+  /**
+   * Unarchives an environment.
+   *
+   * ### Examples
+   *
+   * - Unarchive an environment:
+   *
+   *   ```yaml
+   *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.environments.unarchive({
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   * });
+   * ```
+   */
+  unarchive(body: EnvironmentUnarchiveParams, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.post('/gitpod.v1.EnvironmentService/UnarchiveEnvironment', { body, ...options });
   }
 }
 
@@ -480,6 +622,12 @@ export interface EnvironmentMetadata {
    * +internal - not yet implemented
    */
   annotations?: Record<string, string>;
+
+  /**
+   * Time when the Environment was archived. If not set, the environment is not
+   * archived.
+   */
+  archivedAt?: string;
 
   /**
    * Time when the Environment was created.
@@ -1301,6 +1449,8 @@ export type EnvironmentStartResponse = unknown;
 
 export type EnvironmentStopResponse = unknown;
 
+export type EnvironmentUnarchiveResponse = unknown;
+
 export interface EnvironmentCreateParams {
   /**
    * spec is the configuration of the environment that's required for the to start
@@ -1473,6 +1623,16 @@ export interface EnvironmentListParams extends EnvironmentsPageParams {
 export namespace EnvironmentListParams {
   export interface Filter {
     /**
+     * archival_status filters the response based on environment archive status
+     */
+    archivalStatus?:
+      | 'ARCHIVAL_STATUS_UNSPECIFIED'
+      | 'ARCHIVAL_STATUS_ACTIVE'
+      | 'ARCHIVAL_STATUS_ARCHIVED'
+      | 'ARCHIVAL_STATUS_ALL'
+      | null;
+
+    /**
      * creator_ids filters the response to only Environments created by specified
      * members
      */
@@ -1594,6 +1754,15 @@ export interface EnvironmentStopParams {
   environmentId?: string;
 }
 
+export interface EnvironmentUnarchiveParams {
+  /**
+   * environment_id specifies the environment to unarchive.
+   *
+   * +required
+   */
+  environmentId?: string;
+}
+
 Environments.Automations = Automations;
 Environments.Classes = Classes;
 
@@ -1616,6 +1785,7 @@ export declare namespace Environments {
     type EnvironmentMarkActiveResponse as EnvironmentMarkActiveResponse,
     type EnvironmentStartResponse as EnvironmentStartResponse,
     type EnvironmentStopResponse as EnvironmentStopResponse,
+    type EnvironmentUnarchiveResponse as EnvironmentUnarchiveResponse,
     type EnvironmentsEnvironmentsPage as EnvironmentsEnvironmentsPage,
     type EnvironmentCreateParams as EnvironmentCreateParams,
     type EnvironmentRetrieveParams as EnvironmentRetrieveParams,
@@ -1628,6 +1798,7 @@ export declare namespace Environments {
     type EnvironmentMarkActiveParams as EnvironmentMarkActiveParams,
     type EnvironmentStartParams as EnvironmentStartParams,
     type EnvironmentStopParams as EnvironmentStopParams,
+    type EnvironmentUnarchiveParams as EnvironmentUnarchiveParams,
   };
 
   export {

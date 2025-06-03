@@ -83,6 +83,21 @@ export class Configurations extends APIResource {
    *     oauthClientId: "client_id"
    *     oauthPlaintextClientSecret: "client_secret"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.runners.configurations.validate({
+   *     runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     scmIntegration: {
+   *       host: 'github.com',
+   *       id: 'integration-id',
+   *       oauthClientId: 'client_id',
+   *       oauthPlaintextClientSecret: 'client_secret',
+   *       scmId: 'github',
+   *     },
+   *   });
+   * ```
    */
   validate(
     body: ConfigurationValidateParams,
@@ -145,6 +160,12 @@ export namespace ConfigurationValidateParams {
     id?: string;
 
     host?: string;
+
+    /**
+     * issuer_url can be set to override the authentication provider URL, if it doesn't
+     * match the SCM host.
+     */
+    issuerUrl?: string | null;
 
     /**
      * oauth_client_id is the OAuth app's client ID, if OAuth is configured. If

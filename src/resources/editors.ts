@@ -23,6 +23,13 @@ export class Editors extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const editor = await client.editors.retrieve({
+   *   id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   retrieve(body: EditorRetrieveParams, options?: RequestOptions): APIPromise<EditorRetrieveResponse> {
     return this._client.post('/gitpod.v1.EditorService/GetEditor', { body, ...options });
@@ -61,6 +68,16 @@ export class Editors extends APIResource {
    *   filter:
    *     allowedByPolicy: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const editor of client.editors.list({
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: EditorListParams, options?: RequestOptions): PagePromise<EditorsEditorsPage, Editor> {
     const { token, pageSize, ...body } = params;
@@ -93,6 +110,15 @@ export class Editors extends APIResource {
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.editors.resolveURL({
+   *   editorId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   resolveURL(body: EditorResolveURLParams, options?: RequestOptions): APIPromise<EditorResolveURLResponse> {
     return this._client.post('/gitpod.v1.EditorService/ResolveEditorURL', { body, ...options });

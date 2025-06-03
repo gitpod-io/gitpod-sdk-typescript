@@ -37,6 +37,20 @@ export class Events extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const eventListResponse of client.events.list({
+   *   filter: {
+   *     actorIds: ['d2c94c27-3b76-4a42-b88c-95a85e392c68'],
+   *     actorPrincipals: ['PRINCIPAL_USER'],
+   *   },
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: EventListParams,
@@ -69,6 +83,11 @@ export class Events extends APIResource {
    * - Environment scope: Watch events for a specific environment, including its
    *   tasks, task executions, and services. Use by setting environment_id to the
    *   UUID of the environment to watch.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.watch();
+   * ```
    */
   watch(body: EventWatchParams, options?: RequestOptions): APIPromise<JSONLDecoder<EventWatchResponse>> {
     return this._client

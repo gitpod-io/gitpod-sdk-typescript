@@ -35,6 +35,16 @@ export class Groups extends APIResource {
    *     pageSize: 50
    *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const group of client.groups.list({
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: GroupListParams, options?: RequestOptions): PagePromise<GroupsGroupsPage, Group> {
     const { token, pageSize, ...body } = params;

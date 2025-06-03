@@ -10,9 +10,11 @@ export {
   type AccountRetrieveResponse,
   type AccountDeleteResponse,
   type AccountGetSSOLoginURLResponse,
+  type AccountListJoinableOrganizationsResponse,
   type AccountRetrieveParams,
   type AccountDeleteParams,
   type AccountGetSSOLoginURLParams,
+  type AccountListJoinableOrganizationsParams,
   type AccountListLoginProvidersParams,
   type LoginProvidersLoginProvidersPage,
 } from './accounts';
@@ -45,6 +47,7 @@ export {
   type EnvironmentMarkActiveResponse,
   type EnvironmentStartResponse,
   type EnvironmentStopResponse,
+  type EnvironmentUnarchiveResponse,
   type EnvironmentCreateParams,
   type EnvironmentRetrieveParams,
   type EnvironmentUpdateParams,
@@ -56,6 +59,7 @@ export {
   type EnvironmentMarkActiveParams,
   type EnvironmentStartParams,
   type EnvironmentStopParams,
+  type EnvironmentUnarchiveParams,
   type EnvironmentsEnvironmentsPage,
 } from './environments/environments';
 export {
@@ -68,6 +72,7 @@ export {
   type EventWatchParams,
   type EventListResponsesEntriesPage,
 } from './events';
+export { Gateways, type GatewayListParams } from './gateways';
 export { Groups, type Group, type GroupListParams, type GroupsGroupsPage } from './groups';
 export {
   Identity,
@@ -123,6 +128,7 @@ export {
 } from './projects/projects';
 export {
   Runners,
+  type GatewayInfo,
   type LogLevel,
   type MetricsConfiguration,
   type Runner,
@@ -168,9 +174,9 @@ export {
 } from './secrets';
 export {
   Usage,
-  type EnvironmentSession,
-  type UsageListEnvironmentSessionsParams,
-  type EnvironmentSessionsSessionsPage,
+  type EnvironmentUsageRecord,
+  type UsageListEnvironmentRuntimeRecordsParams,
+  type EnvironmentUsageRecordsRecordsPage,
 } from './usage';
 export {
   Users,
