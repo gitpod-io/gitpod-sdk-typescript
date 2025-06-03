@@ -26,6 +26,7 @@ export {
   type EnvironmentMarkActiveResponse,
   type EnvironmentStartResponse,
   type EnvironmentStopResponse,
+  type EnvironmentUnarchiveResponse,
   type EnvironmentCreateParams,
   type EnvironmentRetrieveParams,
   type EnvironmentUpdateParams,
@@ -37,5 +38,6 @@ export {
   type EnvironmentMarkActiveParams,
   type EnvironmentStartParams,
   type EnvironmentStopParams,
+  type EnvironmentUnarchiveParams,
   type EnvironmentsEnvironmentsPage,
 } from './environments';

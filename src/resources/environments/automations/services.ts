@@ -55,6 +55,26 @@ export class Services extends APIResource {
    *       docker:
    *         image: "redis:7"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const service =
+   *   await client.environments.automations.services.create({
+   *     environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *     metadata: {
+   *       description: 'Runs the development web server',
+   *       name: 'Web Server',
+   *       reference: 'web-server',
+   *       triggeredBy: [{ postDevcontainerStart: true }],
+   *     },
+   *     spec: {
+   *       commands: {
+   *         ready: 'curl -s http://localhost:3000',
+   *         start: 'npm run dev',
+   *       },
+   *     },
+   *   });
+   * ```
    */
   create(body: ServiceCreateParams, options?: RequestOptions): APIPromise<ServiceCreateResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/CreateService', { body, ...options });
@@ -79,6 +99,14 @@ export class Services extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const service =
+   *   await client.environments.automations.services.retrieve({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   retrieve(body: ServiceRetrieveParams, options?: RequestOptions): APIPromise<ServiceRetrieveResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetService', { body, ...options });
@@ -120,6 +148,20 @@ export class Services extends APIResource {
    *         - postDevcontainerStart: true
    *         - manual: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const service =
+   *   await client.environments.automations.services.update({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     spec: {
+   *       commands: {
+   *         ready: 'curl -s http://localhost:8080',
+   *         start: 'npm run start:dev',
+   *       },
+   *     },
+   *   });
+   * ```
    */
   update(body: ServiceUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpdateService', { body, ...options });
@@ -157,6 +199,19 @@ export class Services extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const service of client.environments.automations.services.list(
+   *   {
+   *     filter: { references: ['web-server', 'database'] },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: ServiceListParams, options?: RequestOptions): PagePromise<ServicesServicesPage, Service> {
     const { token, pageSize, ...body } = params;
@@ -196,6 +251,14 @@ export class Services extends APIResource {
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   force: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const service =
+   *   await client.environments.automations.services.delete({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   delete(body: ServiceDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/DeleteService', { body, ...options });
@@ -221,6 +284,14 @@ export class Services extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.automations.services.start({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   start(body: ServiceStartParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/StartService', { body, ...options });
@@ -246,6 +317,14 @@ export class Services extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.automations.services.stop({
+   *     id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   stop(body: ServiceStopParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/StopService', { body, ...options });

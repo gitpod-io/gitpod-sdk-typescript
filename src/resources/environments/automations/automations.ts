@@ -82,6 +82,35 @@ export class Automations extends APIResource {
    *         triggeredBy:
    *           - postEnvironmentStart
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.automations.upsert({
+   *     automationsFile: {
+   *       services: {
+   *         'web-server': {
+   *           commands: {
+   *             ready: 'curl -s http://localhost:3000',
+   *             start: 'npm run dev',
+   *           },
+   *           description: 'Development web server',
+   *           name: 'Web Server',
+   *           triggeredBy: ['postDevcontainerStart'],
+   *         },
+   *       },
+   *       tasks: {
+   *         build: {
+   *           command: 'npm run build',
+   *           description: 'Builds the project artifacts',
+   *           name: 'Build Project',
+   *           triggeredBy: ['postEnvironmentStart'],
+   *         },
+   *       },
+   *     },
+   *     environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *   });
+   * ```
    */
   upsert(body: AutomationUpsertParams, options?: RequestOptions): APIPromise<AutomationUpsertResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpsertAutomationsFile', {

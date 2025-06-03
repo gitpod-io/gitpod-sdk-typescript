@@ -21,6 +21,11 @@ export class Dotfiles extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const dotfile = await client.users.dotfiles.get();
+   * ```
    */
   get(body: DotfileGetParams, options?: RequestOptions): APIPromise<DotfileGetResponse> {
     return this._client.post('/gitpod.v1.UserService/GetDotfilesConfiguration', { body, ...options });
@@ -51,6 +56,11 @@ export class Dotfiles extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.dotfiles.set();
+   * ```
    */
   set(body: DotfileSetParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.UserService/SetDotfilesConfiguration', { body, ...options });

@@ -27,6 +27,14 @@ export class Executions extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const execution =
+   *   await client.environments.automations.tasks.executions.retrieve(
+   *     { id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' },
+   *   );
+   * ```
    */
   retrieve(body: ExecutionRetrieveParams, options?: RequestOptions): APIPromise<ExecutionRetrieveResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetTaskExecution', {
@@ -67,6 +75,24 @@ export class Executions extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const taskExecution of client.environments.automations.tasks.executions.list(
+   *   {
+   *     filter: {
+   *       phases: [
+   *         'TASK_EXECUTION_PHASE_RUNNING',
+   *         'TASK_EXECUTION_PHASE_FAILED',
+   *       ],
+   *     },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: ExecutionListParams,
@@ -98,6 +124,14 @@ export class Executions extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.automations.tasks.executions.stop(
+   *     { id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' },
+   *   );
+   * ```
    */
   stop(body: ExecutionStopParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/StopTaskExecution', {

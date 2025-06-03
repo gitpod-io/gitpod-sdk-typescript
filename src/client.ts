@@ -27,6 +27,8 @@ import {
   EnvironmentClassesPageResponse,
   type EnvironmentsPageParams,
   EnvironmentsPageResponse,
+  type GatewaysPageParams,
+  GatewaysPageResponse,
   type GroupsPageParams,
   GroupsPageResponse,
   type IntegrationsPageParams,
@@ -41,6 +43,8 @@ import {
   PoliciesPageResponse,
   type ProjectsPageParams,
   ProjectsPageResponse,
+  type RecordsPageParams,
+  RecordsPageResponse,
   type RunnersPageParams,
   RunnersPageResponse,
   type SSOConfigurationsPageParams,
@@ -49,8 +53,6 @@ import {
   SecretsPageResponse,
   type ServicesPageParams,
   ServicesPageResponse,
-  type SessionsPageParams,
-  SessionsPageResponse,
   type TaskExecutionsPageParams,
   TaskExecutionsPageResponse,
   type TasksPageParams,
@@ -70,6 +72,8 @@ import {
   AccountDeleteResponse,
   AccountGetSSOLoginURLParams,
   AccountGetSSOLoginURLResponse,
+  AccountListJoinableOrganizationsParams,
+  AccountListJoinableOrganizationsResponse,
   AccountListLoginProvidersParams,
   AccountMembership,
   AccountRetrieveParams,
@@ -99,6 +103,7 @@ import {
   ResourceOperation,
   ResourceType,
 } from './resources/events';
+import { GatewayListParams, Gateways } from './resources/gateways';
 import { Group, GroupListParams, Groups, GroupsGroupsPage } from './resources/groups';
 import {
   IDTokenVersion,
@@ -126,10 +131,10 @@ import {
   SecretsSecretsPage,
 } from './resources/secrets';
 import {
-  EnvironmentSession,
-  EnvironmentSessionsSessionsPage,
+  EnvironmentUsageRecord,
+  EnvironmentUsageRecordsRecordsPage,
   Usage,
-  UsageListEnvironmentSessionsParams,
+  UsageListEnvironmentRuntimeRecordsParams,
 } from './resources/usage';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
@@ -161,6 +166,8 @@ import {
   EnvironmentStatus,
   EnvironmentStopParams,
   EnvironmentStopResponse,
+  EnvironmentUnarchiveParams,
+  EnvironmentUnarchiveResponse,
   EnvironmentUpdateParams,
   EnvironmentUpdateResponse,
   Environments,
@@ -209,6 +216,7 @@ import {
   ProjectsProjectsPage,
 } from './resources/projects/projects';
 import {
+  GatewayInfo,
   LogLevel,
   MetricsConfiguration,
   Runner,
@@ -385,6 +393,23 @@ export class Gitpod {
     this._options = options;
 
     this.bearerToken = bearerToken;
+  }
+
+  /**
+   * Create a new client instance re-using the same options given to the current client with optional overriding.
+   */
+  withOptions(options: Partial<ClientOptions>): this {
+    return new (this.constructor as any as new (props: ClientOptions) => typeof this)({
+      ...this._options,
+      baseURL: this.baseURL,
+      maxRetries: this.maxRetries,
+      timeout: this.timeout,
+      logger: this.logger,
+      logLevel: this.logLevel,
+      fetchOptions: this.fetchOptions,
+      bearerToken: this.bearerToken,
+      ...options,
+    });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -919,6 +944,7 @@ export class Gitpod {
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
   events: API.Events = new API.Events(this);
+  gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
   identity: API.Identity = new API.Identity(this);
   organizations: API.Organizations = new API.Organizations(this);
@@ -932,6 +958,7 @@ Gitpod.Accounts = Accounts;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
 Gitpod.Events = Events;
+Gitpod.Gateways = Gateways;
 Gitpod.Groups = Groups;
 Gitpod.Identity = Identity;
 Gitpod.Organizations = Organizations;
@@ -967,6 +994,9 @@ export declare namespace Gitpod {
     type EnvironmentsPageResponse as EnvironmentsPageResponse,
   };
 
+  export import GatewaysPage = Pagination.GatewaysPage;
+  export { type GatewaysPageParams as GatewaysPageParams, type GatewaysPageResponse as GatewaysPageResponse };
+
   export import GroupsPage = Pagination.GroupsPage;
   export { type GroupsPageParams as GroupsPageParams, type GroupsPageResponse as GroupsPageResponse };
 
@@ -997,6 +1027,9 @@ export declare namespace Gitpod {
   export import ProjectsPage = Pagination.ProjectsPage;
   export { type ProjectsPageParams as ProjectsPageParams, type ProjectsPageResponse as ProjectsPageResponse };
 
+  export import RecordsPage = Pagination.RecordsPage;
+  export { type RecordsPageParams as RecordsPageParams, type RecordsPageResponse as RecordsPageResponse };
+
   export import RunnersPage = Pagination.RunnersPage;
   export { type RunnersPageParams as RunnersPageParams, type RunnersPageResponse as RunnersPageResponse };
 
@@ -1005,9 +1038,6 @@ export declare namespace Gitpod {
 
   export import ServicesPage = Pagination.ServicesPage;
   export { type ServicesPageParams as ServicesPageParams, type ServicesPageResponse as ServicesPageResponse };
-
-  export import SessionsPage = Pagination.SessionsPage;
-  export { type SessionsPageParams as SessionsPageParams, type SessionsPageResponse as SessionsPageResponse };
 
   export import SSOConfigurationsPage = Pagination.SSOConfigurationsPage;
   export {
@@ -1036,10 +1066,12 @@ export declare namespace Gitpod {
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountDeleteResponse as AccountDeleteResponse,
     type AccountGetSSOLoginURLResponse as AccountGetSSOLoginURLResponse,
+    type AccountListJoinableOrganizationsResponse as AccountListJoinableOrganizationsResponse,
     type LoginProvidersLoginProvidersPage as LoginProvidersLoginProvidersPage,
     type AccountRetrieveParams as AccountRetrieveParams,
     type AccountDeleteParams as AccountDeleteParams,
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
+    type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
   };
 
@@ -1073,6 +1105,7 @@ export declare namespace Gitpod {
     type EnvironmentMarkActiveResponse as EnvironmentMarkActiveResponse,
     type EnvironmentStartResponse as EnvironmentStartResponse,
     type EnvironmentStopResponse as EnvironmentStopResponse,
+    type EnvironmentUnarchiveResponse as EnvironmentUnarchiveResponse,
     type EnvironmentsEnvironmentsPage as EnvironmentsEnvironmentsPage,
     type EnvironmentCreateParams as EnvironmentCreateParams,
     type EnvironmentRetrieveParams as EnvironmentRetrieveParams,
@@ -1085,6 +1118,7 @@ export declare namespace Gitpod {
     type EnvironmentMarkActiveParams as EnvironmentMarkActiveParams,
     type EnvironmentStartParams as EnvironmentStartParams,
     type EnvironmentStopParams as EnvironmentStopParams,
+    type EnvironmentUnarchiveParams as EnvironmentUnarchiveParams,
   };
 
   export {
@@ -1097,6 +1131,8 @@ export declare namespace Gitpod {
     type EventListParams as EventListParams,
     type EventWatchParams as EventWatchParams,
   };
+
+  export { Gateways as Gateways, type GatewayListParams as GatewayListParams };
 
   export {
     Groups as Groups,
@@ -1162,6 +1198,7 @@ export declare namespace Gitpod {
 
   export {
     Runners as Runners,
+    type GatewayInfo as GatewayInfo,
     type LogLevel as LogLevel,
     type MetricsConfiguration as MetricsConfiguration,
     type Runner as Runner,
@@ -1209,9 +1246,9 @@ export declare namespace Gitpod {
 
   export {
     Usage as Usage,
-    type EnvironmentSession as EnvironmentSession,
-    type EnvironmentSessionsSessionsPage as EnvironmentSessionsSessionsPage,
-    type UsageListEnvironmentSessionsParams as UsageListEnvironmentSessionsParams,
+    type EnvironmentUsageRecord as EnvironmentUsageRecord,
+    type EnvironmentUsageRecordsRecordsPage as EnvironmentUsageRecordsRecordsPage,
+    type UsageListEnvironmentRuntimeRecordsParams as UsageListEnvironmentRuntimeRecordsParams,
   };
 
   export {
@@ -1227,6 +1264,7 @@ export declare namespace Gitpod {
   export type EnvironmentClass = API.EnvironmentClass;
   export type ErrorCode = API.ErrorCode;
   export type FieldValue = API.FieldValue;
+  export type Gateway = API.Gateway;
   export type OrganizationRole = API.OrganizationRole;
   export type Principal = API.Principal;
   export type RunsOn = API.RunsOn;

@@ -75,6 +75,22 @@ export class Runners extends APIResource {
    *       releaseChannel: RUNNER_RELEASE_CHANNEL_LATEST
    *       autoUpdate: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.create({
+   *   name: 'Production Runner',
+   *   provider: 'RUNNER_PROVIDER_AWS_EC2',
+   *   spec: {
+   *     configuration: {
+   *       autoUpdate: true,
+   *       region: 'us-west',
+   *       releaseChannel: 'RUNNER_RELEASE_CHANNEL_STABLE',
+   *     },
+   *     desiredPhase: 'RUNNER_PHASE_ACTIVE',
+   *   },
+   * });
+   * ```
    */
   create(body: RunnerCreateParams, options?: RequestOptions): APIPromise<RunnerCreateResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CreateRunner', { body, ...options });
@@ -99,6 +115,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.retrieve({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   retrieve(body: RunnerRetrieveParams, options?: RequestOptions): APIPromise<RunnerRetrieveResponse> {
     return this._client.post('/gitpod.v1.RunnerService/GetRunner', { body, ...options });
@@ -128,6 +151,20 @@ export class Runners extends APIResource {
    *       releaseChannel: RUNNER_RELEASE_CHANNEL_LATEST
    *       autoUpdate: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.update({
+   *   name: 'Updated Runner Name',
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   spec: {
+   *     configuration: {
+   *       autoUpdate: true,
+   *       releaseChannel: 'RUNNER_RELEASE_CHANNEL_LATEST',
+   *     },
+   *   },
+   * });
+   * ```
    */
   update(body: RunnerUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/UpdateRunner', { body, ...options });
@@ -164,6 +201,17 @@ export class Runners extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const runner of client.runners.list({
+   *   filter: { providers: ['RUNNER_PROVIDER_AWS_EC2'] },
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: RunnerListParams, options?: RequestOptions): PagePromise<RunnersRunnersPage, Runner> {
     const { token, pageSize, ...body } = params;
@@ -193,6 +241,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.delete({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   delete(body: RunnerDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/DeleteRunner', { body, ...options });
@@ -216,6 +271,14 @@ export class Runners extends APIResource {
    *   ```yaml
    *   host: "github.com"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.runners.checkAuthenticationForHost({
+   *     host: 'github.com',
+   *   });
+   * ```
    */
   checkAuthenticationForHost(
     body: RunnerCheckAuthenticationForHostParams,
@@ -244,6 +307,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.createRunnerToken({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   createRunnerToken(
     body: RunnerCreateRunnerTokenParams,
@@ -277,6 +347,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   contextUrl: "https://github.com/org/repo/tree/main"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.parseContextURL({
+   *   contextUrl: 'https://github.com/org/repo/tree/main',
+   * });
+   * ```
    */
   parseContextURL(
     body: RunnerParseContextURLParams,
@@ -287,6 +364,18 @@ export class Runners extends APIResource {
 }
 
 export type RunnersRunnersPage = RunnersPage<Runner>;
+
+export interface GatewayInfo {
+  /**
+   * Gateway represents a system gateway that provides access to services
+   */
+  gateway?: Shared.Gateway;
+
+  /**
+   * latency is the round-trip time of the runner to the gateway in milliseconds.
+   */
+  latency?: string;
+}
 
 export type LogLevel =
   | 'LOG_LEVEL_UNSPECIFIED'
@@ -435,7 +524,8 @@ export type RunnerProvider =
   | 'RUNNER_PROVIDER_UNSPECIFIED'
   | 'RUNNER_PROVIDER_AWS_EC2'
   | 'RUNNER_PROVIDER_LINUX_HOST'
-  | 'RUNNER_PROVIDER_DESKTOP_MAC';
+  | 'RUNNER_PROVIDER_DESKTOP_MAC'
+  | 'RUNNER_PROVIDER_MANAGED';
 
 export type RunnerReleaseChannel =
   | 'RUNNER_RELEASE_CHANNEL_UNSPECIFIED'
@@ -469,6 +559,11 @@ export interface RunnerStatus {
    */
   capabilities?: Array<RunnerCapability>;
 
+  /**
+   * gateway_info is information about the gateway to which the runner is connected.
+   */
+  gatewayInfo?: GatewayInfo;
+
   logUrl?: string;
 
   /**
@@ -490,7 +585,7 @@ export interface RunnerStatus {
   systemDetails?: string;
 
   /**
-   * Time when the status was last udpated.
+   * Time when the status was last updated.
    */
   updatedAt?: string;
 
@@ -663,6 +758,12 @@ export interface RunnerCreateParams {
    * must not be specified (will be deduced from provider)
    */
   provider?: RunnerProvider;
+
+  /**
+   * The runner manager id specifies the runner manager for the managed runner. This
+   * field is mandatory for managed runners, otheriwse should not be set.
+   */
+  runnerManagerId?: string;
 
   spec?: RunnerSpec;
 }
@@ -844,6 +945,7 @@ Runners.Policies = Policies;
 
 export declare namespace Runners {
   export {
+    type GatewayInfo as GatewayInfo,
     type LogLevel as LogLevel,
     type MetricsConfiguration as MetricsConfiguration,
     type Runner as Runner,

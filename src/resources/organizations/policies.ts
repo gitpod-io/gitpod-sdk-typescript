@@ -23,6 +23,15 @@ export class Policies extends APIResource {
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.organizations.policies.retrieve(
+   *   {
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   },
+   * );
+   * ```
    */
   retrieve(body: PolicyRetrieveParams, options?: RequestOptions): APIPromise<PolicyRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetOrganizationPolicies', { body, ...options });
@@ -62,6 +71,16 @@ export class Policies extends APIResource {
    *   maximumRunningEnvironmentsPerUser: "5"
    *   maximumEnvironmentsPerUser: "20"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.organizations.policies.update({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   maximumEnvironmentsPerUser: '20',
+   *   maximumEnvironmentTimeout: '3600s',
+   *   maximumRunningEnvironmentsPerUser: '5',
+   * });
+   * ```
    */
   update(body: PolicyUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateOrganizationPolicies', {
@@ -123,6 +142,12 @@ export interface OrganizationPolicies {
    * organization_id is the ID of the organization
    */
   organizationId: string;
+
+  /**
+   * port_sharing_disabled controls whether port sharing is disabled in the
+   * organization
+   */
+  portSharingDisabled: boolean;
 
   /**
    * maximum_environment_timeout controls the maximum timeout allowed for
@@ -204,6 +229,12 @@ export interface PolicyUpdateParams {
    * projects by non-admin users
    */
   membersRequireProjects?: boolean | null;
+
+  /**
+   * port_sharing_disabled controls whether port sharing is disabled in the
+   * organization
+   */
+  portSharingDisabled?: boolean | null;
 }
 
 export declare namespace Policies {

@@ -23,6 +23,14 @@ export class Schema extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const schema =
+   *   await client.runners.configurations.schema.retrieve({
+   *     runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   retrieve(body: SchemaRetrieveParams, options?: RequestOptions): APIPromise<SchemaRetrieveResponse> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/GetRunnerConfigurationSchema', {

@@ -31,6 +31,14 @@ export class Classes extends APIResource {
    *   ```
    *
    *   buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const environmentClass of client.environments.classes.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: ClassListParams,

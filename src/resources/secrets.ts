@@ -52,6 +52,16 @@ export class Secrets extends APIResource {
    *   value: "username:password"
    *   containerRegistryBasicAuthHost: "https://registry.example.com"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const secret = await client.secrets.create({
+   *   environmentVariable: true,
+   *   name: 'DATABASE_URL',
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   value: 'postgresql://user:pass@localhost:5432/db',
+   * });
+   * ```
    */
   create(body: SecretCreateParams, options?: RequestOptions): APIPromise<SecretCreateResponse> {
     return this._client.post('/gitpod.v1.SecretService/CreateSecret', { body, ...options });
@@ -90,6 +100,21 @@ export class Secrets extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const secret of client.secrets.list({
+   *   filter: {
+   *     scope: {
+   *       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     },
+   *   },
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: SecretListParams, options?: RequestOptions): PagePromise<SecretsSecretsPage, Secret> {
     const { token, pageSize, ...body } = params;
@@ -118,6 +143,13 @@ export class Secrets extends APIResource {
    *   ```yaml
    *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const secret = await client.secrets.delete({
+   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   delete(body: SecretDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.SecretService/DeleteSecret', { body, ...options });
@@ -141,6 +173,13 @@ export class Secrets extends APIResource {
    *   ```yaml
    *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.secrets.getValue({
+   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   getValue(body: SecretGetValueParams, options?: RequestOptions): APIPromise<SecretGetValueResponse> {
     return this._client.post('/gitpod.v1.SecretService/GetSecretValue', { body, ...options });
@@ -164,6 +203,14 @@ export class Secrets extends APIResource {
    *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   value: "new-secret-value"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.secrets.updateValue({
+   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   value: 'new-secret-value',
+   * });
+   * ```
    */
   updateValue(body: SecretUpdateValueParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.SecretService/UpdateSecretValue', { body, ...options });

@@ -24,6 +24,13 @@ export class Identity extends APIResource {
    *   ```yaml
    *   exchangeToken: "exchange-token-value"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.identity.exchangeToken({
+   *   exchangeToken: 'exchange-token-value',
+   * });
+   * ```
    */
   exchangeToken(
     body: IdentityExchangeTokenParams,
@@ -51,6 +58,12 @@ export class Identity extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.identity.getAuthenticatedIdentity();
+   * ```
    */
   getAuthenticatedIdentity(
     body: IdentityGetAuthenticatedIdentityParams,
@@ -88,6 +101,16 @@ export class Identity extends APIResource {
    *     - "https://api.gitpod.io"
    *     - "https://ws.gitpod.io"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.identity.getIDToken({
+   *   audience: [
+   *     'https://api.gitpod.io',
+   *     'https://ws.gitpod.io',
+   *   ],
+   * });
+   * ```
    */
   getIDToken(
     body: IdentityGetIDTokenParams,

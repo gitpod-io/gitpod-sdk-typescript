@@ -98,6 +98,14 @@ export class Organizations extends APIResource {
    *   joinOrganization: true
    *   inviteAccountsWithMatchingDomain: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.create({
+   *   name: 'Acme Corp Engineering',
+   *   joinOrganization: true,
+   * });
+   * ```
    */
   create(body: OrganizationCreateParams, options?: RequestOptions): APIPromise<OrganizationCreateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/CreateOrganization', { body, ...options });
@@ -121,6 +129,13 @@ export class Organizations extends APIResource {
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.retrieve({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   retrieve(
     body: OrganizationRetrieveParams,
@@ -164,6 +179,14 @@ export class Organizations extends APIResource {
    *   inviteDomains:
    *     domains: []
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.update({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   inviteDomains: { domains: [] },
+   * });
+   * ```
    */
   update(body: OrganizationUpdateParams, options?: RequestOptions): APIPromise<OrganizationUpdateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateOrganization', { body, ...options });
@@ -187,6 +210,13 @@ export class Organizations extends APIResource {
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.delete({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   delete(body: OrganizationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/DeleteOrganization', { body, ...options });
@@ -219,6 +249,13 @@ export class Organizations extends APIResource {
    *   ```yaml
    *   inviteId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.organizations.join({
+   *   inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   join(body: OrganizationJoinParams, options?: RequestOptions): APIPromise<OrganizationJoinResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/JoinOrganization', { body, ...options });
@@ -245,6 +282,13 @@ export class Organizations extends APIResource {
    *   ```
    *
    * Note: Ensure all projects and resources are transferred before leaving.
+   *
+   * @example
+   * ```ts
+   * const response = await client.organizations.leave({
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   * });
+   * ```
    */
   leave(body: OrganizationLeaveParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/LeaveOrganization', { body, ...options });
@@ -281,6 +325,19 @@ export class Organizations extends APIResource {
    *     pageSize: 50
    *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const organizationMember of client.organizations.listMembers(
+   *   {
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listMembers(
     params: OrganizationListMembersParams,
@@ -325,6 +382,15 @@ export class Organizations extends APIResource {
    *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   role: ORGANIZATION_ROLE_MEMBER
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.organizations.setRole({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   role: 'ORGANIZATION_ROLE_MEMBER',
+   * });
+   * ```
    */
   setRole(body: OrganizationSetRoleParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/SetRole', { body, ...options });

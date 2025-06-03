@@ -30,6 +30,22 @@ export class HostAuthenticationTokens extends APIResource {
    *   expiresAt: "2024-12-31T23:59:59Z"
    *   refreshToken: "ghr_xxxxxxxxxxxx"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const hostAuthenticationToken =
+   *   await client.runners.configurations.hostAuthenticationTokens.create(
+   *     {
+   *       token: 'gho_xxxxxxxxxxxx',
+   *       expiresAt: '2024-12-31T23:59:59Z',
+   *       host: 'github.com',
+   *       refreshToken: 'ghr_xxxxxxxxxxxx',
+   *       runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *       source: 'HOST_AUTHENTICATION_TOKEN_SOURCE_OAUTH',
+   *       userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *     },
+   *   );
+   * ```
    */
   create(
     body: HostAuthenticationTokenCreateParams,
@@ -59,6 +75,14 @@ export class HostAuthenticationTokens extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const hostAuthenticationToken =
+   *   await client.runners.configurations.hostAuthenticationTokens.retrieve(
+   *     { id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' },
+   *   );
+   * ```
    */
   retrieve(
     body: HostAuthenticationTokenRetrieveParams,
@@ -91,6 +115,19 @@ export class HostAuthenticationTokens extends APIResource {
    *   expiresAt: "2024-12-31T23:59:59Z"
    *   refreshToken: "ghr_xxxxxxxxxxxx"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const hostAuthenticationToken =
+   *   await client.runners.configurations.hostAuthenticationTokens.update(
+   *     {
+   *       id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *       token: 'gho_xxxxxxxxxxxx',
+   *       expiresAt: '2024-12-31T23:59:59Z',
+   *       refreshToken: 'ghr_xxxxxxxxxxxx',
+   *     },
+   *   );
+   * ```
    */
   update(body: HostAuthenticationTokenUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateHostAuthenticationToken', {
@@ -129,6 +166,21 @@ export class HostAuthenticationTokens extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const hostAuthenticationToken of client.runners.configurations.hostAuthenticationTokens.list(
+   *   {
+   *     filter: {
+   *       runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: HostAuthenticationTokenListParams,
@@ -160,6 +212,14 @@ export class HostAuthenticationTokens extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const hostAuthenticationToken =
+   *   await client.runners.configurations.hostAuthenticationTokens.delete(
+   *     { id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' },
+   *   );
+   * ```
    */
   delete(body: HostAuthenticationTokenDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteHostAuthenticationToken', {

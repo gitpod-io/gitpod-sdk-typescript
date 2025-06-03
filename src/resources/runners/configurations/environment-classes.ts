@@ -38,6 +38,22 @@ export class EnvironmentClasses extends APIResource {
    *     - key: "memory"
    *       value: "16384"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const environmentClass =
+   *   await client.runners.configurations.environmentClasses.create(
+   *     {
+   *       configuration: [
+   *         { key: 'cpu', value: '8' },
+   *         { key: 'memory', value: '16384' },
+   *       ],
+   *       description: '8 CPU, 16GB RAM',
+   *       displayName: 'Large Instance',
+   *       runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     },
+   *   );
+   * ```
    */
   create(
     body: EnvironmentClassCreateParams,
@@ -67,6 +83,17 @@ export class EnvironmentClasses extends APIResource {
    *   ```yaml
    *   environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const environmentClass =
+   *   await client.runners.configurations.environmentClasses.retrieve(
+   *     {
+   *       environmentClassId:
+   *         'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     },
+   *   );
+   * ```
    */
   retrieve(
     body: EnvironmentClassRetrieveParams,
@@ -99,6 +126,20 @@ export class EnvironmentClasses extends APIResource {
    *   description: "16 CPU, 32GB RAM"
    *   enabled: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const environmentClass =
+   *   await client.runners.configurations.environmentClasses.update(
+   *     {
+   *       description: '16 CPU, 32GB RAM',
+   *       displayName: 'Updated Large Instance',
+   *       enabled: true,
+   *       environmentClassId:
+   *         'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     },
+   *   );
+   * ```
    */
   update(body: EnvironmentClassUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateEnvironmentClass', {
@@ -139,6 +180,19 @@ export class EnvironmentClasses extends APIResource {
    *   ```
    *
    *   buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const environmentClass of client.runners.configurations.environmentClasses.list(
+   *   {
+   *     filter: { enabled: true },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: EnvironmentClassListParams,
