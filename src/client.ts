@@ -5,8 +5,8 @@ import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestIni
 import { uuid4 } from './internal/utils/uuid';
 import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/utils/values';
 import { sleep } from './internal/utils/sleep';
-import { type Logger, type LogLevel, parseLogLevel } from './internal/utils/log';
-export type { Logger, LogLevel } from './internal/utils/log';
+import { type Logger, type LogLevel as LogLevelClient, parseLogLevel } from './internal/utils/log';
+export type { Logger, LogLevel as LogLevelClient } from './internal/utils/log';
 import { castToError, isAbortError } from './internal/errors';
 import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
@@ -318,7 +318,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['GITPOD_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: LogLevel | undefined;
+  logLevel?: LogLevelClient | undefined;
 
   /**
    * Set the logger.
@@ -338,7 +338,7 @@ export class Gitpod {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: LogLevel | undefined;
+  logLevel: LogLevelClient | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;

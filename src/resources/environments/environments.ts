@@ -1474,12 +1474,19 @@ export interface EnvironmentUpdateParams {
    */
   environmentId?: string;
 
-  metadata?: unknown | null;
+  metadata?: EnvironmentUpdateParams.Metadata | null;
 
   spec?: EnvironmentUpdateParams.Spec | null;
 }
 
 export namespace EnvironmentUpdateParams {
+  export interface Metadata {
+    /**
+     * name is the user-defined display name of the environment
+     */
+    name?: string | null;
+  }
+
   export interface Spec {
     /**
      * automations_file is the automations file spec of the environment
