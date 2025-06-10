@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import { APIPromise } from '../../../api-promise';
-import { IntegrationsPage, type IntegrationsPageParams, PagePromise } from '../../../pagination';
+import { APIResource } from '../../../core/resource';
+import { APIPromise } from '../../../core/api-promise';
+import { IntegrationsPage, type IntegrationsPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 
 export class ScmIntegrations extends APIResource {
@@ -28,6 +28,20 @@ export class ScmIntegrations extends APIResource {
    *   oauthClientId: "client_id"
    *   oauthPlaintextClientSecret: "client_secret"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const scmIntegration =
+   *   await client.runners.configurations.scmIntegrations.create(
+   *     {
+   *       host: 'github.com',
+   *       oauthClientId: 'client_id',
+   *       oauthPlaintextClientSecret: 'client_secret',
+   *       runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *       scmId: 'github',
+   *     },
+   *   );
+   * ```
    */
   create(
     body: ScmIntegrationCreateParams,
@@ -57,6 +71,14 @@ export class ScmIntegrations extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const scmIntegration =
+   *   await client.runners.configurations.scmIntegrations.retrieve(
+   *     { id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' },
+   *   );
+   * ```
    */
   retrieve(
     body: ScmIntegrationRetrieveParams,
@@ -85,6 +107,18 @@ export class ScmIntegrations extends APIResource {
    *   oauthClientId: "new_client_id"
    *   oauthPlaintextClientSecret: "new_client_secret"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const scmIntegration =
+   *   await client.runners.configurations.scmIntegrations.update(
+   *     {
+   *       id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *       oauthClientId: 'new_client_id',
+   *       oauthPlaintextClientSecret: 'new_client_secret',
+   *     },
+   *   );
+   * ```
    */
   update(body: ScmIntegrationUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateSCMIntegration', {
@@ -114,6 +148,21 @@ export class ScmIntegrations extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const scmIntegration of client.runners.configurations.scmIntegrations.list(
+   *   {
+   *     filter: {
+   *       runnerIds: ['d2c94c27-3b76-4a42-b88c-95a85e392c68'],
+   *     },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: ScmIntegrationListParams,
@@ -145,6 +194,14 @@ export class ScmIntegrations extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const scmIntegration =
+   *   await client.runners.configurations.scmIntegrations.delete(
+   *     { id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' },
+   *   );
+   * ```
    */
   delete(body: ScmIntegrationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteSCMIntegration', {
@@ -188,6 +245,14 @@ export interface ScmIntegrationOAuthConfig {
    * public key.
    */
   encryptedClientSecret?: string;
+
+  /**
+   * issuer_url is used to override the authentication provider URL, if it doesn't
+   * match the SCM host.
+   *
+   * +optional if not set, this account is owned by the installation.
+   */
+  issuerUrl?: string;
 }
 
 export interface ScmIntegrationCreateResponse {
@@ -207,6 +272,12 @@ export type ScmIntegrationDeleteResponse = unknown;
 
 export interface ScmIntegrationCreateParams {
   host?: string;
+
+  /**
+   * issuer_url can be set to override the authentication provider URL, if it doesn't
+   * match the SCM host.
+   */
+  issuerUrl?: string | null;
 
   /**
    * oauth_client_id is the OAuth app's client ID, if OAuth is configured. If
@@ -237,6 +308,12 @@ export interface ScmIntegrationRetrieveParams {
 
 export interface ScmIntegrationUpdateParams {
   id?: string;
+
+  /**
+   * issuer_url can be set to override the authentication provider URL, if it doesn't
+   * match the SCM host.
+   */
+  issuerUrl?: string | null;
 
   /**
    * oauth_client_id can be set to update the OAuth app's client ID. If an empty

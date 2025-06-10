@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
+import { APIResource } from '../core/resource';
 import * as EventsAPI from './events';
 import * as Shared from './shared';
-import { APIPromise } from '../api-promise';
-import { EntriesPage, type EntriesPageParams, PagePromise } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { EntriesPage, type EntriesPageParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { JSONLDecoder } from '../internal/decoders/jsonl';
@@ -37,6 +37,20 @@ export class Events extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const eventListResponse of client.events.list({
+   *   filter: {
+   *     actorIds: ['d2c94c27-3b76-4a42-b88c-95a85e392c68'],
+   *     actorPrincipals: ['PRINCIPAL_USER'],
+   *   },
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: EventListParams,
@@ -69,6 +83,11 @@ export class Events extends APIResource {
    * - Environment scope: Watch events for a specific environment, including its
    *   tasks, task executions, and services. Use by setting environment_id to the
    *   UUID of the environment to watch.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.watch();
+   * ```
    */
   watch(body: EventWatchParams, options?: RequestOptions): APIPromise<JSONLDecoder<EventWatchResponse>> {
     return this._client
@@ -79,9 +98,12 @@ export class Events extends APIResource {
           { 'Content-Type': 'application/jsonl', Accept: 'application/jsonl' },
           options?.headers,
         ]),
+        stream: true,
         __binaryResponse: true,
       })
-      ._thenUnwrap((_, props) => JSONLDecoder.fromResponse(props.response, props.controller));
+      ._thenUnwrap((_, props) => JSONLDecoder.fromResponse(props.response, props.controller)) as APIPromise<
+      JSONLDecoder<EventWatchResponse>
+    >;
   }
 }
 
@@ -113,7 +135,13 @@ export type ResourceType =
   | 'RESOURCE_TYPE_SERVICE_ACCOUNT'
   | 'RESOURCE_TYPE_SECRET'
   | 'RESOURCE_TYPE_SSO_CONFIG'
-  | 'RESOURCE_TYPE_DOMAIN_VERIFICATION';
+  | 'RESOURCE_TYPE_DOMAIN_VERIFICATION'
+  | 'RESOURCE_TYPE_AGENT_EXECUTION'
+  | 'RESOURCE_TYPE_RUNNER_LLM_INTEGRATION'
+  | 'RESOURCE_TYPE_AGENT'
+  | 'RESOURCE_TYPE_ENVIRONMENT_SESSION'
+  | 'RESOURCE_TYPE_USER_SECRET'
+  | 'RESOURCE_TYPE_ORGANIZATION_POLICY';
 
 export interface EventListResponse {
   id?: string;

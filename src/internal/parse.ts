@@ -26,16 +26,14 @@ export async function defaultParseResponse<T>(client: Gitpod, props: APIResponse
     }
 
     const contentType = response.headers.get('content-type');
-    const isJSON =
-      contentType?.includes('application/json') || contentType?.includes('application/vnd.api+json');
+    const mediaType = contentType?.split(';')[0]?.trim();
+    const isJSON = mediaType?.includes('application/json') || mediaType?.endsWith('+json');
     if (isJSON) {
       const json = await response.json();
       return json as T;
     }
 
     const text = await response.text();
-
-    // TODO handle blob, arraybuffer, other content types, etc.
     return text as unknown as T;
   })();
   loggerFor(client).debug(

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { APIPromise } from '../../api-promise';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Invites extends APIResource {
@@ -24,6 +24,13 @@ export class Invites extends APIResource {
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const invite = await client.organizations.invites.create({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   create(body: InviteCreateParams, options?: RequestOptions): APIPromise<InviteCreateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/CreateOrganizationInvite', { body, ...options });
@@ -31,6 +38,13 @@ export class Invites extends APIResource {
 
   /**
    * GetOrganizationInvite
+   *
+   * @example
+   * ```ts
+   * const invite = await client.organizations.invites.retrieve({
+   *   organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
    */
   retrieve(body: InviteRetrieveParams, options?: RequestOptions): APIPromise<InviteRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetOrganizationInvite', { body, ...options });
@@ -55,6 +69,14 @@ export class Invites extends APIResource {
    *   ```yaml
    *   inviteId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.organizations.invites.getSummary({
+   *     inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   getSummary(body: InviteGetSummaryParams, options?: RequestOptions): APIPromise<InviteGetSummaryResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetOrganizationInviteSummary', {

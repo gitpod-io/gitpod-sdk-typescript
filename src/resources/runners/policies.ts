@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, PoliciesPage, type PoliciesPageParams } from '../../pagination';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, PoliciesPage, type PoliciesPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Policies extends APIResource {
@@ -26,6 +26,15 @@ export class Policies extends APIResource {
    *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   role: RUNNER_ROLE_ADMIN
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.runners.policies.create({
+   *   groupId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   role: 'RUNNER_ROLE_ADMIN',
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   create(body: PolicyCreateParams, options?: RequestOptions): APIPromise<PolicyCreateResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CreateRunnerPolicy', { body, ...options });
@@ -51,6 +60,15 @@ export class Policies extends APIResource {
    *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   role: RUNNER_ROLE_USER
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.runners.policies.update({
+   *   groupId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   role: 'RUNNER_ROLE_USER',
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   update(body: PolicyUpdateParams, options?: RequestOptions): APIPromise<PolicyUpdateResponse> {
     return this._client.post('/gitpod.v1.RunnerService/UpdateRunnerPolicy', { body, ...options });
@@ -76,6 +94,19 @@ export class Policies extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const runnerPolicy of client.runners.policies.list(
+   *   {
+   *     pagination: { pageSize: 20 },
+   *     runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: PolicyListParams,
@@ -108,6 +139,14 @@ export class Policies extends APIResource {
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.runners.policies.delete({
+   *   groupId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   delete(body: PolicyDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/DeleteRunnerPolicy', { body, ...options });

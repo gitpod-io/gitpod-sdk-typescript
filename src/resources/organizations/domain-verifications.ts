@@ -1,8 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { APIPromise } from '../../api-promise';
-import { DomainVerificationsPage, type DomainVerificationsPageParams, PagePromise } from '../../pagination';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import {
+  DomainVerificationsPage,
+  type DomainVerificationsPageParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class DomainVerifications extends APIResource {
@@ -35,6 +39,15 @@ export class DomainVerifications extends APIResource {
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   domain: "acme-subsidiary.com"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const domainVerification =
+   *   await client.organizations.domainVerifications.create({
+   *     domain: 'acme-corp.com',
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   });
+   * ```
    */
   create(
     body: DomainVerificationCreateParams,
@@ -61,6 +74,15 @@ export class DomainVerifications extends APIResource {
    *   ```yaml
    *   domainVerificationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const domainVerification =
+   *   await client.organizations.domainVerifications.retrieve({
+   *     domainVerificationId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   retrieve(
     body: DomainVerificationRetrieveParams,
@@ -101,6 +123,19 @@ export class DomainVerifications extends APIResource {
    *     pageSize: 20
    *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const domainVerification of client.organizations.domainVerifications.list(
+   *   {
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: DomainVerificationListParams,
@@ -132,6 +167,15 @@ export class DomainVerifications extends APIResource {
    *   ```yaml
    *   domainVerificationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const domainVerification =
+   *   await client.organizations.domainVerifications.delete({
+   *     domainVerificationId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   delete(body: DomainVerificationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/DeleteDomainVerification', { body, ...options });
@@ -155,6 +199,15 @@ export class DomainVerifications extends APIResource {
    *   ```yaml
    *   domainVerificationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.organizations.domainVerifications.verify({
+   *     domainVerificationId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   verify(
     body: DomainVerificationVerifyParams,

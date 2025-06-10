@@ -41,6 +41,7 @@ describe('resource projects', () => {
       automationsFilePath: 'automationsFilePath',
       devcontainerFilePath: 'devcontainerFilePath',
       name: 'Web Application',
+      technicalDescription: 'technicalDescription',
     });
   });
 

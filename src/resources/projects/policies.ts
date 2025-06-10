@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, PoliciesPage, type PoliciesPageParams } from '../../pagination';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, PoliciesPage, type PoliciesPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Policies extends APIResource {
@@ -26,6 +26,15 @@ export class Policies extends APIResource {
    *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   role: PROJECT_ROLE_ADMIN
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.projects.policies.create({
+   *   groupId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   role: 'PROJECT_ROLE_ADMIN',
+   * });
+   * ```
    */
   create(body: PolicyCreateParams, options?: RequestOptions): APIPromise<PolicyCreateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/CreateProjectPolicy', { body, ...options });
@@ -51,6 +60,15 @@ export class Policies extends APIResource {
    *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   role: PROJECT_ROLE_EDITOR
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.projects.policies.update({
+   *   groupId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   role: 'PROJECT_ROLE_EDITOR',
+   * });
+   * ```
    */
   update(body: PolicyUpdateParams, options?: RequestOptions): APIPromise<PolicyUpdateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/UpdateProjectPolicy', { body, ...options });
@@ -76,6 +94,19 @@ export class Policies extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const projectPolicy of client.projects.policies.list(
+   *   {
+   *     pagination: { pageSize: 20 },
+   *     projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: PolicyListParams,
@@ -108,6 +139,14 @@ export class Policies extends APIResource {
    *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   groupId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const policy = await client.projects.policies.delete({
+   *   groupId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   delete(body: PolicyDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.ProjectService/DeleteProjectPolicy', { body, ...options });

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { GroupsPage, type GroupsPageParams, PagePromise } from '../pagination';
+import { APIResource } from '../core/resource';
+import { GroupsPage, type GroupsPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Groups extends APIResource {
@@ -35,6 +35,16 @@ export class Groups extends APIResource {
    *     pageSize: 50
    *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const group of client.groups.list({
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: GroupListParams, options?: RequestOptions): PagePromise<GroupsGroupsPage, Group> {
     const { token, pageSize, ...body } = params;

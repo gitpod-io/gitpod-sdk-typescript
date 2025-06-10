@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  Dotfiles,
+  type DotfilesConfiguration,
+  type DotfileGetResponse,
+  type DotfileSetResponse,
+  type DotfileGetParams,
+  type DotfileSetParams,
+} from './dotfiles';
+export {
   Pats,
   type PersonalAccessToken,
   type PatDeleteResponse,

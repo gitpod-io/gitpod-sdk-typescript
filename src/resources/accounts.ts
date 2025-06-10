@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
+import { APIResource } from '../core/resource';
 import * as Shared from './shared';
-import { APIPromise } from '../api-promise';
-import { LoginProvidersPage, type LoginProvidersPageParams, PagePromise } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { LoginProvidersPage, type LoginProvidersPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Accounts extends APIResource {
@@ -26,6 +26,11 @@ export class Accounts extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const account = await client.accounts.retrieve();
+   * ```
    */
   retrieve(body: AccountRetrieveParams, options?: RequestOptions): APIPromise<AccountRetrieveResponse> {
     return this._client.post('/gitpod.v1.AccountService/GetAccount', { body, ...options });
@@ -51,6 +56,13 @@ export class Accounts extends APIResource {
    *   ```yaml
    *   accountId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const account = await client.accounts.delete({
+   *   accountId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   * });
+   * ```
    */
   delete(body: AccountDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.AccountService/DeleteAccount', { body, ...options });
@@ -83,12 +95,56 @@ export class Accounts extends APIResource {
    *   email: "user@company.com"
    *   returnTo: "https://gitpod.io/workspaces"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.accounts.getSSOLoginURL({
+   *   email: 'user@company.com',
+   * });
+   * ```
    */
   getSSOLoginURL(
     body: AccountGetSSOLoginURLParams,
     options?: RequestOptions,
   ): APIPromise<AccountGetSSOLoginURLResponse> {
     return this._client.post('/gitpod.v1.AccountService/GetSSOLoginURL', { body, ...options });
+  }
+
+  /**
+   * Lists organizations that the currently authenticated account can join.
+   *
+   * Use this method to:
+   *
+   * - Discover organizations associated with the account's email domain.
+   * - Allow users to join existing organizations.
+   * - Display potential organizations during onboarding.
+   *
+   * ### Examples
+   *
+   * - List joinable organizations:
+   *
+   *   Retrieves a list of organizations the account can join.
+   *
+   *   ```yaml
+   *   {}
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.accounts.listJoinableOrganizations();
+   * ```
+   */
+  listJoinableOrganizations(
+    params: AccountListJoinableOrganizationsParams,
+    options?: RequestOptions,
+  ): APIPromise<AccountListJoinableOrganizationsResponse> {
+    const { token, pageSize, ...body } = params;
+    return this._client.post('/gitpod.v1.AccountService/ListJoinableOrganizations', {
+      query: { token, pageSize },
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -121,6 +177,16 @@ export class Accounts extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const loginProvider of client.accounts.listLoginProviders(
+   *   { pagination: { pageSize: 20 } },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listLoginProviders(
     params: AccountListLoginProvidersParams,
@@ -330,6 +396,9 @@ export interface Account {
 
   avatarUrl?: string;
 
+  /**
+   * @deprecated joinables is deprecated. Use ListJoinableOrganizations instead.
+   */
   joinables?: Array<JoinableOrganization>;
 
   memberships?: Array<AccountMembership>;
@@ -420,6 +489,10 @@ export interface AccountGetSSOLoginURLResponse {
   loginUrl: string;
 }
 
+export interface AccountListJoinableOrganizationsResponse {
+  joinableOrganizations?: Array<JoinableOrganization>;
+}
+
 export interface AccountRetrieveParams {
   empty?: boolean;
 }
@@ -438,6 +511,23 @@ export interface AccountGetSSOLoginURLParams {
    * return_to is the URL the user will be redirected to after login
    */
   returnTo?: string | null;
+}
+
+export interface AccountListJoinableOrganizationsParams {
+  /**
+   * Query param:
+   */
+  token?: string;
+
+  /**
+   * Query param:
+   */
+  pageSize?: number;
+
+  /**
+   * Body param:
+   */
+  empty?: boolean;
 }
 
 export interface AccountListLoginProvidersParams extends LoginProvidersPageParams {
@@ -490,10 +580,12 @@ export declare namespace Accounts {
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountDeleteResponse as AccountDeleteResponse,
     type AccountGetSSOLoginURLResponse as AccountGetSSOLoginURLResponse,
+    type AccountListJoinableOrganizationsResponse as AccountListJoinableOrganizationsResponse,
     type LoginProvidersLoginProvidersPage as LoginProvidersLoginProvidersPage,
     type AccountRetrieveParams as AccountRetrieveParams,
     type AccountDeleteParams as AccountDeleteParams,
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
+    type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
   };
 }

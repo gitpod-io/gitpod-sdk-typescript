@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { APIPromise } from '../api-promise';
-import { EditorsPage, type EditorsPageParams, PagePromise } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { EditorsPage, type EditorsPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Editors extends APIResource {
@@ -23,13 +23,21 @@ export class Editors extends APIResource {
    *   ```yaml
    *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const editor = await client.editors.retrieve({
+   *   id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   retrieve(body: EditorRetrieveParams, options?: RequestOptions): APIPromise<EditorRetrieveResponse> {
     return this._client.post('/gitpod.v1.EditorService/GetEditor', { body, ...options });
   }
 
   /**
-   * Lists all available code editors.
+   * Lists all available code editors, optionally filtered to those allowed in an
+   * organization.
    *
    * Use this method to:
    *
@@ -48,6 +56,28 @@ export class Editors extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * - List editors available to the organization:
+   *
+   *   Shows all available editors that are allowed by the policies enforced in the
+   *   organization with pagination.
+   *
+   *   ```yaml
+   *   pagination:
+   *     pageSize: 20
+   *   filter:
+   *     allowedByPolicy: true
+   *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const editor of client.editors.list({
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: EditorListParams, options?: RequestOptions): PagePromise<EditorsEditorsPage, Editor> {
     const { token, pageSize, ...body } = params;
@@ -80,6 +110,15 @@ export class Editors extends APIResource {
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.editors.resolveURL({
+   *   editorId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   resolveURL(body: EditorResolveURLParams, options?: RequestOptions): APIPromise<EditorResolveURLResponse> {
     return this._client.post('/gitpod.v1.EditorService/ResolveEditorURL', { body, ...options });
@@ -127,12 +166,28 @@ export interface EditorRetrieveParams {
 
 export interface EditorListParams extends EditorsPageParams {
   /**
+   * Body param: filter contains the filter options for listing editors
+   */
+  filter?: EditorListParams.Filter;
+
+  /**
    * Body param: pagination contains the pagination options for listing environments
    */
   pagination?: EditorListParams.Pagination;
 }
 
 export namespace EditorListParams {
+  /**
+   * filter contains the filter options for listing editors
+   */
+  export interface Filter {
+    /**
+     * allowed_by_policy filters the response to only editors that are allowed by the
+     * policies enforced in the organization
+     */
+    allowedByPolicy?: boolean;
+  }
+
   /**
    * pagination contains the pagination options for listing environments
    */

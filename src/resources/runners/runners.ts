@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as RunnersAPI from './runners';
 import * as Shared from '../shared';
 import * as PoliciesAPI from './policies';
@@ -26,8 +26,8 @@ import {
   FieldValidationError,
   ScmIntegrationValidationResult,
 } from './configurations/configurations';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, RunnersPage, type RunnersPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, RunnersPage, type RunnersPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Runners extends APIResource {
@@ -75,6 +75,22 @@ export class Runners extends APIResource {
    *       releaseChannel: RUNNER_RELEASE_CHANNEL_LATEST
    *       autoUpdate: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.create({
+   *   name: 'Production Runner',
+   *   provider: 'RUNNER_PROVIDER_AWS_EC2',
+   *   spec: {
+   *     configuration: {
+   *       autoUpdate: true,
+   *       region: 'us-west',
+   *       releaseChannel: 'RUNNER_RELEASE_CHANNEL_STABLE',
+   *     },
+   *     desiredPhase: 'RUNNER_PHASE_ACTIVE',
+   *   },
+   * });
+   * ```
    */
   create(body: RunnerCreateParams, options?: RequestOptions): APIPromise<RunnerCreateResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CreateRunner', { body, ...options });
@@ -99,6 +115,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.retrieve({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   retrieve(body: RunnerRetrieveParams, options?: RequestOptions): APIPromise<RunnerRetrieveResponse> {
     return this._client.post('/gitpod.v1.RunnerService/GetRunner', { body, ...options });
@@ -128,6 +151,20 @@ export class Runners extends APIResource {
    *       releaseChannel: RUNNER_RELEASE_CHANNEL_LATEST
    *       autoUpdate: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.update({
+   *   name: 'Updated Runner Name',
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   spec: {
+   *     configuration: {
+   *       autoUpdate: true,
+   *       releaseChannel: 'RUNNER_RELEASE_CHANNEL_LATEST',
+   *     },
+   *   },
+   * });
+   * ```
    */
   update(body: RunnerUpdateParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/UpdateRunner', { body, ...options });
@@ -164,6 +201,17 @@ export class Runners extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const runner of client.runners.list({
+   *   filter: { providers: ['RUNNER_PROVIDER_AWS_EC2'] },
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: RunnerListParams, options?: RequestOptions): PagePromise<RunnersRunnersPage, Runner> {
     const { token, pageSize, ...body } = params;
@@ -193,6 +241,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const runner = await client.runners.delete({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   delete(body: RunnerDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.RunnerService/DeleteRunner', { body, ...options });
@@ -216,6 +271,14 @@ export class Runners extends APIResource {
    *   ```yaml
    *   host: "github.com"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.runners.checkAuthenticationForHost({
+   *     host: 'github.com',
+   *   });
+   * ```
    */
   checkAuthenticationForHost(
     body: RunnerCheckAuthenticationForHostParams,
@@ -244,6 +307,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.createRunnerToken({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   createRunnerToken(
     body: RunnerCreateRunnerTokenParams,
@@ -277,6 +347,13 @@ export class Runners extends APIResource {
    *   ```yaml
    *   contextUrl: "https://github.com/org/repo/tree/main"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.parseContextURL({
+   *   contextUrl: 'https://github.com/org/repo/tree/main',
+   * });
+   * ```
    */
   parseContextURL(
     body: RunnerParseContextURLParams,
@@ -287,6 +364,47 @@ export class Runners extends APIResource {
 }
 
 export type RunnersRunnersPage = RunnersPage<Runner>;
+
+export interface GatewayInfo {
+  /**
+   * Gateway represents a system gateway that provides access to services
+   */
+  gateway?: Shared.Gateway;
+
+  /**
+   * latency is the round-trip time of the runner to the gateway in milliseconds.
+   */
+  latency?: string;
+}
+
+export type LogLevel =
+  | 'LOG_LEVEL_UNSPECIFIED'
+  | 'LOG_LEVEL_DEBUG'
+  | 'LOG_LEVEL_INFO'
+  | 'LOG_LEVEL_WARN'
+  | 'LOG_LEVEL_ERROR';
+
+export interface MetricsConfiguration {
+  /**
+   * enabled indicates whether the runner should collect metrics
+   */
+  enabled?: boolean;
+
+  /**
+   * password is the password to use for the metrics collector
+   */
+  password?: string;
+
+  /**
+   * url is the URL of the metrics collector
+   */
+  url?: string;
+
+  /**
+   * username is the username to use for the metrics collector
+   */
+  username?: string;
+}
 
 export interface Runner {
   /**
@@ -335,13 +453,33 @@ export interface Runner {
 export type RunnerCapability =
   | 'RUNNER_CAPABILITY_UNSPECIFIED'
   | 'RUNNER_CAPABILITY_FETCH_LOCAL_SCM_INTEGRATIONS'
-  | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY';
+  | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY'
+  | 'RUNNER_CAPABILITY_AGENT_EXECUTION'
+  | 'RUNNER_CAPABILITY_ALLOW_ENV_TOKEN_POPULATION'
+  | 'RUNNER_CAPABILITY_DEFAULT_DEV_CONTAINER_IMAGE';
 
 export interface RunnerConfiguration {
   /**
    * auto_update indicates whether the runner should automatically update itself.
    */
   autoUpdate?: boolean;
+
+  /**
+   * devcontainer_image_cache_enabled controls whether the devcontainer build cache
+   * is enabled for this runner. Only takes effect on supported runners, currently
+   * only AWS EC2 runners.
+   */
+  devcontainerImageCacheEnabled?: boolean;
+
+  /**
+   * log_level is the log level for the runner
+   */
+  logLevel?: LogLevel;
+
+  /**
+   * metrics contains configuration for the runner's metrics collection
+   */
+  metrics?: MetricsConfiguration;
 
   /**
    * Region to deploy the runner in, if applicable. This is mainly used for remote
@@ -386,7 +524,8 @@ export type RunnerProvider =
   | 'RUNNER_PROVIDER_UNSPECIFIED'
   | 'RUNNER_PROVIDER_AWS_EC2'
   | 'RUNNER_PROVIDER_LINUX_HOST'
-  | 'RUNNER_PROVIDER_DESKTOP_MAC';
+  | 'RUNNER_PROVIDER_DESKTOP_MAC'
+  | 'RUNNER_PROVIDER_MANAGED';
 
 export type RunnerReleaseChannel =
   | 'RUNNER_RELEASE_CHANNEL_UNSPECIFIED'
@@ -420,6 +559,11 @@ export interface RunnerStatus {
    */
   capabilities?: Array<RunnerCapability>;
 
+  /**
+   * gateway_info is information about the gateway to which the runner is connected.
+   */
+  gatewayInfo?: GatewayInfo;
+
   logUrl?: string;
 
   /**
@@ -441,7 +585,7 @@ export interface RunnerStatus {
   systemDetails?: string;
 
   /**
-   * Time when the status was last udpated.
+   * Time when the status was last updated.
    */
   updatedAt?: string;
 
@@ -570,6 +714,11 @@ export interface RunnerParseContextURLResponse {
   git?: RunnerParseContextURLResponse.Git;
 
   originalContextUrl?: string;
+
+  /**
+   * project_ids is a list of projects to which the context URL belongs to.
+   */
+  projectIds?: Array<string>;
 }
 
 export namespace RunnerParseContextURLResponse {
@@ -609,6 +758,12 @@ export interface RunnerCreateParams {
    * must not be specified (will be deduced from provider)
    */
   provider?: RunnerProvider;
+
+  /**
+   * The runner manager id specifies the runner manager for the managed runner. This
+   * field is mandatory for managed runners, otheriwse should not be set.
+   */
+  runnerManagerId?: string;
 
   spec?: RunnerSpec;
 }
@@ -659,9 +814,52 @@ export namespace RunnerUpdateParams {
       autoUpdate?: boolean | null;
 
       /**
+       * devcontainer_image_cache_enabled controls whether the shared devcontainer build
+       * cache is enabled for this runner.
+       */
+      devcontainerImageCacheEnabled?: boolean | null;
+
+      /**
+       * log_level is the log level for the runner
+       */
+      logLevel?: RunnersAPI.LogLevel | null;
+
+      /**
+       * metrics contains configuration for the runner's metrics collection
+       */
+      metrics?: Configuration.Metrics | null;
+
+      /**
        * The release channel the runner is on
        */
       releaseChannel?: RunnersAPI.RunnerReleaseChannel | null;
+    }
+
+    export namespace Configuration {
+      /**
+       * metrics contains configuration for the runner's metrics collection
+       */
+      export interface Metrics {
+        /**
+         * enabled indicates whether the runner should collect metrics
+         */
+        enabled?: boolean | null;
+
+        /**
+         * password is the password to use for the metrics collector
+         */
+        password?: string | null;
+
+        /**
+         * url is the URL of the metrics collector
+         */
+        url?: string | null;
+
+        /**
+         * username is the username to use for the metrics collector
+         */
+        username?: string | null;
+      }
     }
   }
 }
@@ -747,6 +945,9 @@ Runners.Policies = Policies;
 
 export declare namespace Runners {
   export {
+    type GatewayInfo as GatewayInfo,
+    type LogLevel as LogLevel,
+    type MetricsConfiguration as MetricsConfiguration,
     type Runner as Runner,
     type RunnerCapability as RunnerCapability,
     type RunnerConfiguration as RunnerConfiguration,

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
+import { APIResource } from '../core/resource';
 import * as Shared from './shared';
-import { APIPromise } from '../api-promise';
+import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 export class Identity extends APIResource {
@@ -24,6 +24,13 @@ export class Identity extends APIResource {
    *   ```yaml
    *   exchangeToken: "exchange-token-value"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.identity.exchangeToken({
+   *   exchangeToken: 'exchange-token-value',
+   * });
+   * ```
    */
   exchangeToken(
     body: IdentityExchangeTokenParams,
@@ -51,6 +58,12 @@ export class Identity extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.identity.getAuthenticatedIdentity();
+   * ```
    */
   getAuthenticatedIdentity(
     body: IdentityGetAuthenticatedIdentityParams,
@@ -88,6 +101,16 @@ export class Identity extends APIResource {
    *     - "https://api.gitpod.io"
    *     - "https://ws.gitpod.io"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.identity.getIDToken({
+   *   audience: [
+   *     'https://api.gitpod.io',
+   *     'https://ws.gitpod.io',
+   *   ],
+   * });
+   * ```
    */
   getIDToken(
     body: IdentityGetIDTokenParams,
@@ -96,6 +119,8 @@ export class Identity extends APIResource {
     return this._client.post('/gitpod.v1.IdentityService/GetIDToken', { body, ...options });
   }
 }
+
+export type IDTokenVersion = 'ID_TOKEN_VERSION_UNSPECIFIED' | 'ID_TOKEN_VERSION_V1' | 'ID_TOKEN_VERSION_V2';
 
 export interface IdentityExchangeTokenResponse {
   /**
@@ -130,10 +155,16 @@ export interface IdentityGetAuthenticatedIdentityParams {
 
 export interface IdentityGetIDTokenParams {
   audience?: Array<string>;
+
+  /**
+   * version is the version of the ID token.
+   */
+  version?: IDTokenVersion;
 }
 
 export declare namespace Identity {
   export {
+    type IDTokenVersion as IDTokenVersion,
     type IdentityExchangeTokenResponse as IdentityExchangeTokenResponse,
     type IdentityGetAuthenticatedIdentityResponse as IdentityGetAuthenticatedIdentityResponse,
     type IdentityGetIDTokenResponse as IdentityGetIDTokenResponse,

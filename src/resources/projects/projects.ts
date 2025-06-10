@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as PoliciesAPI from './policies';
 import {
@@ -16,8 +16,8 @@ import {
   ProjectPolicy,
   ProjectRole,
 } from './policies';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, ProjectsPage, type ProjectsPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, ProjectsPage, type ProjectsPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Projects extends APIResource {
@@ -64,6 +64,22 @@ export class Projects extends APIResource {
    *   devcontainerFilePath: ".devcontainer/devcontainer.json"
    *   automationsFilePath: ".gitpod/automations.yaml"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const project = await client.projects.create({
+   *   environmentClass: {
+   *     environmentClassId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   },
+   *   initializer: {
+   *     specs: [
+   *       { git: { remoteUri: 'https://github.com/org/repo' } },
+   *     ],
+   *   },
+   *   name: 'Web Application',
+   * });
+   * ```
    */
   create(body: ProjectCreateParams, options?: RequestOptions): APIPromise<ProjectCreateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/CreateProject', { body, ...options });
@@ -87,6 +103,13 @@ export class Projects extends APIResource {
    *   ```yaml
    *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const project = await client.projects.retrieve({
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   retrieve(body: ProjectRetrieveParams, options?: RequestOptions): APIPromise<ProjectRetrieveResponse> {
     return this._client.post('/gitpod.v1.ProjectService/GetProject', { body, ...options });
@@ -122,6 +145,17 @@ export class Projects extends APIResource {
    *   environmentClass:
    *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const project = await client.projects.update({
+   *   environmentClass: {
+   *     environmentClassId:
+   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   },
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   update(body: ProjectUpdateParams, options?: RequestOptions): APIPromise<ProjectUpdateResponse> {
     return this._client.post('/gitpod.v1.ProjectService/UpdateProject', { body, ...options });
@@ -146,6 +180,16 @@ export class Projects extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const project of client.projects.list({
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: ProjectListParams, options?: RequestOptions): PagePromise<ProjectsProjectsPage, Project> {
     const { token, pageSize, ...body } = params;
@@ -175,6 +219,13 @@ export class Projects extends APIResource {
    *   ```yaml
    *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const project = await client.projects.delete({
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   delete(body: ProjectDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.ProjectService/DeleteProject', { body, ...options });
@@ -199,6 +250,15 @@ export class Projects extends APIResource {
    *   name: "Frontend Project"
    *   environmentId: "07e03a28-65a5-4d98-b532-8ea67b188048"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.projects.createFromEnvironment({
+   *     environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *     name: 'Frontend Project',
+   *   });
+   * ```
    */
   createFromEnvironment(
     body: ProjectCreateFromEnvironmentParams,
@@ -292,6 +352,12 @@ export interface Project {
   initializer?: EnvironmentInitializer;
 
   metadata?: ProjectMetadata;
+
+  /**
+   * technical_description is a detailed technical description of the project This
+   * field is not returned by default in GetProject or ListProjects responses
+   */
+  technicalDescription?: string;
 
   usedBy?: Project.UsedBy;
 }
@@ -572,6 +638,12 @@ export interface ProjectCreateParams {
   devcontainerFilePath?: string;
 
   name?: string;
+
+  /**
+   * technical_description is a detailed technical description of the project This
+   * field is not returned by default in GetProject or ListProjects responses 8KB max
+   */
+  technicalDescription?: string;
 }
 
 export interface ProjectRetrieveParams {
@@ -615,9 +687,20 @@ export interface ProjectUpdateParams {
    * project_id specifies the project identifier
    */
   projectId?: string;
+
+  /**
+   * technical_description is a detailed technical description of the project This
+   * field is not returned by default in GetProject or ListProjects responses 8KB max
+   */
+  technicalDescription?: string | null;
 }
 
 export interface ProjectListParams extends ProjectsPageParams {
+  /**
+   * Body param:
+   */
+  filter?: ProjectListParams.Filter;
+
   /**
    * Body param: pagination contains the pagination options for listing organizations
    */
@@ -625,6 +708,13 @@ export interface ProjectListParams extends ProjectsPageParams {
 }
 
 export namespace ProjectListParams {
+  export interface Filter {
+    /**
+     * project_ids filters the response to only projects with these IDs
+     */
+    projectIds?: Array<string>;
+  }
+
   /**
    * pagination contains the pagination options for listing organizations
    */

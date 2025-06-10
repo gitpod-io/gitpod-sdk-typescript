@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as DomainVerificationsAPI from './domain-verifications';
 import {
@@ -29,6 +29,15 @@ import {
   Invites,
   OrganizationInvite,
 } from './invites';
+import * as PoliciesAPI from './policies';
+import {
+  OrganizationPolicies,
+  Policies,
+  PolicyRetrieveParams,
+  PolicyRetrieveResponse,
+  PolicyUpdateParams,
+  PolicyUpdateResponse,
+} from './policies';
 import * as SSOConfigurationsAPI from './sso-configurations';
 import {
   ProviderType,
@@ -46,20 +55,15 @@ import {
   SSOConfigurations,
   SSOConfigurationsSSOConfigurationsPage,
 } from './sso-configurations';
-import { APIPromise } from '../../api-promise';
-import {
-  MembersPage,
-  type MembersPageParams,
-  OrganizationsPage,
-  type OrganizationsPageParams,
-  PagePromise,
-} from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { MembersPage, type MembersPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Organizations extends APIResource {
   domainVerifications: DomainVerificationsAPI.DomainVerifications =
     new DomainVerificationsAPI.DomainVerifications(this._client);
   invites: InvitesAPI.Invites = new InvitesAPI.Invites(this._client);
+  policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
   ssoConfigurations: SSOConfigurationsAPI.SSOConfigurations = new SSOConfigurationsAPI.SSOConfigurations(
     this._client,
   );
@@ -94,6 +98,14 @@ export class Organizations extends APIResource {
    *   joinOrganization: true
    *   inviteAccountsWithMatchingDomain: true
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.create({
+   *   name: 'Acme Corp Engineering',
+   *   joinOrganization: true,
+   * });
+   * ```
    */
   create(body: OrganizationCreateParams, options?: RequestOptions): APIPromise<OrganizationCreateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/CreateOrganization', { body, ...options });
@@ -117,6 +129,13 @@ export class Organizations extends APIResource {
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.retrieve({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   retrieve(
     body: OrganizationRetrieveParams,
@@ -160,52 +179,17 @@ export class Organizations extends APIResource {
    *   inviteDomains:
    *     domains: []
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.update({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   inviteDomains: { domains: [] },
+   * });
+   * ```
    */
   update(body: OrganizationUpdateParams, options?: RequestOptions): APIPromise<OrganizationUpdateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateOrganization', { body, ...options });
-  }
-
-  /**
-   * Lists all organizations the caller has access to with optional filtering.
-   *
-   * Use this method to:
-   *
-   * - View organizations you're a member of
-   * - Browse all available organizations
-   * - Paginate through organization results
-   *
-   * ### Examples
-   *
-   * - List member organizations:
-   *
-   *   Shows organizations where the caller is a member.
-   *
-   *   ```yaml
-   *   pagination:
-   *     pageSize: 20
-   *   scope: SCOPE_MEMBER
-   *   ```
-   *
-   * - List all organizations:
-   *
-   *   Shows all organizations visible to the caller.
-   *
-   *   ```yaml
-   *   pagination:
-   *     pageSize: 50
-   *   scope: SCOPE_ALL
-   *   ```
-   */
-  list(
-    params: OrganizationListParams,
-    options?: RequestOptions,
-  ): PagePromise<OrganizationsOrganizationsPage, Organization> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.OrganizationService/ListOrganizations',
-      OrganizationsPage<Organization>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
   }
 
   /**
@@ -226,6 +210,13 @@ export class Organizations extends APIResource {
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const organization = await client.organizations.delete({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   * });
+   * ```
    */
   delete(body: OrganizationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/DeleteOrganization', { body, ...options });
@@ -258,6 +249,13 @@ export class Organizations extends APIResource {
    *   ```yaml
    *   inviteId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.organizations.join({
+   *   inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   join(body: OrganizationJoinParams, options?: RequestOptions): APIPromise<OrganizationJoinResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/JoinOrganization', { body, ...options });
@@ -284,6 +282,13 @@ export class Organizations extends APIResource {
    *   ```
    *
    * Note: Ensure all projects and resources are transferred before leaving.
+   *
+   * @example
+   * ```ts
+   * const response = await client.organizations.leave({
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   * });
+   * ```
    */
   leave(body: OrganizationLeaveParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/LeaveOrganization', { body, ...options });
@@ -320,6 +325,19 @@ export class Organizations extends APIResource {
    *     pageSize: 50
    *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const organizationMember of client.organizations.listMembers(
+   *   {
+   *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listMembers(
     params: OrganizationListMembersParams,
@@ -364,13 +382,20 @@ export class Organizations extends APIResource {
    *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   role: ORGANIZATION_ROLE_MEMBER
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.organizations.setRole({
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *   role: 'ORGANIZATION_ROLE_MEMBER',
+   * });
+   * ```
    */
   setRole(body: OrganizationSetRoleParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.OrganizationService/SetRole', { body, ...options });
   }
 }
-
-export type OrganizationsOrganizationsPage = OrganizationsPage<Organization>;
 
 export type OrganizationMembersMembersPage = MembersPage<OrganizationMember>;
 
@@ -477,6 +502,11 @@ export interface Organization {
   createdAt: string;
 
   name: string;
+
+  /**
+   * The tier of the organization - free or enterprise
+   */
+  tier: OrganizationTier;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -684,7 +714,10 @@ export interface OrganizationMember {
   avatarUrl?: string;
 }
 
-export type Scope = 'SCOPE_UNSPECIFIED' | 'SCOPE_MEMBER' | 'SCOPE_ALL';
+export type OrganizationTier =
+  | 'ORGANIZATION_TIER_UNSPECIFIED'
+  | 'ORGANIZATION_TIER_FREE'
+  | 'ORGANIZATION_TIER_ENTERPRISE';
 
 export interface OrganizationCreateResponse {
   /**
@@ -769,37 +802,6 @@ export interface OrganizationUpdateParams {
   name?: string | null;
 }
 
-export interface OrganizationListParams extends OrganizationsPageParams {
-  /**
-   * Body param: pagination contains the pagination options for listing organizations
-   */
-  pagination?: OrganizationListParams.Pagination;
-
-  /**
-   * Body param: scope is the scope of the organizations to list
-   */
-  scope?: Scope;
-}
-
-export namespace OrganizationListParams {
-  /**
-   * pagination contains the pagination options for listing organizations
-   */
-  export interface Pagination {
-    /**
-     * Token for the next set of results that was returned as next_token of a
-     * PaginationResponse
-     */
-    token?: string;
-
-    /**
-     * Page size is the maximum number of results to retrieve per page. Defaults to 25.
-     * Maximum 100.
-     */
-    pageSize?: number;
-  }
-}
-
 export interface OrganizationDeleteParams {
   /**
    * organization_id is the ID of the organization to delete
@@ -864,6 +866,7 @@ export interface OrganizationSetRoleParams {
 
 Organizations.DomainVerifications = DomainVerifications;
 Organizations.Invites = Invites;
+Organizations.Policies = Policies;
 Organizations.SSOConfigurations = SSOConfigurations;
 
 export declare namespace Organizations {
@@ -871,7 +874,7 @@ export declare namespace Organizations {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type Scope as Scope,
+    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -879,12 +882,10 @@ export declare namespace Organizations {
     type OrganizationJoinResponse as OrganizationJoinResponse,
     type OrganizationLeaveResponse as OrganizationLeaveResponse,
     type OrganizationSetRoleResponse as OrganizationSetRoleResponse,
-    type OrganizationsOrganizationsPage as OrganizationsOrganizationsPage,
     type OrganizationMembersMembersPage as OrganizationMembersMembersPage,
     type OrganizationCreateParams as OrganizationCreateParams,
     type OrganizationRetrieveParams as OrganizationRetrieveParams,
     type OrganizationUpdateParams as OrganizationUpdateParams,
-    type OrganizationListParams as OrganizationListParams,
     type OrganizationDeleteParams as OrganizationDeleteParams,
     type OrganizationJoinParams as OrganizationJoinParams,
     type OrganizationLeaveParams as OrganizationLeaveParams,
@@ -917,6 +918,15 @@ export declare namespace Organizations {
     type InviteCreateParams as InviteCreateParams,
     type InviteRetrieveParams as InviteRetrieveParams,
     type InviteGetSummaryParams as InviteGetSummaryParams,
+  };
+
+  export {
+    Policies as Policies,
+    type OrganizationPolicies as OrganizationPolicies,
+    type PolicyRetrieveResponse as PolicyRetrieveResponse,
+    type PolicyUpdateResponse as PolicyUpdateResponse,
+    type PolicyRetrieveParams as PolicyRetrieveParams,
+    type PolicyUpdateParams as PolicyUpdateParams,
   };
 
   export {

@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
+import { APIResource } from '../core/resource';
+import * as SecretsAPI from './secrets';
 import * as Shared from './shared';
-import { APIPromise } from '../api-promise';
-import { PagePromise, SecretsPage, type SecretsPageParams } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { PagePromise, SecretsPage, type SecretsPageParams } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Secrets extends APIResource {
@@ -51,18 +52,28 @@ export class Secrets extends APIResource {
    *   value: "username:password"
    *   containerRegistryBasicAuthHost: "https://registry.example.com"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const secret = await client.secrets.create({
+   *   environmentVariable: true,
+   *   name: 'DATABASE_URL',
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   value: 'postgresql://user:pass@localhost:5432/db',
+   * });
+   * ```
    */
   create(body: SecretCreateParams, options?: RequestOptions): APIPromise<SecretCreateResponse> {
     return this._client.post('/gitpod.v1.SecretService/CreateSecret', { body, ...options });
   }
 
   /**
-   * Lists secrets with optional filtering.
+   * Lists secrets
    *
    * Use this method to:
    *
    * - View all project secrets
-   * - Filter secrets by project
+   * - View all user secrets
    *
    * ### Examples
    *
@@ -72,10 +83,38 @@ export class Secrets extends APIResource {
    *
    *   ```yaml
    *   filter:
-   *     projectIds: ["b0e12f6c-4c67-429d-a4a6-d9838b5da047"]
+   *     scope:
+   *       projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * - List user secrets:
+   *
+   *   Shows all secrets for a user.
+   *
+   *   ```yaml
+   *   filter:
+   *     scope:
+   *       userId: "123e4567-e89b-12d3-a456-426614174000"
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const secret of client.secrets.list({
+   *   filter: {
+   *     scope: {
+   *       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     },
+   *   },
+   *   pagination: { pageSize: 20 },
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(params: SecretListParams, options?: RequestOptions): PagePromise<SecretsSecretsPage, Secret> {
     const { token, pageSize, ...body } = params;
@@ -104,6 +143,13 @@ export class Secrets extends APIResource {
    *   ```yaml
    *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const secret = await client.secrets.delete({
+   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   delete(body: SecretDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.SecretService/DeleteSecret', { body, ...options });
@@ -127,6 +173,13 @@ export class Secrets extends APIResource {
    *   ```yaml
    *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.secrets.getValue({
+   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   getValue(body: SecretGetValueParams, options?: RequestOptions): APIPromise<SecretGetValueResponse> {
     return this._client.post('/gitpod.v1.SecretService/GetSecretValue', { body, ...options });
@@ -150,6 +203,14 @@ export class Secrets extends APIResource {
    *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   value: "new-secret-value"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.secrets.updateValue({
+   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   value: 'new-secret-value',
+   * });
+   * ```
    */
   updateValue(body: SecretUpdateValueParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.SecretService/UpdateSecretValue', { body, ...options });
@@ -280,9 +341,11 @@ export interface Secret {
   name?: string;
 
   /**
-   * The Project ID this Secret belongs to
+   * @deprecated The Project ID this Secret belongs to Deprecated: use scope instead
    */
   projectId?: string;
+
+  scope?: SecretScope;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -377,6 +440,18 @@ export interface Secret {
   updatedAt?: string;
 }
 
+export interface SecretScope {
+  /**
+   * project_id is the Project ID this Secret belongs to
+   */
+  projectId?: string;
+
+  /**
+   * user_id is the User ID this Secret belongs to
+   */
+  userId?: string;
+}
+
 export interface SecretCreateResponse {
   secret?: Secret;
 }
@@ -392,12 +467,7 @@ export type SecretUpdateValueResponse = unknown;
 export interface SecretCreateParams {
   /**
    * secret will be mounted as a docker config in the environment VM, mount will have
-   * the docker registry host value must be a valid registry host (e.g.
-   * registry.docker.com, https://registry.docker.com, ghcr.io:5050):
-   *
-   * ```
-   * this.matches('^[a-zA-Z0-9.-/:]+(:[0-9]+)?$')
-   * ```
+   * the docker registry host
    */
   containerRegistryBasicAuthHost?: string;
 
@@ -420,9 +490,15 @@ export interface SecretCreateParams {
   name?: string;
 
   /**
-   * project_id is the ProjectID this Secret belongs to
+   * @deprecated project_id is the ProjectID this Secret belongs to Deprecated: use
+   * scope instead
    */
   projectId?: string;
+
+  /**
+   * scope is the scope of the secret
+   */
+  scope?: SecretScope;
 
   /**
    * value is the plaintext value of the secret
@@ -445,9 +521,16 @@ export interface SecretListParams extends SecretsPageParams {
 export namespace SecretListParams {
   export interface Filter {
     /**
-     * project_ids filters the response to only Secrets used by these Project IDs
+     * @deprecated project_ids filters the response to only Secrets used by these
+     * Project IDs Deprecated: use scope instead. Values in project_ids will be
+     * ignored.
      */
     projectIds?: Array<string>;
+
+    /**
+     * scope is the scope of the secrets to list
+     */
+    scope?: SecretsAPI.SecretScope;
   }
 
   /**
@@ -488,6 +571,7 @@ export interface SecretUpdateValueParams {
 export declare namespace Secrets {
   export {
     type Secret as Secret,
+    type SecretScope as SecretScope,
     type SecretCreateResponse as SecretCreateResponse,
     type SecretDeleteResponse as SecretDeleteResponse,
     type SecretGetValueResponse as SecretGetValueResponse,

@@ -1,9 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import { APIPromise } from '../../api-promise';
-import { PagePromise, PersonalAccessTokensPage, type PersonalAccessTokensPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import {
+  PagePromise,
+  PersonalAccessTokensPage,
+  type PersonalAccessTokensPageParams,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Pats extends APIResource {
@@ -28,6 +32,21 @@ export class Pats extends APIResource {
    *   pagination:
    *     pageSize: 20
    *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const personalAccessToken of client.users.pats.list(
+   *   {
+   *     filter: {
+   *       userIds: ['f53d2330-3795-4c5d-a1f3-453121af9c60'],
+   *     },
+   *     pagination: { pageSize: 20 },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     params: PatListParams,
@@ -59,6 +78,14 @@ export class Pats extends APIResource {
    *   ```yaml
    *   personalAccessTokenId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const pat = await client.users.pats.delete({
+   *   personalAccessTokenId:
+   *     'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   delete(body: PatDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.UserService/DeletePersonalAccessToken', { body, ...options });
@@ -82,6 +109,14 @@ export class Pats extends APIResource {
    *   ```yaml
    *   personalAccessTokenId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const pat = await client.users.pats.get({
+   *   personalAccessTokenId:
+   *     'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
    */
   get(body: PatGetParams, options?: RequestOptions): APIPromise<PatGetResponse> {
     return this._client.post('/gitpod.v1.UserService/GetPersonalAccessToken', { body, ...options });

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
+import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
 import * as ServicesAPI from './services';
 import {
@@ -40,7 +40,7 @@ import {
   TaskUpdateResponse,
   Tasks as TasksAPITasks,
 } from './tasks/tasks';
-import { APIPromise } from '../../../api-promise';
+import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
 export class Automations extends APIResource {
@@ -82,6 +82,35 @@ export class Automations extends APIResource {
    *         triggeredBy:
    *           - postEnvironmentStart
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.environments.automations.upsert({
+   *     automationsFile: {
+   *       services: {
+   *         'web-server': {
+   *           commands: {
+   *             ready: 'curl -s http://localhost:3000',
+   *             start: 'npm run dev',
+   *           },
+   *           description: 'Development web server',
+   *           name: 'Web Server',
+   *           triggeredBy: ['postDevcontainerStart'],
+   *         },
+   *       },
+   *       tasks: {
+   *         build: {
+   *           command: 'npm run build',
+   *           description: 'Builds the project artifacts',
+   *           name: 'Build Project',
+   *           triggeredBy: ['postEnvironmentStart'],
+   *         },
+   *       },
+   *     },
+   *     environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
+   *   });
+   * ```
    */
   upsert(body: AutomationUpsertParams, options?: RequestOptions): APIPromise<AutomationUpsertResponse> {
     return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpsertAutomationsFile', {

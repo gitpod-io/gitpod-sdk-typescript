@@ -1,18 +1,20 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import type { RequestInit, RequestInfo, BodyInit } from './internal/builtin-types';
-import type { HTTPMethod, PromiseOrValue, MergedRequestInit } from './internal/types';
+import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestInit } from './internal/types';
 import { uuid4 } from './internal/utils/uuid';
-import { validatePositiveInteger, isAbsoluteURL, hasOwn } from './internal/utils/values';
+import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/utils/values';
 import { sleep } from './internal/utils/sleep';
+import { type Logger, type LogLevel as LogLevelClient, parseLogLevel } from './internal/utils/log';
+export type { Logger, LogLevel as LogLevelClient } from './internal/utils/log';
 import { castToError, isAbortError } from './internal/errors';
 import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
 import { VERSION } from './version';
-import * as Errors from './error';
-import * as Pagination from './pagination';
+import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
 import {
   AbstractPage,
   type DomainVerificationsPageParams,
@@ -25,6 +27,8 @@ import {
   EnvironmentClassesPageResponse,
   type EnvironmentsPageParams,
   EnvironmentsPageResponse,
+  type GatewaysPageParams,
+  GatewaysPageResponse,
   type GroupsPageParams,
   GroupsPageResponse,
   type IntegrationsPageParams,
@@ -33,14 +37,14 @@ import {
   LoginProvidersPageResponse,
   type MembersPageParams,
   MembersPageResponse,
-  type OrganizationsPageParams,
-  OrganizationsPageResponse,
   type PersonalAccessTokensPageParams,
   PersonalAccessTokensPageResponse,
   type PoliciesPageParams,
   PoliciesPageResponse,
   type ProjectsPageParams,
   ProjectsPageResponse,
+  type RecordsPageParams,
+  RecordsPageResponse,
   type RunnersPageParams,
   RunnersPageResponse,
   type SSOConfigurationsPageParams,
@@ -55,10 +59,10 @@ import {
   TasksPageResponse,
   type TokensPageParams,
   TokensPageResponse,
-} from './pagination';
-import * as Uploads from './uploads';
+} from './core/pagination';
+import * as Uploads from './core/uploads';
 import * as API from './resources/index';
-import { APIPromise } from './api-promise';
+import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -68,6 +72,8 @@ import {
   AccountDeleteResponse,
   AccountGetSSOLoginURLParams,
   AccountGetSSOLoginURLResponse,
+  AccountListJoinableOrganizationsParams,
+  AccountListJoinableOrganizationsResponse,
   AccountListLoginProvidersParams,
   AccountMembership,
   AccountRetrieveParams,
@@ -97,8 +103,10 @@ import {
   ResourceOperation,
   ResourceType,
 } from './resources/events';
+import { GatewayListParams, Gateways } from './resources/gateways';
 import { Group, GroupListParams, Groups, GroupsGroupsPage } from './resources/groups';
 import {
+  IDTokenVersion,
   Identity,
   IdentityExchangeTokenParams,
   IdentityExchangeTokenResponse,
@@ -116,11 +124,18 @@ import {
   SecretGetValueParams,
   SecretGetValueResponse,
   SecretListParams,
+  SecretScope,
   SecretUpdateValueParams,
   SecretUpdateValueResponse,
   Secrets,
   SecretsSecretsPage,
 } from './resources/secrets';
+import {
+  EnvironmentUsageRecord,
+  EnvironmentUsageRecordsRecordsPage,
+  Usage,
+  UsageListEnvironmentRuntimeRecordsParams,
+} from './resources/usage';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -128,6 +143,8 @@ import {
   AdmissionLevel,
   Environment,
   EnvironmentActivitySignal,
+  EnvironmentCreateEnvironmentTokenParams,
+  EnvironmentCreateEnvironmentTokenResponse,
   EnvironmentCreateFromProjectParams,
   EnvironmentCreateFromProjectResponse,
   EnvironmentCreateLogsTokenParams,
@@ -149,6 +166,8 @@ import {
   EnvironmentStatus,
   EnvironmentStopParams,
   EnvironmentStopResponse,
+  EnvironmentUnarchiveParams,
+  EnvironmentUnarchiveResponse,
   EnvironmentUpdateParams,
   EnvironmentUpdateResponse,
   Environments,
@@ -166,18 +185,16 @@ import {
   OrganizationLeaveParams,
   OrganizationLeaveResponse,
   OrganizationListMembersParams,
-  OrganizationListParams,
   OrganizationMember,
   OrganizationMembersMembersPage,
   OrganizationRetrieveParams,
   OrganizationRetrieveResponse,
   OrganizationSetRoleParams,
   OrganizationSetRoleResponse,
+  OrganizationTier,
   OrganizationUpdateParams,
   OrganizationUpdateResponse,
   Organizations,
-  OrganizationsOrganizationsPage,
-  Scope,
 } from './resources/organizations/organizations';
 import {
   EnvironmentInitializer,
@@ -199,6 +216,9 @@ import {
   ProjectsProjectsPage,
 } from './resources/projects/projects';
 import {
+  GatewayInfo,
+  LogLevel,
+  MetricsConfiguration,
   Runner,
   RunnerCapability,
   RunnerCheckAuthenticationForHostParams,
@@ -234,48 +254,6 @@ import {
   UserSetSuspendedResponse,
   Users,
 } from './resources/users/users';
-
-const safeJSON = (text: string) => {
-  try {
-    return JSON.parse(text);
-  } catch (err) {
-    return undefined;
-  }
-};
-
-type LogFn = (message: string, ...rest: unknown[]) => void;
-export type Logger = {
-  error: LogFn;
-  warn: LogFn;
-  info: LogFn;
-  debug: LogFn;
-};
-export type LogLevel = 'off' | 'error' | 'warn' | 'info' | 'debug';
-const parseLogLevel = (
-  maybeLevel: string | undefined,
-  sourceName: string,
-  client: Gitpod,
-): LogLevel | undefined => {
-  if (!maybeLevel) {
-    return undefined;
-  }
-  const levels: Record<LogLevel, true> = {
-    off: true,
-    error: true,
-    warn: true,
-    info: true,
-    debug: true,
-  };
-  if (hasOwn(levels, maybeLevel)) {
-    return maybeLevel;
-  }
-  loggerFor(client).warn(
-    `${sourceName} was set to ${JSON.stringify(maybeLevel)}, expected one of ${JSON.stringify(
-      Object.keys(levels),
-    )}`,
-  );
-  return undefined;
-};
 
 export interface ClientOptions {
   /**
@@ -340,7 +318,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['GITPOD_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: LogLevel | undefined;
+  logLevel?: LogLevelClient | undefined;
 
   /**
    * Set the logger.
@@ -349,8 +327,6 @@ export interface ClientOptions {
    */
   logger?: Logger | undefined;
 }
-
-type FinalizedRequestInit = RequestInit & { headers: Headers };
 
 /**
  * API Client for interfacing with the Gitpod API.
@@ -362,7 +338,7 @@ export class Gitpod {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: LogLevel | undefined;
+  logLevel: LogLevelClient | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;
@@ -419,6 +395,23 @@ export class Gitpod {
     this.bearerToken = bearerToken;
   }
 
+  /**
+   * Create a new client instance re-using the same options given to the current client with optional overriding.
+   */
+  withOptions(options: Partial<ClientOptions>): this {
+    return new (this.constructor as any as new (props: ClientOptions) => typeof this)({
+      ...this._options,
+      baseURL: this.baseURL,
+      maxRetries: this.maxRetries,
+      timeout: this.timeout,
+      logger: this.logger,
+      logLevel: this.logLevel,
+      fetchOptions: this.fetchOptions,
+      bearerToken: this.bearerToken,
+      ...options,
+    });
+  }
+
   protected defaultQuery(): Record<string, string | undefined> | undefined {
     return this._options.defaultQuery;
   }
@@ -427,8 +420,8 @@ export class Gitpod {
     return;
   }
 
-  protected authHeaders(opts: FinalRequestOptions): Headers | undefined {
-    return new Headers({ Authorization: `Bearer ${this.bearerToken}` });
+  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
+    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
   }
 
   /**
@@ -726,7 +719,9 @@ export class Gitpod {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    const isReadableBody = Shims.isReadableLike(options.body);
+    const isReadableBody =
+      ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
+      (typeof options.body === 'object' && options.body !== null && Symbol.asyncIterator in options.body);
 
     const fetchOptions: RequestInit = {
       signal: controller.signal as any,
@@ -740,12 +735,12 @@ export class Gitpod {
       fetchOptions.method = method.toUpperCase();
     }
 
-    return (
+    try {
       // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
-      this.fetch.call(undefined, url, fetchOptions).finally(() => {
-        clearTimeout(timeout);
-      })
-    );
+      return await this.fetch.call(undefined, url, fetchOptions);
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   private shouldRetry(response: Response): boolean {
@@ -826,17 +821,17 @@ export class Gitpod {
   }
 
   buildRequest(
-    options: FinalRequestOptions,
+    inputOptions: FinalRequestOptions,
     { retryCount = 0 }: { retryCount?: number } = {},
   ): { req: FinalizedRequestInit; url: string; timeout: number } {
-    options = { ...options };
+    const options = { ...inputOptions };
     const { method, path, query } = options;
 
     const url = this.buildURL(path!, query as Record<string, unknown>);
     if ('timeout' in options) validatePositiveInteger('timeout', options.timeout);
     options.timeout = options.timeout ?? this.timeout;
     const { bodyHeaders, body } = this.buildBody({ options });
-    const reqHeaders = this.buildHeaders({ options, method, bodyHeaders, retryCount });
+    const reqHeaders = this.buildHeaders({ options: inputOptions, method, bodyHeaders, retryCount });
 
     const req: FinalizedRequestInit = {
       method,
@@ -875,7 +870,7 @@ export class Gitpod {
         Accept: 'application/json',
         'User-Agent': this.getUserAgent(),
         'X-Stainless-Retry-Count': String(retryCount),
-        ...(options.timeout ? { 'X-Stainless-Timeout': String(options.timeout) } : {}),
+        ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
       this.authHeaders(options),
@@ -949,24 +944,28 @@ export class Gitpod {
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
   events: API.Events = new API.Events(this);
+  gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
   identity: API.Identity = new API.Identity(this);
   organizations: API.Organizations = new API.Organizations(this);
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
+  usage: API.Usage = new API.Usage(this);
   users: API.Users = new API.Users(this);
 }
 Gitpod.Accounts = Accounts;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
 Gitpod.Events = Events;
+Gitpod.Gateways = Gateways;
 Gitpod.Groups = Groups;
 Gitpod.Identity = Identity;
 Gitpod.Organizations = Organizations;
 Gitpod.Projects = Projects;
 Gitpod.Runners = Runners;
 Gitpod.Secrets = Secrets;
+Gitpod.Usage = Usage;
 Gitpod.Users = Users;
 export declare namespace Gitpod {
   export type RequestOptions = Opts.RequestOptions;
@@ -995,6 +994,9 @@ export declare namespace Gitpod {
     type EnvironmentsPageResponse as EnvironmentsPageResponse,
   };
 
+  export import GatewaysPage = Pagination.GatewaysPage;
+  export { type GatewaysPageParams as GatewaysPageParams, type GatewaysPageResponse as GatewaysPageResponse };
+
   export import GroupsPage = Pagination.GroupsPage;
   export { type GroupsPageParams as GroupsPageParams, type GroupsPageResponse as GroupsPageResponse };
 
@@ -1013,12 +1015,6 @@ export declare namespace Gitpod {
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
 
-  export import OrganizationsPage = Pagination.OrganizationsPage;
-  export {
-    type OrganizationsPageParams as OrganizationsPageParams,
-    type OrganizationsPageResponse as OrganizationsPageResponse,
-  };
-
   export import PersonalAccessTokensPage = Pagination.PersonalAccessTokensPage;
   export {
     type PersonalAccessTokensPageParams as PersonalAccessTokensPageParams,
@@ -1030,6 +1026,9 @@ export declare namespace Gitpod {
 
   export import ProjectsPage = Pagination.ProjectsPage;
   export { type ProjectsPageParams as ProjectsPageParams, type ProjectsPageResponse as ProjectsPageResponse };
+
+  export import RecordsPage = Pagination.RecordsPage;
+  export { type RecordsPageParams as RecordsPageParams, type RecordsPageResponse as RecordsPageResponse };
 
   export import RunnersPage = Pagination.RunnersPage;
   export { type RunnersPageParams as RunnersPageParams, type RunnersPageResponse as RunnersPageResponse };
@@ -1067,10 +1066,12 @@ export declare namespace Gitpod {
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountDeleteResponse as AccountDeleteResponse,
     type AccountGetSSOLoginURLResponse as AccountGetSSOLoginURLResponse,
+    type AccountListJoinableOrganizationsResponse as AccountListJoinableOrganizationsResponse,
     type LoginProvidersLoginProvidersPage as LoginProvidersLoginProvidersPage,
     type AccountRetrieveParams as AccountRetrieveParams,
     type AccountDeleteParams as AccountDeleteParams,
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
+    type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
   };
 
@@ -1098,22 +1099,26 @@ export declare namespace Gitpod {
     type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
     type EnvironmentUpdateResponse as EnvironmentUpdateResponse,
     type EnvironmentDeleteResponse as EnvironmentDeleteResponse,
+    type EnvironmentCreateEnvironmentTokenResponse as EnvironmentCreateEnvironmentTokenResponse,
     type EnvironmentCreateFromProjectResponse as EnvironmentCreateFromProjectResponse,
     type EnvironmentCreateLogsTokenResponse as EnvironmentCreateLogsTokenResponse,
     type EnvironmentMarkActiveResponse as EnvironmentMarkActiveResponse,
     type EnvironmentStartResponse as EnvironmentStartResponse,
     type EnvironmentStopResponse as EnvironmentStopResponse,
+    type EnvironmentUnarchiveResponse as EnvironmentUnarchiveResponse,
     type EnvironmentsEnvironmentsPage as EnvironmentsEnvironmentsPage,
     type EnvironmentCreateParams as EnvironmentCreateParams,
     type EnvironmentRetrieveParams as EnvironmentRetrieveParams,
     type EnvironmentUpdateParams as EnvironmentUpdateParams,
     type EnvironmentListParams as EnvironmentListParams,
     type EnvironmentDeleteParams as EnvironmentDeleteParams,
+    type EnvironmentCreateEnvironmentTokenParams as EnvironmentCreateEnvironmentTokenParams,
     type EnvironmentCreateFromProjectParams as EnvironmentCreateFromProjectParams,
     type EnvironmentCreateLogsTokenParams as EnvironmentCreateLogsTokenParams,
     type EnvironmentMarkActiveParams as EnvironmentMarkActiveParams,
     type EnvironmentStartParams as EnvironmentStartParams,
     type EnvironmentStopParams as EnvironmentStopParams,
+    type EnvironmentUnarchiveParams as EnvironmentUnarchiveParams,
   };
 
   export {
@@ -1127,6 +1132,8 @@ export declare namespace Gitpod {
     type EventWatchParams as EventWatchParams,
   };
 
+  export { Gateways as Gateways, type GatewayListParams as GatewayListParams };
+
   export {
     Groups as Groups,
     type Group as Group,
@@ -1136,6 +1143,7 @@ export declare namespace Gitpod {
 
   export {
     Identity as Identity,
+    type IDTokenVersion as IDTokenVersion,
     type IdentityExchangeTokenResponse as IdentityExchangeTokenResponse,
     type IdentityGetAuthenticatedIdentityResponse as IdentityGetAuthenticatedIdentityResponse,
     type IdentityGetIDTokenResponse as IdentityGetIDTokenResponse,
@@ -1149,7 +1157,7 @@ export declare namespace Gitpod {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type Scope as Scope,
+    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -1157,12 +1165,10 @@ export declare namespace Gitpod {
     type OrganizationJoinResponse as OrganizationJoinResponse,
     type OrganizationLeaveResponse as OrganizationLeaveResponse,
     type OrganizationSetRoleResponse as OrganizationSetRoleResponse,
-    type OrganizationsOrganizationsPage as OrganizationsOrganizationsPage,
     type OrganizationMembersMembersPage as OrganizationMembersMembersPage,
     type OrganizationCreateParams as OrganizationCreateParams,
     type OrganizationRetrieveParams as OrganizationRetrieveParams,
     type OrganizationUpdateParams as OrganizationUpdateParams,
-    type OrganizationListParams as OrganizationListParams,
     type OrganizationDeleteParams as OrganizationDeleteParams,
     type OrganizationJoinParams as OrganizationJoinParams,
     type OrganizationLeaveParams as OrganizationLeaveParams,
@@ -1192,6 +1198,9 @@ export declare namespace Gitpod {
 
   export {
     Runners as Runners,
+    type GatewayInfo as GatewayInfo,
+    type LogLevel as LogLevel,
+    type MetricsConfiguration as MetricsConfiguration,
     type Runner as Runner,
     type RunnerCapability as RunnerCapability,
     type RunnerConfiguration as RunnerConfiguration,
@@ -1222,6 +1231,7 @@ export declare namespace Gitpod {
   export {
     Secrets as Secrets,
     type Secret as Secret,
+    type SecretScope as SecretScope,
     type SecretCreateResponse as SecretCreateResponse,
     type SecretDeleteResponse as SecretDeleteResponse,
     type SecretGetValueResponse as SecretGetValueResponse,
@@ -1232,6 +1242,13 @@ export declare namespace Gitpod {
     type SecretDeleteParams as SecretDeleteParams,
     type SecretGetValueParams as SecretGetValueParams,
     type SecretUpdateValueParams as SecretUpdateValueParams,
+  };
+
+  export {
+    Usage as Usage,
+    type EnvironmentUsageRecord as EnvironmentUsageRecord,
+    type EnvironmentUsageRecordsRecordsPage as EnvironmentUsageRecordsRecordsPage,
+    type UsageListEnvironmentRuntimeRecordsParams as UsageListEnvironmentRuntimeRecordsParams,
   };
 
   export {
@@ -1247,6 +1264,7 @@ export declare namespace Gitpod {
   export type EnvironmentClass = API.EnvironmentClass;
   export type ErrorCode = API.ErrorCode;
   export type FieldValue = API.FieldValue;
+  export type Gateway = API.Gateway;
   export type OrganizationRole = API.OrganizationRole;
   export type Principal = API.Principal;
   export type RunsOn = API.RunsOn;

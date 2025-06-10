@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import { EnvironmentClassesPage, TaskExecutionsPage, TasksPage } from '../pagination';
+import { EnvironmentClassesPage, GatewaysPage, TaskExecutionsPage, TasksPage } from '../core/pagination';
 
 /**
  * An AutomationTrigger represents a trigger for an automation action. The
@@ -79,6 +79,27 @@ export interface FieldValue {
   value?: string;
 }
 
+/**
+ * Gateway represents a system gateway that provides access to services
+ */
+export interface Gateway {
+  /**
+   * name is the human-readable name of the gateway. name is unique across all
+   * gateways.
+   */
+  name: string;
+
+  /**
+   * url of the gateway
+   */
+  url: string;
+
+  /**
+   * region is the geographical region where the gateway is located
+   */
+  region?: string;
+}
+
 export type OrganizationRole =
   | 'ORGANIZATION_ROLE_UNSPECIFIED'
   | 'ORGANIZATION_ROLE_ADMIN'
@@ -90,7 +111,8 @@ export type Principal =
   | 'PRINCIPAL_USER'
   | 'PRINCIPAL_RUNNER'
   | 'PRINCIPAL_ENVIRONMENT'
-  | 'PRINCIPAL_SERVICE_ACCOUNT';
+  | 'PRINCIPAL_SERVICE_ACCOUNT'
+  | 'PRINCIPAL_RUNNER_MANAGER';
 
 export interface RunsOn {
   docker: RunsOn.Docker;
@@ -281,6 +303,12 @@ export namespace TaskExecutionStatus {
     failureMessage?: string;
 
     /**
+     * output contains the output of the task execution. setting an output field to
+     * empty string will unset it.
+     */
+    output?: Record<string, string>;
+
+    /**
      * phase is the current phase of the execution step
      */
     phase?: Shared.TaskExecutionPhase;
@@ -347,3 +375,5 @@ export type TasksTasksPage = TasksPage<Task>;
 export type TaskExecutionsTaskExecutionsPage = TaskExecutionsPage<TaskExecution>;
 
 export type EnvironmentClassesEnvironmentClassesPage = EnvironmentClassesPage<EnvironmentClass>;
+
+export type GatewaysGatewaysPage = GatewaysPage<Gateway>;

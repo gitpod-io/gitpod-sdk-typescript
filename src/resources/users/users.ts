@@ -1,7 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as DotfilesAPI from './dotfiles';
+import {
+  DotfileGetParams,
+  DotfileGetResponse,
+  DotfileSetParams,
+  DotfileSetResponse,
+  Dotfiles,
+  DotfilesConfiguration,
+} from './dotfiles';
 import * as PatsAPI from './pats';
 import {
   PatDeleteParams,
@@ -13,10 +22,11 @@ import {
   PersonalAccessToken,
   PersonalAccessTokensPersonalAccessTokensPage,
 } from './pats';
-import { APIPromise } from '../../api-promise';
+import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Users extends APIResource {
+  dotfiles: DotfilesAPI.Dotfiles = new DotfilesAPI.Dotfiles(this._client);
   pats: PatsAPI.Pats = new PatsAPI.Pats(this._client);
 
   /**
@@ -38,6 +48,11 @@ export class Users extends APIResource {
    *   ```yaml
    *   {}
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.getAuthenticatedUser();
+   * ```
    */
   getAuthenticatedUser(
     body: UserGetAuthenticatedUserParams,
@@ -74,6 +89,13 @@ export class Users extends APIResource {
    *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
    *   suspended: false
    *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.setSuspended({
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   * });
+   * ```
    */
   setSuspended(body: UserSetSuspendedParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.UserService/SetSuspended', { body, ...options });
@@ -130,6 +152,7 @@ export interface UserSetSuspendedParams {
   userId?: string;
 }
 
+Users.Dotfiles = Dotfiles;
 Users.Pats = Pats;
 
 export declare namespace Users {
@@ -139,6 +162,15 @@ export declare namespace Users {
     type UserSetSuspendedResponse as UserSetSuspendedResponse,
     type UserGetAuthenticatedUserParams as UserGetAuthenticatedUserParams,
     type UserSetSuspendedParams as UserSetSuspendedParams,
+  };
+
+  export {
+    Dotfiles as Dotfiles,
+    type DotfilesConfiguration as DotfilesConfiguration,
+    type DotfileGetResponse as DotfileGetResponse,
+    type DotfileSetResponse as DotfileSetResponse,
+    type DotfileGetParams as DotfileGetParams,
+    type DotfileSetParams as DotfileSetParams,
   };
 
   export {

@@ -1,5 +1,5 @@
 import { multipartFormRequestOptions, createForm } from '@gitpod/sdk/internal/uploads';
-import { toFile } from '@gitpod/sdk/uploads';
+import { toFile } from '@gitpod/sdk/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

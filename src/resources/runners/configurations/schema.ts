@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import { APIPromise } from '../../../api-promise';
+import { APIResource } from '../../../core/resource';
+import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
 export class Schema extends APIResource {
@@ -23,6 +23,14 @@ export class Schema extends APIResource {
    *   ```yaml
    *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * @example
+   * ```ts
+   * const schema =
+   *   await client.runners.configurations.schema.retrieve({
+   *     runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   });
+   * ```
    */
   retrieve(body: SchemaRetrieveParams, options?: RequestOptions): APIPromise<SchemaRetrieveResponse> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/GetRunnerConfigurationSchema', {
@@ -78,9 +86,37 @@ export namespace RunnerConfigurationSchema {
     }
 
     export interface Enum {
+      /**
+       * @deprecated deprecated, will be removed, use default_value instead
+       */
       default?: string;
 
+      defaultValue?: Enum.DefaultValue;
+
+      possibleValues?: Array<Enum.PossibleValue>;
+
+      /**
+       * @deprecated deprecated, will be removed, use possible_values instead
+       */
       values?: Array<string>;
+    }
+
+    export namespace Enum {
+      export interface DefaultValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
+
+      export interface PossibleValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
     }
 
     export interface Int {
@@ -130,9 +166,37 @@ export namespace RunnerConfigurationSchema {
     }
 
     export interface Enum {
+      /**
+       * @deprecated deprecated, will be removed, use default_value instead
+       */
       default?: string;
 
+      defaultValue?: Enum.DefaultValue;
+
+      possibleValues?: Array<Enum.PossibleValue>;
+
+      /**
+       * @deprecated deprecated, will be removed, use possible_values instead
+       */
       values?: Array<string>;
+    }
+
+    export namespace Enum {
+      export interface DefaultValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
+
+      export interface PossibleValue {
+        detail?: string;
+
+        subtitle?: string;
+
+        title?: string;
+      }
     }
 
     export interface Int {

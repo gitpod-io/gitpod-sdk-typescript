@@ -6,7 +6,7 @@ This library provides convenient access to the Gitpod REST API from server-side 
 
 The REST API documentation can be found on [docs.gitpod.io](https://docs.gitpod.io). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
@@ -26,13 +26,9 @@ const client = new Gitpod({
   bearerToken: process.env['GITPOD_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response = await client.identity.getAuthenticatedIdentity();
+const response = await client.identity.getAuthenticatedIdentity();
 
-  console.log(response.organizationId);
-}
-
-main();
+console.log(response.organizationId);
 ```
 
 ### Request & Response types
@@ -47,12 +43,8 @@ const client = new Gitpod({
   bearerToken: process.env['GITPOD_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response: Gitpod.IdentityGetAuthenticatedIdentityResponse =
-    await client.identity.getAuthenticatedIdentity();
-}
-
-main();
+const response: Gitpod.IdentityGetAuthenticatedIdentityResponse =
+  await client.identity.getAuthenticatedIdentity();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -65,22 +57,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const response = await client.identity.getAuthenticatedIdentity().catch(async (err) => {
-    if (err instanceof Gitpod.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const response = await client.identity.getAuthenticatedIdentity().catch(async (err) => {
+  if (err instanceof Gitpod.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -171,8 +159,10 @@ while (page.hasNextPage()) {
 ### Accessing raw Response data (e.g., headers)
 
 The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
 
 You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
 
 <!-- prettier-ignore -->
 ```ts
@@ -384,7 +374,7 @@ TypeScript >= 4.9 is supported.
 The following runtimes are supported:
 
 - Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
 - Deno v1.28.0 or higher.
 - Bun 1.0 or later.
 - Cloudflare Workers.

@@ -23,6 +23,9 @@ export {
 } from './policies';
 export {
   Runners,
+  type GatewayInfo,
+  type LogLevel,
+  type MetricsConfiguration,
   type Runner,
   type RunnerCapability,
   type RunnerConfiguration,
