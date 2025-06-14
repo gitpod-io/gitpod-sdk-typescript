@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.6.1 (2025-06-14)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.6.0...v0.6.1)
+
+### Bug Fixes
+
+* publish script — handle NPM errors correctly ([be3283b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/be3283b4cfb44646b33bf364fb5380d3a226f6a0))
+
+
+### Chores
+
+* **internal:** add pure annotations, make base APIResource abstract ([e489880](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e48988064ee76b254985960b3c8c7c649d47398e))
+* **internal:** version bump ([94014af](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/94014af9bfcfcf6e676dcc7934687db8704b429f))
+
 ## 0.6.0 (2025-06-06)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.5.0...v0.6.0)
