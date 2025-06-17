@@ -5,7 +5,6 @@ import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestIni
 import { uuid4 } from './internal/utils/uuid';
 import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/utils/values';
 import { sleep } from './internal/utils/sleep';
-import { type Logger, type LogLevel, parseLogLevel } from './internal/utils/log';
 export type { Logger, LogLevel } from './internal/utils/log';
 import { castToError, isAbortError } from './internal/errors';
 import type { APIResponseProps } from './internal/parse';
@@ -63,9 +62,6 @@ import {
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { type Fetch } from './internal/builtin-types';
-import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
-import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import {
   Account,
   AccountDeleteParams,
@@ -136,9 +132,6 @@ import {
   Usage,
   UsageListEnvironmentRuntimeRecordsParams,
 } from './resources/usage';
-import { readEnv } from './internal/utils/env';
-import { formatRequestDetails, loggerFor } from './internal/utils/log';
-import { isEmptyObj } from './internal/utils/values';
 import {
   AdmissionLevel,
   Environment,
@@ -254,6 +247,18 @@ import {
   UserSetSuspendedResponse,
   Users,
 } from './resources/users/users';
+import { type Fetch } from './internal/builtin-types';
+import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
+import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import { readEnv } from './internal/utils/env';
+import {
+  type LogLevel as ClientLogLevel,
+  type Logger,
+  formatRequestDetails,
+  loggerFor,
+  parseLogLevel,
+} from './internal/utils/log';
+import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
@@ -318,7 +323,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['GITPOD_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: LogLevel | undefined;
+  logLevel?: ClientLogLevel | undefined;
 
   /**
    * Set the logger.
@@ -338,7 +343,7 @@ export class Gitpod {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: LogLevel | undefined;
+  logLevel: ClientLogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;
