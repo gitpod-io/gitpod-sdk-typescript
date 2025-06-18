@@ -1,6 +1,6 @@
 # Gitpod TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/@gitpod/sdk.svg)](https://npmjs.org/package/@gitpod/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@gitpod/sdk)
+[![NPM version](<https://img.shields.io/npm/v/@gitpod/sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@gitpod/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@gitpod/sdk)
 
 This library provides convenient access to the Gitpod REST API from server-side TypeScript or JavaScript.
 
