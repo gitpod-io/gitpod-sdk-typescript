@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource usage', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('listEnvironmentRuntimeRecords', async () => {
     const responsePromise = client.usage.listEnvironmentRuntimeRecords({});
     const rawResponse = await responsePromise.asResponse();
