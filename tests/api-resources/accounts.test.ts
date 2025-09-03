@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource accounts', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.accounts.retrieve({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.accounts.delete({ accountId: 'f53d2330-3795-4c5d-a1f3-453121af9c60' });
     const rawResponse = await responsePromise.asResponse();
@@ -32,12 +32,12 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.accounts.delete({ accountId: 'f53d2330-3795-4c5d-a1f3-453121af9c60' });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('getSSOLoginURL: only required params', async () => {
     const responsePromise = client.accounts.getSSOLoginURL({ email: 'user@company.com' });
     const rawResponse = await responsePromise.asResponse();
@@ -49,7 +49,7 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('getSSOLoginURL: required and optional params', async () => {
     const response = await client.accounts.getSSOLoginURL({
       email: 'user@company.com',
@@ -57,7 +57,7 @@ describe('resource accounts', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('listJoinableOrganizations', async () => {
     const responsePromise = client.accounts.listJoinableOrganizations({});
     const rawResponse = await responsePromise.asResponse();
@@ -69,7 +69,7 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('listLoginProviders', async () => {
     const responsePromise = client.accounts.listLoginProviders({});
     const rawResponse = await responsePromise.asResponse();
