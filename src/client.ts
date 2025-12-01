@@ -344,7 +344,7 @@ export class Gitpod {
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: ClientLogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
