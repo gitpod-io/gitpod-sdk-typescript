@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource events', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.events.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support JSONL responses yet
+  // Prism doesn't support application/jsonl responses
   test.skip('watch', async () => {
     const responsePromise = client.events.watch({});
     const rawResponse = await responsePromise.asResponse();

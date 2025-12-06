@@ -20,7 +20,7 @@ or products provided by Gitpod, please follow the respective company's security 
 
 ### Gitpod Terms and Policies
 
-Please contact dev-feedback@gitpod.com for any questions or concerns regarding the security of our services.
+Please contact dev-feedback@ona.com for any questions or concerns regarding the security of our services.
 
 ---
 

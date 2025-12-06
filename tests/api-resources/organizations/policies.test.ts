@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource policies', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.policies.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -22,14 +22,14 @@ describe('resource policies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.policies.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -43,7 +43,7 @@ describe('resource policies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',

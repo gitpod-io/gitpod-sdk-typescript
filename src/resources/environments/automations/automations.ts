@@ -127,9 +127,9 @@ export class Automations extends APIResource {
  * field as "reserved" in the proto file, this will also break reading the yaml.
  */
 export interface AutomationsFile {
-  services?: Record<string, AutomationsFile.Services>;
+  services?: { [key: string]: AutomationsFile.Services };
 
-  tasks?: Record<string, AutomationsFile.Tasks>;
+  tasks?: { [key: string]: AutomationsFile.Tasks };
 }
 
 export namespace AutomationsFile {

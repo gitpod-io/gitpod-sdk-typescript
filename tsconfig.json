@@ -7,10 +7,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "@gitpod/sdk/*": ["src/*"],
-      "@gitpod/sdk": ["src/index.ts"]
+      "@gitpod/sdk/*": ["./src/*"],
+      "@gitpod/sdk": ["./src/index.ts"]
     },
     "noEmit": true,
 

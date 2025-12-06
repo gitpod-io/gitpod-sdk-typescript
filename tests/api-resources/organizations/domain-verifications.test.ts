@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource domainVerifications', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.create({
       domain: 'acme-corp.com',
@@ -23,7 +23,7 @@ describe('resource domainVerifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.create({
       domain: 'acme-corp.com',
@@ -31,7 +31,7 @@ describe('resource domainVerifications', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.retrieve({
       domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -45,14 +45,14 @@ describe('resource domainVerifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.retrieve({
       domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.list({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -66,7 +66,7 @@ describe('resource domainVerifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.list({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -76,7 +76,7 @@ describe('resource domainVerifications', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.delete({
       domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -90,14 +90,14 @@ describe('resource domainVerifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.delete({
       domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('verify: only required params', async () => {
     const responsePromise = client.organizations.domainVerifications.verify({
       domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -111,7 +111,7 @@ describe('resource domainVerifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('verify: required and optional params', async () => {
     const response = await client.organizations.domainVerifications.verify({
       domainVerificationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',

@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource users', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('getAuthenticatedUser', async () => {
     const responsePromise = client.users.getAuthenticatedUser({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('setSuspended', async () => {
     const responsePromise = client.users.setSuspended({});
     const rawResponse = await responsePromise.asResponse();

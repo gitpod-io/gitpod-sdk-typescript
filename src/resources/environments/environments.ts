@@ -621,7 +621,7 @@ export interface EnvironmentMetadata {
    * annotations are key/value pairs that gets attached to the environment.
    * +internal - not yet implemented
    */
-  annotations?: Record<string, string>;
+  annotations?: { [key: string]: string };
 
   /**
    * Time when the Environment was archived. If not set, the environment is not

@@ -265,7 +265,7 @@ export interface SSOConfiguration {
   /**
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
    */
-  claims?: Record<string, string>;
+  claims?: { [key: string]: string };
 
   /**
    * client_id is the client ID of the OIDC application set on the IdP
@@ -338,7 +338,7 @@ export interface SSOConfigurationUpdateParams {
   /**
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
    */
-  claims?: Record<string, string>;
+  claims?: { [key: string]: string };
 
   /**
    * client_id is the client ID of the SSO provider

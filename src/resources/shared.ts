@@ -306,7 +306,7 @@ export namespace TaskExecutionStatus {
      * output contains the output of the task execution. setting an output field to
      * empty string will unset it.
      */
-    output?: Record<string, string>;
+    output?: { [key: string]: string };
 
     /**
      * phase is the current phase of the execution step
