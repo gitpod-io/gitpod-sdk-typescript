@@ -1,6 +1,6 @@
 {
   "name": "@gitpod/sdk",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "The official TypeScript library for the Gitpod API",
   "author": "Gitpod <dev-feedback@ona.com>",
   "types": "dist/index.d.ts",
