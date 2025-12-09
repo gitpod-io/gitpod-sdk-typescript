@@ -2,6 +2,11 @@
 # It can also be run manually to re-publish to NPM in case it failed for some reason.
 # You can run this workflow by navigating to https://www.github.com/gitpod-io/gitpod-sdk-typescript/actions/workflows/publish-npm.yml
 name: Publish NPM
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 on:
   workflow_dispatch:
 
