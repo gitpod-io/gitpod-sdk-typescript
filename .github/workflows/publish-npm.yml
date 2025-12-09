@@ -2,6 +2,11 @@
 # It can also be run manually to re-publish to NPM in case it failed for some reason.
 # You can run this workflow by navigating to https://www.github.com/gitpod-io/gitpod-sdk-typescript/actions/workflows/publish-npm.yml
 name: Publish NPM
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 on:
   workflow_dispatch:
 
@@ -12,21 +17,24 @@ jobs:
   publish:
     name: publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          always-auth: true
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: |
-          yarn install
+          yarn install --frozen-lockfile --ignore-scripts
 
       - name: Publish to NPM
         run: |
           bash ./bin/publish-npm
-        env:
-          NPM_TOKEN: ${{ secrets.GITPOD_NPM_TOKEN || secrets.NPM_TOKEN }}

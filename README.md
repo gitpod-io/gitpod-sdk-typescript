@@ -1,10 +1,10 @@
 # Gitpod TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/@gitpod/sdk.svg)](https://npmjs.org/package/@gitpod/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@gitpod/sdk)
+[![NPM version](<https://img.shields.io/npm/v/@gitpod/sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@gitpod/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@gitpod/sdk)
 
 This library provides convenient access to the Gitpod REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found on [docs.gitpod.io](https://docs.gitpod.io). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.ona.com](https://docs.ona.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -254,9 +254,8 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.foo.create({
-  foo: 'my_param',
-  bar: 12,
+client.identity.getAuthenticatedIdentity({
+  // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
 });
