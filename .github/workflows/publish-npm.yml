@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn install
+          yarn install --ignore-scripts
 
       - name: Publish to NPM
         run: |
