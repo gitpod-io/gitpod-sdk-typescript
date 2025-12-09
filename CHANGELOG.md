@@ -1,5 +1,63 @@
 # Changelog
 
+## 0.7.0 (2025-12-09)
+
+Full Changelog: [v0.6.1...v0.7.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.6.1...v0.7.0)
+
+### Features
+
+* **api:** gitpod -&gt; ona ([7dd2c73](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7dd2c736dca78fd6e3ae53f7e0f4c38c1d3e8d51))
+* **client:** add support for endpoint-specific base URLs ([58af560](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/58af5608bf0d0d76c9dd265a490d783d030c8a1b))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([79e4102](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/79e410295dc2458cd03350be63599471fc824b9d))
+* **client:** explicitly copy fetch in withOptions ([a1b72c1](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a1b72c1c69aa05aa06e044a90a44d7916b680561))
+* **client:** get fetchOptions type more reliably ([ba531a3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ba531a3e666c9d4537b81ec68de4075d12f13d01))
+* coerce nullable values to undefined ([ffdccb0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ffdccb0e49830a82590c56a6d7f3a6bacbd8fa3f))
+* **mcp:** correct code tool API endpoint ([3241e0a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3241e0a1f56ba7df24cb526bd98351bf176c9b88))
+* **mcp:** return correct lines on typescript errors ([4b60eca](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/4b60eca50967c00d9f338a11d692dc6ebffd6b01))
+
+
+### Performance Improvements
+
+* faster formatting ([0bcf5a5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0bcf5a56589d7394d44fd36616b3849f7d775404))
+
+
+### Chores
+
+* add docs to RequestOptions type ([8c480ed](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8c480ede43e6e1a6cc37ab844e4934831478a5e0))
+* ci build action ([f6572f1](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f6572f1fc89db0e5e02d271e49cff571cf6b3c60))
+* **ci:** enable for pull requests ([eac032a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/eac032a15b4c7a929096cea573bf3c8290021f84))
+* **ci:** only run for pushes and fork pull requests ([94a8575](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/94a857551f39d1e2828c253e250b0fb95effa5bb))
+* **client:** fix logger property type ([71b844a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/71b844a4b2b13df332b3e2ce9ddc6c825abeb22e))
+* **client:** improve path param validation ([79ac088](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/79ac088c67fd2c9d476f0ce0f279985d6df25f4e))
+* **client:** refactor imports ([44c7836](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/44c7836e0e2cd7f4ec4ae8ac9d34342c5c66a4bd))
+* do not install brew dependencies in ./scripts/bootstrap by default ([d12db33](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d12db33eb3a4911c3bb45233590005b21efb7e1c))
+* **internal:** codegen related update ([3f4e8d1](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3f4e8d16cb0818903865e6d40605f6982110a20f))
+* **internal:** codegen related update ([57886a7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/57886a747a3af50684003d2e40184ffc0de3c65e))
+* **internal:** codegen related update ([e888600](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e88860061aee55c5e978ace2556a36fd97ef0258))
+* **internal:** fix incremental formatting in some cases ([0a51f9f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0a51f9f3dba744cf5282eba4b188047b03b391f5))
+* **internal:** ignore .eslintcache ([cf1696e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/cf1696e737f8896647f8dd9fad70a78988958672))
+* **internal:** move publish config ([f8c49d7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f8c49d7ed61411de581e4dba05eba8456eb72f6c))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([602b768](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/602b7681eaa94ea1672ebd58852478dab56f883c))
+* **internal:** remove redundant imports config ([de89cb7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/de89cb791929375079082c1bd13cc13620ed8aae))
+* **internal:** update comment in script ([adcc1e0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/adcc1e04378865df15272dcc788b96f2d8781a8a))
+* **internal:** upgrade eslint ([878386a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/878386aebf1c8c9287f8362e0a3f697e16cd857a))
+* **internal:** use npm pack for build uploads ([0febcc8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0febcc870974caef358d1b67c992a4fb408e692d))
+* **jsdoc:** fix [@link](https://github.com/link) annotations to refer only to parts of the package‘s public interface ([8ed65d8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8ed65d8b6ea2757ce26cdcc509be12c6a18fa37a))
+* make some internal functions async ([ac410b3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ac410b310603548f18d46976224a69fb9eabf5a3))
+* **readme:** update badges ([5a69575](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/5a695752d9af858bb04f9e774ddf76f8a22544bb))
+* **readme:** use better example snippet for undocumented params ([75e8a63](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/75e8a63ec1307838671b24cda3bb3cbeb4ea9dbf))
+* **ts:** reorder package.json imports ([a896a22](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a896a228b3ab8950f9a7c016bc445bfe43a88240))
+* update @stainless-api/prism-cli to v5.15.0 ([fe746f4](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fe746f463f825425f80e70dca69edd18032872db))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([2b43824](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2b43824896e47429c4eeb102bae2fb0ca820528f))
+
 ## 0.6.1 (2025-06-14)
 
 Full Changelog: [v0.6.0...v0.6.1](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.6.0...v0.6.1)
