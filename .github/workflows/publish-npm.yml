@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn install --ignore-scripts
+          yarn install --frozen-lockfile --ignore-scripts
 
       - name: Publish to NPM
         run: |
