@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource automations', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('upsert', async () => {
     const responsePromise = client.environments.automations.upsert({});
     const rawResponse = await responsePromise.asResponse();

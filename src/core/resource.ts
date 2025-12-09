@@ -2,7 +2,7 @@
 
 import type { Gitpod } from '../client';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: Gitpod;
 
   constructor(client: Gitpod) {

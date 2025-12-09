@@ -9,6 +9,9 @@ export const isAbsoluteURL = (url: string): boolean => {
   return startsWithSchemeRegexp.test(url);
 };
 
+export let isArray = (val: unknown): val is unknown[] => ((isArray = Array.isArray), isArray(val));
+export let isReadonlyArray = isArray as (val: unknown) => val is readonly unknown[];
+
 /** Returns an object if the given value isn't an object, otherwise returns as-is */
 export function maybeObj(x: unknown): object {
   if (typeof x !== 'object') {
@@ -73,21 +76,21 @@ export const coerceBoolean = (value: unknown): boolean => {
 };
 
 export const maybeCoerceInteger = (value: unknown): number | undefined => {
-  if (value === undefined) {
+  if (value == null) {
     return undefined;
   }
   return coerceInteger(value);
 };
 
 export const maybeCoerceFloat = (value: unknown): number | undefined => {
-  if (value === undefined) {
+  if (value == null) {
     return undefined;
   }
   return coerceFloat(value);
 };
 
 export const maybeCoerceBoolean = (value: unknown): boolean | undefined => {
-  if (value === undefined) {
+  if (value == null) {
     return undefined;
   }
   return coerceBoolean(value);
