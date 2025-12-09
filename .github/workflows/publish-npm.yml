@@ -12,14 +12,18 @@ jobs:
   publish:
     name: publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: |
@@ -28,5 +32,3 @@ jobs:
       - name: Publish to NPM
         run: |
           bash ./bin/publish-npm
-        env:
-          NPM_TOKEN: ${{ secrets.GITPOD_NPM_TOKEN || secrets.NPM_TOKEN }}
