@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.5 (2025-12-09)
+
+Full Changelog: [v0.7.4...v0.7.5](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.7.4...v0.7.5)
+
 ## 0.7.4 (2025-12-09)
 
 Full Changelog: [v0.7.3...v0.7.4](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.7.3...v0.7.4)
