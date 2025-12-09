@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource scmIntegrations', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.runners.configurations.scmIntegrations.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource scmIntegrations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.runners.configurations.scmIntegrations.retrieve({});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource scmIntegrations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.runners.configurations.scmIntegrations.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource scmIntegrations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.runners.configurations.scmIntegrations.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource scmIntegrations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.runners.configurations.scmIntegrations.delete({});
     const rawResponse = await responsePromise.asResponse();
