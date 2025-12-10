@@ -8,7 +8,7 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": {}
   },
-  "postCreateCommand": "yarn install --frozen-lockfile",
+  "postCreateCommand": "NPX_PATH=$(which npx) && rm -f \"$NPX_PATH\" && echo '#!/bin/sh' > \"$NPX_PATH\" && echo 'echo \"npx is disabled for security reasons. Use explicit package installation instead.\" >&2' >> \"$NPX_PATH\" && echo 'exit 1' >> \"$NPX_PATH\" && chmod +x \"$NPX_PATH\" && yarn install --frozen-lockfile",
   "customizations": {
     "vscode": {
       "extensions": ["esbenp.prettier-vscode"]
