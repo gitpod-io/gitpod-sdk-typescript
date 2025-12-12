@@ -56,4 +56,4 @@ else
 fi
 
 # Publish with the appropriate tag
-yarn publish --tag "$TAG" --provenance --access public
+npm publish --tag "$TAG" --provenance --access public
