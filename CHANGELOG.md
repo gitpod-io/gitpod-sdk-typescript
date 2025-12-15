@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 (2025-12-15)
+
+Full Changelog: [v0.7.11...v0.8.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.7.11...v0.8.0)
+
+### Features
+
+* **api:** RBAC APIs ([5888854](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/588885414cc29e94ec512952822d30f2007cbbae))
+
 ## 0.7.11 (2025-12-15)
 
 Full Changelog: [v0.7.10...v0.7.11](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.7.10...v0.7.11)
