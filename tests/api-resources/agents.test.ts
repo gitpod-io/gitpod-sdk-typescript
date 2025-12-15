@@ -7,10 +7,10 @@ const client = new Gitpod({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource runners', () => {
+describe('resource agents', () => {
   // Prism tests are disabled
-  test.skip('create', async () => {
-    const responsePromise = client.runners.create({});
+  test.skip('createExecutionConversationToken', async () => {
+    const responsePromise = client.agents.createExecutionConversationToken({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.runners.retrieve({});
+  test.skip('createPrompt', async () => {
+    const responsePromise = client.agents.createPrompt({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,8 +33,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('update', async () => {
-    const responsePromise = client.runners.update({});
+  test.skip('deleteExecution', async () => {
+    const responsePromise = client.agents.deleteExecution({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -45,8 +45,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.runners.list({});
+  test.skip('deletePrompt', async () => {
+    const responsePromise = client.agents.deletePrompt({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,8 +57,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.runners.delete({});
+  test.skip('listExecutions', async () => {
+    const responsePromise = client.agents.listExecutions({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,8 +69,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('checkAuthenticationForHost', async () => {
-    const responsePromise = client.runners.checkAuthenticationForHost({});
+  test.skip('listPrompts', async () => {
+    const responsePromise = client.agents.listPrompts({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -81,8 +81,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('createLogsToken', async () => {
-    const responsePromise = client.runners.createLogsToken({});
+  test.skip('retrieveExecution', async () => {
+    const responsePromise = client.agents.retrieveExecution({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,8 +93,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('createRunnerToken', async () => {
-    const responsePromise = client.runners.createRunnerToken({});
+  test.skip('retrievePrompt', async () => {
+    const responsePromise = client.agents.retrievePrompt({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -105,8 +105,8 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('parseContextURL', async () => {
-    const responsePromise = client.runners.parseContextURL({});
+  test.skip('sendToExecution', async () => {
+    const responsePromise = client.agents.sendToExecution({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -117,8 +117,32 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
-  test.skip('searchRepositories', async () => {
-    const responsePromise = client.runners.searchRepositories({});
+  test.skip('startExecution', async () => {
+    const responsePromise = client.agents.startExecution({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('stopExecution', async () => {
+    const responsePromise = client.agents.stopExecution({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('updatePrompt', async () => {
+    const responsePromise = client.agents.updatePrompt({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

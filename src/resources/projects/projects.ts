@@ -2,6 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as EnvironmentClasesAPI from './environment-clases';
+import {
+  EnvironmentClaseListParams,
+  EnvironmentClaseUpdateParams,
+  EnvironmentClaseUpdateResponse,
+  EnvironmentClases,
+} from './environment-clases';
 import * as PoliciesAPI from './policies';
 import {
   Policies,
@@ -21,6 +28,9 @@ import { PagePromise, ProjectsPage, type ProjectsPageParams } from '../../core/p
 import { RequestOptions } from '../../internal/request-options';
 
 export class Projects extends APIResource {
+  environmentClases: EnvironmentClasesAPI.EnvironmentClases = new EnvironmentClasesAPI.EnvironmentClases(
+    this._client,
+  );
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
 
   /**
@@ -41,8 +51,6 @@ export class Projects extends APIResource {
    *
    *   ```yaml
    *   name: "Web Application"
-   *   environmentClass:
-   *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   initializer:
    *     specs:
    *       - git:
@@ -55,8 +63,6 @@ export class Projects extends APIResource {
    *
    *   ```yaml
    *   name: "Backend Service"
-   *   environmentClass:
-   *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   initializer:
    *     specs:
    *       - git:
@@ -68,10 +74,6 @@ export class Projects extends APIResource {
    * @example
    * ```ts
    * const project = await client.projects.create({
-   *   environmentClass: {
-   *     environmentClassId:
-   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
-   *   },
    *   initializer: {
    *     specs: [
    *       { git: { remoteUri: 'https://github.com/org/repo' } },
@@ -124,6 +126,7 @@ export class Projects extends APIResource {
    * - Update environment class
    * - Change project name
    * - Configure initializers
+   * - Configure prebuild settings
    *
    * ### Examples
    *
@@ -136,22 +139,32 @@ export class Projects extends APIResource {
    *   name: "New Project Name"
    *   ```
    *
-   * - Update environment class:
+   * - Enable prebuilds with daily schedule:
    *
-   *   Changes the project's environment class.
+   *   Configures prebuilds to run daily at 2 AM UTC.
    *
    *   ```yaml
    *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
-   *   environmentClass:
-   *     environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   prebuildConfiguration:
+   *     enabled: true
+   *     environmentClassIds:
+   *       - "b0e12f6c-4c67-429d-a4a6-d9838b5da041"
+   *     timeout: "3600s"
+   *     trigger:
+   *       dailySchedule:
+   *         hourUtc: 2
    *   ```
    *
    * @example
    * ```ts
    * const project = await client.projects.update({
-   *   environmentClass: {
-   *     environmentClassId:
-   *       'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   prebuildConfiguration: {
+   *     enabled: true,
+   *     environmentClassIds: [
+   *       'b0e12f6c-4c67-429d-a4a6-d9838b5da041',
+   *     ],
+   *     timeout: '3600s',
+   *     trigger: { dailySchedule: { hourUtc: 2 } },
    *   },
    *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
    * });
@@ -316,7 +329,8 @@ export namespace EnvironmentInitializer {
         | 'CLONE_TARGET_MODE_REMOTE_HEAD'
         | 'CLONE_TARGET_MODE_REMOTE_COMMIT'
         | 'CLONE_TARGET_MODE_REMOTE_BRANCH'
-        | 'CLONE_TARGET_MODE_LOCAL_BRANCH';
+        | 'CLONE_TARGET_MODE_LOCAL_BRANCH'
+        | 'CLONE_TARGET_MODE_REMOTE_TAG';
 
       /**
        * upstream_Remote_uri is the fork upstream of a repository
@@ -327,7 +341,10 @@ export namespace EnvironmentInitializer {
 }
 
 export interface Project {
-  environmentClass: ProjectEnvironmentClass;
+  /**
+   * @deprecated Use `environment_classes` instead.
+   */
+  environmentClass: Shared.ProjectEnvironmentClass;
 
   /**
    * id is the unique identifier for the project
@@ -341,10 +358,21 @@ export interface Project {
   automationsFilePath?: string;
 
   /**
+   * desired_phase is the desired phase of the project When set to DELETED, the
+   * project is pending deletion
+   */
+  desiredPhase?: ProjectPhase;
+
+  /**
    * devcontainer_file_path is the path to the devcontainer file relative to the repo
    * root
    */
   devcontainerFilePath?: string;
+
+  /**
+   * environment_classes is the list of environment classes for the project
+   */
+  environmentClasses?: Array<Shared.ProjectEnvironmentClass>;
 
   /**
    * initializer is the content initializer
@@ -352,6 +380,11 @@ export interface Project {
   initializer?: EnvironmentInitializer;
 
   metadata?: ProjectMetadata;
+
+  /**
+   * prebuild_configuration defines how prebuilds are created for this project.
+   */
+  prebuildConfiguration?: ProjectPrebuildConfiguration;
 
   /**
    * technical_description is a detailed technical description of the project This
@@ -375,19 +408,6 @@ export namespace Project {
      */
     totalSubjects?: number;
   }
-}
-
-export interface ProjectEnvironmentClass {
-  /**
-   * Use a fixed environment class on a given Runner. This cannot be a local runner's
-   * environment class.
-   */
-  environmentClassId?: string;
-
-  /**
-   * Use a local runner for the user
-   */
-  localRunner?: boolean;
 }
 
 export interface ProjectMetadata {
@@ -591,6 +611,78 @@ export interface ProjectMetadata {
   updatedAt?: string;
 }
 
+export type ProjectPhase = 'PROJECT_PHASE_UNSPECIFIED' | 'PROJECT_PHASE_ACTIVE' | 'PROJECT_PHASE_DELETED';
+
+/**
+ * ProjectPrebuildConfiguration defines how prebuilds are created for a project.
+ * Prebuilds create environment snapshots that enable faster environment startup
+ * times.
+ */
+export interface ProjectPrebuildConfiguration {
+  /**
+   * enabled controls whether prebuilds are created for this project. When disabled,
+   * no automatic prebuilds will be triggered.
+   */
+  enabled?: boolean;
+
+  /**
+   * enable_jetbrains_warmup controls whether JetBrains IDE warmup runs during
+   * prebuilds.
+   */
+  enableJetbrainsWarmup?: boolean;
+
+  /**
+   * environment_class_ids specifies which environment classes should have prebuilds
+   * created. If empty, no prebuilds are created.
+   */
+  environmentClassIds?: Array<string>;
+
+  /**
+   * executor specifies who runs prebuilds for this project. The executor's SCM
+   * credentials are used to clone the repository. If not set, defaults to the
+   * project creator.
+   */
+  executor?: Shared.Subject;
+
+  /**
+   * timeout is the maximum duration allowed for a prebuild to complete. If not
+   * specified, defaults to 1 hour. Must be between 5 minutes and 2 hours.
+   */
+  timeout?: string;
+
+  /**
+   * trigger defines when prebuilds should be created.
+   */
+  trigger?: ProjectPrebuildConfiguration.Trigger;
+}
+
+export namespace ProjectPrebuildConfiguration {
+  /**
+   * trigger defines when prebuilds should be created.
+   */
+  export interface Trigger {
+    /**
+     * daily_schedule triggers a prebuild once per day at the specified hour (UTC). The
+     * actual start time may vary slightly to distribute system load.
+     */
+    dailySchedule: Trigger.DailySchedule;
+  }
+
+  export namespace Trigger {
+    /**
+     * daily_schedule triggers a prebuild once per day at the specified hour (UTC). The
+     * actual start time may vary slightly to distribute system load.
+     */
+    export interface DailySchedule {
+      /**
+       * hour_utc is the hour of day (0-23) in UTC when the prebuild should start. The
+       * actual start time may be adjusted by a few minutes to balance system load.
+       */
+      hourUtc?: number;
+    }
+  }
+}
+
 export interface ProjectCreateResponse {
   project?: Project;
 }
@@ -610,8 +702,6 @@ export interface ProjectCreateFromEnvironmentResponse {
 }
 
 export interface ProjectCreateParams {
-  environmentClass: ProjectEnvironmentClass;
-
   /**
    * initializer is the content initializer
    */
@@ -638,6 +728,12 @@ export interface ProjectCreateParams {
   devcontainerFilePath?: string;
 
   name?: string;
+
+  /**
+   * prebuild_configuration defines how prebuilds are created for this project. If
+   * not set, prebuilds are disabled for the project.
+   */
+  prebuildConfiguration?: ProjectPrebuildConfiguration;
 
   /**
    * technical_description is a detailed technical description of the project This
@@ -674,14 +770,19 @@ export interface ProjectUpdateParams {
    */
   devcontainerFilePath?: string | null;
 
-  environmentClass?: ProjectEnvironmentClass | null;
-
   /**
    * initializer is the content initializer
    */
   initializer?: EnvironmentInitializer | null;
 
   name?: string | null;
+
+  /**
+   * prebuild_configuration defines how prebuilds are created for this project. If
+   * not provided, the existing prebuild configuration is not modified. To disable
+   * prebuilds, set enabled to false.
+   */
+  prebuildConfiguration?: ProjectPrebuildConfiguration | null;
 
   /**
    * project_id specifies the project identifier
@@ -713,6 +814,18 @@ export namespace ProjectListParams {
      * project_ids filters the response to only projects with these IDs
      */
     projectIds?: Array<string>;
+
+    /**
+     * runner_ids filters the response to only projects that use environment classes
+     * from these runners
+     */
+    runnerIds?: Array<string>;
+
+    /**
+     * search performs case-insensitive search across project name, project ID, and
+     * repository name
+     */
+    search?: string;
   }
 
   /**
@@ -749,14 +862,16 @@ export interface ProjectCreateFromEnvironmentParams {
   name?: string;
 }
 
+Projects.EnvironmentClases = EnvironmentClases;
 Projects.Policies = Policies;
 
 export declare namespace Projects {
   export {
     type EnvironmentInitializer as EnvironmentInitializer,
     type Project as Project,
-    type ProjectEnvironmentClass as ProjectEnvironmentClass,
     type ProjectMetadata as ProjectMetadata,
+    type ProjectPhase as ProjectPhase,
+    type ProjectPrebuildConfiguration as ProjectPrebuildConfiguration,
     type ProjectCreateResponse as ProjectCreateResponse,
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,
@@ -769,6 +884,13 @@ export declare namespace Projects {
     type ProjectListParams as ProjectListParams,
     type ProjectDeleteParams as ProjectDeleteParams,
     type ProjectCreateFromEnvironmentParams as ProjectCreateFromEnvironmentParams,
+  };
+
+  export {
+    EnvironmentClases as EnvironmentClases,
+    type EnvironmentClaseUpdateResponse as EnvironmentClaseUpdateResponse,
+    type EnvironmentClaseUpdateParams as EnvironmentClaseUpdateParams,
+    type EnvironmentClaseListParams as EnvironmentClaseListParams,
   };
 
   export {

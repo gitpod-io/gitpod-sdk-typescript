@@ -141,6 +141,18 @@ export interface Editor {
   iconUrl?: string;
 
   shortDescription?: string;
+
+  /**
+   * versions contains the list of available versions for this editor
+   */
+  versions?: Array<EditorVersion>;
+}
+
+export interface EditorVersion {
+  /**
+   * version is the version string of the editor Examples for JetBrains: 2025.2
+   */
+  version: string;
 }
 
 export interface EditorRetrieveResponse {
@@ -221,11 +233,20 @@ export interface EditorResolveURLParams {
    * organizationId is the ID of the organization to resolve the URL for
    */
   organizationId: string;
+
+  /**
+   * version is the editor version to use If not provided, the latest version will be
+   * installed
+   *
+   * Examples for JetBrains: 2025.2
+   */
+  version?: string;
 }
 
 export declare namespace Editors {
   export {
     type Editor as Editor,
+    type EditorVersion as EditorVersion,
     type EditorRetrieveResponse as EditorRetrieveResponse,
     type EditorResolveURLResponse as EditorResolveURLResponse,
     type EditorsEditorsPage as EditorsEditorsPage,

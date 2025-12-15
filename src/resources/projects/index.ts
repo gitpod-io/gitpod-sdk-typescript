@@ -1,6 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  EnvironmentClases,
+  type EnvironmentClaseUpdateResponse,
+  type EnvironmentClaseUpdateParams,
+  type EnvironmentClaseListParams,
+} from './environment-clases';
+export {
   Policies,
   type ProjectPolicy,
   type ProjectRole,
@@ -17,8 +23,9 @@ export {
   Projects,
   type EnvironmentInitializer,
   type Project,
-  type ProjectEnvironmentClass,
   type ProjectMetadata,
+  type ProjectPhase,
+  type ProjectPrebuildConfiguration,
   type ProjectCreateResponse,
   type ProjectRetrieveResponse,
   type ProjectUpdateResponse,

@@ -1,6 +1,19 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  CustomDomains,
+  type CustomDomain,
+  type CustomDomainProvider,
+  type CustomDomainCreateResponse,
+  type CustomDomainRetrieveResponse,
+  type CustomDomainUpdateResponse,
+  type CustomDomainDeleteResponse,
+  type CustomDomainCreateParams,
+  type CustomDomainRetrieveParams,
+  type CustomDomainUpdateParams,
+  type CustomDomainDeleteParams,
+} from './custom-domains';
+export {
   DomainVerifications,
   type DomainVerification,
   type DomainVerificationState,
@@ -50,7 +63,10 @@ export {
 } from './organizations';
 export {
   Policies,
+  type AgentPolicy,
+  type CrowdStrikeConfig,
   type OrganizationPolicies,
+  type SecurityAgentPolicy,
   type PolicyRetrieveResponse,
   type PolicyUpdateResponse,
   type PolicyRetrieveParams,

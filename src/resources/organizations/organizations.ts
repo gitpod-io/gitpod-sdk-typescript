@@ -2,6 +2,20 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as CustomDomainsAPI from './custom-domains';
+import {
+  CustomDomain,
+  CustomDomainCreateParams,
+  CustomDomainCreateResponse,
+  CustomDomainDeleteParams,
+  CustomDomainDeleteResponse,
+  CustomDomainProvider,
+  CustomDomainRetrieveParams,
+  CustomDomainRetrieveResponse,
+  CustomDomainUpdateParams,
+  CustomDomainUpdateResponse,
+  CustomDomains,
+} from './custom-domains';
 import * as DomainVerificationsAPI from './domain-verifications';
 import {
   DomainVerification,
@@ -31,12 +45,15 @@ import {
 } from './invites';
 import * as PoliciesAPI from './policies';
 import {
+  AgentPolicy,
+  CrowdStrikeConfig,
   OrganizationPolicies,
   Policies,
   PolicyRetrieveParams,
   PolicyRetrieveResponse,
   PolicyUpdateParams,
   PolicyUpdateResponse,
+  SecurityAgentPolicy,
 } from './policies';
 import * as SSOConfigurationsAPI from './sso-configurations';
 import {
@@ -60,6 +77,7 @@ import { MembersPage, type MembersPageParams, PagePromise } from '../../core/pag
 import { RequestOptions } from '../../internal/request-options';
 
 export class Organizations extends APIResource {
+  customDomains: CustomDomainsAPI.CustomDomains = new CustomDomainsAPI.CustomDomains(this._client);
   domainVerifications: DomainVerificationsAPI.DomainVerifications =
     new DomainVerificationsAPI.DomainVerifications(this._client);
   invites: InvitesAPI.Invites = new InvitesAPI.Invites(this._client);
@@ -504,7 +522,7 @@ export interface Organization {
   name: string;
 
   /**
-   * The tier of the organization - free or enterprise
+   * The tier of the organization - free, enterprise or core
    */
   tier: OrganizationTier;
 
@@ -717,7 +735,9 @@ export interface OrganizationMember {
 export type OrganizationTier =
   | 'ORGANIZATION_TIER_UNSPECIFIED'
   | 'ORGANIZATION_TIER_FREE'
-  | 'ORGANIZATION_TIER_ENTERPRISE';
+  | 'ORGANIZATION_TIER_ENTERPRISE'
+  | 'ORGANIZATION_TIER_CORE'
+  | 'ORGANIZATION_TIER_FREE_ONA';
 
 export interface OrganizationCreateResponse {
   /**
@@ -832,12 +852,24 @@ export interface OrganizationListMembersParams extends MembersPageParams {
   organizationId: string;
 
   /**
+   * Body param:
+   */
+  filter?: OrganizationListMembersParams.Filter;
+
+  /**
    * Body param: pagination contains the pagination options for listing members
    */
   pagination?: OrganizationListMembersParams.Pagination;
 }
 
 export namespace OrganizationListMembersParams {
+  export interface Filter {
+    /**
+     * search performs case-insensitive search across member name and email
+     */
+    search?: string;
+  }
+
   /**
    * pagination contains the pagination options for listing members
    */
@@ -864,6 +896,7 @@ export interface OrganizationSetRoleParams {
   role?: Shared.OrganizationRole;
 }
 
+Organizations.CustomDomains = CustomDomains;
 Organizations.DomainVerifications = DomainVerifications;
 Organizations.Invites = Invites;
 Organizations.Policies = Policies;
@@ -891,6 +924,20 @@ export declare namespace Organizations {
     type OrganizationLeaveParams as OrganizationLeaveParams,
     type OrganizationListMembersParams as OrganizationListMembersParams,
     type OrganizationSetRoleParams as OrganizationSetRoleParams,
+  };
+
+  export {
+    CustomDomains as CustomDomains,
+    type CustomDomain as CustomDomain,
+    type CustomDomainProvider as CustomDomainProvider,
+    type CustomDomainCreateResponse as CustomDomainCreateResponse,
+    type CustomDomainRetrieveResponse as CustomDomainRetrieveResponse,
+    type CustomDomainUpdateResponse as CustomDomainUpdateResponse,
+    type CustomDomainDeleteResponse as CustomDomainDeleteResponse,
+    type CustomDomainCreateParams as CustomDomainCreateParams,
+    type CustomDomainRetrieveParams as CustomDomainRetrieveParams,
+    type CustomDomainUpdateParams as CustomDomainUpdateParams,
+    type CustomDomainDeleteParams as CustomDomainDeleteParams,
   };
 
   export {
@@ -922,7 +969,10 @@ export declare namespace Organizations {
 
   export {
     Policies as Policies,
+    type AgentPolicy as AgentPolicy,
+    type CrowdStrikeConfig as CrowdStrikeConfig,
     type OrganizationPolicies as OrganizationPolicies,
+    type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,

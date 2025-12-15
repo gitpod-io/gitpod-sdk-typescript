@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as Shared from '../../shared';
 import { APIPromise } from '../../../core/api-promise';
 import { PagePromise, TokensPage, type TokensPageParams } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
@@ -328,10 +329,34 @@ export interface HostAuthenticationToken {
 
   host?: string;
 
+  /**
+   * links to integration instance
+   */
+  integrationId?: string;
+
   runnerId?: string;
 
+  /**
+   * token permissions
+   */
+  scopes?: Array<string>;
+
+  /**
+   * auth_type
+   */
   source?: HostAuthenticationTokenSource;
 
+  /**
+   * Subject identifies the principal (user or service account) for the token Note:
+   * actual token and refresh_token values are retrieved via
+   * GetHostAuthenticationTokenValue API
+   */
+  subject?: Shared.Subject;
+
+  /**
+   * @deprecated Deprecated: Use principal_id and principal_type instead principal
+   * (user)
+   */
   userId?: string;
 }
 
@@ -353,6 +378,9 @@ export type HostAuthenticationTokenUpdateResponse = unknown;
 export type HostAuthenticationTokenDeleteResponse = unknown;
 
 export interface HostAuthenticationTokenCreateParams {
+  /**
+   * stored encrypted, retrieved via GetHostAuthenticationTokenValue
+   */
   token?: string;
 
   /**
@@ -449,12 +477,30 @@ export interface HostAuthenticationTokenCreateParams {
 
   host?: string;
 
+  integrationId?: string;
+
+  /**
+   * stored encrypted, retrieved via GetHostAuthenticationTokenValue
+   */
   refreshToken?: string;
 
   runnerId?: string;
 
+  /**
+   * Maximum 100 scopes allowed (101 for validation purposes)
+   */
+  scopes?: Array<string>;
+
   source?: HostAuthenticationTokenSource;
 
+  /**
+   * Subject identifies the principal (user or service account) for the token
+   */
+  subject?: Shared.Subject;
+
+  /**
+   * @deprecated Deprecated: Use principal_id and principal_type instead
+   */
   userId?: string;
 }
 
@@ -560,6 +606,8 @@ export interface HostAuthenticationTokenUpdateParams {
   expiresAt?: string | null;
 
   refreshToken?: string | null;
+
+  scopes?: Array<string>;
 }
 
 export interface HostAuthenticationTokenListParams extends TokensPageParams {
@@ -578,6 +626,14 @@ export namespace HostAuthenticationTokenListParams {
   export interface Filter {
     runnerId?: string | null;
 
+    /**
+     * Filter by subject (user or service account)
+     */
+    subjectId?: string | null;
+
+    /**
+     * @deprecated Deprecated: Use principal_id instead
+     */
     userId?: string | null;
   }
 

@@ -14,6 +14,7 @@ import {
   ServicePhase,
   ServiceRetrieveParams,
   ServiceRetrieveResponse,
+  ServiceRole,
   ServiceSpec,
   ServiceStartParams,
   ServiceStartResponse,
@@ -140,6 +141,8 @@ export namespace AutomationsFile {
 
     name?: string;
 
+    role?: '' | 'default' | 'editor' | 'ai-agent';
+
     runsOn?: Shared.RunsOn;
 
     triggeredBy?: Array<'manual' | 'postEnvironmentStart' | 'postDevcontainerStart'>;
@@ -188,7 +191,7 @@ export namespace AutomationsFile {
 
     runsOn?: Shared.RunsOn;
 
-    triggeredBy?: Array<'manual' | 'postEnvironmentStart' | 'postDevcontainerStart'>;
+    triggeredBy?: Array<'manual' | 'postEnvironmentStart' | 'postDevcontainerStart' | 'prebuild'>;
   }
 }
 
@@ -225,6 +228,7 @@ export declare namespace Automations {
     type Service as Service,
     type ServiceMetadata as ServiceMetadata,
     type ServicePhase as ServicePhase,
+    type ServiceRole as ServiceRole,
     type ServiceSpec as ServiceSpec,
     type ServiceStatus as ServiceStatus,
     type ServiceCreateResponse as ServiceCreateResponse,

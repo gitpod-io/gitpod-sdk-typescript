@@ -1,124 +1,195 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../core/resource';
-import * as SecretsAPI from './secrets';
-import * as Shared from './shared';
-import { APIPromise } from '../core/api-promise';
-import { PagePromise, SecretsPage, type SecretsPageParams } from '../core/pagination';
-import { RequestOptions } from '../internal/request-options';
+import { APIResource } from '../../core/resource';
+import * as MembershipsAPI from './memberships';
+import {
+  GroupMembership,
+  GroupMembershipsMembersPage,
+  MembershipCreateParams,
+  MembershipCreateResponse,
+  MembershipDeleteParams,
+  MembershipDeleteResponse,
+  MembershipListParams,
+  Memberships,
+} from './memberships';
+import * as RoleAssignmentsAPI from './role-assignments';
+import {
+  ResourceRole,
+  RoleAssignment,
+  RoleAssignmentCreateParams,
+  RoleAssignmentCreateResponse,
+  RoleAssignmentDeleteParams,
+  RoleAssignmentDeleteResponse,
+  RoleAssignmentListParams,
+  RoleAssignments,
+  RoleAssignmentsAssignmentsPage,
+} from './role-assignments';
+import { APIPromise } from '../../core/api-promise';
+import { GroupsPage, type GroupsPageParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
 
-export class Secrets extends APIResource {
+export class Groups extends APIResource {
+  memberships: MembershipsAPI.Memberships = new MembershipsAPI.Memberships(this._client);
+  roleAssignments: RoleAssignmentsAPI.RoleAssignments = new RoleAssignmentsAPI.RoleAssignments(this._client);
+
   /**
-   * Creates a new secret for a project.
+   * Creates a new group within an organization.
    *
    * Use this method to:
    *
-   * - Store sensitive configuration values
-   * - Set up environment variables
-   * - Configure registry authentication
-   * - Add file-based secrets
+   * - Create teams for access control
+   * - Organize users by department or function
+   * - Set up role-based access groups
    *
    * ### Examples
    *
-   * - Create environment variable:
+   * - Create a basic group:
    *
-   *   Creates a secret that will be available as an environment variable.
-   *
-   *   ```yaml
-   *   name: "DATABASE_URL"
-   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
-   *   value: "postgresql://user:pass@localhost:5432/db"
-   *   environmentVariable: true
-   *   ```
-   *
-   * - Create file secret:
-   *
-   *   Creates a secret that will be mounted as a file.
+   *   Creates a group with name and description.
    *
    *   ```yaml
-   *   name: "SSH_KEY"
-   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
-   *   value: "-----BEGIN RSA PRIVATE KEY-----\n..."
-   *   filePath: "/home/gitpod/.ssh/id_rsa"
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   name: "Backend Team"
+   *   description: "Backend engineering team"
    *   ```
    *
-   * - Create registry auth:
+   * ### Authorization
    *
-   *   Creates credentials for private container registry.
-   *
-   *   ```yaml
-   *   name: "DOCKER_AUTH"
-   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
-   *   value: "username:password"
-   *   containerRegistryBasicAuthHost: "https://registry.example.com"
-   *   ```
+   * Requires `org:admin` role on the organization.
    *
    * @example
    * ```ts
-   * const secret = await client.secrets.create({
-   *   environmentVariable: true,
-   *   name: 'DATABASE_URL',
-   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-   *   value: 'postgresql://user:pass@localhost:5432/db',
+   * const group = await client.groups.create({
+   *   description: 'Backend engineering team',
+   *   name: 'Backend Team',
+   *   organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
    * });
    * ```
    */
-  create(body: SecretCreateParams, options?: RequestOptions): APIPromise<SecretCreateResponse> {
-    return this._client.post('/gitpod.v1.SecretService/CreateSecret', { body, ...options });
+  create(body: GroupCreateParams, options?: RequestOptions): APIPromise<GroupCreateResponse> {
+    return this._client.post('/gitpod.v1.GroupService/CreateGroup', { body, ...options });
   }
 
   /**
-   * Lists secrets
+   * Gets information about a specific group.
    *
    * Use this method to:
    *
-   * - View all project secrets
-   * - View all user secrets
+   * - Retrieve group details and metadata
+   * - Check group configuration
+   * - View member count
    *
    * ### Examples
    *
-   * - List project secrets:
+   * - Get group details:
    *
-   *   Shows all secrets for a project.
+   *   Retrieves information about a specific group.
    *
    *   ```yaml
-   *   filter:
-   *     scope:
-   *       projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   groupId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
+   *
+   * ### Authorization
+   *
+   * All organization members can view group information (transparency model).
+   *
+   * @example
+   * ```ts
+   * const group = await client.groups.retrieve({
+   *   groupId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
+   */
+  retrieve(body: GroupRetrieveParams, options?: RequestOptions): APIPromise<GroupRetrieveResponse> {
+    return this._client.post('/gitpod.v1.GroupService/GetGroup', { body, ...options });
+  }
+
+  /**
+   * Updates group information.
+   *
+   * Use this method to:
+   *
+   * - Rename a group
+   * - Update group description
+   *
+   * ### Examples
+   *
+   * - Update group name:
+   *
+   *   Changes the name of an existing group.
+   *
+   *   ```yaml
+   *   groupId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   name: "Platform Team"
+   *   description: "Platform engineering team"
+   *   ```
+   *
+   * ### Authorization
+   *
+   * Requires `org:admin` permission on the organization or `group:admin` permission
+   * on the specific group.
+   *
+   * @example
+   * ```ts
+   * const group = await client.groups.update({
+   *   description: 'Platform engineering team',
+   *   groupId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   name: 'Platform Team',
+   * });
+   * ```
+   */
+  update(body: GroupUpdateParams, options?: RequestOptions): APIPromise<GroupUpdateResponse> {
+    return this._client.post('/gitpod.v1.GroupService/UpdateGroup', { body, ...options });
+  }
+
+  /**
+   * Lists groups with optional pagination.
+   *
+   * Use this method to:
+   *
+   * - View all groups in an organization
+   * - Check group memberships
+   * - Monitor group configurations
+   * - Audit group access
+   *
+   * ### Examples
+   *
+   * - List all groups:
+   *
+   *   Shows all groups with pagination.
+   *
+   *   ```yaml
    *   pagination:
    *     pageSize: 20
    *   ```
    *
-   * - List user secrets:
+   * - List with custom page size:
    *
-   *   Shows all secrets for a user.
+   *   Shows groups with specified page size.
    *
    *   ```yaml
-   *   filter:
-   *     scope:
-   *       userId: "123e4567-e89b-12d3-a456-426614174000"
    *   pagination:
-   *     pageSize: 20
+   *     pageSize: 50
+   *     token: "next-page-token-from-previous-response"
    *   ```
+   *
+   * ### Authorization
+   *
+   * All organization members can list groups (transparency model).
    *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const secret of client.secrets.list({
-   *   filter: {
-   *     scope: {
-   *       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-   *     },
-   *   },
+   * for await (const group of client.groups.list({
    *   pagination: { pageSize: 20 },
    * })) {
    *   // ...
    * }
    * ```
    */
-  list(params: SecretListParams, options?: RequestOptions): PagePromise<SecretsSecretsPage, Secret> {
+  list(params: GroupListParams, options?: RequestOptions): PagePromise<GroupsGroupsPage, Group> {
     const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.SecretService/ListSecrets', SecretsPage<Secret>, {
+    return this._client.getAPIList('/gitpod.v1.GroupService/ListGroups', GroupsPage<Group>, {
       query: { token, pageSize },
       body,
       method: 'post',
@@ -127,110 +198,45 @@ export class Secrets extends APIResource {
   }
 
   /**
-   * Deletes a secret permanently.
+   * Deletes a group and removes all its resource assignments.
+   *
+   * When a group is deleted, all resource assignments revert to org-level scope.
    *
    * Use this method to:
    *
-   * - Remove unused secrets
-   * - Clean up old credentials
+   * - Remove unused groups
+   * - Clean up after team reorganization
    *
    * ### Examples
    *
-   * - Delete secret:
+   * - Delete a group:
    *
-   *   Permanently removes a secret.
+   *   Permanently removes a group.
    *
    *   ```yaml
-   *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   groupId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
+   *
+   * ### Authorization
+   *
+   * Requires `org:admin` role on the organization.
    *
    * @example
    * ```ts
-   * const secret = await client.secrets.delete({
-   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * const group = await client.groups.delete({
+   *   groupId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
    * });
    * ```
    */
-  delete(body: SecretDeleteParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.SecretService/DeleteSecret', { body, ...options });
-  }
-
-  /**
-   * Gets the value of a secret. Only available to environments that are authorized
-   * to access the secret.
-   *
-   * Use this method to:
-   *
-   * - Retrieve secret values
-   * - Access credentials
-   *
-   * ### Examples
-   *
-   * - Get secret value:
-   *
-   *   Retrieves the value of a specific secret.
-   *
-   *   ```yaml
-   *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
-   *   ```
-   *
-   * @example
-   * ```ts
-   * const response = await client.secrets.getValue({
-   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
-   * });
-   * ```
-   */
-  getValue(body: SecretGetValueParams, options?: RequestOptions): APIPromise<SecretGetValueResponse> {
-    return this._client.post('/gitpod.v1.SecretService/GetSecretValue', { body, ...options });
-  }
-
-  /**
-   * Updates the value of an existing secret.
-   *
-   * Use this method to:
-   *
-   * - Rotate secret values
-   * - Update credentials
-   *
-   * ### Examples
-   *
-   * - Update secret value:
-   *
-   *   Changes the value of an existing secret.
-   *
-   *   ```yaml
-   *   secretId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
-   *   value: "new-secret-value"
-   *   ```
-   *
-   * @example
-   * ```ts
-   * const response = await client.secrets.updateValue({
-   *   secretId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
-   *   value: 'new-secret-value',
-   * });
-   * ```
-   */
-  updateValue(body: SecretUpdateValueParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.SecretService/UpdateSecretValue', { body, ...options });
+  delete(body: GroupDeleteParams, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.post('/gitpod.v1.GroupService/DeleteGroup', { body, ...options });
   }
 }
 
-export type SecretsSecretsPage = SecretsPage<Secret>;
+export type GroupsGroupsPage = GroupsPage<Group>;
 
-export interface Secret {
+export interface Group {
   id?: string;
-
-  /**
-   * api_only indicates the secret is only available via API/CLI
-   */
-  apiOnly?: boolean;
-
-  /**
-   * secret will be mounted as a registry secret
-   */
-  containerRegistryBasicAuthHost?: string;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -324,33 +330,21 @@ export interface Secret {
    */
   createdAt?: string;
 
-  /**
-   * creator is the identity of the creator of the secret
-   */
-  creator?: Shared.Subject;
+  description?: string;
 
   /**
-   * secret will be created as an Environment Variable with the same name as the
-   * secret
+   * member_count is the total number of members in this group
    */
-  environmentVariable?: boolean;
+  memberCount?: number;
 
-  /**
-   * absolute path to the file where the secret is mounted
-   */
-  filePath?: string;
-
-  /**
-   * Name of the secret for humans.
-   */
   name?: string;
 
-  /**
-   * @deprecated The Project ID this Secret belongs to Deprecated: use scope instead
-   */
-  projectId?: string;
+  organizationId?: string;
 
-  scope?: SecretScope;
+  /**
+   * system_managed indicates that this group is created by the system automatically
+   */
+  systemManaged?: boolean;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -445,113 +439,53 @@ export interface Secret {
   updatedAt?: string;
 }
 
-export interface SecretScope {
-  /**
-   * organization_id is the Organization ID this Secret belongs to
-   */
-  organizationId?: string;
-
-  /**
-   * project_id is the Project ID this Secret belongs to
-   */
-  projectId?: string;
-
-  /**
-   * user_id is the User ID this Secret belongs to
-   */
-  userId?: string;
+export interface GroupCreateResponse {
+  group?: Group;
 }
 
-export interface SecretCreateResponse {
-  secret?: Secret;
+export interface GroupRetrieveResponse {
+  group?: Group;
 }
 
-export type SecretDeleteResponse = unknown;
-
-export interface SecretGetValueResponse {
-  value?: string;
+export interface GroupUpdateResponse {
+  group?: Group;
 }
 
-export type SecretUpdateValueResponse = unknown;
+/**
+ * Empty response
+ */
+export type GroupDeleteResponse = unknown;
 
-export interface SecretCreateParams {
-  /**
-   * api_only indicates the secret is only available via API/CLI. These secrets are
-   * NOT automatically injected into services or devcontainers. Useful for secrets
-   * that should only be consumed programmatically (e.g., by security agents).
-   */
-  apiOnly?: boolean;
-
-  /**
-   * secret will be mounted as a docker config in the environment VM, mount will have
-   * the docker registry host
-   */
-  containerRegistryBasicAuthHost?: string;
-
-  /**
-   * secret will be created as an Environment Variable with the same name as the
-   * secret
-   */
-  environmentVariable?: boolean;
-
-  /**
-   * absolute path to the file where the secret is mounted value must be an absolute
-   * path (start with a /):
-   *
-   * ```
-   * this.matches('^/(?:[^/]* /)*.*$')
-   * ```
-   */
-  filePath?: string;
+export interface GroupCreateParams {
+  description?: string;
 
   name?: string;
 
-  /**
-   * @deprecated project_id is the ProjectID this Secret belongs to Deprecated: use
-   * scope instead
-   */
-  projectId?: string;
-
-  /**
-   * scope is the scope of the secret
-   */
-  scope?: SecretScope;
-
-  /**
-   * value is the plaintext value of the secret
-   */
-  value?: string;
+  organizationId?: string;
 }
 
-export interface SecretListParams extends SecretsPageParams {
-  /**
-   * Body param:
-   */
-  filter?: SecretListParams.Filter;
-
-  /**
-   * Body param: pagination contains the pagination options for listing environments
-   */
-  pagination?: SecretListParams.Pagination;
+export interface GroupRetrieveParams {
+  groupId?: string;
 }
 
-export namespace SecretListParams {
-  export interface Filter {
-    /**
-     * @deprecated project_ids filters the response to only Secrets used by these
-     * Project IDs Deprecated: use scope instead. Values in project_ids will be
-     * ignored.
-     */
-    projectIds?: Array<string>;
+export interface GroupUpdateParams {
+  description?: string;
 
-    /**
-     * scope is the scope of the secrets to list
-     */
-    scope?: SecretsAPI.SecretScope;
-  }
+  groupId?: string;
 
+  name?: string;
+}
+
+export interface GroupListParams extends GroupsPageParams {
   /**
-   * pagination contains the pagination options for listing environments
+   * Body param: pagination contains the pagination options for listing groups
+   */
+  pagination?: GroupListParams.Pagination;
+}
+
+export namespace GroupListParams {
+  /**
+   * pagination contains the pagination options for listing groups
    */
   export interface Pagination {
     /**
@@ -568,36 +502,48 @@ export namespace SecretListParams {
   }
 }
 
-export interface SecretDeleteParams {
-  secretId?: string;
+export interface GroupDeleteParams {
+  groupId?: string;
 }
 
-export interface SecretGetValueParams {
-  secretId?: string;
-}
+Groups.Memberships = Memberships;
+Groups.RoleAssignments = RoleAssignments;
 
-export interface SecretUpdateValueParams {
-  secretId?: string;
-
-  /**
-   * value is the plaintext value of the secret
-   */
-  value?: string;
-}
-
-export declare namespace Secrets {
+export declare namespace Groups {
   export {
-    type Secret as Secret,
-    type SecretScope as SecretScope,
-    type SecretCreateResponse as SecretCreateResponse,
-    type SecretDeleteResponse as SecretDeleteResponse,
-    type SecretGetValueResponse as SecretGetValueResponse,
-    type SecretUpdateValueResponse as SecretUpdateValueResponse,
-    type SecretsSecretsPage as SecretsSecretsPage,
-    type SecretCreateParams as SecretCreateParams,
-    type SecretListParams as SecretListParams,
-    type SecretDeleteParams as SecretDeleteParams,
-    type SecretGetValueParams as SecretGetValueParams,
-    type SecretUpdateValueParams as SecretUpdateValueParams,
+    type Group as Group,
+    type GroupCreateResponse as GroupCreateResponse,
+    type GroupRetrieveResponse as GroupRetrieveResponse,
+    type GroupUpdateResponse as GroupUpdateResponse,
+    type GroupDeleteResponse as GroupDeleteResponse,
+    type GroupsGroupsPage as GroupsGroupsPage,
+    type GroupCreateParams as GroupCreateParams,
+    type GroupRetrieveParams as GroupRetrieveParams,
+    type GroupUpdateParams as GroupUpdateParams,
+    type GroupListParams as GroupListParams,
+    type GroupDeleteParams as GroupDeleteParams,
+  };
+
+  export {
+    Memberships as Memberships,
+    type GroupMembership as GroupMembership,
+    type MembershipCreateResponse as MembershipCreateResponse,
+    type MembershipDeleteResponse as MembershipDeleteResponse,
+    type GroupMembershipsMembersPage as GroupMembershipsMembersPage,
+    type MembershipCreateParams as MembershipCreateParams,
+    type MembershipListParams as MembershipListParams,
+    type MembershipDeleteParams as MembershipDeleteParams,
+  };
+
+  export {
+    RoleAssignments as RoleAssignments,
+    type ResourceRole as ResourceRole,
+    type RoleAssignment as RoleAssignment,
+    type RoleAssignmentCreateResponse as RoleAssignmentCreateResponse,
+    type RoleAssignmentDeleteResponse as RoleAssignmentDeleteResponse,
+    type RoleAssignmentsAssignmentsPage as RoleAssignmentsAssignmentsPage,
+    type RoleAssignmentCreateParams as RoleAssignmentCreateParams,
+    type RoleAssignmentListParams as RoleAssignmentListParams,
+    type RoleAssignmentDeleteParams as RoleAssignmentDeleteParams,
   };
 }

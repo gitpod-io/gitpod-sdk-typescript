@@ -339,6 +339,8 @@ export namespace TaskUpdateParams {
   export interface Spec {
     command?: string | null;
 
+    env?: Array<Shared.EnvironmentVariableItem>;
+
     runsOn?: Shared.RunsOn | null;
   }
 }

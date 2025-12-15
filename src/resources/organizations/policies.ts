@@ -90,7 +90,67 @@ export class Policies extends APIResource {
   }
 }
 
+/**
+ * AgentPolicy contains agent-specific policy settings for an organization
+ */
+export interface AgentPolicy {
+  /**
+   * command_deny_list contains a list of commands that agents are not allowed to
+   * execute
+   */
+  commandDenyList: Array<string>;
+
+  /**
+   * mcp_disabled controls whether MCP (Model Context Protocol) is disabled for
+   * agents
+   */
+  mcpDisabled: boolean;
+
+  /**
+   * scm_tools_disabled controls whether SCM (Source Control Management) tools are
+   * disabled for agents
+   */
+  scmToolsDisabled: boolean;
+}
+
+/**
+ * CrowdStrikeConfig configures CrowdStrike Falcon sensor deployment
+ */
+export interface CrowdStrikeConfig {
+  /**
+   * additional*options contains additional FALCONCTL_OPT*\* options as key-value
+   * pairs. Keys should NOT include the FALCONCTL*OPT* prefix.
+   */
+  additionalOptions?: { [key: string]: string };
+
+  /**
+   * cid_secret_id references an organization secret containing the Customer ID
+   * (CID).
+   */
+  cidSecretId?: string;
+
+  /**
+   * enabled controls whether CrowdStrike Falcon is deployed to environments
+   */
+  enabled?: boolean;
+
+  /**
+   * image is the CrowdStrike Falcon sensor container image reference
+   */
+  image?: string;
+
+  /**
+   * tags are optional tags to apply to the Falcon sensor (comma-separated)
+   */
+  tags?: string;
+}
+
 export interface OrganizationPolicies {
+  /**
+   * agent_policy contains agent-specific policy settings
+   */
+  agentPolicy: AgentPolicy;
+
   /**
    * allowed_editor_ids is the list of editor IDs that are allowed to be used in the
    * organization
@@ -150,11 +210,72 @@ export interface OrganizationPolicies {
   portSharingDisabled: boolean;
 
   /**
+   * require_custom_domain_access controls whether users must access via custom
+   * domain when one is configured. When true, access via app.gitpod.io is blocked.
+   */
+  requireCustomDomainAccess: boolean;
+
+  /**
+   * delete_archived_environments_after controls how long archived environments are
+   * kept before automatic deletion. 0 means no automatic deletion. Maximum duration
+   * is 4 weeks (2419200 seconds).
+   */
+  deleteArchivedEnvironmentsAfter?: string;
+
+  /**
+   * editor_version_restrictions restricts which editor versions can be used. Maps
+   * editor ID to version policy, editor_version_restrictions not set means no
+   * restrictions. If empty or not set for an editor, we will use the latest version
+   * of the editor
+   */
+  editorVersionRestrictions?: { [key: string]: OrganizationPolicies.EditorVersionRestrictions };
+
+  /**
+   * maximum_environment_lifetime controls for how long environments are allowed to
+   * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
+   * seconds).
+   */
+  maximumEnvironmentLifetime?: string;
+
+  /**
    * maximum_environment_timeout controls the maximum timeout allowed for
    * environments in seconds. 0 means no limit (never). Minimum duration is 30
-   * minutes.
+   * minutes (1800 seconds).
    */
   maximumEnvironmentTimeout?: string;
+
+  /**
+   * security_agent_policy contains security agent configuration for the
+   * organization. When configured, security agents are automatically deployed to all
+   * environments.
+   */
+  securityAgentPolicy?: SecurityAgentPolicy;
+}
+
+export namespace OrganizationPolicies {
+  /**
+   * EditorVersionPolicy defines the version policy for a specific editor
+   */
+  export interface EditorVersionRestrictions {
+    /**
+     * allowed_versions lists the versions that are allowed If empty, we will use the
+     * latest version of the editor
+     *
+     * Examples for JetBrains: `["2025.2", "2025.1", "2024.3"]`
+     */
+    allowedVersions?: Array<string>;
+  }
+}
+
+/**
+ * SecurityAgentPolicy contains security agent configuration for an organization.
+ * When enabled, security agents are automatically deployed to all environments.
+ */
+export interface SecurityAgentPolicy {
+  /**
+   * crowdstrike contains CrowdStrike Falcon configuration
+   */
+  crowdstrike?: CrowdStrikeConfig;
 }
 
 export interface PolicyRetrieveResponse {
@@ -175,6 +296,11 @@ export interface PolicyUpdateParams {
    * organization_id is the ID of the organization to update policies for
    */
   organizationId: string;
+
+  /**
+   * agent_policy contains agent-specific policy settings
+   */
+  agentPolicy?: PolicyUpdateParams.AgentPolicy | null;
 
   /**
    * allowed_editor_ids is the list of editor IDs that are allowed to be used in the
@@ -201,6 +327,26 @@ export interface PolicyUpdateParams {
   defaultEnvironmentImage?: string | null;
 
   /**
+   * delete_archived_environments_after controls how long archived environments are
+   * kept before automatic deletion. 0 means no automatic deletion. Maximum duration
+   * is 4 weeks (2419200 seconds).
+   */
+  deleteArchivedEnvironmentsAfter?: string | null;
+
+  /**
+   * editor_version_restrictions restricts which editor versions can be used. Maps
+   * editor ID to version policy with allowed major versions.
+   */
+  editorVersionRestrictions?: { [key: string]: PolicyUpdateParams.EditorVersionRestrictions };
+
+  /**
+   * maximum_environment_lifetime controls for how long environments are allowed to
+   * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
+   * seconds).
+   */
+  maximumEnvironmentLifetime?: string | null;
+
+  /**
    * maximum_environments_per_user limits total environments (running or stopped) per
    * user
    */
@@ -209,7 +355,7 @@ export interface PolicyUpdateParams {
   /**
    * maximum_environment_timeout controls the maximum timeout allowed for
    * environments in seconds. 0 means no limit (never). Minimum duration is 30
-   * minutes.
+   * minutes (1800 seconds).
    */
   maximumEnvironmentTimeout?: string | null;
 
@@ -235,11 +381,106 @@ export interface PolicyUpdateParams {
    * organization
    */
   portSharingDisabled?: boolean | null;
+
+  /**
+   * require_custom_domain_access controls whether users must access via custom
+   * domain when one is configured. When true, access via app.gitpod.io is blocked.
+   */
+  requireCustomDomainAccess?: boolean | null;
+
+  /**
+   * security_agent_policy contains security agent configuration updates
+   */
+  securityAgentPolicy?: PolicyUpdateParams.SecurityAgentPolicy | null;
+}
+
+export namespace PolicyUpdateParams {
+  /**
+   * agent_policy contains agent-specific policy settings
+   */
+  export interface AgentPolicy {
+    /**
+     * command_deny_list contains a list of commands that agents are not allowed to
+     * execute
+     */
+    commandDenyList?: Array<string>;
+
+    /**
+     * mcp_disabled controls whether MCP (Model Context Protocol) is disabled for
+     * agents
+     */
+    mcpDisabled?: boolean | null;
+
+    /**
+     * scm_tools_disabled controls whether SCM (Source Control Management) tools are
+     * disabled for agents
+     */
+    scmToolsDisabled?: boolean | null;
+  }
+
+  /**
+   * EditorVersionPolicy defines the version policy for a specific editor
+   */
+  export interface EditorVersionRestrictions {
+    /**
+     * allowed_versions lists the versions that are allowed If empty, we will use the
+     * latest version of the editor
+     *
+     * Examples for JetBrains: `["2025.2", "2025.1", "2024.3"]`
+     */
+    allowedVersions?: Array<string>;
+  }
+
+  /**
+   * security_agent_policy contains security agent configuration updates
+   */
+  export interface SecurityAgentPolicy {
+    /**
+     * crowdstrike contains CrowdStrike Falcon configuration updates
+     */
+    crowdstrike?: SecurityAgentPolicy.Crowdstrike | null;
+  }
+
+  export namespace SecurityAgentPolicy {
+    /**
+     * crowdstrike contains CrowdStrike Falcon configuration updates
+     */
+    export interface Crowdstrike {
+      /**
+       * additional*options contains additional FALCONCTL_OPT*\* options as key-value
+       * pairs
+       */
+      additionalOptions?: { [key: string]: string };
+
+      /**
+       * cid_secret_id references an organization secret containing the Customer ID (CID)
+       */
+      cidSecretId?: string | null;
+
+      /**
+       * enabled controls whether CrowdStrike Falcon is deployed to environments
+       */
+      enabled?: boolean | null;
+
+      /**
+       * image is the CrowdStrike Falcon sensor container image reference
+       */
+      image?: string | null;
+
+      /**
+       * tags are optional tags to apply to the Falcon sensor
+       */
+      tags?: string | null;
+    }
+  }
 }
 
 export declare namespace Policies {
   export {
+    type AgentPolicy as AgentPolicy,
+    type CrowdStrikeConfig as CrowdStrikeConfig,
     type OrganizationPolicies as OrganizationPolicies,
+    type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,

@@ -1,13 +1,27 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import { EnvironmentClassesPage, GatewaysPage, TaskExecutionsPage, TasksPage } from '../core/pagination';
+import {
+  EnvironmentClassesPage,
+  GatewaysPage,
+  ProjectEnvironmentClassesPage,
+  TaskExecutionsPage,
+  TasksPage,
+} from '../core/pagination';
 
 /**
- * An AutomationTrigger represents a trigger for an automation action. The
+ * An AutomationTrigger represents a trigger for an automation action. The `manual`
+ * field shows a start button in the UI for manually triggering the automation. The
+ * `post_machine_start` field indicates that the automation should be triggered
+ * after the machine has started, before the devcontainer is ready. This is used
+ * for machine-level services like security agents that need to start early. The
  * `post_environment_start` field indicates that the automation should be triggered
- * after the environment has started. The `post_devcontainer_start` field indicates
- * that the automation should be triggered after the dev container has started.
+ * after the environment has started (devcontainer ready). The
+ * `post_devcontainer_start` field indicates that the automation should be
+ * triggered after the dev container has started. The `prebuild` field starts the
+ * automation during a prebuild of an environment. This phase does not have user
+ * secrets available. Note: The prebuild trigger can only be used with tasks, not
+ * services.
  */
 export interface AutomationTrigger {
   manual?: boolean;
@@ -15,6 +29,10 @@ export interface AutomationTrigger {
   postDevcontainerStart?: boolean;
 
   postEnvironmentStart?: boolean;
+
+  postMachineStart?: boolean;
+
+  prebuild?: boolean;
 }
 
 export interface EnvironmentClass {
@@ -49,6 +67,37 @@ export interface EnvironmentClass {
    * environments.
    */
   enabled?: boolean;
+}
+
+/**
+ * EnvironmentVariableItem represents an environment variable that can be set
+ * either from a literal value or from a secret reference.
+ */
+export interface EnvironmentVariableItem {
+  /**
+   * name is the environment variable name.
+   */
+  name?: string;
+
+  /**
+   * value is a literal string value.
+   */
+  value?: string;
+
+  /**
+   * value_from specifies a source for the value.
+   */
+  valueFrom?: EnvironmentVariableSource;
+}
+
+/**
+ * EnvironmentVariableSource specifies a source for an environment variable value.
+ */
+export interface EnvironmentVariableSource {
+  /**
+   * secret_ref references a secret by ID.
+   */
+  secretRef: SecretRef;
 }
 
 /**
@@ -112,10 +161,78 @@ export type Principal =
   | 'PRINCIPAL_RUNNER'
   | 'PRINCIPAL_ENVIRONMENT'
   | 'PRINCIPAL_SERVICE_ACCOUNT'
-  | 'PRINCIPAL_RUNNER_MANAGER';
+  | 'PRINCIPAL_RUNNER_MANAGER'
+  | 'PRINCIPAL_AGENT_EXECUTION';
+
+export interface ProjectEnvironmentClass {
+  /**
+   * Use a fixed environment class on a given Runner. This cannot be a local runner's
+   * environment class.
+   */
+  environmentClassId?: string;
+
+  /**
+   * Use a local runner for the user
+   */
+  localRunner?: boolean;
+
+  /**
+   * order is the priority of this entry
+   */
+  order?: number;
+}
+
+export type ResourceType =
+  | 'RESOURCE_TYPE_UNSPECIFIED'
+  | 'RESOURCE_TYPE_ENVIRONMENT'
+  | 'RESOURCE_TYPE_RUNNER'
+  | 'RESOURCE_TYPE_PROJECT'
+  | 'RESOURCE_TYPE_TASK'
+  | 'RESOURCE_TYPE_TASK_EXECUTION'
+  | 'RESOURCE_TYPE_SERVICE'
+  | 'RESOURCE_TYPE_ORGANIZATION'
+  | 'RESOURCE_TYPE_USER'
+  | 'RESOURCE_TYPE_ENVIRONMENT_CLASS'
+  | 'RESOURCE_TYPE_RUNNER_SCM_INTEGRATION'
+  | 'RESOURCE_TYPE_HOST_AUTHENTICATION_TOKEN'
+  | 'RESOURCE_TYPE_GROUP'
+  | 'RESOURCE_TYPE_PERSONAL_ACCESS_TOKEN'
+  | 'RESOURCE_TYPE_USER_PREFERENCE'
+  | 'RESOURCE_TYPE_SERVICE_ACCOUNT'
+  | 'RESOURCE_TYPE_SECRET'
+  | 'RESOURCE_TYPE_SSO_CONFIG'
+  | 'RESOURCE_TYPE_DOMAIN_VERIFICATION'
+  | 'RESOURCE_TYPE_AGENT_EXECUTION'
+  | 'RESOURCE_TYPE_RUNNER_LLM_INTEGRATION'
+  | 'RESOURCE_TYPE_AGENT'
+  | 'RESOURCE_TYPE_ENVIRONMENT_SESSION'
+  | 'RESOURCE_TYPE_USER_SECRET'
+  | 'RESOURCE_TYPE_ORGANIZATION_POLICY'
+  | 'RESOURCE_TYPE_ORGANIZATION_SECRET'
+  | 'RESOURCE_TYPE_PROJECT_ENVIRONMENT_CLASS'
+  | 'RESOURCE_TYPE_BILLING'
+  | 'RESOURCE_TYPE_PROMPT'
+  | 'RESOURCE_TYPE_COUPON'
+  | 'RESOURCE_TYPE_COUPON_REDEMPTION'
+  | 'RESOURCE_TYPE_ACCOUNT'
+  | 'RESOURCE_TYPE_INTEGRATION'
+  | 'RESOURCE_TYPE_WORKFLOW'
+  | 'RESOURCE_TYPE_WORKFLOW_EXECUTION'
+  | 'RESOURCE_TYPE_WORKFLOW_EXECUTION_ACTION'
+  | 'RESOURCE_TYPE_SNAPSHOT'
+  | 'RESOURCE_TYPE_PREBUILD'
+  | 'RESOURCE_TYPE_ORGANIZATION_LLM_INTEGRATION'
+  | 'RESOURCE_TYPE_CUSTOM_DOMAIN'
+  | 'RESOURCE_TYPE_ROLE_ASSIGNMENT_CHANGED'
+  | 'RESOURCE_TYPE_GROUP_MEMBERSHIP_CHANGED';
 
 export interface RunsOn {
-  docker: RunsOn.Docker;
+  docker?: RunsOn.Docker;
+
+  /**
+   * Machine runs the service/task directly on the VM/machine level.
+   */
+  machine?: unknown;
 }
 
 export namespace RunsOn {
@@ -124,6 +241,16 @@ export namespace RunsOn {
 
     image?: string;
   }
+}
+
+/**
+ * SecretRef references a secret by its ID.
+ */
+export interface SecretRef {
+  /**
+   * id is the UUID of the secret to reference.
+   */
+  id?: string;
 }
 
 export interface Subject {
@@ -359,6 +486,11 @@ export interface TaskSpec {
   command?: string;
 
   /**
+   * env specifies environment variables for the task.
+   */
+  env?: Array<EnvironmentVariableItem>;
+
+  /**
    * runs_on specifies the environment the task should run on.
    */
   runsOn?: RunsOn;
@@ -377,3 +509,6 @@ export type TaskExecutionsTaskExecutionsPage = TaskExecutionsPage<TaskExecution>
 export type EnvironmentClassesEnvironmentClassesPage = EnvironmentClassesPage<EnvironmentClass>;
 
 export type GatewaysGatewaysPage = GatewaysPage<Gateway>;
+
+export type ProjectEnvironmentClassesProjectEnvironmentClassesPage =
+  ProjectEnvironmentClassesPage<ProjectEnvironmentClass>;

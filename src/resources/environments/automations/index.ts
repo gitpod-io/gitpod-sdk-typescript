@@ -11,6 +11,7 @@ export {
   type Service,
   type ServiceMetadata,
   type ServicePhase,
+  type ServiceRole,
   type ServiceSpec,
   type ServiceStatus,
   type ServiceCreateResponse,
