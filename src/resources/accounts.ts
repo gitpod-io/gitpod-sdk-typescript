@@ -3,7 +3,15 @@
 import { APIResource } from '../core/resource';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { LoginProvidersPage, type LoginProvidersPageParams, PagePromise } from '../core/pagination';
+import {
+  JoinableOrganizationsPage,
+  type JoinableOrganizationsPageParams,
+  LoginProvidersPage,
+  type LoginProvidersPageParams,
+  LoginsPage,
+  type LoginsPageParams,
+  PagePromise,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Accounts extends APIResource {
@@ -131,20 +139,22 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.accounts.listJoinableOrganizations();
+   * // Automatically fetches more pages as needed.
+   * for await (const joinableOrganization of client.accounts.listJoinableOrganizations()) {
+   *   // ...
+   * }
    * ```
    */
   listJoinableOrganizations(
     params: AccountListJoinableOrganizationsParams,
     options?: RequestOptions,
-  ): APIPromise<AccountListJoinableOrganizationsResponse> {
+  ): PagePromise<JoinableOrganizationsJoinableOrganizationsPage, JoinableOrganization> {
     const { token, pageSize, ...body } = params;
-    return this._client.post('/gitpod.v1.AccountService/ListJoinableOrganizations', {
-      query: { token, pageSize },
-      body,
-      ...options,
-    });
+    return this._client.getAPIList(
+      '/gitpod.v1.AccountService/ListJoinableOrganizations',
+      JoinableOrganizationsPage<JoinableOrganization>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -199,9 +209,38 @@ export class Accounts extends APIResource {
       { query: { token, pageSize }, body, method: 'post', ...options },
     );
   }
+
+  /**
+   * ListSSOLogins
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const accountListSSOLoginsResponse of client.accounts.listSSOLogins(
+   *   { email: 'dev@stainless.com' },
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  listSSOLogins(
+    params: AccountListSSOLoginsParams,
+    options?: RequestOptions,
+  ): PagePromise<AccountListSSOLoginsResponsesLoginsPage, AccountListSSOLoginsResponse> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.AccountService/ListSSOLogins',
+      LoginsPage<AccountListSSOLoginsResponse>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
+  }
 }
 
+export type JoinableOrganizationsJoinableOrganizationsPage = JoinableOrganizationsPage<JoinableOrganization>;
+
 export type LoginProvidersLoginProvidersPage = LoginProvidersPage<LoginProvider>;
+
+export type AccountListSSOLoginsResponsesLoginsPage = LoginsPage<AccountListSSOLoginsResponse>;
 
 export interface Account {
   id: string;
@@ -489,8 +528,17 @@ export interface AccountGetSSOLoginURLResponse {
   loginUrl: string;
 }
 
-export interface AccountListJoinableOrganizationsResponse {
-  joinableOrganizations?: Array<JoinableOrganization>;
+export interface AccountListSSOLoginsResponse {
+  /**
+   * provider is the provider used by this login method, e.g. "github", "google",
+   * "custom"
+   */
+  displayName: string;
+
+  /**
+   * login_url is the URL to redirect the user to for SSO login
+   */
+  loginUrl: string;
 }
 
 export interface AccountRetrieveParams {
@@ -499,6 +547,11 @@ export interface AccountRetrieveParams {
 
 export interface AccountDeleteParams {
   accountId: string;
+
+  /**
+   * reason is an optional field for the reason for account deletion
+   */
+  reason?: string | null;
 }
 
 export interface AccountGetSSOLoginURLParams {
@@ -513,21 +566,31 @@ export interface AccountGetSSOLoginURLParams {
   returnTo?: string | null;
 }
 
-export interface AccountListJoinableOrganizationsParams {
+export interface AccountListJoinableOrganizationsParams extends JoinableOrganizationsPageParams {
   /**
-   * Query param:
+   * Body param: pagination contains the pagination options for listing joinable
+   * organizations
    */
-  token?: string;
+  pagination?: AccountListJoinableOrganizationsParams.Pagination;
+}
 
+export namespace AccountListJoinableOrganizationsParams {
   /**
-   * Query param:
+   * pagination contains the pagination options for listing joinable organizations
    */
-  pageSize?: number;
+  export interface Pagination {
+    /**
+     * Token for the next set of results that was returned as next_token of a
+     * PaginationResponse
+     */
+    token?: string;
 
-  /**
-   * Body param:
-   */
-  empty?: boolean;
+    /**
+     * Page size is the maximum number of results to retrieve per page. Defaults to 25.
+     * Maximum 100.
+     */
+    pageSize?: number;
+  }
 }
 
 export interface AccountListLoginProvidersParams extends LoginProvidersPageParams {
@@ -548,13 +611,54 @@ export namespace AccountListLoginProvidersParams {
    */
   export interface Filter {
     /**
+     * email is the email address to filter SSO providers by
+     */
+    email?: string | null;
+
+    /**
      * invite_id is the ID of the invite URL the user wants to login with
      */
-    inviteId?: string;
+    inviteId?: string | null;
   }
 
   /**
    * pagination contains the pagination options for listing login methods
+   */
+  export interface Pagination {
+    /**
+     * Token for the next set of results that was returned as next_token of a
+     * PaginationResponse
+     */
+    token?: string;
+
+    /**
+     * Page size is the maximum number of results to retrieve per page. Defaults to 25.
+     * Maximum 100.
+     */
+    pageSize?: number;
+  }
+}
+
+export interface AccountListSSOLoginsParams extends LoginsPageParams {
+  /**
+   * Body param: email is the email the user wants to login with
+   */
+  email: string;
+
+  /**
+   * Body param: pagination contains the pagination options for listing SSO logins
+   */
+  pagination?: AccountListSSOLoginsParams.Pagination;
+
+  /**
+   * Body param: return_to is the URL the user will be redirected to after login
+   */
+  returnTo?: string | null;
+}
+
+export namespace AccountListSSOLoginsParams {
+  /**
+   * pagination contains the pagination options for listing SSO logins
    */
   export interface Pagination {
     /**
@@ -580,12 +684,15 @@ export declare namespace Accounts {
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountDeleteResponse as AccountDeleteResponse,
     type AccountGetSSOLoginURLResponse as AccountGetSSOLoginURLResponse,
-    type AccountListJoinableOrganizationsResponse as AccountListJoinableOrganizationsResponse,
+    type AccountListSSOLoginsResponse as AccountListSSOLoginsResponse,
+    type JoinableOrganizationsJoinableOrganizationsPage as JoinableOrganizationsJoinableOrganizationsPage,
     type LoginProvidersLoginProvidersPage as LoginProvidersLoginProvidersPage,
+    type AccountListSSOLoginsResponsesLoginsPage as AccountListSSOLoginsResponsesLoginsPage,
     type AccountRetrieveParams as AccountRetrieveParams,
     type AccountDeleteParams as AccountDeleteParams,
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
     type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
+    type AccountListSSOLoginsParams as AccountListSSOLoginsParams,
   };
 }

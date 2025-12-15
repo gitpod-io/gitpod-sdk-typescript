@@ -23,6 +23,10 @@ import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
 import {
   AbstractPage,
+  type AgentExecutionsPageParams,
+  AgentExecutionsPageResponse,
+  type AssignmentsPageParams,
+  AssignmentsPageResponse,
   type DomainVerificationsPageParams,
   DomainVerificationsPageResponse,
   type EditorsPageParams,
@@ -39,18 +43,30 @@ import {
   GroupsPageResponse,
   type IntegrationsPageParams,
   IntegrationsPageResponse,
+  type JoinableOrganizationsPageParams,
+  JoinableOrganizationsPageResponse,
   type LoginProvidersPageParams,
   LoginProvidersPageResponse,
+  type LoginsPageParams,
+  LoginsPageResponse,
   type MembersPageParams,
   MembersPageResponse,
   type PersonalAccessTokensPageParams,
   PersonalAccessTokensPageResponse,
   type PoliciesPageParams,
   PoliciesPageResponse,
+  type PrebuildsPageParams,
+  PrebuildsPageResponse,
+  type ProjectEnvironmentClassesPageParams,
+  ProjectEnvironmentClassesPageResponse,
   type ProjectsPageParams,
   ProjectsPageResponse,
+  type PromptsPageParams,
+  PromptsPageResponse,
   type RecordsPageParams,
   RecordsPageResponse,
+  type RepositoriesPageParams,
+  RepositoriesPageResponse,
   type RunnersPageParams,
   RunnersPageResponse,
   type SSOConfigurationsPageParams,
@@ -76,16 +92,53 @@ import {
   AccountGetSSOLoginURLParams,
   AccountGetSSOLoginURLResponse,
   AccountListJoinableOrganizationsParams,
-  AccountListJoinableOrganizationsResponse,
   AccountListLoginProvidersParams,
+  AccountListSSOLoginsParams,
+  AccountListSSOLoginsResponse,
+  AccountListSSOLoginsResponsesLoginsPage,
   AccountMembership,
   AccountRetrieveParams,
   AccountRetrieveResponse,
   Accounts,
   JoinableOrganization,
+  JoinableOrganizationsJoinableOrganizationsPage,
   LoginProvider,
   LoginProvidersLoginProvidersPage,
 } from './resources/accounts';
+import {
+  AgentCodeContext,
+  AgentCreateExecutionConversationTokenParams,
+  AgentCreateExecutionConversationTokenResponse,
+  AgentCreatePromptParams,
+  AgentCreatePromptResponse,
+  AgentDeleteExecutionParams,
+  AgentDeleteExecutionResponse,
+  AgentDeletePromptParams,
+  AgentDeletePromptResponse,
+  AgentExecution,
+  AgentExecutionsAgentExecutionsPage,
+  AgentListExecutionsParams,
+  AgentListPromptsParams,
+  AgentMode,
+  AgentRetrieveExecutionParams,
+  AgentRetrieveExecutionResponse,
+  AgentRetrievePromptParams,
+  AgentRetrievePromptResponse,
+  AgentSendToExecutionParams,
+  AgentSendToExecutionResponse,
+  AgentStartExecutionParams,
+  AgentStartExecutionResponse,
+  AgentStopExecutionParams,
+  AgentStopExecutionResponse,
+  AgentUpdatePromptParams,
+  AgentUpdatePromptResponse,
+  Agents,
+  Prompt,
+  PromptMetadata,
+  PromptSpec,
+  PromptsPromptsPage,
+  UserInputBlock,
+} from './resources/agents';
 import {
   Editor,
   EditorListParams,
@@ -93,9 +146,22 @@ import {
   EditorResolveURLResponse,
   EditorRetrieveParams,
   EditorRetrieveResponse,
+  EditorVersion,
   Editors,
   EditorsEditorsPage,
 } from './resources/editors';
+import {
+  Breadcrumb,
+  ErrorEvent,
+  ErrorLevel,
+  ErrorReportErrorsParams,
+  ErrorReportErrorsResponse,
+  Errors as ErrorsAPIErrors,
+  ExceptionInfo,
+  ExceptionMechanism,
+  RequestInfo as ErrorRequestInfo,
+  StackFrame,
+} from './resources/errors';
 import {
   EventListParams,
   EventListResponse,
@@ -104,10 +170,8 @@ import {
   EventWatchResponse,
   Events,
   ResourceOperation,
-  ResourceType,
 } from './resources/events';
 import { GatewayListParams, Gateways } from './resources/gateways';
-import { Group, GroupListParams, Groups, GroupsGroupsPage } from './resources/groups';
 import {
   IDTokenVersion,
   Identity,
@@ -118,6 +182,27 @@ import {
   IdentityGetIDTokenParams,
   IdentityGetIDTokenResponse,
 } from './resources/identity';
+import {
+  Prebuild,
+  PrebuildCancelParams,
+  PrebuildCancelResponse,
+  PrebuildCreateLogsTokenParams,
+  PrebuildCreateLogsTokenResponse,
+  PrebuildCreateParams,
+  PrebuildCreateResponse,
+  PrebuildDeleteParams,
+  PrebuildDeleteResponse,
+  PrebuildListParams,
+  PrebuildMetadata,
+  PrebuildPhase,
+  PrebuildRetrieveParams,
+  PrebuildRetrieveResponse,
+  PrebuildSpec,
+  PrebuildStatus,
+  PrebuildTrigger,
+  Prebuilds,
+  PrebuildsPrebuildsPage,
+} from './resources/prebuilds';
 import {
   Secret,
   SecretCreateParams,
@@ -160,6 +245,7 @@ import {
   EnvironmentPhase,
   EnvironmentRetrieveParams,
   EnvironmentRetrieveResponse,
+  EnvironmentRole,
   EnvironmentSpec,
   EnvironmentStartParams,
   EnvironmentStartResponse,
@@ -173,6 +259,20 @@ import {
   Environments,
   EnvironmentsEnvironmentsPage,
 } from './resources/environments/environments';
+import {
+  Group,
+  GroupCreateParams,
+  GroupCreateResponse,
+  GroupDeleteParams,
+  GroupDeleteResponse,
+  GroupListParams,
+  GroupRetrieveParams,
+  GroupRetrieveResponse,
+  GroupUpdateParams,
+  GroupUpdateResponse,
+  Groups,
+  GroupsGroupsPage,
+} from './resources/groups/groups';
 import {
   InviteDomains,
   Organization,
@@ -205,9 +305,10 @@ import {
   ProjectCreateResponse,
   ProjectDeleteParams,
   ProjectDeleteResponse,
-  ProjectEnvironmentClass,
   ProjectListParams,
   ProjectMetadata,
+  ProjectPhase,
+  ProjectPrebuildConfiguration,
   ProjectRetrieveParams,
   ProjectRetrieveResponse,
   ProjectUpdateParams,
@@ -224,6 +325,8 @@ import {
   RunnerCheckAuthenticationForHostParams,
   RunnerCheckAuthenticationForHostResponse,
   RunnerConfiguration,
+  RunnerCreateLogsTokenParams,
+  RunnerCreateLogsTokenResponse,
   RunnerCreateParams,
   RunnerCreateResponse,
   RunnerCreateRunnerTokenParams,
@@ -239,17 +342,25 @@ import {
   RunnerReleaseChannel,
   RunnerRetrieveParams,
   RunnerRetrieveResponse,
+  RunnerSearchRepositoriesParams,
+  RunnerSearchRepositoriesResponse,
   RunnerSpec,
   RunnerStatus,
   RunnerUpdateParams,
   RunnerUpdateResponse,
+  RunnerVariant,
   Runners,
   RunnersRunnersPage,
+  SearchMode,
 } from './resources/runners/runners';
 import {
   User,
+  UserDeleteUserParams,
+  UserDeleteUserResponse,
   UserGetAuthenticatedUserParams,
   UserGetAuthenticatedUserResponse,
+  UserGetUserParams,
+  UserGetUserResponse,
   UserSetSuspendedParams,
   UserSetSuspendedResponse,
   Users,
@@ -964,13 +1075,16 @@ export class Gitpod {
   static toFile = Uploads.toFile;
 
   accounts: API.Accounts = new API.Accounts(this);
+  agents: API.Agents = new API.Agents(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
+  errors: API.Errors = new API.Errors(this);
   events: API.Events = new API.Events(this);
   gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
   identity: API.Identity = new API.Identity(this);
   organizations: API.Organizations = new API.Organizations(this);
+  prebuilds: API.Prebuilds = new API.Prebuilds(this);
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
@@ -979,13 +1093,16 @@ export class Gitpod {
 }
 
 Gitpod.Accounts = Accounts;
+Gitpod.Agents = Agents;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
+Gitpod.Errors = ErrorsAPIErrors;
 Gitpod.Events = Events;
 Gitpod.Gateways = Gateways;
 Gitpod.Groups = Groups;
 Gitpod.Identity = Identity;
 Gitpod.Organizations = Organizations;
+Gitpod.Prebuilds = Prebuilds;
 Gitpod.Projects = Projects;
 Gitpod.Runners = Runners;
 Gitpod.Secrets = Secrets;
@@ -994,6 +1111,18 @@ Gitpod.Users = Users;
 
 export declare namespace Gitpod {
   export type RequestOptions = Opts.RequestOptions;
+
+  export import AgentExecutionsPage = Pagination.AgentExecutionsPage;
+  export {
+    type AgentExecutionsPageParams as AgentExecutionsPageParams,
+    type AgentExecutionsPageResponse as AgentExecutionsPageResponse,
+  };
+
+  export import AssignmentsPage = Pagination.AssignmentsPage;
+  export {
+    type AssignmentsPageParams as AssignmentsPageParams,
+    type AssignmentsPageResponse as AssignmentsPageResponse,
+  };
 
   export import DomainVerificationsPage = Pagination.DomainVerificationsPage;
   export {
@@ -1031,11 +1160,20 @@ export declare namespace Gitpod {
     type IntegrationsPageResponse as IntegrationsPageResponse,
   };
 
+  export import JoinableOrganizationsPage = Pagination.JoinableOrganizationsPage;
+  export {
+    type JoinableOrganizationsPageParams as JoinableOrganizationsPageParams,
+    type JoinableOrganizationsPageResponse as JoinableOrganizationsPageResponse,
+  };
+
   export import LoginProvidersPage = Pagination.LoginProvidersPage;
   export {
     type LoginProvidersPageParams as LoginProvidersPageParams,
     type LoginProvidersPageResponse as LoginProvidersPageResponse,
   };
+
+  export import LoginsPage = Pagination.LoginsPage;
+  export { type LoginsPageParams as LoginsPageParams, type LoginsPageResponse as LoginsPageResponse };
 
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
@@ -1049,11 +1187,32 @@ export declare namespace Gitpod {
   export import PoliciesPage = Pagination.PoliciesPage;
   export { type PoliciesPageParams as PoliciesPageParams, type PoliciesPageResponse as PoliciesPageResponse };
 
+  export import PrebuildsPage = Pagination.PrebuildsPage;
+  export {
+    type PrebuildsPageParams as PrebuildsPageParams,
+    type PrebuildsPageResponse as PrebuildsPageResponse,
+  };
+
+  export import ProjectEnvironmentClassesPage = Pagination.ProjectEnvironmentClassesPage;
+  export {
+    type ProjectEnvironmentClassesPageParams as ProjectEnvironmentClassesPageParams,
+    type ProjectEnvironmentClassesPageResponse as ProjectEnvironmentClassesPageResponse,
+  };
+
   export import ProjectsPage = Pagination.ProjectsPage;
   export { type ProjectsPageParams as ProjectsPageParams, type ProjectsPageResponse as ProjectsPageResponse };
 
+  export import PromptsPage = Pagination.PromptsPage;
+  export { type PromptsPageParams as PromptsPageParams, type PromptsPageResponse as PromptsPageResponse };
+
   export import RecordsPage = Pagination.RecordsPage;
   export { type RecordsPageParams as RecordsPageParams, type RecordsPageResponse as RecordsPageResponse };
+
+  export import RepositoriesPage = Pagination.RepositoriesPage;
+  export {
+    type RepositoriesPageParams as RepositoriesPageParams,
+    type RepositoriesPageResponse as RepositoriesPageResponse,
+  };
 
   export import RunnersPage = Pagination.RunnersPage;
   export { type RunnersPageParams as RunnersPageParams, type RunnersPageResponse as RunnersPageResponse };
@@ -1091,18 +1250,57 @@ export declare namespace Gitpod {
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountDeleteResponse as AccountDeleteResponse,
     type AccountGetSSOLoginURLResponse as AccountGetSSOLoginURLResponse,
-    type AccountListJoinableOrganizationsResponse as AccountListJoinableOrganizationsResponse,
+    type AccountListSSOLoginsResponse as AccountListSSOLoginsResponse,
+    type JoinableOrganizationsJoinableOrganizationsPage as JoinableOrganizationsJoinableOrganizationsPage,
     type LoginProvidersLoginProvidersPage as LoginProvidersLoginProvidersPage,
+    type AccountListSSOLoginsResponsesLoginsPage as AccountListSSOLoginsResponsesLoginsPage,
     type AccountRetrieveParams as AccountRetrieveParams,
     type AccountDeleteParams as AccountDeleteParams,
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
     type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
+    type AccountListSSOLoginsParams as AccountListSSOLoginsParams,
+  };
+
+  export {
+    Agents as Agents,
+    type AgentCodeContext as AgentCodeContext,
+    type AgentExecution as AgentExecution,
+    type AgentMode as AgentMode,
+    type Prompt as Prompt,
+    type PromptMetadata as PromptMetadata,
+    type PromptSpec as PromptSpec,
+    type UserInputBlock as UserInputBlock,
+    type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
+    type AgentCreatePromptResponse as AgentCreatePromptResponse,
+    type AgentDeleteExecutionResponse as AgentDeleteExecutionResponse,
+    type AgentDeletePromptResponse as AgentDeletePromptResponse,
+    type AgentRetrieveExecutionResponse as AgentRetrieveExecutionResponse,
+    type AgentRetrievePromptResponse as AgentRetrievePromptResponse,
+    type AgentSendToExecutionResponse as AgentSendToExecutionResponse,
+    type AgentStartExecutionResponse as AgentStartExecutionResponse,
+    type AgentStopExecutionResponse as AgentStopExecutionResponse,
+    type AgentUpdatePromptResponse as AgentUpdatePromptResponse,
+    type AgentExecutionsAgentExecutionsPage as AgentExecutionsAgentExecutionsPage,
+    type PromptsPromptsPage as PromptsPromptsPage,
+    type AgentCreateExecutionConversationTokenParams as AgentCreateExecutionConversationTokenParams,
+    type AgentCreatePromptParams as AgentCreatePromptParams,
+    type AgentDeleteExecutionParams as AgentDeleteExecutionParams,
+    type AgentDeletePromptParams as AgentDeletePromptParams,
+    type AgentListExecutionsParams as AgentListExecutionsParams,
+    type AgentListPromptsParams as AgentListPromptsParams,
+    type AgentRetrieveExecutionParams as AgentRetrieveExecutionParams,
+    type AgentRetrievePromptParams as AgentRetrievePromptParams,
+    type AgentSendToExecutionParams as AgentSendToExecutionParams,
+    type AgentStartExecutionParams as AgentStartExecutionParams,
+    type AgentStopExecutionParams as AgentStopExecutionParams,
+    type AgentUpdatePromptParams as AgentUpdatePromptParams,
   };
 
   export {
     Editors as Editors,
     type Editor as Editor,
+    type EditorVersion as EditorVersion,
     type EditorRetrieveResponse as EditorRetrieveResponse,
     type EditorResolveURLResponse as EditorResolveURLResponse,
     type EditorsEditorsPage as EditorsEditorsPage,
@@ -1118,6 +1316,7 @@ export declare namespace Gitpod {
     type EnvironmentActivitySignal as EnvironmentActivitySignal,
     type EnvironmentMetadata as EnvironmentMetadata,
     type EnvironmentPhase as EnvironmentPhase,
+    type EnvironmentRole as EnvironmentRole,
     type EnvironmentSpec as EnvironmentSpec,
     type EnvironmentStatus as EnvironmentStatus,
     type EnvironmentCreateResponse as EnvironmentCreateResponse,
@@ -1147,9 +1346,21 @@ export declare namespace Gitpod {
   };
 
   export {
+    ErrorsAPIErrors as Errors,
+    type Breadcrumb as Breadcrumb,
+    type ErrorEvent as ErrorEvent,
+    type ErrorLevel as ErrorLevel,
+    type ExceptionInfo as ExceptionInfo,
+    type ExceptionMechanism as ExceptionMechanism,
+    type ErrorRequestInfo as RequestInfo,
+    type StackFrame as StackFrame,
+    type ErrorReportErrorsResponse as ErrorReportErrorsResponse,
+    type ErrorReportErrorsParams as ErrorReportErrorsParams,
+  };
+
+  export {
     Events as Events,
     type ResourceOperation as ResourceOperation,
-    type ResourceType as ResourceType,
     type EventListResponse as EventListResponse,
     type EventWatchResponse as EventWatchResponse,
     type EventListResponsesEntriesPage as EventListResponsesEntriesPage,
@@ -1162,8 +1373,16 @@ export declare namespace Gitpod {
   export {
     Groups as Groups,
     type Group as Group,
+    type GroupCreateResponse as GroupCreateResponse,
+    type GroupRetrieveResponse as GroupRetrieveResponse,
+    type GroupUpdateResponse as GroupUpdateResponse,
+    type GroupDeleteResponse as GroupDeleteResponse,
     type GroupsGroupsPage as GroupsGroupsPage,
+    type GroupCreateParams as GroupCreateParams,
+    type GroupRetrieveParams as GroupRetrieveParams,
+    type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
+    type GroupDeleteParams as GroupDeleteParams,
   };
 
   export {
@@ -1202,11 +1421,34 @@ export declare namespace Gitpod {
   };
 
   export {
+    Prebuilds as Prebuilds,
+    type Prebuild as Prebuild,
+    type PrebuildMetadata as PrebuildMetadata,
+    type PrebuildPhase as PrebuildPhase,
+    type PrebuildSpec as PrebuildSpec,
+    type PrebuildStatus as PrebuildStatus,
+    type PrebuildTrigger as PrebuildTrigger,
+    type PrebuildCreateResponse as PrebuildCreateResponse,
+    type PrebuildRetrieveResponse as PrebuildRetrieveResponse,
+    type PrebuildDeleteResponse as PrebuildDeleteResponse,
+    type PrebuildCancelResponse as PrebuildCancelResponse,
+    type PrebuildCreateLogsTokenResponse as PrebuildCreateLogsTokenResponse,
+    type PrebuildsPrebuildsPage as PrebuildsPrebuildsPage,
+    type PrebuildCreateParams as PrebuildCreateParams,
+    type PrebuildRetrieveParams as PrebuildRetrieveParams,
+    type PrebuildListParams as PrebuildListParams,
+    type PrebuildDeleteParams as PrebuildDeleteParams,
+    type PrebuildCancelParams as PrebuildCancelParams,
+    type PrebuildCreateLogsTokenParams as PrebuildCreateLogsTokenParams,
+  };
+
+  export {
     Projects as Projects,
     type EnvironmentInitializer as EnvironmentInitializer,
     type Project as Project,
-    type ProjectEnvironmentClass as ProjectEnvironmentClass,
     type ProjectMetadata as ProjectMetadata,
+    type ProjectPhase as ProjectPhase,
+    type ProjectPrebuildConfiguration as ProjectPrebuildConfiguration,
     type ProjectCreateResponse as ProjectCreateResponse,
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,
@@ -1235,13 +1477,17 @@ export declare namespace Gitpod {
     type RunnerReleaseChannel as RunnerReleaseChannel,
     type RunnerSpec as RunnerSpec,
     type RunnerStatus as RunnerStatus,
+    type RunnerVariant as RunnerVariant,
+    type SearchMode as SearchMode,
     type RunnerCreateResponse as RunnerCreateResponse,
     type RunnerRetrieveResponse as RunnerRetrieveResponse,
     type RunnerUpdateResponse as RunnerUpdateResponse,
     type RunnerDeleteResponse as RunnerDeleteResponse,
     type RunnerCheckAuthenticationForHostResponse as RunnerCheckAuthenticationForHostResponse,
+    type RunnerCreateLogsTokenResponse as RunnerCreateLogsTokenResponse,
     type RunnerCreateRunnerTokenResponse as RunnerCreateRunnerTokenResponse,
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
+    type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
     type RunnerCreateParams as RunnerCreateParams,
     type RunnerRetrieveParams as RunnerRetrieveParams,
@@ -1249,8 +1495,10 @@ export declare namespace Gitpod {
     type RunnerListParams as RunnerListParams,
     type RunnerDeleteParams as RunnerDeleteParams,
     type RunnerCheckAuthenticationForHostParams as RunnerCheckAuthenticationForHostParams,
+    type RunnerCreateLogsTokenParams as RunnerCreateLogsTokenParams,
     type RunnerCreateRunnerTokenParams as RunnerCreateRunnerTokenParams,
     type RunnerParseContextURLParams as RunnerParseContextURLParams,
+    type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams,
   };
 
   export {
@@ -1279,20 +1527,29 @@ export declare namespace Gitpod {
   export {
     Users as Users,
     type User as User,
+    type UserDeleteUserResponse as UserDeleteUserResponse,
     type UserGetAuthenticatedUserResponse as UserGetAuthenticatedUserResponse,
+    type UserGetUserResponse as UserGetUserResponse,
     type UserSetSuspendedResponse as UserSetSuspendedResponse,
+    type UserDeleteUserParams as UserDeleteUserParams,
     type UserGetAuthenticatedUserParams as UserGetAuthenticatedUserParams,
+    type UserGetUserParams as UserGetUserParams,
     type UserSetSuspendedParams as UserSetSuspendedParams,
   };
 
   export type AutomationTrigger = API.AutomationTrigger;
   export type EnvironmentClass = API.EnvironmentClass;
+  export type EnvironmentVariableItem = API.EnvironmentVariableItem;
+  export type EnvironmentVariableSource = API.EnvironmentVariableSource;
   export type ErrorCode = API.ErrorCode;
   export type FieldValue = API.FieldValue;
   export type Gateway = API.Gateway;
   export type OrganizationRole = API.OrganizationRole;
   export type Principal = API.Principal;
+  export type ProjectEnvironmentClass = API.ProjectEnvironmentClass;
+  export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
+  export type SecretRef = API.SecretRef;
   export type Subject = API.Subject;
   export type Task = API.Task;
   export type TaskExecution = API.TaskExecution;

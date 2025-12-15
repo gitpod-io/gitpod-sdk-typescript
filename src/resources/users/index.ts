@@ -21,8 +21,12 @@ export {
 export {
   Users,
   type User,
+  type UserDeleteUserResponse,
   type UserGetAuthenticatedUserResponse,
+  type UserGetUserResponse,
   type UserSetSuspendedResponse,
+  type UserDeleteUserParams,
   type UserGetAuthenticatedUserParams,
+  type UserGetUserParams,
   type UserSetSuspendedParams,
 } from './users';

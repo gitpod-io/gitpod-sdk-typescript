@@ -662,10 +662,21 @@ export interface EnvironmentMetadata {
   originalContextUrl?: string;
 
   /**
+   * prebuild_id is the ID of the prebuild this environment was created from. Only
+   * set if the environment was created from a prebuild.
+   */
+  prebuildId?: string | null;
+
+  /**
    * If the Environment was started from a project, the project_id will reference the
    * project.
    */
   projectId?: string;
+
+  /**
+   * role is the role of the environment
+   */
+  role?: EnvironmentRole;
 
   /**
    * Runner is the ID of the runner that runs this environment.
@@ -683,6 +694,15 @@ export type EnvironmentPhase =
   | 'ENVIRONMENT_PHASE_STOPPED'
   | 'ENVIRONMENT_PHASE_DELETING'
   | 'ENVIRONMENT_PHASE_DELETED';
+
+/**
+ * EnvironmentRole represents the role of an environment
+ */
+export type EnvironmentRole =
+  | 'ENVIRONMENT_ROLE_UNSPECIFIED'
+  | 'ENVIRONMENT_ROLE_DEFAULT'
+  | 'ENVIRONMENT_ROLE_PREBUILD'
+  | 'ENVIRONMENT_ROLE_WORKFLOW';
 
 /**
  * EnvironmentSpec specifies the configuration of an environment for an environment
@@ -720,7 +740,7 @@ export interface EnvironmentSpec {
   machine?: EnvironmentSpec.Machine;
 
   /**
-   * ports is the set of ports which ought to be exposed to the internet
+   * ports is the set of ports which ought to be exposed to your network
    */
   ports?: Array<EnvironmentSpec.Port>;
 
@@ -745,6 +765,12 @@ export interface EnvironmentSpec {
    * Timeout configures the environment timeout
    */
   timeout?: EnvironmentSpec.Timeout;
+
+  /**
+   * workflow_action_id is an optional reference to the workflow execution action
+   * that created this environment. Used for tracking and event correlation.
+   */
+  workflowActionId?: string | null;
 }
 
 export namespace EnvironmentSpec {
@@ -764,6 +790,13 @@ export namespace EnvironmentSpec {
     automationsFilePath?: string;
 
     session?: string;
+
+    /**
+     * trigger_filter specifies which automation triggers should execute. When set,
+     * only automations matching these triggers will run. If empty/unset, all triggers
+     * are evaluated normally.
+     */
+    triggerFilter?: Array<Shared.AutomationTrigger>;
   }
 
   /**
@@ -813,6 +846,12 @@ export namespace EnvironmentSpec {
      */
     dotfiles?: Devcontainer.Dotfiles;
 
+    /**
+     * lifecycle_stage controls which devcontainer lifecycle commands are executed.
+     * Defaults to FULL if not specified.
+     */
+    lifecycleStage?: 'LIFECYCLE_STAGE_UNSPECIFIED' | 'LIFECYCLE_STAGE_FULL' | 'LIFECYCLE_STAGE_PREBUILD';
+
     session?: string;
   }
 
@@ -855,6 +894,13 @@ export namespace EnvironmentSpec {
      * port number
      */
     port?: number;
+
+    /**
+     * protocol for communication (Gateway proxy → user environment service). this
+     * setting only affects the protocol used between Gateway and user environment
+     * services.
+     */
+    protocol?: 'PROTOCOL_UNSPECIFIED' | 'PROTOCOL_HTTP' | 'PROTOCOL_HTTPS';
   }
 
   export interface Secret {
@@ -862,6 +908,12 @@ export namespace EnvironmentSpec {
      * id is the unique identifier of the secret.
      */
     id?: string;
+
+    /**
+     * api_only indicates the secret is only available via API/CLI. These secrets are
+     * resolved but NOT automatically injected into services or devcontainers.
+     */
+    apiOnly?: boolean;
 
     /**
      * container_registry_basic_auth_host is the hostname of the container registry
@@ -1040,7 +1092,8 @@ export namespace EnvironmentStatus {
       | 'CONTENT_PHASE_INITIALIZING'
       | 'CONTENT_PHASE_READY'
       | 'CONTENT_PHASE_UPDATING'
-      | 'CONTENT_PHASE_FAILED';
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
 
     /**
      * session is the automations file session that is currently applied in the
@@ -1085,7 +1138,8 @@ export namespace EnvironmentStatus {
       | 'CONTENT_PHASE_INITIALIZING'
       | 'CONTENT_PHASE_READY'
       | 'CONTENT_PHASE_UPDATING'
-      | 'CONTENT_PHASE_FAILED';
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
 
     /**
      * session is the session that is currently active in the environment.
@@ -1251,12 +1305,23 @@ export namespace EnvironmentStatus {
      */
     logs?: string;
 
+    /**
+     * ops is the URL at which the environment ops service can be accessed.
+     */
+    ops?: string;
+
     ports?: Array<EnvironmentURLs.Port>;
 
     /**
      * SSH is the URL at which the environment can be accessed via SSH.
      */
     ssh?: EnvironmentURLs.SSH;
+
+    /**
+     * support_bundle is the URL at which the environment support bundle can be
+     * accessed.
+     */
+    supportBundle?: string;
   }
 
   export namespace EnvironmentURLs {
@@ -1330,6 +1395,8 @@ export namespace EnvironmentStatus {
      * versions contains the versions of components in the machine.
      */
     export interface Versions {
+      amiId?: string;
+
       supervisorCommit?: string;
 
       supervisorVersion?: string;
@@ -1369,7 +1436,8 @@ export namespace EnvironmentStatus {
       | 'CONTENT_PHASE_INITIALIZING'
       | 'CONTENT_PHASE_READY'
       | 'CONTENT_PHASE_UPDATING'
-      | 'CONTENT_PHASE_FAILED';
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
 
     secretName?: string;
 
@@ -1400,7 +1468,8 @@ export namespace EnvironmentStatus {
       | 'CONTENT_PHASE_INITIALIZING'
       | 'CONTENT_PHASE_READY'
       | 'CONTENT_PHASE_UPDATING'
-      | 'CONTENT_PHASE_FAILED';
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
   }
 }
 
@@ -1587,6 +1656,13 @@ export namespace EnvironmentUpdateParams {
        * port number
        */
       port?: number;
+
+      /**
+       * protocol for communication (Gateway proxy → user environment service). this
+       * setting only affects the protocol used between Gateway and user environment
+       * services.
+       */
+      protocol?: 'PROTOCOL_UNSPECIFIED' | 'PROTOCOL_HTTP' | 'PROTOCOL_HTTPS';
     }
 
     export interface SSHPublicKey {
@@ -1640,6 +1716,11 @@ export namespace EnvironmentListParams {
       | null;
 
     /**
+     * created_before filters environments created before this timestamp
+     */
+    createdBefore?: string | null;
+
+    /**
      * creator_ids filters the response to only Environments created by specified
      * members
      */
@@ -1650,6 +1731,11 @@ export namespace EnvironmentListParams {
      * specified projects
      */
     projectIds?: Array<string>;
+
+    /**
+     * roles filters the response to only Environments with the specified roles
+     */
+    roles?: Array<EnvironmentsAPI.EnvironmentRole>;
 
     /**
      * runner_ids filters the response to only Environments running on these Runner IDs
@@ -1780,6 +1866,7 @@ export declare namespace Environments {
     type EnvironmentActivitySignal as EnvironmentActivitySignal,
     type EnvironmentMetadata as EnvironmentMetadata,
     type EnvironmentPhase as EnvironmentPhase,
+    type EnvironmentRole as EnvironmentRole,
     type EnvironmentSpec as EnvironmentSpec,
     type EnvironmentStatus as EnvironmentStatus,
     type EnvironmentCreateResponse as EnvironmentCreateResponse,

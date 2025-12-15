@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as EventsAPI from './events';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { EntriesPage, type EntriesPageParams, PagePromise } from '../core/pagination';
@@ -116,33 +115,6 @@ export type ResourceOperation =
   | 'RESOURCE_OPERATION_DELETE'
   | 'RESOURCE_OPERATION_UPDATE_STATUS';
 
-export type ResourceType =
-  | 'RESOURCE_TYPE_UNSPECIFIED'
-  | 'RESOURCE_TYPE_ENVIRONMENT'
-  | 'RESOURCE_TYPE_RUNNER'
-  | 'RESOURCE_TYPE_PROJECT'
-  | 'RESOURCE_TYPE_TASK'
-  | 'RESOURCE_TYPE_TASK_EXECUTION'
-  | 'RESOURCE_TYPE_SERVICE'
-  | 'RESOURCE_TYPE_ORGANIZATION'
-  | 'RESOURCE_TYPE_USER'
-  | 'RESOURCE_TYPE_ENVIRONMENT_CLASS'
-  | 'RESOURCE_TYPE_RUNNER_SCM_INTEGRATION'
-  | 'RESOURCE_TYPE_HOST_AUTHENTICATION_TOKEN'
-  | 'RESOURCE_TYPE_GROUP'
-  | 'RESOURCE_TYPE_PERSONAL_ACCESS_TOKEN'
-  | 'RESOURCE_TYPE_USER_PREFERENCE'
-  | 'RESOURCE_TYPE_SERVICE_ACCOUNT'
-  | 'RESOURCE_TYPE_SECRET'
-  | 'RESOURCE_TYPE_SSO_CONFIG'
-  | 'RESOURCE_TYPE_DOMAIN_VERIFICATION'
-  | 'RESOURCE_TYPE_AGENT_EXECUTION'
-  | 'RESOURCE_TYPE_RUNNER_LLM_INTEGRATION'
-  | 'RESOURCE_TYPE_AGENT'
-  | 'RESOURCE_TYPE_ENVIRONMENT_SESSION'
-  | 'RESOURCE_TYPE_USER_SECRET'
-  | 'RESOURCE_TYPE_ORGANIZATION_POLICY';
-
 export interface EventListResponse {
   id?: string;
 
@@ -246,7 +218,7 @@ export interface EventListResponse {
 
   subjectId?: string;
 
-  subjectType?: ResourceType;
+  subjectType?: Shared.ResourceType;
 }
 
 export interface EventWatchResponse {
@@ -254,7 +226,7 @@ export interface EventWatchResponse {
 
   resourceId?: string;
 
-  resourceType?: ResourceType;
+  resourceType?: Shared.ResourceType;
 }
 
 export interface EventListParams extends EntriesPageParams {
@@ -277,7 +249,7 @@ export namespace EventListParams {
 
     subjectIds?: Array<string>;
 
-    subjectTypes?: Array<EventsAPI.ResourceType>;
+    subjectTypes?: Array<Shared.ResourceType>;
   }
 
   /**
@@ -316,7 +288,6 @@ export interface EventWatchParams {
 export declare namespace Events {
   export {
     type ResourceOperation as ResourceOperation,
-    type ResourceType as ResourceType,
     type EventListResponse as EventListResponse,
     type EventWatchResponse as EventWatchResponse,
     type EventListResponsesEntriesPage as EventListResponsesEntriesPage,

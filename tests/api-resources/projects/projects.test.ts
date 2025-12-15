@@ -10,7 +10,7 @@ const client = new Gitpod({
 describe('resource projects', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.projects.create({ environmentClass: {}, initializer: {} });
+    const responsePromise = client.projects.create({ initializer: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,6 @@ describe('resource projects', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.create({
-      environmentClass: { environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68', localRunner: true },
       initializer: {
         specs: [
           {
@@ -41,6 +40,14 @@ describe('resource projects', () => {
       automationsFilePath: 'automationsFilePath',
       devcontainerFilePath: 'devcontainerFilePath',
       name: 'Web Application',
+      prebuildConfiguration: {
+        enabled: true,
+        enableJetbrainsWarmup: true,
+        environmentClassIds: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+        executor: { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', principal: 'PRINCIPAL_UNSPECIFIED' },
+        timeout: '+9125115.360s',
+        trigger: { dailySchedule: { hourUtc: 23 } },
+      },
       technicalDescription: 'technicalDescription',
     });
   });

@@ -4,12 +4,17 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">AutomationTrigger</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
+- <code><a href="./src/resources/shared.ts">EnvironmentVariableItem</a></code>
+- <code><a href="./src/resources/shared.ts">EnvironmentVariableSource</a></code>
 - <code><a href="./src/resources/shared.ts">ErrorCode</a></code>
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">Gateway</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectEnvironmentClass</a></code>
+- <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
+- <code><a href="./src/resources/shared.ts">SecretRef</a></code>
 - <code><a href="./src/resources/shared.ts">Subject</a></code>
 - <code><a href="./src/resources/shared.ts">Task</a></code>
 - <code><a href="./src/resources/shared.ts">TaskExecution</a></code>
@@ -32,21 +37,60 @@ Types:
 - <code><a href="./src/resources/accounts.ts">AccountRetrieveResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountDeleteResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountGetSSOLoginURLResponse</a></code>
-- <code><a href="./src/resources/accounts.ts">AccountListJoinableOrganizationsResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountListSSOLoginsResponse</a></code>
 
 Methods:
 
 - <code title="post /gitpod.v1.AccountService/GetAccount">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>({ ...params }) -> AccountRetrieveResponse</code>
 - <code title="post /gitpod.v1.AccountService/DeleteAccount">client.accounts.<a href="./src/resources/accounts.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.AccountService/GetSSOLoginURL">client.accounts.<a href="./src/resources/accounts.ts">getSSOLoginURL</a>({ ...params }) -> AccountGetSSOLoginURLResponse</code>
-- <code title="post /gitpod.v1.AccountService/ListJoinableOrganizations">client.accounts.<a href="./src/resources/accounts.ts">listJoinableOrganizations</a>({ ...params }) -> AccountListJoinableOrganizationsResponse</code>
+- <code title="post /gitpod.v1.AccountService/ListJoinableOrganizations">client.accounts.<a href="./src/resources/accounts.ts">listJoinableOrganizations</a>({ ...params }) -> JoinableOrganizationsJoinableOrganizationsPage</code>
 - <code title="post /gitpod.v1.AccountService/ListLoginProviders">client.accounts.<a href="./src/resources/accounts.ts">listLoginProviders</a>({ ...params }) -> LoginProvidersLoginProvidersPage</code>
+- <code title="post /gitpod.v1.AccountService/ListSSOLogins">client.accounts.<a href="./src/resources/accounts.ts">listSSOLogins</a>({ ...params }) -> AccountListSSOLoginsResponsesLoginsPage</code>
+
+# Agents
+
+Types:
+
+- <code><a href="./src/resources/agents.ts">AgentCodeContext</a></code>
+- <code><a href="./src/resources/agents.ts">AgentExecution</a></code>
+- <code><a href="./src/resources/agents.ts">AgentMode</a></code>
+- <code><a href="./src/resources/agents.ts">Prompt</a></code>
+- <code><a href="./src/resources/agents.ts">PromptMetadata</a></code>
+- <code><a href="./src/resources/agents.ts">PromptSpec</a></code>
+- <code><a href="./src/resources/agents.ts">UserInputBlock</a></code>
+- <code><a href="./src/resources/agents.ts">AgentCreateExecutionConversationTokenResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentCreatePromptResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentDeleteExecutionResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentDeletePromptResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentRetrieveExecutionResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentRetrievePromptResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentSendToExecutionResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentStartExecutionResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentStopExecutionResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentUpdatePromptResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.AgentService/CreateAgentExecutionConversationToken">client.agents.<a href="./src/resources/agents.ts">createExecutionConversationToken</a>({ ...params }) -> AgentCreateExecutionConversationTokenResponse</code>
+- <code title="post /gitpod.v1.AgentService/CreatePrompt">client.agents.<a href="./src/resources/agents.ts">createPrompt</a>({ ...params }) -> AgentCreatePromptResponse</code>
+- <code title="post /gitpod.v1.AgentService/DeleteAgentExecution">client.agents.<a href="./src/resources/agents.ts">deleteExecution</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.AgentService/DeletePrompt">client.agents.<a href="./src/resources/agents.ts">deletePrompt</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.AgentService/ListAgentExecutions">client.agents.<a href="./src/resources/agents.ts">listExecutions</a>({ ...params }) -> AgentExecutionsAgentExecutionsPage</code>
+- <code title="post /gitpod.v1.AgentService/ListPrompts">client.agents.<a href="./src/resources/agents.ts">listPrompts</a>({ ...params }) -> PromptsPromptsPage</code>
+- <code title="post /gitpod.v1.AgentService/GetAgentExecution">client.agents.<a href="./src/resources/agents.ts">retrieveExecution</a>({ ...params }) -> AgentRetrieveExecutionResponse</code>
+- <code title="post /gitpod.v1.AgentService/GetPrompt">client.agents.<a href="./src/resources/agents.ts">retrievePrompt</a>({ ...params }) -> AgentRetrievePromptResponse</code>
+- <code title="post /gitpod.v1.AgentService/SendToAgentExecution">client.agents.<a href="./src/resources/agents.ts">sendToExecution</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.AgentService/StartAgent">client.agents.<a href="./src/resources/agents.ts">startExecution</a>({ ...params }) -> AgentStartExecutionResponse</code>
+- <code title="post /gitpod.v1.AgentService/StopAgentExecution">client.agents.<a href="./src/resources/agents.ts">stopExecution</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.AgentService/UpdatePrompt">client.agents.<a href="./src/resources/agents.ts">updatePrompt</a>({ ...params }) -> AgentUpdatePromptResponse</code>
 
 # Editors
 
 Types:
 
 - <code><a href="./src/resources/editors.ts">Editor</a></code>
+- <code><a href="./src/resources/editors.ts">EditorVersion</a></code>
 - <code><a href="./src/resources/editors.ts">EditorRetrieveResponse</a></code>
 - <code><a href="./src/resources/editors.ts">EditorResolveURLResponse</a></code>
 
@@ -65,6 +109,7 @@ Types:
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentActivitySignal</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentMetadata</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentPhase</a></code>
+- <code><a href="./src/resources/environments/environments.ts">EnvironmentRole</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentSpec</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentStatus</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentCreateResponse</a></code>
@@ -112,6 +157,7 @@ Types:
 - <code><a href="./src/resources/environments/automations/services.ts">Service</a></code>
 - <code><a href="./src/resources/environments/automations/services.ts">ServiceMetadata</a></code>
 - <code><a href="./src/resources/environments/automations/services.ts">ServicePhase</a></code>
+- <code><a href="./src/resources/environments/automations/services.ts">ServiceRole</a></code>
 - <code><a href="./src/resources/environments/automations/services.ts">ServiceSpec</a></code>
 - <code><a href="./src/resources/environments/automations/services.ts">ServiceStatus</a></code>
 - <code><a href="./src/resources/environments/automations/services.ts">ServiceCreateResponse</a></code>
@@ -169,12 +215,28 @@ Methods:
 
 - <code title="post /gitpod.v1.EnvironmentService/ListEnvironmentClasses">client.environments.classes.<a href="./src/resources/environments/classes.ts">list</a>({ ...params }) -> EnvironmentClassesEnvironmentClassesPage</code>
 
+# Errors
+
+Types:
+
+- <code><a href="./src/resources/errors.ts">Breadcrumb</a></code>
+- <code><a href="./src/resources/errors.ts">ErrorEvent</a></code>
+- <code><a href="./src/resources/errors.ts">ErrorLevel</a></code>
+- <code><a href="./src/resources/errors.ts">ExceptionInfo</a></code>
+- <code><a href="./src/resources/errors.ts">ExceptionMechanism</a></code>
+- <code><a href="./src/resources/errors.ts">RequestInfo</a></code>
+- <code><a href="./src/resources/errors.ts">StackFrame</a></code>
+- <code><a href="./src/resources/errors.ts">ErrorReportErrorsResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.ErrorsService/ReportErrors">client.errors.<a href="./src/resources/errors.ts">reportErrors</a>({ ...params }) -> unknown</code>
+
 # Events
 
 Types:
 
 - <code><a href="./src/resources/events.ts">ResourceOperation</a></code>
-- <code><a href="./src/resources/events.ts">ResourceType</a></code>
 - <code><a href="./src/resources/events.ts">EventListResponse</a></code>
 - <code><a href="./src/resources/events.ts">EventWatchResponse</a></code>
 
@@ -193,11 +255,48 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/groups.ts">Group</a></code>
+- <code><a href="./src/resources/groups/groups.ts">Group</a></code>
+- <code><a href="./src/resources/groups/groups.ts">GroupCreateResponse</a></code>
+- <code><a href="./src/resources/groups/groups.ts">GroupRetrieveResponse</a></code>
+- <code><a href="./src/resources/groups/groups.ts">GroupUpdateResponse</a></code>
+- <code><a href="./src/resources/groups/groups.ts">GroupDeleteResponse</a></code>
 
 Methods:
 
-- <code title="post /gitpod.v1.GroupService/ListGroups">client.groups.<a href="./src/resources/groups.ts">list</a>({ ...params }) -> GroupsGroupsPage</code>
+- <code title="post /gitpod.v1.GroupService/CreateGroup">client.groups.<a href="./src/resources/groups/groups.ts">create</a>({ ...params }) -> GroupCreateResponse</code>
+- <code title="post /gitpod.v1.GroupService/GetGroup">client.groups.<a href="./src/resources/groups/groups.ts">retrieve</a>({ ...params }) -> GroupRetrieveResponse</code>
+- <code title="post /gitpod.v1.GroupService/UpdateGroup">client.groups.<a href="./src/resources/groups/groups.ts">update</a>({ ...params }) -> GroupUpdateResponse</code>
+- <code title="post /gitpod.v1.GroupService/ListGroups">client.groups.<a href="./src/resources/groups/groups.ts">list</a>({ ...params }) -> GroupsGroupsPage</code>
+- <code title="post /gitpod.v1.GroupService/DeleteGroup">client.groups.<a href="./src/resources/groups/groups.ts">delete</a>({ ...params }) -> unknown</code>
+
+## Memberships
+
+Types:
+
+- <code><a href="./src/resources/groups/memberships.ts">GroupMembership</a></code>
+- <code><a href="./src/resources/groups/memberships.ts">MembershipCreateResponse</a></code>
+- <code><a href="./src/resources/groups/memberships.ts">MembershipDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.GroupService/CreateMembership">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">create</a>({ ...params }) -> MembershipCreateResponse</code>
+- <code title="post /gitpod.v1.GroupService/ListMemberships">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">list</a>({ ...params }) -> GroupMembershipsMembersPage</code>
+- <code title="post /gitpod.v1.GroupService/DeleteMembership">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">delete</a>({ ...params }) -> unknown</code>
+
+## RoleAssignments
+
+Types:
+
+- <code><a href="./src/resources/groups/role-assignments.ts">ResourceRole</a></code>
+- <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignment</a></code>
+- <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignmentCreateResponse</a></code>
+- <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignmentDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.GroupService/CreateRoleAssignment">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">create</a>({ ...params }) -> RoleAssignmentCreateResponse</code>
+- <code title="post /gitpod.v1.GroupService/ListRoleAssignments">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">list</a>({ ...params }) -> RoleAssignmentsAssignmentsPage</code>
+- <code title="post /gitpod.v1.GroupService/DeleteRoleAssignment">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">delete</a>({ ...params }) -> unknown</code>
 
 # Identity
 
@@ -241,6 +340,24 @@ Methods:
 - <code title="post /gitpod.v1.OrganizationService/ListMembers">client.organizations.<a href="./src/resources/organizations/organizations.ts">listMembers</a>({ ...params }) -> OrganizationMembersMembersPage</code>
 - <code title="post /gitpod.v1.OrganizationService/SetRole">client.organizations.<a href="./src/resources/organizations/organizations.ts">setRole</a>({ ...params }) -> unknown</code>
 
+## CustomDomains
+
+Types:
+
+- <code><a href="./src/resources/organizations/custom-domains.ts">CustomDomain</a></code>
+- <code><a href="./src/resources/organizations/custom-domains.ts">CustomDomainProvider</a></code>
+- <code><a href="./src/resources/organizations/custom-domains.ts">CustomDomainCreateResponse</a></code>
+- <code><a href="./src/resources/organizations/custom-domains.ts">CustomDomainRetrieveResponse</a></code>
+- <code><a href="./src/resources/organizations/custom-domains.ts">CustomDomainUpdateResponse</a></code>
+- <code><a href="./src/resources/organizations/custom-domains.ts">CustomDomainDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.OrganizationService/CreateCustomDomain">client.organizations.customDomains.<a href="./src/resources/organizations/custom-domains.ts">create</a>({ ...params }) -> CustomDomainCreateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/GetCustomDomain">client.organizations.customDomains.<a href="./src/resources/organizations/custom-domains.ts">retrieve</a>({ ...params }) -> CustomDomainRetrieveResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/UpdateCustomDomain">client.organizations.customDomains.<a href="./src/resources/organizations/custom-domains.ts">update</a>({ ...params }) -> CustomDomainUpdateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/DeleteCustomDomain">client.organizations.customDomains.<a href="./src/resources/organizations/custom-domains.ts">delete</a>({ ...params }) -> unknown</code>
+
 ## DomainVerifications
 
 Types:
@@ -279,7 +396,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">PolicyRetrieveResponse</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">PolicyUpdateResponse</a></code>
 
@@ -308,14 +428,40 @@ Methods:
 - <code title="post /gitpod.v1.OrganizationService/ListSSOConfigurations">client.organizations.ssoConfigurations.<a href="./src/resources/organizations/sso-configurations.ts">list</a>({ ...params }) -> SSOConfigurationsSSOConfigurationsPage</code>
 - <code title="post /gitpod.v1.OrganizationService/DeleteSSOConfiguration">client.organizations.ssoConfigurations.<a href="./src/resources/organizations/sso-configurations.ts">delete</a>({ ...params }) -> unknown</code>
 
+# Prebuilds
+
+Types:
+
+- <code><a href="./src/resources/prebuilds.ts">Prebuild</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildMetadata</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildPhase</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildSpec</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildStatus</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildTrigger</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildCreateResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildRetrieveResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildDeleteResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildCancelResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildCreateLogsTokenResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.PrebuildService/CreatePrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">create</a>({ ...params }) -> PrebuildCreateResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/GetPrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">retrieve</a>({ ...params }) -> PrebuildRetrieveResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/ListPrebuilds">client.prebuilds.<a href="./src/resources/prebuilds.ts">list</a>({ ...params }) -> PrebuildsPrebuildsPage</code>
+- <code title="post /gitpod.v1.PrebuildService/DeletePrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.PrebuildService/CancelPrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">cancel</a>({ ...params }) -> PrebuildCancelResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/CreatePrebuildLogsToken">client.prebuilds.<a href="./src/resources/prebuilds.ts">createLogsToken</a>({ ...params }) -> PrebuildCreateLogsTokenResponse</code>
+
 # Projects
 
 Types:
 
 - <code><a href="./src/resources/projects/projects.ts">EnvironmentInitializer</a></code>
 - <code><a href="./src/resources/projects/projects.ts">Project</a></code>
-- <code><a href="./src/resources/projects/projects.ts">ProjectEnvironmentClass</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectMetadata</a></code>
+- <code><a href="./src/resources/projects/projects.ts">ProjectPhase</a></code>
+- <code><a href="./src/resources/projects/projects.ts">ProjectPrebuildConfiguration</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectCreateResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectRetrieveResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectUpdateResponse</a></code>
@@ -330,6 +476,17 @@ Methods:
 - <code title="post /gitpod.v1.ProjectService/ListProjects">client.projects.<a href="./src/resources/projects/projects.ts">list</a>({ ...params }) -> ProjectsProjectsPage</code>
 - <code title="post /gitpod.v1.ProjectService/DeleteProject">client.projects.<a href="./src/resources/projects/projects.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.ProjectService/CreateProjectFromEnvironment">client.projects.<a href="./src/resources/projects/projects.ts">createFromEnvironment</a>({ ...params }) -> ProjectCreateFromEnvironmentResponse</code>
+
+## EnvironmentClases
+
+Types:
+
+- <code><a href="./src/resources/projects/environment-clases.ts">EnvironmentClaseUpdateResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.ProjectService/UpdateProjectEnvironmentClasses">client.projects.environmentClases.<a href="./src/resources/projects/environment-clases.ts">update</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.ProjectService/ListProjectEnvironmentClasses">client.projects.environmentClases.<a href="./src/resources/projects/environment-clases.ts">list</a>({ ...params }) -> ProjectEnvironmentClassesProjectEnvironmentClassesPage</code>
 
 ## Policies
 
@@ -364,13 +521,17 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerReleaseChannel</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerSpec</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerStatus</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerVariant</a></code>
+- <code><a href="./src/resources/runners/runners.ts">SearchMode</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerRetrieveResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerUpdateResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerDeleteResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCheckAuthenticationForHostResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerCreateLogsTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateRunnerTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerParseContextURLResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerSearchRepositoriesResponse</a></code>
 
 Methods:
 
@@ -380,8 +541,10 @@ Methods:
 - <code title="post /gitpod.v1.RunnerService/ListRunners">client.runners.<a href="./src/resources/runners/runners.ts">list</a>({ ...params }) -> RunnersRunnersPage</code>
 - <code title="post /gitpod.v1.RunnerService/DeleteRunner">client.runners.<a href="./src/resources/runners/runners.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.RunnerService/CheckAuthenticationForHost">client.runners.<a href="./src/resources/runners/runners.ts">checkAuthenticationForHost</a>({ ...params }) -> RunnerCheckAuthenticationForHostResponse</code>
+- <code title="post /gitpod.v1.RunnerService/CreateRunnerLogsToken">client.runners.<a href="./src/resources/runners/runners.ts">createLogsToken</a>({ ...params }) -> RunnerCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerToken">client.runners.<a href="./src/resources/runners/runners.ts">createRunnerToken</a>({ ...params }) -> RunnerCreateRunnerTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/ParseContextURL">client.runners.<a href="./src/resources/runners/runners.ts">parseContextURL</a>({ ...params }) -> RunnerParseContextURLResponse</code>
+- <code title="post /gitpod.v1.RunnerService/SearchRepositories">client.runners.<a href="./src/resources/runners/runners.ts">searchRepositories</a>({ ...params }) -> RunnerSearchRepositoriesResponse</code>
 
 ## Configurations
 
@@ -511,12 +674,16 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/users/users.ts">User</a></code>
+- <code><a href="./src/resources/users/users.ts">UserDeleteUserResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserGetAuthenticatedUserResponse</a></code>
+- <code><a href="./src/resources/users/users.ts">UserGetUserResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserSetSuspendedResponse</a></code>
 
 Methods:
 
+- <code title="post /gitpod.v1.UserService/DeleteUser">client.users.<a href="./src/resources/users/users.ts">deleteUser</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.UserService/GetAuthenticatedUser">client.users.<a href="./src/resources/users/users.ts">getAuthenticatedUser</a>({ ...params }) -> UserGetAuthenticatedUserResponse</code>
+- <code title="post /gitpod.v1.UserService/GetUser">client.users.<a href="./src/resources/users/users.ts">getUser</a>({ ...params }) -> UserGetUserResponse</code>
 - <code title="post /gitpod.v1.UserService/SetSuspended">client.users.<a href="./src/resources/users/users.ts">setSuspended</a>({ ...params }) -> unknown</code>
 
 ## Dotfiles

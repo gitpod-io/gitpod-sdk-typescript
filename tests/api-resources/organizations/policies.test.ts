@@ -47,16 +47,30 @@ describe('resource policies', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+      agentPolicy: { commandDenyList: ['string'], mcpDisabled: true, scmToolsDisabled: true },
       allowedEditorIds: ['string'],
       allowLocalRunners: true,
       defaultEditorId: 'defaultEditorId',
       defaultEnvironmentImage: 'defaultEnvironmentImage',
+      deleteArchivedEnvironmentsAfter: '+9125115.360s',
+      editorVersionRestrictions: { foo: { allowedVersions: ['string'] } },
+      maximumEnvironmentLifetime: '+9125115.360s',
       maximumEnvironmentsPerUser: '20',
       maximumEnvironmentTimeout: '3600s',
       maximumRunningEnvironmentsPerUser: '5',
       membersCreateProjects: true,
       membersRequireProjects: true,
       portSharingDisabled: true,
+      requireCustomDomainAccess: true,
+      securityAgentPolicy: {
+        crowdstrike: {
+          additionalOptions: { foo: 'string' },
+          cidSecretId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          enabled: true,
+          image: 'image',
+          tags: 'tags',
+        },
+      },
     });
   });
 });

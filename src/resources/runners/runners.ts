@@ -288,6 +288,35 @@ export class Runners extends APIResource {
   }
 
   /**
+   * Creates an access token for runner logs and debug information.
+   *
+   * Generated tokens are valid for one hour and provide runner-specific access
+   * permissions. The token is scoped to a specific runner and can be used to access
+   * support bundles.
+   *
+   * ### Examples
+   *
+   * - Generate runner logs token:
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.createLogsToken({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
+   */
+  createLogsToken(
+    body: RunnerCreateLogsTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerCreateLogsTokenResponse> {
+    return this._client.post('/gitpod.v1.RunnerService/CreateRunnerLogsToken', { body, ...options });
+  }
+
+  /**
    * Creates a new authentication token for a runner.
    *
    * Use this method to:
@@ -360,6 +389,52 @@ export class Runners extends APIResource {
     options?: RequestOptions,
   ): APIPromise<RunnerParseContextURLResponse> {
     return this._client.post('/gitpod.v1.RunnerService/ParseContextURL', { body, ...options });
+  }
+
+  /**
+   * Searches for repositories across all authenticated SCM hosts.
+   *
+   * Use this method to:
+   *
+   * - List available repositories
+   * - Search repositories by name or content
+   * - Discover repositories for environment creation
+   *
+   * Returns repositories from all authenticated SCM hosts in natural sort order. If
+   * no repositories are found, returns an empty list.
+   *
+   * ### Examples
+   *
+   * - List all repositories:
+   *
+   *   Returns up to 25 repositories from all authenticated hosts.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
+   *
+   * - Search repositories:
+   *
+   *   Searches for repositories matching the query across all hosts.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   searchString: "my-project"
+   *   limit: 10
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.searchRepositories({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
+   */
+  searchRepositories(
+    body: RunnerSearchRepositoriesParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerSearchRepositoriesResponse> {
+    return this._client.post('/gitpod.v1.RunnerService/SearchRepositories', { body, ...options });
   }
 }
 
@@ -435,6 +510,12 @@ export interface Runner {
   runnerId?: string;
 
   /**
+   * The runner manager id specifies the runner manager for the managed runner. This
+   * field is only set for managed runners.
+   */
+  runnerManagerId?: string;
+
+  /**
    * The runner's specification
    */
   spec?: RunnerSpec;
@@ -456,7 +537,8 @@ export type RunnerCapability =
   | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY'
   | 'RUNNER_CAPABILITY_AGENT_EXECUTION'
   | 'RUNNER_CAPABILITY_ALLOW_ENV_TOKEN_POPULATION'
-  | 'RUNNER_CAPABILITY_DEFAULT_DEV_CONTAINER_IMAGE';
+  | 'RUNNER_CAPABILITY_DEFAULT_DEV_CONTAINER_IMAGE'
+  | 'RUNNER_CAPABILITY_ENVIRONMENT_SNAPSHOT';
 
 export interface RunnerConfiguration {
   /**
@@ -467,7 +549,7 @@ export interface RunnerConfiguration {
   /**
    * devcontainer_image_cache_enabled controls whether the devcontainer build cache
    * is enabled for this runner. Only takes effect on supported runners, currently
-   * only AWS EC2 runners.
+   * only AWS EC2 and Gitpod-managed runners.
    */
   devcontainerImageCacheEnabled?: boolean;
 
@@ -525,7 +607,8 @@ export type RunnerProvider =
   | 'RUNNER_PROVIDER_AWS_EC2'
   | 'RUNNER_PROVIDER_LINUX_HOST'
   | 'RUNNER_PROVIDER_DESKTOP_MAC'
-  | 'RUNNER_PROVIDER_MANAGED';
+  | 'RUNNER_PROVIDER_MANAGED'
+  | 'RUNNER_PROVIDER_GCP';
 
 export type RunnerReleaseChannel =
   | 'RUNNER_RELEASE_CHANNEL_UNSPECIFIED'
@@ -542,6 +625,11 @@ export interface RunnerSpec {
    * RunnerPhase represents the phase a runner is in
    */
   desiredPhase?: RunnerPhase;
+
+  /**
+   * The runner's variant
+   */
+  variant?: RunnerVariant;
 }
 
 /**
@@ -564,6 +652,11 @@ export interface RunnerStatus {
    */
   gatewayInfo?: GatewayInfo;
 
+  /**
+   * llm_url is the URL of the LLM service to which the runner is connected.
+   */
+  llmUrl?: string;
+
   logUrl?: string;
 
   /**
@@ -578,9 +671,21 @@ export interface RunnerStatus {
   phase?: RunnerPhase;
 
   /**
+   * public_key is the runner's public key used for encryption (32 bytes)
+   */
+  publicKey?: string;
+
+  /**
    * region is the region the runner is running in, if applicable.
    */
   region?: string;
+
+  /**
+   * support_bundle_url is the URL at which the runner support bundle can be
+   * accessed. This URL provides access to pprof profiles and other debug
+   * information. Only available for standalone runners.
+   */
+  supportBundleUrl?: string;
 
   systemDetails?: string;
 
@@ -591,6 +696,13 @@ export interface RunnerStatus {
 
   version?: string;
 }
+
+export type RunnerVariant =
+  | 'RUNNER_VARIANT_UNSPECIFIED'
+  | 'RUNNER_VARIANT_STANDARD'
+  | 'RUNNER_VARIANT_ENTERPRISE';
+
+export type SearchMode = 'SEARCH_MODE_UNSPECIFIED' | 'SEARCH_MODE_KEYWORD' | 'SEARCH_MODE_NATIVE';
 
 export interface RunnerCreateResponse {
   runner: Runner;
@@ -696,6 +808,14 @@ export namespace RunnerCheckAuthenticationForHostResponse {
   }
 }
 
+export interface RunnerCreateLogsTokenResponse {
+  /**
+   * access_token is the token that can be used to access the logs and support bundle
+   * of the runner
+   */
+  accessToken: string;
+}
+
 export interface RunnerCreateRunnerTokenResponse {
   /**
    * @deprecated deprecated, will be removed. Use exchange_token instead.
@@ -713,12 +833,32 @@ export interface RunnerCreateRunnerTokenResponse {
 export interface RunnerParseContextURLResponse {
   git?: RunnerParseContextURLResponse.Git;
 
+  issue?: RunnerParseContextURLResponse.Issue;
+
   originalContextUrl?: string;
+
+  /**
+   * @deprecated Deprecated: Use top-level PullRequest message instead
+   */
+  pr?: RunnerParseContextURLResponse.Pr;
 
   /**
    * project_ids is a list of projects to which the context URL belongs to.
    */
   projectIds?: Array<string>;
+
+  /**
+   * PullRequest represents pull request metadata from source control systems. This
+   * message is used across workflow triggers, executions, and agent contexts to
+   * maintain consistent PR information throughout the system.
+   */
+  pullRequest?: RunnerParseContextURLResponse.PullRequest;
+
+  /**
+   * scm_id is the unique identifier of the SCM provider (e.g., "github", "gitlab",
+   * "bitbucket")
+   */
+  scmId?: string;
 }
 
 export namespace RunnerParseContextURLResponse {
@@ -735,7 +875,130 @@ export namespace RunnerParseContextURLResponse {
 
     repo?: string;
 
+    tag?: string;
+
     upstreamRemoteUrl?: string;
+  }
+
+  export interface Issue {
+    /**
+     * id is the source system's ID of this issue, e.g. BNFRD-6100
+     */
+    id?: string;
+
+    title?: string;
+  }
+
+  /**
+   * @deprecated Deprecated: Use top-level PullRequest message instead
+   */
+  export interface Pr {
+    id?: string;
+
+    fromBranch?: string;
+
+    title?: string;
+
+    toBranch?: string;
+  }
+
+  /**
+   * PullRequest represents pull request metadata from source control systems. This
+   * message is used across workflow triggers, executions, and agent contexts to
+   * maintain consistent PR information throughout the system.
+   */
+  export interface PullRequest {
+    /**
+     * Unique identifier from the source system (e.g., "123" for GitHub PR #123)
+     */
+    id?: string;
+
+    /**
+     * Author name as provided by the SCM system
+     */
+    author?: string;
+
+    /**
+     * Source branch name (the branch being merged from)
+     */
+    fromBranch?: string;
+
+    /**
+     * Repository information
+     */
+    repository?: PullRequest.Repository;
+
+    /**
+     * Pull request title
+     */
+    title?: string;
+
+    /**
+     * Target branch name (the branch being merged into)
+     */
+    toBranch?: string;
+
+    /**
+     * Pull request URL (e.g., "https://github.com/owner/repo/pull/123")
+     */
+    url?: string;
+  }
+
+  export namespace PullRequest {
+    /**
+     * Repository information
+     */
+    export interface Repository {
+      cloneUrl?: string;
+
+      host?: string;
+
+      name?: string;
+
+      owner?: string;
+    }
+  }
+}
+
+export interface RunnerSearchRepositoriesResponse {
+  /**
+   * Last page in the responses
+   */
+  lastPage?: number;
+
+  /**
+   * Pagination information for the response
+   */
+  pagination?: RunnerSearchRepositoriesResponse.Pagination;
+
+  /**
+   * List of repositories matching the search criteria
+   */
+  repositories?: Array<RunnerSearchRepositoriesResponse.Repository>;
+}
+
+export namespace RunnerSearchRepositoriesResponse {
+  /**
+   * Pagination information for the response
+   */
+  export interface Pagination {
+    /**
+     * Token passed for retrieving the next set of results. Empty if there are no more
+     * results
+     */
+    nextToken?: string;
+  }
+
+  export interface Repository {
+    /**
+     * Repository name (e.g., "my-project")
+     */
+    name?: string;
+
+    /**
+     * Repository URL (e.g., "https://github.com/owner/my-project")
+     */
+    url?: string;
   }
 }
 
@@ -930,6 +1193,15 @@ export interface RunnerCheckAuthenticationForHostParams {
   runnerId?: string;
 }
 
+export interface RunnerCreateLogsTokenParams {
+  /**
+   * runner_id specifies the runner for which the logs token should be created.
+   *
+   * +required
+   */
+  runnerId?: string;
+}
+
 export interface RunnerCreateRunnerTokenParams {
   runnerId?: string;
 }
@@ -938,6 +1210,55 @@ export interface RunnerParseContextURLParams {
   contextUrl?: string;
 
   runnerId?: string;
+}
+
+export interface RunnerSearchRepositoriesParams {
+  /**
+   * @deprecated Maximum number of repositories to return. Default: 25, Maximum: 100
+   * Deprecated: Use pagination.page_size instead
+   */
+  limit?: number;
+
+  /**
+   * Pagination parameters for repository search
+   */
+  pagination?: RunnerSearchRepositoriesParams.Pagination;
+
+  runnerId?: string;
+
+  /**
+   * The SCM's host to retrieve repositories from
+   */
+  scmHost?: string;
+
+  /**
+   * Search mode determines how search_string is interpreted
+   */
+  searchMode?: SearchMode;
+
+  /**
+   * Search query - interpretation depends on search_mode
+   */
+  searchString?: string;
+}
+
+export namespace RunnerSearchRepositoriesParams {
+  /**
+   * Pagination parameters for repository search
+   */
+  export interface Pagination {
+    /**
+     * Token for the next set of results that was returned as next_token of a
+     * PaginationResponse
+     */
+    token?: string;
+
+    /**
+     * Page size is the maximum number of results to retrieve per page. Defaults to 25.
+     * Maximum 100.
+     */
+    pageSize?: number;
+  }
 }
 
 Runners.Configurations = Configurations;
@@ -957,13 +1278,17 @@ export declare namespace Runners {
     type RunnerReleaseChannel as RunnerReleaseChannel,
     type RunnerSpec as RunnerSpec,
     type RunnerStatus as RunnerStatus,
+    type RunnerVariant as RunnerVariant,
+    type SearchMode as SearchMode,
     type RunnerCreateResponse as RunnerCreateResponse,
     type RunnerRetrieveResponse as RunnerRetrieveResponse,
     type RunnerUpdateResponse as RunnerUpdateResponse,
     type RunnerDeleteResponse as RunnerDeleteResponse,
     type RunnerCheckAuthenticationForHostResponse as RunnerCheckAuthenticationForHostResponse,
+    type RunnerCreateLogsTokenResponse as RunnerCreateLogsTokenResponse,
     type RunnerCreateRunnerTokenResponse as RunnerCreateRunnerTokenResponse,
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
+    type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
     type RunnerCreateParams as RunnerCreateParams,
     type RunnerRetrieveParams as RunnerRetrieveParams,
@@ -971,8 +1296,10 @@ export declare namespace Runners {
     type RunnerListParams as RunnerListParams,
     type RunnerDeleteParams as RunnerDeleteParams,
     type RunnerCheckAuthenticationForHostParams as RunnerCheckAuthenticationForHostParams,
+    type RunnerCreateLogsTokenParams as RunnerCreateLogsTokenParams,
     type RunnerCreateRunnerTokenParams as RunnerCreateRunnerTokenParams,
     type RunnerParseContextURLParams as RunnerParseContextURLParams,
+    type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams,
   };
 
   export {
