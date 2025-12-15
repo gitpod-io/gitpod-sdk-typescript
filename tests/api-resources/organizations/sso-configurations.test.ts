@@ -13,7 +13,6 @@ describe('resource ssoConfigurations', () => {
     const responsePromise = client.organizations.ssoConfigurations.create({
       clientId: '012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com',
       clientSecret: 'GOCSPX-abcdefghijklmnopqrstuvwxyz123456',
-      emailDomain: 'acme-corp.com',
       issuerUrl: 'https://accounts.google.com',
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
@@ -31,9 +30,11 @@ describe('resource ssoConfigurations', () => {
     const response = await client.organizations.ssoConfigurations.create({
       clientId: '012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com',
       clientSecret: 'GOCSPX-abcdefghijklmnopqrstuvwxyz123456',
-      emailDomain: 'acme-corp.com',
       issuerUrl: 'https://accounts.google.com',
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+      displayName: 'displayName',
+      emailDomain: 'acme-corp.com',
+      emailDomains: ['sfN2.l.iJR-BU.u9JV9.a.m.o2D-4b-Jd.0Z-kX.L.n.S.f.UKbxB'],
     });
   });
 
@@ -79,7 +80,9 @@ describe('resource ssoConfigurations', () => {
       claims: { foo: 'string' },
       clientId: 'new-client-id',
       clientSecret: 'new-client-secret',
+      displayName: 'displayName',
       emailDomain: 'xxxx',
+      emailDomains: ['sfN2.l.iJR-BU.u9JV9.a.m.o2D-4b-Jd.0Z-kX.L.n.S.f.UKbxB'],
       issuerUrl: 'https://example.com',
       state: 'SSO_CONFIGURATION_STATE_UNSPECIFIED',
     });

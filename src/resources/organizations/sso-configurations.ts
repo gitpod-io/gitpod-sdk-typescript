@@ -49,9 +49,9 @@ export class SSOConfigurations extends APIResource {
    *     clientId:
    *       '012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com',
    *     clientSecret: 'GOCSPX-abcdefghijklmnopqrstuvwxyz123456',
-   *     emailDomain: 'acme-corp.com',
    *     issuerUrl: 'https://accounts.google.com',
    *     organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     emailDomain: 'acme-corp.com',
    *   });
    * ```
    */
@@ -272,7 +272,11 @@ export interface SSOConfiguration {
    */
   clientId?: string;
 
+  displayName?: string;
+
   emailDomain?: string;
+
+  emailDomains?: Array<string>;
 }
 
 export type SSOConfigurationState =
@@ -310,16 +314,20 @@ export interface SSOConfigurationCreateParams {
   clientSecret: string;
 
   /**
-   * email_domain is the domain that is allowed to sign in to the organization
-   */
-  emailDomain: string;
-
-  /**
    * issuer_url is the URL of the IdP issuer
    */
   issuerUrl: string;
 
   organizationId: string;
+
+  displayName?: string;
+
+  /**
+   * email_domain is the domain that is allowed to sign in to the organization
+   */
+  emailDomain?: string | null;
+
+  emailDomains?: Array<string>;
 }
 
 export interface SSOConfigurationRetrieveParams {
@@ -350,7 +358,11 @@ export interface SSOConfigurationUpdateParams {
    */
   clientSecret?: string | null;
 
+  displayName?: string | null;
+
   emailDomain?: string | null;
+
+  emailDomains?: Array<string>;
 
   /**
    * issuer_url is the URL of the IdP issuer

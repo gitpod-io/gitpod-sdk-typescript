@@ -30,6 +30,19 @@ export class Users extends APIResource {
   pats: PatsAPI.Pats = new PatsAPI.Pats(this._client);
 
   /**
+   * Deletes a user. If the User comes from an organization's SSO provider, the
+   * Account will also be deleted.
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.deleteUser();
+   * ```
+   */
+  deleteUser(body: UserDeleteUserParams, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.post('/gitpod.v1.UserService/DeleteUser', { body, ...options });
+  }
+
+  /**
    * Gets information about the currently authenticated user.
    *
    * Use this method to:
@@ -59,6 +72,36 @@ export class Users extends APIResource {
     options?: RequestOptions,
   ): APIPromise<UserGetAuthenticatedUserResponse> {
     return this._client.post('/gitpod.v1.UserService/GetAuthenticatedUser', { body, ...options });
+  }
+
+  /**
+   * Gets basic information about a specific user by their ID.
+   *
+   * Use this method to:
+   *
+   * - Retrieve user profile information
+   * - Get user details for display purposes
+   * - Fetch user metadata for administrative tasks
+   *
+   * ### Examples
+   *
+   * - Get user by ID:
+   *
+   *   Retrieves basic user information by user ID.
+   *
+   *   ```yaml
+   *   userId: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.getUser({
+   *   userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   * });
+   * ```
+   */
+  getUser(body: UserGetUserParams, options?: RequestOptions): APIPromise<UserGetUserResponse> {
+    return this._client.post('/gitpod.v1.UserService/GetUser', { body, ...options });
   }
 
   /**
@@ -119,6 +162,11 @@ export interface User {
   createdAt?: string;
 
   /**
+   * email is the user's email address
+   */
+  email?: string;
+
+  /**
    * name is the full name of the user
    */
   name?: string;
@@ -136,14 +184,28 @@ export interface User {
   status?: Shared.UserStatus;
 }
 
+export type UserDeleteUserResponse = unknown;
+
 export interface UserGetAuthenticatedUserResponse {
+  user: User;
+}
+
+export interface UserGetUserResponse {
   user: User;
 }
 
 export type UserSetSuspendedResponse = unknown;
 
+export interface UserDeleteUserParams {
+  userId?: string;
+}
+
 export interface UserGetAuthenticatedUserParams {
   empty?: boolean;
+}
+
+export interface UserGetUserParams {
+  userId?: string;
 }
 
 export interface UserSetSuspendedParams {
@@ -158,9 +220,13 @@ Users.Pats = Pats;
 export declare namespace Users {
   export {
     type User as User,
+    type UserDeleteUserResponse as UserDeleteUserResponse,
     type UserGetAuthenticatedUserResponse as UserGetAuthenticatedUserResponse,
+    type UserGetUserResponse as UserGetUserResponse,
     type UserSetSuspendedResponse as UserSetSuspendedResponse,
+    type UserDeleteUserParams as UserDeleteUserParams,
     type UserGetAuthenticatedUserParams as UserGetAuthenticatedUserParams,
+    type UserGetUserParams as UserGetUserParams,
     type UserSetSuspendedParams as UserSetSuspendedParams,
   };
 

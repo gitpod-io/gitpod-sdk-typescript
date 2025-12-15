@@ -377,6 +377,11 @@ export interface ServiceMetadata {
   reference?: string;
 
   /**
+   * role specifies the intended role or purpose of the service.
+   */
+  role?: ServiceRole;
+
+  /**
    * triggered_by is a list of trigger that start the service.
    */
   triggeredBy?: Array<Shared.AutomationTrigger>;
@@ -391,6 +396,13 @@ export type ServicePhase =
   | 'SERVICE_PHASE_FAILED'
   | 'SERVICE_PHASE_DELETED';
 
+export type ServiceRole =
+  | 'SERVICE_ROLE_UNSPECIFIED'
+  | 'SERVICE_ROLE_DEFAULT'
+  | 'SERVICE_ROLE_EDITOR'
+  | 'SERVICE_ROLE_AI_AGENT'
+  | 'SERVICE_ROLE_SECURITY_AGENT';
+
 export interface ServiceSpec {
   /**
    * commands contains the commands to start, stop and check the readiness of the
@@ -403,6 +415,11 @@ export interface ServiceSpec {
    * service.
    */
   desiredPhase?: ServicePhase;
+
+  /**
+   * env specifies environment variables for the service.
+   */
+  env?: Array<Shared.EnvironmentVariableItem>;
 
   /**
    * runs_on specifies the environment the service should run on.
@@ -552,6 +569,8 @@ export namespace ServiceUpdateParams {
 
     name?: string | null;
 
+    role?: ServicesAPI.ServiceRole | null;
+
     triggeredBy?: Metadata.TriggeredBy | null;
   }
 
@@ -568,6 +587,8 @@ export namespace ServiceUpdateParams {
    */
   export interface Spec {
     commands?: Spec.Commands | null;
+
+    env?: Array<Shared.EnvironmentVariableItem>;
 
     runsOn?: Shared.RunsOn | null;
   }
@@ -631,6 +652,11 @@ export namespace ServiceListParams {
     references?: Array<string>;
 
     /**
+     * roles filters the response to only services with these roles
+     */
+    roles?: Array<ServicesAPI.ServiceRole>;
+
+    /**
      * service_ids filters the response to only services with these IDs
      */
     serviceIds?: Array<string>;
@@ -673,6 +699,7 @@ export declare namespace Services {
     type Service as Service,
     type ServiceMetadata as ServiceMetadata,
     type ServicePhase as ServicePhase,
+    type ServiceRole as ServiceRole,
     type ServiceSpec as ServiceSpec,
     type ServiceStatus as ServiceStatus,
     type ServiceCreateResponse as ServiceCreateResponse,

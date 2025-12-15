@@ -14,6 +14,7 @@ export {
   type EnvironmentActivitySignal,
   type EnvironmentMetadata,
   type EnvironmentPhase,
+  type EnvironmentRole,
   type EnvironmentSpec,
   type EnvironmentStatus,
   type EnvironmentCreateResponse,
