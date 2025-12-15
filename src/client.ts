@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { RequestInit, BodyInit } from './internal/builtin-types';
+import type { RequestInit, RequestInfo, BodyInit } from './internal/builtin-types';
 import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestInit } from './internal/types';
 import { uuid4 } from './internal/utils/uuid';
 import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/utils/values';
@@ -159,7 +159,7 @@ import {
   Errors as ErrorsAPIErrors,
   ExceptionInfo,
   ExceptionMechanism,
-  RequestInfo,
+  RequestInfo as ErrorRequestInfo,
   StackFrame,
 } from './resources/errors';
 import {
@@ -1352,7 +1352,7 @@ export declare namespace Gitpod {
     type ErrorLevel as ErrorLevel,
     type ExceptionInfo as ExceptionInfo,
     type ExceptionMechanism as ExceptionMechanism,
-    type RequestInfo as RequestInfo,
+    type ErrorRequestInfo as RequestInfo,
     type StackFrame as StackFrame,
     type ErrorReportErrorsResponse as ErrorReportErrorsResponse,
     type ErrorReportErrorsParams as ErrorReportErrorsParams,
