@@ -23,6 +23,7 @@ import {
   ProjectPolicy,
   ProjectRole,
 } from './policies';
+import * as RunnersAPI from '../runners/runners';
 import { APIPromise } from '../../core/api-promise';
 import { PagePromise, ProjectsPage, type ProjectsPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -820,6 +821,12 @@ export namespace ProjectListParams {
      * from these runners
      */
     runnerIds?: Array<string>;
+
+    /**
+     * runner_kinds filters the response to only projects that use environment classes
+     * from runners of these kinds
+     */
+    runnerKinds?: Array<RunnersAPI.RunnerKind>;
 
     /**
      * search performs case-insensitive search across project name, project ID, and
