@@ -111,6 +111,12 @@ export interface AgentPolicy {
    * disabled for agents
    */
   scmToolsDisabled: boolean;
+
+  /**
+   * scm_tools_allowed_group_id restricts SCM tools access to members of this group.
+   * Empty means no restriction (all users can use SCM tools if not disabled).
+   */
+  scmToolsAllowedGroupId?: string;
 }
 
 /**
@@ -410,6 +416,12 @@ export namespace PolicyUpdateParams {
      * agents
      */
     mcpDisabled?: boolean | null;
+
+    /**
+     * scm_tools_allowed_group_id restricts SCM tools access to members of this group.
+     * Empty means no restriction (all users can use SCM tools if not disabled).
+     */
+    scmToolsAllowedGroupId?: string | null;
 
     /**
      * scm_tools_disabled controls whether SCM (Source Control Management) tools are
