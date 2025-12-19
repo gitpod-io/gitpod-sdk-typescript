@@ -10,6 +10,8 @@ import {
   MembershipDeleteParams,
   MembershipDeleteResponse,
   MembershipListParams,
+  MembershipRetrieveParams,
+  MembershipRetrieveResponse,
   Memberships,
 } from './memberships';
 import * as RoleAssignmentsAPI from './role-assignments';
@@ -528,9 +530,11 @@ export declare namespace Groups {
     Memberships as Memberships,
     type GroupMembership as GroupMembership,
     type MembershipCreateResponse as MembershipCreateResponse,
+    type MembershipRetrieveResponse as MembershipRetrieveResponse,
     type MembershipDeleteResponse as MembershipDeleteResponse,
     type GroupMembershipsMembersPage as GroupMembershipsMembersPage,
     type MembershipCreateParams as MembershipCreateParams,
+    type MembershipRetrieveParams as MembershipRetrieveParams,
     type MembershipListParams as MembershipListParams,
     type MembershipDeleteParams as MembershipDeleteParams,
   };

@@ -49,6 +49,48 @@ export class Memberships extends APIResource {
   }
 
   /**
+   * Gets a specific membership by group ID and subject.
+   *
+   * Use this method to:
+   *
+   * - Check if a user or service account is a member of a group
+   * - Verify group membership for access control
+   *
+   * ### Examples
+   *
+   * - Check user membership:
+   *
+   *   Checks if a user is a member of a specific group.
+   *
+   *   ```yaml
+   *   groupId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   subject:
+   *     id: "f53d2330-3795-4c5d-a1f3-453121af9c60"
+   *     principal: PRINCIPAL_USER
+   *   ```
+   *
+   * ### Authorization
+   *
+   * All organization members can check group membership (transparency model).
+   *
+   * @example
+   * ```ts
+   * const membership = await client.groups.memberships.retrieve(
+   *   {
+   *     subject: {
+   *       id: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+   *       principal: 'PRINCIPAL_USER',
+   *     },
+   *     groupId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   },
+   * );
+   * ```
+   */
+  retrieve(body: MembershipRetrieveParams, options?: RequestOptions): APIPromise<MembershipRetrieveResponse> {
+    return this._client.post('/gitpod.v1.GroupService/GetMembership', { body, ...options });
+  }
+
+  /**
    * Lists all memberships of a group.
    *
    * Use this method to:
@@ -172,6 +214,13 @@ export interface MembershipCreateResponse {
   member?: GroupMembership;
 }
 
+export interface MembershipRetrieveResponse {
+  /**
+   * The membership if found, nil if subject is not a member
+   */
+  member?: GroupMembership;
+}
+
 /**
  * Empty response
  */
@@ -184,6 +233,15 @@ export interface MembershipCreateParams {
    * Subject to add to the group
    */
   subject?: Shared.Subject;
+}
+
+export interface MembershipRetrieveParams {
+  /**
+   * Subject to check membership for
+   */
+  subject: Shared.Subject;
+
+  groupId?: string;
 }
 
 export interface MembershipListParams extends MembersPageParams {
@@ -228,9 +286,11 @@ export declare namespace Memberships {
   export {
     type GroupMembership as GroupMembership,
     type MembershipCreateResponse as MembershipCreateResponse,
+    type MembershipRetrieveResponse as MembershipRetrieveResponse,
     type MembershipDeleteResponse as MembershipDeleteResponse,
     type GroupMembershipsMembersPage as GroupMembershipsMembersPage,
     type MembershipCreateParams as MembershipCreateParams,
+    type MembershipRetrieveParams as MembershipRetrieveParams,
     type MembershipListParams as MembershipListParams,
     type MembershipDeleteParams as MembershipDeleteParams,
   };

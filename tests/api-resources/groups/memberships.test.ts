@@ -21,6 +21,26 @@ describe('resource memberships', () => {
   });
 
   // Prism tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.groups.memberships.retrieve({ subject: {} });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.groups.memberships.retrieve({
+      subject: { id: 'f53d2330-3795-4c5d-a1f3-453121af9c60', principal: 'PRINCIPAL_USER' },
+      groupId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.groups.memberships.list({});
     const rawResponse = await responsePromise.asResponse();
