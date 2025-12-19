@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.0 (2025-12-19)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **agent:** add group-based SCM tools access control ([9f8d2f9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9f8d2f902fc221a89e27ae74e47315d6300f2af2))
+
+
+### Chores
+
+* pin GitHub Actions to SHA ([d29f17d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d29f17de8d5cb9632525387669978058c18ba0a7))
+
 ## 0.8.0 (2025-12-15)
 
 Full Changelog: [v0.7.11...v0.8.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.7.11...v0.8.0)
