@@ -1133,6 +1133,11 @@ export interface PromptSpec {
   isCommand?: boolean;
 
   /**
+   * is_skill indicates if this prompt is a skill (workflow instructions for agents)
+   */
+  isSkill?: boolean;
+
+  /**
    * is_template indicates if this prompt is a template
    */
   isTemplate?: boolean;
@@ -1202,6 +1207,8 @@ export interface AgentCreatePromptParams {
   description?: string;
 
   isCommand?: boolean;
+
+  isSkill?: boolean;
 
   isTemplate?: boolean;
 
@@ -1283,6 +1290,8 @@ export namespace AgentListPromptsParams {
     commandPrefix?: string;
 
     isCommand?: boolean;
+
+    isSkill?: boolean;
 
     isTemplate?: boolean;
   }
@@ -1386,6 +1395,11 @@ export namespace AgentUpdatePromptParams {
      * Whether this prompt is a command
      */
     isCommand?: boolean | null;
+
+    /**
+     * Whether this prompt is a skill
+     */
+    isSkill?: boolean | null;
 
     /**
      * Whether this prompt is a template
