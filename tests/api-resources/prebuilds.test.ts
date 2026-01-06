@@ -27,7 +27,11 @@ describe('resource prebuilds', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.prebuilds.create({
       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-      spec: { desiredPhase: 'PREBUILD_PHASE_UNSPECIFIED', specVersion: 'specVersion', timeout: '3600s' },
+      spec: {
+        desiredPhase: 'PREBUILD_PHASE_UNSPECIFIED',
+        specVersion: 'specVersion',
+        timeout: '3600s',
+      },
       environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
