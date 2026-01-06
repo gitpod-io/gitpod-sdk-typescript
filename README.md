@@ -172,7 +172,9 @@ const response = await client.identity.getAuthenticatedIdentity().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.identity.getAuthenticatedIdentity().withResponse();
+const { data: response, response: raw } = await client.identity
+  .getAuthenticatedIdentity()
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.organizationId);
 ```
