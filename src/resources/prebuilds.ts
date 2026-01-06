@@ -354,6 +354,14 @@ export interface PrebuildStatus {
   logUrl?: string;
 
   /**
+   * snapshot_completion_percentage is the progress of snapshot creation (0-100).
+   * Only populated when phase is SNAPSHOTTING and progress is available from the
+   * cloud provider. This value may update infrequently or remain at 0 depending on
+   * the provider.
+   */
+  snapshotCompletionPercentage?: number;
+
+  /**
    * status_version is incremented each time the status is updated. Used for
    * optimistic concurrency control.
    */
