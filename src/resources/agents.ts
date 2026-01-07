@@ -1149,17 +1149,34 @@ export interface PromptSpec {
 }
 
 export interface UserInputBlock {
-  text: UserInputBlock.Text;
-
   id?: string;
 
   /**
    * Timestamp when this block was created. Used for debugging and support bundles.
    */
   createdAt?: string;
+
+  /**
+   * ImageInput allows sending images to the agent. Media type is inferred from magic
+   * bytes by the backend.
+   */
+  image?: UserInputBlock.Image;
+
+  text?: UserInputBlock.Text;
 }
 
 export namespace UserInputBlock {
+  /**
+   * ImageInput allows sending images to the agent. Media type is inferred from magic
+   * bytes by the backend.
+   */
+  export interface Image {
+    /**
+     * Raw image data (max 4MB). Supported formats: PNG, JPEG, WebP.
+     */
+    data?: string;
+  }
+
   export interface Text {
     content?: string;
   }
