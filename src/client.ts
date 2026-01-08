@@ -315,6 +315,7 @@ import {
   ProjectUpdateResponse,
   Projects,
   ProjectsProjectsPage,
+  RecommendedEditors,
 } from './resources/projects/projects';
 import {
   GatewayInfo,
@@ -1449,6 +1450,7 @@ export declare namespace Gitpod {
     type ProjectMetadata as ProjectMetadata,
     type ProjectPhase as ProjectPhase,
     type ProjectPrebuildConfiguration as ProjectPrebuildConfiguration,
+    type RecommendedEditors as RecommendedEditors,
     type ProjectCreateResponse as ProjectCreateResponse,
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,

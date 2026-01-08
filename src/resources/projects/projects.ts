@@ -388,6 +388,11 @@ export interface Project {
   prebuildConfiguration?: ProjectPrebuildConfiguration;
 
   /**
+   * recommended_editors specifies the editors recommended for this project.
+   */
+  recommendedEditors?: RecommendedEditors;
+
+  /**
    * technical_description is a detailed technical description of the project This
    * field is not returned by default in GetProject or ListProjects responses
    */
@@ -684,6 +689,33 @@ export namespace ProjectPrebuildConfiguration {
   }
 }
 
+/**
+ * RecommendedEditors contains the map of recommended editors and their versions.
+ */
+export interface RecommendedEditors {
+  /**
+   * editors maps editor aliases to their recommended versions. Key is the editor
+   * alias (e.g., "intellij", "goland", "vscode"). Value contains the list of
+   * recommended versions for that editor. If versions list is empty, all available
+   * versions are recommended. Example: {"intellij": {versions: ["2025.1",
+   * "2024.3"]}, "goland": {}}
+   */
+  editors?: { [key: string]: RecommendedEditors.Editors };
+}
+
+export namespace RecommendedEditors {
+  /**
+   * EditorVersions contains the recommended versions for an editor.
+   */
+  export interface Editors {
+    /**
+     * versions is the list of recommended versions for this editor. If empty, all
+     * available versions are recommended. Examples for JetBrains: ["2025.1", "2024.3"]
+     */
+    versions?: Array<string>;
+  }
+}
+
 export interface ProjectCreateResponse {
   project?: Project;
 }
@@ -791,6 +823,13 @@ export interface ProjectUpdateParams {
   projectId?: string;
 
   /**
+   * recommended_editors specifies the editors recommended for this project. If not
+   * provided, the existing recommended editors are not modified. To clear all
+   * recommended editors, set to an empty RecommendedEditors message.
+   */
+  recommendedEditors?: RecommendedEditors | null;
+
+  /**
    * technical_description is a detailed technical description of the project This
    * field is not returned by default in GetProject or ListProjects responses 8KB max
    */
@@ -879,6 +918,7 @@ export declare namespace Projects {
     type ProjectMetadata as ProjectMetadata,
     type ProjectPhase as ProjectPhase,
     type ProjectPrebuildConfiguration as ProjectPrebuildConfiguration,
+    type RecommendedEditors as RecommendedEditors,
     type ProjectCreateResponse as ProjectCreateResponse,
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,

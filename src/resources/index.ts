@@ -198,6 +198,7 @@ export {
   type ProjectMetadata,
   type ProjectPhase,
   type ProjectPrebuildConfiguration,
+  type RecommendedEditors,
   type ProjectCreateResponse,
   type ProjectRetrieveResponse,
   type ProjectUpdateResponse,
