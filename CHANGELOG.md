@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.9.0 (2026-01-09)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **agent:** add group-based SCM tools access control ([9f8d2f9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9f8d2f902fc221a89e27ae74e47315d6300f2af2))
+* **api:** add ImageInput to UserInputBlock proto ([103bf02](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/103bf02589912eb6d2d04626372edbfe4868d041))
+* **api:** add recommended editors configuration to project settings ([57ae935](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/57ae9355b5e86430af037958dc529a942fbeb05b))
+* **db:** add webhooks table with trigger reference ([2f87f2d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2f87f2da279d2727a3eb0288d2365f1c1b0aada3))
+* **prebuild:** expose snapshot completion percentage in prebuild status ([778c94b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/778c94b9b4e453853efd9b611bfeb8d9e9d81f39))
+* **skills:** add organization-level skills support ([24cb9a2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/24cb9a234c1deb8238e6f42dbed2ace01ff35d7e))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([9fa685f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9fa685ffc219966cd2480ae7250e646994a7331d))
+* **internal:** codegen related update ([74962c9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/74962c94a845f1645dd6df17b8a7240894ff64c9))
+* pin GitHub Actions to SHA ([d29f17d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d29f17de8d5cb9632525387669978058c18ba0a7))
+
 ## 0.8.0 (2025-12-15)
 
 Full Changelog: [v0.7.11...v0.8.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.7.11...v0.8.0)
