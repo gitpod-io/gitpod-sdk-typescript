@@ -47,7 +47,12 @@ describe('resource policies', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-      agentPolicy: { commandDenyList: ['string'], mcpDisabled: true, scmToolsDisabled: true },
+      agentPolicy: {
+        commandDenyList: ['string'],
+        mcpDisabled: true,
+        scmToolsAllowedGroupId: 'scmToolsAllowedGroupId',
+        scmToolsDisabled: true,
+      },
       allowedEditorIds: ['string'],
       allowLocalRunners: true,
       defaultEditorId: 'defaultEditorId',

@@ -275,11 +275,13 @@ Types:
 
 - <code><a href="./src/resources/groups/memberships.ts">GroupMembership</a></code>
 - <code><a href="./src/resources/groups/memberships.ts">MembershipCreateResponse</a></code>
+- <code><a href="./src/resources/groups/memberships.ts">MembershipRetrieveResponse</a></code>
 - <code><a href="./src/resources/groups/memberships.ts">MembershipDeleteResponse</a></code>
 
 Methods:
 
 - <code title="post /gitpod.v1.GroupService/CreateMembership">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">create</a>({ ...params }) -> MembershipCreateResponse</code>
+- <code title="post /gitpod.v1.GroupService/GetMembership">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">retrieve</a>({ ...params }) -> MembershipRetrieveResponse</code>
 - <code title="post /gitpod.v1.GroupService/ListMemberships">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">list</a>({ ...params }) -> GroupMembershipsMembersPage</code>
 - <code title="post /gitpod.v1.GroupService/DeleteMembership">client.groups.memberships.<a href="./src/resources/groups/memberships.ts">delete</a>({ ...params }) -> unknown</code>
 
@@ -462,6 +464,7 @@ Types:
 - <code><a href="./src/resources/projects/projects.ts">ProjectMetadata</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectPhase</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectPrebuildConfiguration</a></code>
+- <code><a href="./src/resources/projects/projects.ts">RecommendedEditors</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectCreateResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectRetrieveResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectUpdateResponse</a></code>

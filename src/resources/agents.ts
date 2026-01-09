@@ -1133,6 +1133,11 @@ export interface PromptSpec {
   isCommand?: boolean;
 
   /**
+   * is_skill indicates if this prompt is a skill (workflow instructions for agents)
+   */
+  isSkill?: boolean;
+
+  /**
    * is_template indicates if this prompt is a template
    */
   isTemplate?: boolean;
@@ -1144,17 +1149,34 @@ export interface PromptSpec {
 }
 
 export interface UserInputBlock {
-  text: UserInputBlock.Text;
-
   id?: string;
 
   /**
    * Timestamp when this block was created. Used for debugging and support bundles.
    */
   createdAt?: string;
+
+  /**
+   * ImageInput allows sending images to the agent. Media type is inferred from magic
+   * bytes by the backend.
+   */
+  image?: UserInputBlock.Image;
+
+  text?: UserInputBlock.Text;
 }
 
 export namespace UserInputBlock {
+  /**
+   * ImageInput allows sending images to the agent. Media type is inferred from magic
+   * bytes by the backend.
+   */
+  export interface Image {
+    /**
+     * Raw image data (max 4MB). Supported formats: PNG, JPEG, WebP.
+     */
+    data?: string;
+  }
+
   export interface Text {
     content?: string;
   }
@@ -1202,6 +1224,8 @@ export interface AgentCreatePromptParams {
   description?: string;
 
   isCommand?: boolean;
+
+  isSkill?: boolean;
 
   isTemplate?: boolean;
 
@@ -1283,6 +1307,8 @@ export namespace AgentListPromptsParams {
     commandPrefix?: string;
 
     isCommand?: boolean;
+
+    isSkill?: boolean;
 
     isTemplate?: boolean;
   }
@@ -1386,6 +1412,11 @@ export namespace AgentUpdatePromptParams {
      * Whether this prompt is a command
      */
     isCommand?: boolean | null;
+
+    /**
+     * Whether this prompt is a skill
+     */
+    isSkill?: boolean | null;
 
     /**
      * Whether this prompt is a template
