@@ -214,7 +214,9 @@ export type ResourceRole =
   | 'RESOURCE_ROLE_WORKFLOW_VIEWER'
   | 'RESOURCE_ROLE_WORKFLOW_EXECUTOR'
   | 'RESOURCE_ROLE_SNAPSHOT_ADMIN'
-  | 'RESOURCE_ROLE_SNAPSHOT_RUNNER';
+  | 'RESOURCE_ROLE_SNAPSHOT_RUNNER'
+  | 'RESOURCE_ROLE_WEBHOOK_ADMIN'
+  | 'RESOURCE_ROLE_WEBHOOK_VIEWER';
 
 /**
  * RoleAssignment represents a role assigned to a group on a specific resource
