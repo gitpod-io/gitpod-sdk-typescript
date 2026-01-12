@@ -962,12 +962,16 @@ export namespace RunnerParseContextURLResponse {
 
 export interface RunnerSearchRepositoriesResponse {
   /**
-   * Last page in the responses
+   * Deprecated: Use pagination token instead. Total pages can be extracted from
+   * token.
    */
   lastPage?: number;
 
   /**
-   * Pagination information for the response
+   * Pagination information for the response. Token format:
+   * "NEXT_PAGE/TOTAL_PAGES/TOTAL_COUNT" (e.g., "2/40/1000"). Use -1 for unknown
+   * values (e.g., "2/-1/-1" when totals unavailable). Empty token means no more
+   * pages.
    */
   pagination?: RunnerSearchRepositoriesResponse.Pagination;
 
@@ -979,7 +983,10 @@ export interface RunnerSearchRepositoriesResponse {
 
 export namespace RunnerSearchRepositoriesResponse {
   /**
-   * Pagination information for the response
+   * Pagination information for the response. Token format:
+   * "NEXT_PAGE/TOTAL_PAGES/TOTAL_COUNT" (e.g., "2/40/1000"). Use -1 for unknown
+   * values (e.g., "2/-1/-1" when totals unavailable). Empty token means no more
+   * pages.
    */
   export interface Pagination {
     /**
