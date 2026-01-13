@@ -383,7 +383,7 @@ export interface SSOConfigurationListParams extends SSOConfigurationsPageParams 
   organizationId: string;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: SSOConfigurationListParams.Pagination;
 }

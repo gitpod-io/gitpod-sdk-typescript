@@ -243,7 +243,7 @@ export interface EnvironmentClassUpdateParams {
 
 export interface EnvironmentClassListParams extends EnvironmentClassesPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: EnvironmentClassListParams.Filter;
 

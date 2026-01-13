@@ -446,12 +446,12 @@ export interface DomainVerificationRetrieveParams {
 
 export interface DomainVerificationListParams extends DomainVerificationsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   organizationId: string;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: DomainVerificationListParams.Pagination;
 }

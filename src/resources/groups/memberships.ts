@@ -246,7 +246,7 @@ export interface MembershipRetrieveParams {
 
 export interface MembershipListParams extends MembersPageParams {
   /**
-   * Body param:
+   * Body param
    */
   groupId?: string;
 

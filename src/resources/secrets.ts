@@ -525,7 +525,7 @@ export interface SecretCreateParams {
 
 export interface SecretListParams extends SecretsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: SecretListParams.Filter;
 

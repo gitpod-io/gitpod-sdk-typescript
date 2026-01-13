@@ -368,7 +368,7 @@ export interface ScmIntegrationUpdateParams {
 
 export interface ScmIntegrationListParams extends IntegrationsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: ScmIntegrationListParams.Filter;
 
