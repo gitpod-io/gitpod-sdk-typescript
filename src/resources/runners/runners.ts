@@ -1136,7 +1136,7 @@ export namespace RunnerUpdateParams {
 
 export interface RunnerListParams extends RunnersPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: RunnerListParams.Filter;
 

@@ -1244,12 +1244,12 @@ export interface AgentDeletePromptParams {
 
 export interface AgentListExecutionsParams extends AgentExecutionsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: AgentListExecutionsParams.Filter;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: AgentListExecutionsParams.Pagination;
 }
@@ -1290,12 +1290,12 @@ export namespace AgentListExecutionsParams {
 
 export interface AgentListPromptsParams extends PromptsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: AgentListPromptsParams.Filter;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: AgentListPromptsParams.Pagination;
 }

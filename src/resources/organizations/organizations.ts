@@ -852,7 +852,7 @@ export interface OrganizationListMembersParams extends MembersPageParams {
   organizationId: string;
 
   /**
-   * Body param:
+   * Body param
    */
   filter?: OrganizationListMembersParams.Filter;
 

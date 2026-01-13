@@ -55,7 +55,7 @@ export class Classes extends APIResource {
 
 export interface ClassListParams extends EnvironmentClassesPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: ClassListParams.Filter;
 
