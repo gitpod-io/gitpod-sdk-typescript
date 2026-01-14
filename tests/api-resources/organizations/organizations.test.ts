@@ -145,6 +145,7 @@ describe('resource organizations', () => {
       pageSize: 0,
       filter: { search: 'search' },
       pagination: { token: 'token', pageSize: 20 },
+      sort: { field: 'SORT_FIELD_UNSPECIFIED', order: 'SORT_ORDER_UNSPECIFIED' },
     });
   });
 

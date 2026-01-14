@@ -860,6 +860,14 @@ export interface OrganizationListMembersParams extends MembersPageParams {
    * Body param: pagination contains the pagination options for listing members
    */
   pagination?: OrganizationListMembersParams.Pagination;
+
+  /**
+   * Body param: sort specifies the order of results. When unspecified, the
+   * authenticated user is returned first, followed by other members sorted by name
+   * ascending. When an explicit sort is specified, results are sorted purely by the
+   * requested field without any special handling for the authenticated user.
+   */
+  sort?: OrganizationListMembersParams.Sort;
 }
 
 export namespace OrganizationListMembersParams {
@@ -885,6 +893,18 @@ export namespace OrganizationListMembersParams {
      * Maximum 100.
      */
     pageSize?: number;
+  }
+
+  /**
+   * sort specifies the order of results. When unspecified, the authenticated user is
+   * returned first, followed by other members sorted by name ascending. When an
+   * explicit sort is specified, results are sorted purely by the requested field
+   * without any special handling for the authenticated user.
+   */
+  export interface Sort {
+    field?: 'SORT_FIELD_UNSPECIFIED' | 'SORT_FIELD_NAME' | 'SORT_FIELD_DATE_JOINED';
+
+    order?: 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
   }
 }
 
