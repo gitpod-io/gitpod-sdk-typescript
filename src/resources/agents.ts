@@ -416,6 +416,11 @@ export namespace AgentCodeContext {
     author?: string;
 
     /**
+     * Whether this is a draft pull request
+     */
+    draft?: boolean;
+
+    /**
      * Source branch name (the branch being merged from)
      */
     fromBranch?: string;
@@ -424,6 +429,11 @@ export namespace AgentCodeContext {
      * Repository information
      */
     repository?: PullRequest.Repository;
+
+    /**
+     * Current state of the pull request
+     */
+    state?: Shared.State;
 
     /**
      * Pull request title

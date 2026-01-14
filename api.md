@@ -15,6 +15,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
 - <code><a href="./src/resources/shared.ts">SecretRef</a></code>
+- <code><a href="./src/resources/shared.ts">State</a></code>
 - <code><a href="./src/resources/shared.ts">Subject</a></code>
 - <code><a href="./src/resources/shared.ts">Task</a></code>
 - <code><a href="./src/resources/shared.ts">TaskExecution</a></code>
