@@ -152,7 +152,6 @@ export {
   type InviteDomains,
   type Organization,
   type OrganizationMember,
-  type OrganizationTier,
   type OrganizationCreateResponse,
   type OrganizationRetrieveResponse,
   type OrganizationUpdateResponse,

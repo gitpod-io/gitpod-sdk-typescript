@@ -10,6 +10,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">Gateway</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
+- <code><a href="./src/resources/shared.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectEnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
@@ -323,7 +324,6 @@ Types:
 - <code><a href="./src/resources/organizations/organizations.ts">InviteDomains</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationMember</a></code>
-- <code><a href="./src/resources/organizations/organizations.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationCreateResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationUpdateResponse</a></code>
