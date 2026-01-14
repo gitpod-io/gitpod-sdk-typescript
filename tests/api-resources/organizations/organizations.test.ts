@@ -143,7 +143,11 @@ describe('resource organizations', () => {
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       token: 'token',
       pageSize: 0,
-      filter: { search: 'search' },
+      filter: {
+        roles: ['ORGANIZATION_ROLE_UNSPECIFIED'],
+        search: 'search',
+        statuses: ['USER_STATUS_UNSPECIFIED'],
+      },
       pagination: { token: 'token', pageSize: 20 },
       sort: { field: 'SORT_FIELD_UNSPECIFIED', order: 'SORT_ORDER_UNSPECIFIED' },
     });

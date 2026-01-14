@@ -873,9 +873,19 @@ export interface OrganizationListMembersParams extends MembersPageParams {
 export namespace OrganizationListMembersParams {
   export interface Filter {
     /**
+     * roles filters members by their organization role
+     */
+    roles?: Array<Shared.OrganizationRole>;
+
+    /**
      * search performs case-insensitive search across member name and email
      */
     search?: string;
+
+    /**
+     * status filters members by their user status
+     */
+    statuses?: Array<Shared.UserStatus>;
   }
 
   /**
