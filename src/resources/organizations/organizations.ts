@@ -524,7 +524,7 @@ export interface Organization {
   /**
    * The tier of the organization - free, enterprise or core
    */
-  tier: OrganizationTier;
+  tier: Shared.OrganizationTier;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -732,13 +732,6 @@ export interface OrganizationMember {
   avatarUrl?: string;
 }
 
-export type OrganizationTier =
-  | 'ORGANIZATION_TIER_UNSPECIFIED'
-  | 'ORGANIZATION_TIER_FREE'
-  | 'ORGANIZATION_TIER_ENTERPRISE'
-  | 'ORGANIZATION_TIER_CORE'
-  | 'ORGANIZATION_TIER_FREE_ONA';
-
 export interface OrganizationCreateResponse {
   /**
    * organization is the created organization
@@ -937,7 +930,6 @@ export declare namespace Organizations {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,

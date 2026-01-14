@@ -284,7 +284,6 @@ import {
   OrganizationRetrieveResponse,
   OrganizationSetRoleParams,
   OrganizationSetRoleResponse,
-  OrganizationTier,
   OrganizationUpdateParams,
   OrganizationUpdateResponse,
   Organizations,
@@ -1402,7 +1401,6 @@ export declare namespace Gitpod {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -1547,6 +1545,7 @@ export declare namespace Gitpod {
   export type FieldValue = API.FieldValue;
   export type Gateway = API.Gateway;
   export type OrganizationRole = API.OrganizationRole;
+  export type OrganizationTier = API.OrganizationTier;
   export type Principal = API.Principal;
   export type ProjectEnvironmentClass = API.ProjectEnvironmentClass;
   export type ResourceType = API.ResourceType;

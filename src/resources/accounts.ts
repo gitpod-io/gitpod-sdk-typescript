@@ -477,10 +477,15 @@ export interface AccountMembership {
   userRole: Shared.OrganizationRole;
 
   /**
-   * organization_name is the member count of the organization the user is a member
-   * of
+   * organization_member_count is the member count of the organization the user is a
+   * member of
    */
   organizationMemberCount?: number;
+
+  /**
+   * organization_tier is the tier of the organization (Free, Core, Enterprise)
+   */
+  organizationTier?: Shared.OrganizationTier;
 }
 
 export interface JoinableOrganization {
