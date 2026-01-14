@@ -255,6 +255,11 @@ export interface SecretRef {
   id?: string;
 }
 
+/**
+ * Current state of the pull request
+ */
+export type State = 'STATE_UNSPECIFIED' | 'STATE_OPEN' | 'STATE_CLOSED' | 'STATE_MERGED';
+
 export interface Subject {
   /**
    * id is the UUID of the subject

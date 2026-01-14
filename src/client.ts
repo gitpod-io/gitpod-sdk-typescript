@@ -1552,6 +1552,7 @@ export declare namespace Gitpod {
   export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
   export type SecretRef = API.SecretRef;
+  export type State = API.State;
   export type Subject = API.Subject;
   export type Task = API.Task;
   export type TaskExecution = API.TaskExecution;
