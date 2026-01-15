@@ -457,6 +457,11 @@ export interface SecretScope {
   projectId?: string;
 
   /**
+   * service_account_id is the Service Account ID this Secret belongs to
+   */
+  serviceAccountId?: string;
+
+  /**
    * user_id is the User ID this Secret belongs to
    */
   userId?: string;
