@@ -55,6 +55,23 @@ import {
   PolicyUpdateResponse,
   SecurityAgentPolicy,
 } from './policies';
+import * as ScimConfigurationsAPI from './scim-configurations';
+import {
+  ScimConfiguration,
+  ScimConfigurationCreateParams,
+  ScimConfigurationCreateResponse,
+  ScimConfigurationDeleteParams,
+  ScimConfigurationDeleteResponse,
+  ScimConfigurationListParams,
+  ScimConfigurationRegenerateTokenParams,
+  ScimConfigurationRegenerateTokenResponse,
+  ScimConfigurationRetrieveParams,
+  ScimConfigurationRetrieveResponse,
+  ScimConfigurationUpdateParams,
+  ScimConfigurationUpdateResponse,
+  ScimConfigurations,
+  ScimConfigurationsScimConfigurationsPage,
+} from './scim-configurations';
 import * as SSOConfigurationsAPI from './sso-configurations';
 import {
   ProviderType,
@@ -82,6 +99,9 @@ export class Organizations extends APIResource {
     new DomainVerificationsAPI.DomainVerifications(this._client);
   invites: InvitesAPI.Invites = new InvitesAPI.Invites(this._client);
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
+  scimConfigurations: ScimConfigurationsAPI.ScimConfigurations = new ScimConfigurationsAPI.ScimConfigurations(
+    this._client,
+  );
   ssoConfigurations: SSOConfigurationsAPI.SSOConfigurations = new SSOConfigurationsAPI.SSOConfigurations(
     this._client,
   );
@@ -923,6 +943,7 @@ Organizations.CustomDomains = CustomDomains;
 Organizations.DomainVerifications = DomainVerifications;
 Organizations.Invites = Invites;
 Organizations.Policies = Policies;
+Organizations.ScimConfigurations = ScimConfigurations;
 Organizations.SSOConfigurations = SSOConfigurations;
 
 export declare namespace Organizations {
@@ -999,6 +1020,23 @@ export declare namespace Organizations {
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,
     type PolicyUpdateParams as PolicyUpdateParams,
+  };
+
+  export {
+    ScimConfigurations as ScimConfigurations,
+    type ScimConfiguration as ScimConfiguration,
+    type ScimConfigurationCreateResponse as ScimConfigurationCreateResponse,
+    type ScimConfigurationRetrieveResponse as ScimConfigurationRetrieveResponse,
+    type ScimConfigurationUpdateResponse as ScimConfigurationUpdateResponse,
+    type ScimConfigurationDeleteResponse as ScimConfigurationDeleteResponse,
+    type ScimConfigurationRegenerateTokenResponse as ScimConfigurationRegenerateTokenResponse,
+    type ScimConfigurationsScimConfigurationsPage as ScimConfigurationsScimConfigurationsPage,
+    type ScimConfigurationCreateParams as ScimConfigurationCreateParams,
+    type ScimConfigurationRetrieveParams as ScimConfigurationRetrieveParams,
+    type ScimConfigurationUpdateParams as ScimConfigurationUpdateParams,
+    type ScimConfigurationListParams as ScimConfigurationListParams,
+    type ScimConfigurationDeleteParams as ScimConfigurationDeleteParams,
+    type ScimConfigurationRegenerateTokenParams as ScimConfigurationRegenerateTokenParams,
   };
 
   export {

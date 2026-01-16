@@ -87,3 +87,19 @@ export {
   type SSOConfigurationDeleteParams,
   type SSOConfigurationsSSOConfigurationsPage,
 } from './sso-configurations';
+export {
+  ScimConfigurations,
+  type ScimConfiguration,
+  type ScimConfigurationCreateResponse,
+  type ScimConfigurationRetrieveResponse,
+  type ScimConfigurationUpdateResponse,
+  type ScimConfigurationDeleteResponse,
+  type ScimConfigurationRegenerateTokenResponse,
+  type ScimConfigurationCreateParams,
+  type ScimConfigurationRetrieveParams,
+  type ScimConfigurationUpdateParams,
+  type ScimConfigurationListParams,
+  type ScimConfigurationDeleteParams,
+  type ScimConfigurationRegenerateTokenParams,
+  type ScimConfigurationsScimConfigurationsPage,
+} from './scim-configurations';

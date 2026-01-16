@@ -71,6 +71,8 @@ import {
   RunnersPageResponse,
   type SSOConfigurationsPageParams,
   SSOConfigurationsPageResponse,
+  type ScimConfigurationsPageParams,
+  ScimConfigurationsPageResponse,
   type SecretsPageParams,
   SecretsPageResponse,
   type ServicesPageParams,
@@ -1218,6 +1220,12 @@ export declare namespace Gitpod {
 
   export import RunnersPage = Pagination.RunnersPage;
   export { type RunnersPageParams as RunnersPageParams, type RunnersPageResponse as RunnersPageResponse };
+
+  export import ScimConfigurationsPage = Pagination.ScimConfigurationsPage;
+  export {
+    type ScimConfigurationsPageParams as ScimConfigurationsPageParams,
+    type ScimConfigurationsPageResponse as ScimConfigurationsPageResponse,
+  };
 
   export import SecretsPage = Pagination.SecretsPage;
   export { type SecretsPageParams as SecretsPageParams, type SecretsPageResponse as SecretsPageResponse };
