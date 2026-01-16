@@ -411,6 +411,26 @@ Methods:
 - <code title="post /gitpod.v1.OrganizationService/GetOrganizationPolicies">client.organizations.policies.<a href="./src/resources/organizations/policies.ts">retrieve</a>({ ...params }) -> PolicyRetrieveResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/UpdateOrganizationPolicies">client.organizations.policies.<a href="./src/resources/organizations/policies.ts">update</a>({ ...params }) -> unknown</code>
 
+## ScimConfigurations
+
+Types:
+
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfiguration</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationCreateResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationRetrieveResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationUpdateResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationDeleteResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationRegenerateTokenResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.OrganizationService/CreateSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">create</a>({ ...params }) -> ScimConfigurationCreateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/GetSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">retrieve</a>({ ...params }) -> ScimConfigurationRetrieveResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/UpdateSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">update</a>({ ...params }) -> ScimConfigurationUpdateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/ListSCIMConfigurations">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">list</a>({ ...params }) -> ScimConfigurationsScimConfigurationsPage</code>
+- <code title="post /gitpod.v1.OrganizationService/DeleteSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.OrganizationService/RegenerateSCIMToken">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">regenerateToken</a>({ ...params }) -> ScimConfigurationRegenerateTokenResponse</code>
+
 ## SSOConfigurations
 
 Types:
