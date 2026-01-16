@@ -612,12 +612,12 @@ export interface HostAuthenticationTokenUpdateParams {
 
 export interface HostAuthenticationTokenListParams extends TokensPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: HostAuthenticationTokenListParams.Filter;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: HostAuthenticationTokenListParams.Pagination;
 }

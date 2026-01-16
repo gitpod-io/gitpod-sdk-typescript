@@ -10,11 +10,13 @@ Types:
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">Gateway</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
+- <code><a href="./src/resources/shared.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectEnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
 - <code><a href="./src/resources/shared.ts">SecretRef</a></code>
+- <code><a href="./src/resources/shared.ts">State</a></code>
 - <code><a href="./src/resources/shared.ts">Subject</a></code>
 - <code><a href="./src/resources/shared.ts">Task</a></code>
 - <code><a href="./src/resources/shared.ts">TaskExecution</a></code>
@@ -322,7 +324,6 @@ Types:
 - <code><a href="./src/resources/organizations/organizations.ts">InviteDomains</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationMember</a></code>
-- <code><a href="./src/resources/organizations/organizations.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationCreateResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationUpdateResponse</a></code>
@@ -533,6 +534,7 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerCheckAuthenticationForHostResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateLogsTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateRunnerTokenResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerListScmOrganizationsResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerParseContextURLResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerSearchRepositoriesResponse</a></code>
 
@@ -546,6 +548,7 @@ Methods:
 - <code title="post /gitpod.v1.RunnerService/CheckAuthenticationForHost">client.runners.<a href="./src/resources/runners/runners.ts">checkAuthenticationForHost</a>({ ...params }) -> RunnerCheckAuthenticationForHostResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerLogsToken">client.runners.<a href="./src/resources/runners/runners.ts">createLogsToken</a>({ ...params }) -> RunnerCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerToken">client.runners.<a href="./src/resources/runners/runners.ts">createRunnerToken</a>({ ...params }) -> RunnerCreateRunnerTokenResponse</code>
+- <code title="post /gitpod.v1.RunnerService/ListSCMOrganizations">client.runners.<a href="./src/resources/runners/runners.ts">listScmOrganizations</a>({ ...params }) -> RunnerListScmOrganizationsResponse</code>
 - <code title="post /gitpod.v1.RunnerService/ParseContextURL">client.runners.<a href="./src/resources/runners/runners.ts">parseContextURL</a>({ ...params }) -> RunnerParseContextURLResponse</code>
 - <code title="post /gitpod.v1.RunnerService/SearchRepositories">client.runners.<a href="./src/resources/runners/runners.ts">searchRepositories</a>({ ...params }) -> RunnerSearchRepositoriesResponse</code>
 

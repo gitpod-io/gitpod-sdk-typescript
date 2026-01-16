@@ -1693,7 +1693,7 @@ export namespace EnvironmentUpdateParams {
 
 export interface EnvironmentListParams extends EnvironmentsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: EnvironmentListParams.Filter;
 

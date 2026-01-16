@@ -105,6 +105,18 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
+  test.skip('listScmOrganizations', async () => {
+    const responsePromise = client.runners.listScmOrganizations({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
   test.skip('parseContextURL', async () => {
     const responsePromise = client.runners.parseContextURL({});
     const rawResponse = await responsePromise.asResponse();

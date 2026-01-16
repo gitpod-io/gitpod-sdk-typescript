@@ -154,6 +154,13 @@ export type OrganizationRole =
   | 'ORGANIZATION_ROLE_ADMIN'
   | 'ORGANIZATION_ROLE_MEMBER';
 
+export type OrganizationTier =
+  | 'ORGANIZATION_TIER_UNSPECIFIED'
+  | 'ORGANIZATION_TIER_FREE'
+  | 'ORGANIZATION_TIER_ENTERPRISE'
+  | 'ORGANIZATION_TIER_CORE'
+  | 'ORGANIZATION_TIER_FREE_ONA';
+
 export type Principal =
   | 'PRINCIPAL_UNSPECIFIED'
   | 'PRINCIPAL_ACCOUNT'
@@ -225,7 +232,9 @@ export type ResourceType =
   | 'RESOURCE_TYPE_CUSTOM_DOMAIN'
   | 'RESOURCE_TYPE_ROLE_ASSIGNMENT_CHANGED'
   | 'RESOURCE_TYPE_GROUP_MEMBERSHIP_CHANGED'
-  | 'RESOURCE_TYPE_WEBHOOK';
+  | 'RESOURCE_TYPE_WEBHOOK'
+  | 'RESOURCE_TYPE_SCIM_CONFIGURATION'
+  | 'RESOURCE_TYPE_SERVICE_ACCOUNT_SECRET';
 
 export interface RunsOn {
   docker?: RunsOn.Docker;
@@ -253,6 +262,11 @@ export interface SecretRef {
    */
   id?: string;
 }
+
+/**
+ * Current state of the pull request
+ */
+export type State = 'STATE_UNSPECIFIED' | 'STATE_OPEN' | 'STATE_CLOSED' | 'STATE_MERGED';
 
 export interface Subject {
   /**

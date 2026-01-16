@@ -231,7 +231,7 @@ export interface EventWatchResponse {
 
 export interface EventListParams extends EntriesPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: EventListParams.Filter;
 

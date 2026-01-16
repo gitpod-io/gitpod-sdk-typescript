@@ -416,6 +416,11 @@ export namespace AgentCodeContext {
     author?: string;
 
     /**
+     * Whether this is a draft pull request
+     */
+    draft?: boolean;
+
+    /**
      * Source branch name (the branch being merged from)
      */
     fromBranch?: string;
@@ -424,6 +429,11 @@ export namespace AgentCodeContext {
      * Repository information
      */
     repository?: PullRequest.Repository;
+
+    /**
+     * Current state of the pull request
+     */
+    state?: Shared.State;
 
     /**
      * Pull request title
@@ -715,11 +725,6 @@ export namespace AgentExecution {
 
     limits?: Spec.Limits;
 
-    /**
-     * mode is the operational mode for this agent execution
-     */
-    mode?: AgentsAPI.AgentMode;
-
     session?: string;
 
     /**
@@ -790,6 +795,12 @@ export namespace AgentExecution {
      * judgement is the judgement of the agent run produced by the judgement prompt.
      */
     judgement?: string;
+
+    /**
+     * mode is the current operational mode of the agent execution. This is set by the
+     * agent when entering different modes (e.g., Ralph mode via /ona:ralph command).
+     */
+    mode?: AgentsAPI.AgentMode;
 
     /**
      * outputs is a map of key-value pairs that can be set by the agent during
@@ -905,7 +916,11 @@ export namespace AgentExecution {
 /**
  * AgentMode defines the operational mode of an agent
  */
-export type AgentMode = 'AGENT_MODE_UNSPECIFIED' | 'AGENT_MODE_EXECUTION' | 'AGENT_MODE_PLANNING';
+export type AgentMode =
+  | 'AGENT_MODE_UNSPECIFIED'
+  | 'AGENT_MODE_EXECUTION'
+  | 'AGENT_MODE_PLANNING'
+  | 'AGENT_MODE_RALPH';
 
 export interface Prompt {
   id?: string;
@@ -1244,12 +1259,12 @@ export interface AgentDeletePromptParams {
 
 export interface AgentListExecutionsParams extends AgentExecutionsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: AgentListExecutionsParams.Filter;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: AgentListExecutionsParams.Pagination;
 }
@@ -1290,12 +1305,12 @@ export namespace AgentListExecutionsParams {
 
 export interface AgentListPromptsParams extends PromptsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: AgentListPromptsParams.Filter;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: AgentListPromptsParams.Pagination;
 }

@@ -352,6 +352,45 @@ export class Runners extends APIResource {
   }
 
   /**
+   * Lists SCM organizations the user belongs to.
+   *
+   * Use this method to:
+   *
+   * - Get all organizations for a user on a specific SCM host
+   * - Check organization admin permissions for webhook creation
+   *
+   * ### Examples
+   *
+   * - List GitHub organizations:
+   *
+   *   Lists all organizations the user belongs to on GitHub.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   scmHost: "github.com"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.runners.listScmOrganizations({
+   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   scmHost: 'github.com',
+   * });
+   * ```
+   */
+  listScmOrganizations(
+    params: RunnerListScmOrganizationsParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerListScmOrganizationsResponse> {
+    const { token, pageSize, ...body } = params;
+    return this._client.post('/gitpod.v1.RunnerService/ListSCMOrganizations', {
+      query: { token, pageSize },
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Parses a context URL and returns the parsed result.
    *
    * Use this method to:
@@ -830,6 +869,33 @@ export interface RunnerCreateRunnerTokenResponse {
   exchangeToken?: string;
 }
 
+export interface RunnerListScmOrganizationsResponse {
+  /**
+   * List of organizations the user belongs to
+   */
+  organizations?: Array<RunnerListScmOrganizationsResponse.Organization>;
+}
+
+export namespace RunnerListScmOrganizationsResponse {
+  export interface Organization {
+    /**
+     * Whether the user has admin permissions in this organization. Admin permissions
+     * typically allow creating organization-level webhooks.
+     */
+    isAdmin?: boolean;
+
+    /**
+     * Organization name/slug (e.g., "gitpod-io")
+     */
+    name?: string;
+
+    /**
+     * Organization URL (e.g., "https://github.com/gitpod-io")
+     */
+    url?: string;
+  }
+}
+
 export interface RunnerParseContextURLResponse {
   git?: RunnerParseContextURLResponse.Git;
 
@@ -919,6 +985,11 @@ export namespace RunnerParseContextURLResponse {
     author?: string;
 
     /**
+     * Whether this is a draft pull request
+     */
+    draft?: boolean;
+
+    /**
      * Source branch name (the branch being merged from)
      */
     fromBranch?: string;
@@ -927,6 +998,11 @@ export namespace RunnerParseContextURLResponse {
      * Repository information
      */
     repository?: PullRequest.Repository;
+
+    /**
+     * Current state of the pull request
+     */
+    state?: Shared.State;
 
     /**
      * Pull request title
@@ -962,12 +1038,16 @@ export namespace RunnerParseContextURLResponse {
 
 export interface RunnerSearchRepositoriesResponse {
   /**
-   * Last page in the responses
+   * Deprecated: Use pagination token instead. Total pages can be extracted from
+   * token.
    */
   lastPage?: number;
 
   /**
-   * Pagination information for the response
+   * Pagination information for the response. Token format:
+   * "NEXT_PAGE/TOTAL_PAGES/TOTAL_COUNT" (e.g., "2/40/1000"). Use -1 for unknown
+   * values (e.g., "2/-1/-1" when totals unavailable). Empty token means no more
+   * pages.
    */
   pagination?: RunnerSearchRepositoriesResponse.Pagination;
 
@@ -979,7 +1059,10 @@ export interface RunnerSearchRepositoriesResponse {
 
 export namespace RunnerSearchRepositoriesResponse {
   /**
-   * Pagination information for the response
+   * Pagination information for the response. Token format:
+   * "NEXT_PAGE/TOTAL_PAGES/TOTAL_COUNT" (e.g., "2/40/1000"). Use -1 for unknown
+   * values (e.g., "2/-1/-1" when totals unavailable). Empty token means no more
+   * pages.
    */
   export interface Pagination {
     /**
@@ -1129,7 +1212,7 @@ export namespace RunnerUpdateParams {
 
 export interface RunnerListParams extends RunnersPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: RunnerListParams.Filter;
 
@@ -1204,6 +1287,29 @@ export interface RunnerCreateLogsTokenParams {
 
 export interface RunnerCreateRunnerTokenParams {
   runnerId?: string;
+}
+
+export interface RunnerListScmOrganizationsParams {
+  /**
+   * Query param
+   */
+  token?: string;
+
+  /**
+   * Query param
+   */
+  pageSize?: number;
+
+  /**
+   * Body param
+   */
+  runnerId?: string;
+
+  /**
+   * Body param: The SCM host to list organizations from (e.g., "github.com",
+   * "gitlab.com")
+   */
+  scmHost?: string;
 }
 
 export interface RunnerParseContextURLParams {
@@ -1287,6 +1393,7 @@ export declare namespace Runners {
     type RunnerCheckAuthenticationForHostResponse as RunnerCheckAuthenticationForHostResponse,
     type RunnerCreateLogsTokenResponse as RunnerCreateLogsTokenResponse,
     type RunnerCreateRunnerTokenResponse as RunnerCreateRunnerTokenResponse,
+    type RunnerListScmOrganizationsResponse as RunnerListScmOrganizationsResponse,
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
     type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
@@ -1298,6 +1405,7 @@ export declare namespace Runners {
     type RunnerCheckAuthenticationForHostParams as RunnerCheckAuthenticationForHostParams,
     type RunnerCreateLogsTokenParams as RunnerCreateLogsTokenParams,
     type RunnerCreateRunnerTokenParams as RunnerCreateRunnerTokenParams,
+    type RunnerListScmOrganizationsParams as RunnerListScmOrganizationsParams,
     type RunnerParseContextURLParams as RunnerParseContextURLParams,
     type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams,
   };

@@ -291,7 +291,6 @@ import {
   OrganizationRetrieveResponse,
   OrganizationSetRoleParams,
   OrganizationSetRoleResponse,
-  OrganizationTier,
   OrganizationUpdateParams,
   OrganizationUpdateResponse,
   Organizations,
@@ -336,6 +335,8 @@ import {
   RunnerDeleteResponse,
   RunnerKind,
   RunnerListParams,
+  RunnerListScmOrganizationsParams,
+  RunnerListScmOrganizationsResponse,
   RunnerParseContextURLParams,
   RunnerParseContextURLResponse,
   RunnerPhase,
@@ -1402,7 +1403,6 @@ export declare namespace Gitpod {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -1488,6 +1488,7 @@ export declare namespace Gitpod {
     type RunnerCheckAuthenticationForHostResponse as RunnerCheckAuthenticationForHostResponse,
     type RunnerCreateLogsTokenResponse as RunnerCreateLogsTokenResponse,
     type RunnerCreateRunnerTokenResponse as RunnerCreateRunnerTokenResponse,
+    type RunnerListScmOrganizationsResponse as RunnerListScmOrganizationsResponse,
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
     type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
@@ -1499,6 +1500,7 @@ export declare namespace Gitpod {
     type RunnerCheckAuthenticationForHostParams as RunnerCheckAuthenticationForHostParams,
     type RunnerCreateLogsTokenParams as RunnerCreateLogsTokenParams,
     type RunnerCreateRunnerTokenParams as RunnerCreateRunnerTokenParams,
+    type RunnerListScmOrganizationsParams as RunnerListScmOrganizationsParams,
     type RunnerParseContextURLParams as RunnerParseContextURLParams,
     type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams,
   };
@@ -1547,11 +1549,13 @@ export declare namespace Gitpod {
   export type FieldValue = API.FieldValue;
   export type Gateway = API.Gateway;
   export type OrganizationRole = API.OrganizationRole;
+  export type OrganizationTier = API.OrganizationTier;
   export type Principal = API.Principal;
   export type ProjectEnvironmentClass = API.ProjectEnvironmentClass;
   export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
   export type SecretRef = API.SecretRef;
+  export type State = API.State;
   export type Subject = API.Subject;
   export type Task = API.Task;
   export type TaskExecution = API.TaskExecution;

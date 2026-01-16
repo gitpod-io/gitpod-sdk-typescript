@@ -419,12 +419,12 @@ export interface PatGetResponse {
 
 export interface PatListParams extends PersonalAccessTokensPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: PatListParams.Filter;
 
   /**
-   * Body param:
+   * Body param
    */
   pagination?: PatListParams.Pagination;
 }
