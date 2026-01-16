@@ -534,6 +534,7 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerCheckAuthenticationForHostResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateLogsTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateRunnerTokenResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerListScmOrganizationsResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerParseContextURLResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerSearchRepositoriesResponse</a></code>
 
@@ -547,6 +548,7 @@ Methods:
 - <code title="post /gitpod.v1.RunnerService/CheckAuthenticationForHost">client.runners.<a href="./src/resources/runners/runners.ts">checkAuthenticationForHost</a>({ ...params }) -> RunnerCheckAuthenticationForHostResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerLogsToken">client.runners.<a href="./src/resources/runners/runners.ts">createLogsToken</a>({ ...params }) -> RunnerCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerToken">client.runners.<a href="./src/resources/runners/runners.ts">createRunnerToken</a>({ ...params }) -> RunnerCreateRunnerTokenResponse</code>
+- <code title="post /gitpod.v1.RunnerService/ListSCMOrganizations">client.runners.<a href="./src/resources/runners/runners.ts">listScmOrganizations</a>({ ...params }) -> RunnerListScmOrganizationsResponse</code>
 - <code title="post /gitpod.v1.RunnerService/ParseContextURL">client.runners.<a href="./src/resources/runners/runners.ts">parseContextURL</a>({ ...params }) -> RunnerParseContextURLResponse</code>
 - <code title="post /gitpod.v1.RunnerService/SearchRepositories">client.runners.<a href="./src/resources/runners/runners.ts">searchRepositories</a>({ ...params }) -> RunnerSearchRepositoriesResponse</code>
 
