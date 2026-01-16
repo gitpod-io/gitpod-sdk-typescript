@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.10.0 (2026-01-16)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* [api] sorting for `ListMembers` ([b473c48](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b473c48922a5c2c3acb5c3a0bb64e6077378ace9))
+* [backend] Introduce org:runners_admin organization role ([1ce1f99](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1ce1f99b15a489ae54e70576731c4cb120508ced))
+* [backend] Introduce role and member status filtering for `ListMembers` ([84cd88f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/84cd88f927ffd3777d7b8e2a077db25b5fa4559f))
+* **api:** add draft and state fields to PullRequest proto ([839fe7e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/839fe7e7b087641896dce9c79ea62af6bac36675))
+* **api:** add ListSCMOrganizations endpoint ([15f23b7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/15f23b787045dd6a17a90ee960a1903553e3449a))
+* **api:** improve SearchRepositories pagination with next_page and total_count ([a5d31a4](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a5d31a49ae5c6446019060a2c35f058d919aefb7))
+* **dashboard:** show tier badge in org selector ([1cd405d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1cd405d34b3ca91d961fd424689960cf715a256b))
+* Define SCIMConfiguration database schema ([ca0a81c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ca0a81c7ba21a0011f546806dfce150ce83aa7dc))
+* move agent mode from Spec to Status, add AgentModeChange signals ([268e2f7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/268e2f76cd9fbd1c4a8b359750a45ef9ca3390c1))
+* **secrets:** add ServiceAccountSecret entity with full support ([d29e178](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d29e1783d540c88e9f1be7fd36e147d4a671d674))
+
+
+### Chores
+
+* fix typo in descriptions ([4b2ec35](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/4b2ec351c29bad4f8ac8cb7491404f38fc434e19))
+* **internal:** upgrade babel, qs, js-yaml ([1a41839](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1a418394fd33e8ef92fc9a557c20c331a6ce280e))
+
 ## 0.9.0 (2026-01-09)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.8.0...v0.9.0)
