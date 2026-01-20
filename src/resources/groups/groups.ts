@@ -335,6 +335,12 @@ export interface Group {
   description?: string;
 
   /**
+   * direct_share indicates that this group is used for direct user sharing on
+   * resources. These groups are hidden from regular group listings.
+   */
+  directShare?: boolean;
+
+  /**
    * member_count is the total number of members in this group
    */
   memberCount?: number;
