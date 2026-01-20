@@ -564,6 +564,7 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerUpdateResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerDeleteResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCheckAuthenticationForHostResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerCheckRepositoryAccessResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateLogsTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateRunnerTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerListScmOrganizationsResponse</a></code>
@@ -578,6 +579,7 @@ Methods:
 - <code title="post /gitpod.v1.RunnerService/ListRunners">client.runners.<a href="./src/resources/runners/runners.ts">list</a>({ ...params }) -> RunnersRunnersPage</code>
 - <code title="post /gitpod.v1.RunnerService/DeleteRunner">client.runners.<a href="./src/resources/runners/runners.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.RunnerService/CheckAuthenticationForHost">client.runners.<a href="./src/resources/runners/runners.ts">checkAuthenticationForHost</a>({ ...params }) -> RunnerCheckAuthenticationForHostResponse</code>
+- <code title="post /gitpod.v1.RunnerService/CheckRepositoryAccess">client.runners.<a href="./src/resources/runners/runners.ts">checkRepositoryAccess</a>({ ...params }) -> RunnerCheckRepositoryAccessResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerLogsToken">client.runners.<a href="./src/resources/runners/runners.ts">createLogsToken</a>({ ...params }) -> RunnerCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerToken">client.runners.<a href="./src/resources/runners/runners.ts">createRunnerToken</a>({ ...params }) -> RunnerCreateRunnerTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/ListSCMOrganizations">client.runners.<a href="./src/resources/runners/runners.ts">listScmOrganizations</a>({ ...params }) -> RunnerListScmOrganizationsResponse</code>
