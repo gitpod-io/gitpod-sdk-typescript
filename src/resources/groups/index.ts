@@ -28,7 +28,6 @@ export {
 } from './memberships';
 export {
   RoleAssignments,
-  type ResourceRole,
   type RoleAssignment,
   type RoleAssignmentCreateResponse,
   type RoleAssignmentDeleteResponse,
@@ -37,3 +36,10 @@ export {
   type RoleAssignmentDeleteParams,
   type RoleAssignmentsAssignmentsPage,
 } from './role-assignments';
+export {
+  Shares,
+  type ShareCreateResponse,
+  type ShareDeleteResponse,
+  type ShareCreateParams,
+  type ShareDeleteParams,
+} from './shares';
