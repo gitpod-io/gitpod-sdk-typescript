@@ -920,7 +920,8 @@ export type AgentMode =
   | 'AGENT_MODE_UNSPECIFIED'
   | 'AGENT_MODE_EXECUTION'
   | 'AGENT_MODE_PLANNING'
-  | 'AGENT_MODE_RALPH';
+  | 'AGENT_MODE_RALPH'
+  | 'AGENT_MODE_SPEC';
 
 export interface Prompt {
   id?: string;
