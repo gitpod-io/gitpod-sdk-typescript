@@ -13,6 +13,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectEnvironmentClass</a></code>
+- <code><a href="./src/resources/shared.ts">ResourceRole</a></code>
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
 - <code><a href="./src/resources/shared.ts">SecretRef</a></code>
@@ -291,7 +292,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/groups/role-assignments.ts">ResourceRole</a></code>
 - <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignment</a></code>
 - <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignmentCreateResponse</a></code>
 - <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignmentDeleteResponse</a></code>
@@ -301,6 +301,18 @@ Methods:
 - <code title="post /gitpod.v1.GroupService/CreateRoleAssignment">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">create</a>({ ...params }) -> RoleAssignmentCreateResponse</code>
 - <code title="post /gitpod.v1.GroupService/ListRoleAssignments">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">list</a>({ ...params }) -> RoleAssignmentsAssignmentsPage</code>
 - <code title="post /gitpod.v1.GroupService/DeleteRoleAssignment">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">delete</a>({ ...params }) -> unknown</code>
+
+## Shares
+
+Types:
+
+- <code><a href="./src/resources/groups/shares.ts">ShareCreateResponse</a></code>
+- <code><a href="./src/resources/groups/shares.ts">ShareDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.GroupService/ShareResourceWithPrincipal">client.groups.shares.<a href="./src/resources/groups/shares.ts">create</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.GroupService/UnshareResourceWithPrincipal">client.groups.shares.<a href="./src/resources/groups/shares.ts">delete</a>({ ...params }) -> unknown</code>
 
 # Identity
 

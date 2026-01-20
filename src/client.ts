@@ -1560,6 +1560,7 @@ export declare namespace Gitpod {
   export type OrganizationTier = API.OrganizationTier;
   export type Principal = API.Principal;
   export type ProjectEnvironmentClass = API.ProjectEnvironmentClass;
+  export type ResourceRole = API.ResourceRole;
   export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
   export type SecretRef = API.SecretRef;

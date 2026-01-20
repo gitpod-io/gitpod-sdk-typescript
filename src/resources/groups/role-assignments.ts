@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as RoleAssignmentsAPI from './role-assignments';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
 import { AssignmentsPage, type AssignmentsPageParams, PagePromise } from '../../core/pagination';
@@ -163,63 +162,6 @@ export class RoleAssignments extends APIResource {
 export type RoleAssignmentsAssignmentsPage = AssignmentsPage<RoleAssignment>;
 
 /**
- * ResourceRole represents roles that can be assigned to groups on resources These
- * map directly to the roles defined in backend/db/rule/rbac/role/role.go
- */
-export type ResourceRole =
-  | 'RESOURCE_ROLE_UNSPECIFIED'
-  | 'RESOURCE_ROLE_ORG_ADMIN'
-  | 'RESOURCE_ROLE_ORG_MEMBER'
-  | 'RESOURCE_ROLE_ORG_RUNNERS_ADMIN'
-  | 'RESOURCE_ROLE_GROUP_ADMIN'
-  | 'RESOURCE_ROLE_GROUP_VIEWER'
-  | 'RESOURCE_ROLE_USER_IDENTITY'
-  | 'RESOURCE_ROLE_USER_VIEWER'
-  | 'RESOURCE_ROLE_USER_ADMIN'
-  | 'RESOURCE_ROLE_ENVIRONMENT_IDENTITY'
-  | 'RESOURCE_ROLE_ENVIRONMENT_ADMIN'
-  | 'RESOURCE_ROLE_ENVIRONMENT_USER'
-  | 'RESOURCE_ROLE_ENVIRONMENT_VIEWER'
-  | 'RESOURCE_ROLE_ENVIRONMENT_RUNNER'
-  | 'RESOURCE_ROLE_RUNNER_IDENTITY'
-  | 'RESOURCE_ROLE_RUNNER_ADMIN'
-  | 'RESOURCE_ROLE_RUNNER_LOCAL_ADMIN'
-  | 'RESOURCE_ROLE_RUNNER_MANAGED_ADMIN'
-  | 'RESOURCE_ROLE_RUNNER_USER'
-  | 'RESOURCE_ROLE_RUNNER_CONFIGURATION_READER'
-  | 'RESOURCE_ROLE_HOST_AUTHENTICATION_TOKEN_ADMIN'
-  | 'RESOURCE_ROLE_HOST_AUTHENTICATION_TOKEN_UPDATER'
-  | 'RESOURCE_ROLE_PROJECT_ADMIN'
-  | 'RESOURCE_ROLE_PROJECT_USER'
-  | 'RESOURCE_ROLE_PROJECT_EDITOR'
-  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_ADMIN'
-  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_VIEWER'
-  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_USER'
-  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_ENV'
-  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_ADMIN'
-  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_VIEWER'
-  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_USER'
-  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_ENV'
-  | 'RESOURCE_ROLE_SERVICE_ACCOUNT_IDENTITY'
-  | 'RESOURCE_ROLE_SERVICE_ACCOUNT_ADMIN'
-  | 'RESOURCE_ROLE_AGENT_EXECUTION_IDENTITY'
-  | 'RESOURCE_ROLE_AGENT_EXECUTION_USER'
-  | 'RESOURCE_ROLE_AGENT_EXECUTION_ADMIN'
-  | 'RESOURCE_ROLE_AGENT_EXECUTION_RUNNER'
-  | 'RESOURCE_ROLE_AGENT_EXECUTION_OUTPUTS_REPORTER'
-  | 'RESOURCE_ROLE_AGENT_ADMIN'
-  | 'RESOURCE_ROLE_AGENT_VIEWER'
-  | 'RESOURCE_ROLE_AGENT_EXECUTOR'
-  | 'RESOURCE_ROLE_WORKFLOW_ADMIN'
-  | 'RESOURCE_ROLE_WORKFLOW_USER'
-  | 'RESOURCE_ROLE_WORKFLOW_VIEWER'
-  | 'RESOURCE_ROLE_WORKFLOW_EXECUTOR'
-  | 'RESOURCE_ROLE_SNAPSHOT_ADMIN'
-  | 'RESOURCE_ROLE_SNAPSHOT_RUNNER'
-  | 'RESOURCE_ROLE_WEBHOOK_ADMIN'
-  | 'RESOURCE_ROLE_WEBHOOK_VIEWER';
-
-/**
  * RoleAssignment represents a role assigned to a group on a specific resource
  */
 export interface RoleAssignment {
@@ -246,7 +188,7 @@ export interface RoleAssignment {
   /**
    * Role assigned to the group on this resource
    */
-  resourceRole?: ResourceRole;
+  resourceRole?: Shared.ResourceRole;
 
   /**
    * Type of resource (runner, project, environment, etc.)
@@ -275,7 +217,7 @@ export interface RoleAssignmentCreateParams {
    * ResourceRole represents roles that can be assigned to groups on resources These
    * map directly to the roles defined in backend/db/rule/rbac/role/role.go
    */
-  resourceRole?: ResourceRole;
+  resourceRole?: Shared.ResourceRole;
 
   resourceType?: Shared.ResourceType;
 }
@@ -307,7 +249,7 @@ export namespace RoleAssignmentListParams {
      * resource_roles filters the response to only role assignments with these specific
      * roles
      */
-    resourceRoles?: Array<RoleAssignmentsAPI.ResourceRole>;
+    resourceRoles?: Array<Shared.ResourceRole>;
 
     /**
      * resource_types filters the response to only role assignments for these resource
@@ -346,7 +288,6 @@ export interface RoleAssignmentDeleteParams {
 
 export declare namespace RoleAssignments {
   export {
-    type ResourceRole as ResourceRole,
     type RoleAssignment as RoleAssignment,
     type RoleAssignmentCreateResponse as RoleAssignmentCreateResponse,
     type RoleAssignmentDeleteResponse as RoleAssignmentDeleteResponse,
