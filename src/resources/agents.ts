@@ -1172,26 +1172,65 @@ export interface UserInputBlock {
   createdAt?: string;
 
   /**
-   * ImageInput allows sending images to the agent. Media type is inferred from magic
-   * bytes by the backend.
+   * @deprecated ImageInput allows sending images to the agent. Client must provide
+   * the MIME type; backend validates against magic bytes.
    */
   image?: UserInputBlock.Image;
 
+  inputs?: Array<UserInputBlock.Input>;
+
+  /**
+   * @deprecated
+   */
   text?: UserInputBlock.Text;
 }
 
 export namespace UserInputBlock {
   /**
-   * ImageInput allows sending images to the agent. Media type is inferred from magic
-   * bytes by the backend.
+   * @deprecated ImageInput allows sending images to the agent. Client must provide
+   * the MIME type; backend validates against magic bytes.
    */
   export interface Image {
     /**
-     * Raw image data (max 4MB). Supported formats: PNG, JPEG, WebP.
+     * Raw image data (max 4MB). Supported formats: PNG, JPEG.
      */
     data?: string;
+
+    mimeType?: 'image/png' | 'image/jpeg';
   }
 
+  export interface Input {
+    /**
+     * ImageInput allows sending images to the agent. Client must provide the MIME
+     * type; backend validates against magic bytes.
+     */
+    image?: Input.Image;
+
+    text?: Input.Text;
+  }
+
+  export namespace Input {
+    /**
+     * ImageInput allows sending images to the agent. Client must provide the MIME
+     * type; backend validates against magic bytes.
+     */
+    export interface Image {
+      /**
+       * Raw image data (max 4MB). Supported formats: PNG, JPEG.
+       */
+      data?: string;
+
+      mimeType?: 'image/png' | 'image/jpeg';
+    }
+
+    export interface Text {
+      content?: string;
+    }
+  }
+
+  /**
+   * @deprecated
+   */
   export interface Text {
     content?: string;
   }
