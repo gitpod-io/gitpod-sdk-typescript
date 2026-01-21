@@ -81,6 +81,18 @@ describe('resource runners', () => {
   });
 
   // Prism tests are disabled
+  test.skip('checkRepositoryAccess', async () => {
+    const responsePromise = client.runners.checkRepositoryAccess({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
   test.skip('createLogsToken', async () => {
     const responsePromise = client.runners.createLogsToken({});
     const rawResponse = await responsePromise.asResponse();
@@ -95,6 +107,18 @@ describe('resource runners', () => {
   // Prism tests are disabled
   test.skip('createRunnerToken', async () => {
     const responsePromise = client.runners.createRunnerToken({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('listScmOrganizations', async () => {
+    const responsePromise = client.runners.listScmOrganizations({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

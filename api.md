@@ -10,11 +10,14 @@ Types:
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">Gateway</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
+- <code><a href="./src/resources/shared.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectEnvironmentClass</a></code>
+- <code><a href="./src/resources/shared.ts">ResourceRole</a></code>
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
 - <code><a href="./src/resources/shared.ts">SecretRef</a></code>
+- <code><a href="./src/resources/shared.ts">State</a></code>
 - <code><a href="./src/resources/shared.ts">Subject</a></code>
 - <code><a href="./src/resources/shared.ts">Task</a></code>
 - <code><a href="./src/resources/shared.ts">TaskExecution</a></code>
@@ -289,7 +292,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/groups/role-assignments.ts">ResourceRole</a></code>
 - <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignment</a></code>
 - <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignmentCreateResponse</a></code>
 - <code><a href="./src/resources/groups/role-assignments.ts">RoleAssignmentDeleteResponse</a></code>
@@ -299,6 +301,18 @@ Methods:
 - <code title="post /gitpod.v1.GroupService/CreateRoleAssignment">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">create</a>({ ...params }) -> RoleAssignmentCreateResponse</code>
 - <code title="post /gitpod.v1.GroupService/ListRoleAssignments">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">list</a>({ ...params }) -> RoleAssignmentsAssignmentsPage</code>
 - <code title="post /gitpod.v1.GroupService/DeleteRoleAssignment">client.groups.roleAssignments.<a href="./src/resources/groups/role-assignments.ts">delete</a>({ ...params }) -> unknown</code>
+
+## Shares
+
+Types:
+
+- <code><a href="./src/resources/groups/shares.ts">ShareCreateResponse</a></code>
+- <code><a href="./src/resources/groups/shares.ts">ShareDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.GroupService/ShareResourceWithPrincipal">client.groups.shares.<a href="./src/resources/groups/shares.ts">create</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.GroupService/UnshareResourceWithPrincipal">client.groups.shares.<a href="./src/resources/groups/shares.ts">delete</a>({ ...params }) -> unknown</code>
 
 # Identity
 
@@ -322,7 +336,6 @@ Types:
 - <code><a href="./src/resources/organizations/organizations.ts">InviteDomains</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationMember</a></code>
-- <code><a href="./src/resources/organizations/organizations.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationCreateResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationUpdateResponse</a></code>
@@ -409,6 +422,26 @@ Methods:
 
 - <code title="post /gitpod.v1.OrganizationService/GetOrganizationPolicies">client.organizations.policies.<a href="./src/resources/organizations/policies.ts">retrieve</a>({ ...params }) -> PolicyRetrieveResponse</code>
 - <code title="post /gitpod.v1.OrganizationService/UpdateOrganizationPolicies">client.organizations.policies.<a href="./src/resources/organizations/policies.ts">update</a>({ ...params }) -> unknown</code>
+
+## ScimConfigurations
+
+Types:
+
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfiguration</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationCreateResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationRetrieveResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationUpdateResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationDeleteResponse</a></code>
+- <code><a href="./src/resources/organizations/scim-configurations.ts">ScimConfigurationRegenerateTokenResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.OrganizationService/CreateSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">create</a>({ ...params }) -> ScimConfigurationCreateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/GetSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">retrieve</a>({ ...params }) -> ScimConfigurationRetrieveResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/UpdateSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">update</a>({ ...params }) -> ScimConfigurationUpdateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/ListSCIMConfigurations">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">list</a>({ ...params }) -> ScimConfigurationsScimConfigurationsPage</code>
+- <code title="post /gitpod.v1.OrganizationService/DeleteSCIMConfiguration">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.OrganizationService/RegenerateSCIMToken">client.organizations.scimConfigurations.<a href="./src/resources/organizations/scim-configurations.ts">regenerateToken</a>({ ...params }) -> ScimConfigurationRegenerateTokenResponse</code>
 
 ## SSOConfigurations
 
@@ -531,8 +564,10 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerUpdateResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerDeleteResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCheckAuthenticationForHostResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerCheckRepositoryAccessResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateLogsTokenResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateRunnerTokenResponse</a></code>
+- <code><a href="./src/resources/runners/runners.ts">RunnerListScmOrganizationsResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerParseContextURLResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerSearchRepositoriesResponse</a></code>
 
@@ -544,8 +579,10 @@ Methods:
 - <code title="post /gitpod.v1.RunnerService/ListRunners">client.runners.<a href="./src/resources/runners/runners.ts">list</a>({ ...params }) -> RunnersRunnersPage</code>
 - <code title="post /gitpod.v1.RunnerService/DeleteRunner">client.runners.<a href="./src/resources/runners/runners.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.RunnerService/CheckAuthenticationForHost">client.runners.<a href="./src/resources/runners/runners.ts">checkAuthenticationForHost</a>({ ...params }) -> RunnerCheckAuthenticationForHostResponse</code>
+- <code title="post /gitpod.v1.RunnerService/CheckRepositoryAccess">client.runners.<a href="./src/resources/runners/runners.ts">checkRepositoryAccess</a>({ ...params }) -> RunnerCheckRepositoryAccessResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerLogsToken">client.runners.<a href="./src/resources/runners/runners.ts">createLogsToken</a>({ ...params }) -> RunnerCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerToken">client.runners.<a href="./src/resources/runners/runners.ts">createRunnerToken</a>({ ...params }) -> RunnerCreateRunnerTokenResponse</code>
+- <code title="post /gitpod.v1.RunnerService/ListSCMOrganizations">client.runners.<a href="./src/resources/runners/runners.ts">listScmOrganizations</a>({ ...params }) -> RunnerListScmOrganizationsResponse</code>
 - <code title="post /gitpod.v1.RunnerService/ParseContextURL">client.runners.<a href="./src/resources/runners/runners.ts">parseContextURL</a>({ ...params }) -> RunnerParseContextURLResponse</code>
 - <code title="post /gitpod.v1.RunnerService/SearchRepositories">client.runners.<a href="./src/resources/runners/runners.ts">searchRepositories</a>({ ...params }) -> RunnerSearchRepositoriesResponse</code>
 

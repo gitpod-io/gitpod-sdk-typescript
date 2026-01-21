@@ -1390,6 +1390,64 @@ export class RunnersPage<Item> extends AbstractPage<Item> implements RunnersPage
   }
 }
 
+export interface ScimConfigurationsPageResponse<Item> {
+  pagination: ScimConfigurationsPageResponse.Pagination;
+
+  scimConfigurations: Array<Item>;
+}
+
+export namespace ScimConfigurationsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface ScimConfigurationsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class ScimConfigurationsPage<Item>
+  extends AbstractPage<Item>
+  implements ScimConfigurationsPageResponse<Item>
+{
+  pagination: ScimConfigurationsPageResponse.Pagination;
+
+  scimConfigurations: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: ScimConfigurationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.scimConfigurations = body.scimConfigurations || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.scimConfigurations ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface SecretsPageResponse<Item> {
   pagination: SecretsPageResponse.Pagination;
 

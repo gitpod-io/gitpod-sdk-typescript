@@ -20,10 +20,14 @@ import {
  * `post_devcontainer_start` field indicates that the automation should be
  * triggered after the dev container has started. The `prebuild` field starts the
  * automation during a prebuild of an environment. This phase does not have user
- * secrets available. Note: The prebuild trigger can only be used with tasks, not
- * services.
+ * secrets available. The `before_snapshot` field triggers the automation after all
+ * prebuild tasks complete but before the snapshot is taken. This is used for tasks
+ * that need to run last during prebuilds, such as IDE warmup. Note: The prebuild
+ * and before_snapshot triggers can only be used with tasks, not services.
  */
 export interface AutomationTrigger {
+  beforeSnapshot?: boolean;
+
   manual?: boolean;
 
   postDevcontainerStart?: boolean;
@@ -154,6 +158,13 @@ export type OrganizationRole =
   | 'ORGANIZATION_ROLE_ADMIN'
   | 'ORGANIZATION_ROLE_MEMBER';
 
+export type OrganizationTier =
+  | 'ORGANIZATION_TIER_UNSPECIFIED'
+  | 'ORGANIZATION_TIER_FREE'
+  | 'ORGANIZATION_TIER_ENTERPRISE'
+  | 'ORGANIZATION_TIER_CORE'
+  | 'ORGANIZATION_TIER_FREE_ONA';
+
 export type Principal =
   | 'PRINCIPAL_UNSPECIFIED'
   | 'PRINCIPAL_ACCOUNT'
@@ -181,6 +192,63 @@ export interface ProjectEnvironmentClass {
    */
   order?: number;
 }
+
+/**
+ * ResourceRole represents roles that can be assigned to groups on resources These
+ * map directly to the roles defined in backend/db/rule/rbac/role/role.go
+ */
+export type ResourceRole =
+  | 'RESOURCE_ROLE_UNSPECIFIED'
+  | 'RESOURCE_ROLE_ORG_ADMIN'
+  | 'RESOURCE_ROLE_ORG_MEMBER'
+  | 'RESOURCE_ROLE_ORG_RUNNERS_ADMIN'
+  | 'RESOURCE_ROLE_GROUP_ADMIN'
+  | 'RESOURCE_ROLE_GROUP_VIEWER'
+  | 'RESOURCE_ROLE_USER_IDENTITY'
+  | 'RESOURCE_ROLE_USER_VIEWER'
+  | 'RESOURCE_ROLE_USER_ADMIN'
+  | 'RESOURCE_ROLE_ENVIRONMENT_IDENTITY'
+  | 'RESOURCE_ROLE_ENVIRONMENT_ADMIN'
+  | 'RESOURCE_ROLE_ENVIRONMENT_USER'
+  | 'RESOURCE_ROLE_ENVIRONMENT_VIEWER'
+  | 'RESOURCE_ROLE_ENVIRONMENT_RUNNER'
+  | 'RESOURCE_ROLE_RUNNER_IDENTITY'
+  | 'RESOURCE_ROLE_RUNNER_ADMIN'
+  | 'RESOURCE_ROLE_RUNNER_LOCAL_ADMIN'
+  | 'RESOURCE_ROLE_RUNNER_MANAGED_ADMIN'
+  | 'RESOURCE_ROLE_RUNNER_USER'
+  | 'RESOURCE_ROLE_RUNNER_CONFIGURATION_READER'
+  | 'RESOURCE_ROLE_HOST_AUTHENTICATION_TOKEN_ADMIN'
+  | 'RESOURCE_ROLE_HOST_AUTHENTICATION_TOKEN_UPDATER'
+  | 'RESOURCE_ROLE_PROJECT_ADMIN'
+  | 'RESOURCE_ROLE_PROJECT_USER'
+  | 'RESOURCE_ROLE_PROJECT_EDITOR'
+  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_ADMIN'
+  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_VIEWER'
+  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_USER'
+  | 'RESOURCE_ROLE_ENVIRONMENT_SERVICE_ENV'
+  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_ADMIN'
+  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_VIEWER'
+  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_USER'
+  | 'RESOURCE_ROLE_ENVIRONMENT_TASK_ENV'
+  | 'RESOURCE_ROLE_SERVICE_ACCOUNT_IDENTITY'
+  | 'RESOURCE_ROLE_SERVICE_ACCOUNT_ADMIN'
+  | 'RESOURCE_ROLE_AGENT_EXECUTION_IDENTITY'
+  | 'RESOURCE_ROLE_AGENT_EXECUTION_USER'
+  | 'RESOURCE_ROLE_AGENT_EXECUTION_ADMIN'
+  | 'RESOURCE_ROLE_AGENT_EXECUTION_RUNNER'
+  | 'RESOURCE_ROLE_AGENT_EXECUTION_OUTPUTS_REPORTER'
+  | 'RESOURCE_ROLE_AGENT_ADMIN'
+  | 'RESOURCE_ROLE_AGENT_VIEWER'
+  | 'RESOURCE_ROLE_AGENT_EXECUTOR'
+  | 'RESOURCE_ROLE_WORKFLOW_ADMIN'
+  | 'RESOURCE_ROLE_WORKFLOW_USER'
+  | 'RESOURCE_ROLE_WORKFLOW_VIEWER'
+  | 'RESOURCE_ROLE_WORKFLOW_EXECUTOR'
+  | 'RESOURCE_ROLE_SNAPSHOT_ADMIN'
+  | 'RESOURCE_ROLE_SNAPSHOT_RUNNER'
+  | 'RESOURCE_ROLE_WEBHOOK_ADMIN'
+  | 'RESOURCE_ROLE_WEBHOOK_VIEWER';
 
 export type ResourceType =
   | 'RESOURCE_TYPE_UNSPECIFIED'
@@ -225,7 +293,9 @@ export type ResourceType =
   | 'RESOURCE_TYPE_CUSTOM_DOMAIN'
   | 'RESOURCE_TYPE_ROLE_ASSIGNMENT_CHANGED'
   | 'RESOURCE_TYPE_GROUP_MEMBERSHIP_CHANGED'
-  | 'RESOURCE_TYPE_WEBHOOK';
+  | 'RESOURCE_TYPE_WEBHOOK'
+  | 'RESOURCE_TYPE_SCIM_CONFIGURATION'
+  | 'RESOURCE_TYPE_SERVICE_ACCOUNT_SECRET';
 
 export interface RunsOn {
   docker?: RunsOn.Docker;
@@ -253,6 +323,11 @@ export interface SecretRef {
    */
   id?: string;
 }
+
+/**
+ * Current state of the pull request
+ */
+export type State = 'STATE_UNSPECIFIED' | 'STATE_OPEN' | 'STATE_CLOSED' | 'STATE_MERGED';
 
 export interface Subject {
   /**

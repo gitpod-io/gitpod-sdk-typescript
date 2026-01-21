@@ -838,7 +838,7 @@ export interface ProjectUpdateParams {
 
 export interface ProjectListParams extends ProjectsPageParams {
   /**
-   * Body param:
+   * Body param
    */
   filter?: ProjectListParams.Filter;
 

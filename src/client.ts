@@ -71,6 +71,8 @@ import {
   RunnersPageResponse,
   type SSOConfigurationsPageParams,
   SSOConfigurationsPageResponse,
+  type ScimConfigurationsPageParams,
+  ScimConfigurationsPageResponse,
   type SecretsPageParams,
   SecretsPageResponse,
   type ServicesPageParams,
@@ -291,7 +293,6 @@ import {
   OrganizationRetrieveResponse,
   OrganizationSetRoleParams,
   OrganizationSetRoleResponse,
-  OrganizationTier,
   OrganizationUpdateParams,
   OrganizationUpdateResponse,
   Organizations,
@@ -325,6 +326,8 @@ import {
   RunnerCapability,
   RunnerCheckAuthenticationForHostParams,
   RunnerCheckAuthenticationForHostResponse,
+  RunnerCheckRepositoryAccessParams,
+  RunnerCheckRepositoryAccessResponse,
   RunnerConfiguration,
   RunnerCreateLogsTokenParams,
   RunnerCreateLogsTokenResponse,
@@ -336,6 +339,8 @@ import {
   RunnerDeleteResponse,
   RunnerKind,
   RunnerListParams,
+  RunnerListScmOrganizationsParams,
+  RunnerListScmOrganizationsResponse,
   RunnerParseContextURLParams,
   RunnerParseContextURLResponse,
   RunnerPhase,
@@ -1218,6 +1223,12 @@ export declare namespace Gitpod {
   export import RunnersPage = Pagination.RunnersPage;
   export { type RunnersPageParams as RunnersPageParams, type RunnersPageResponse as RunnersPageResponse };
 
+  export import ScimConfigurationsPage = Pagination.ScimConfigurationsPage;
+  export {
+    type ScimConfigurationsPageParams as ScimConfigurationsPageParams,
+    type ScimConfigurationsPageResponse as ScimConfigurationsPageResponse,
+  };
+
   export import SecretsPage = Pagination.SecretsPage;
   export { type SecretsPageParams as SecretsPageParams, type SecretsPageResponse as SecretsPageResponse };
 
@@ -1402,7 +1413,6 @@ export declare namespace Gitpod {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -1486,8 +1496,10 @@ export declare namespace Gitpod {
     type RunnerUpdateResponse as RunnerUpdateResponse,
     type RunnerDeleteResponse as RunnerDeleteResponse,
     type RunnerCheckAuthenticationForHostResponse as RunnerCheckAuthenticationForHostResponse,
+    type RunnerCheckRepositoryAccessResponse as RunnerCheckRepositoryAccessResponse,
     type RunnerCreateLogsTokenResponse as RunnerCreateLogsTokenResponse,
     type RunnerCreateRunnerTokenResponse as RunnerCreateRunnerTokenResponse,
+    type RunnerListScmOrganizationsResponse as RunnerListScmOrganizationsResponse,
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
     type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
@@ -1497,8 +1509,10 @@ export declare namespace Gitpod {
     type RunnerListParams as RunnerListParams,
     type RunnerDeleteParams as RunnerDeleteParams,
     type RunnerCheckAuthenticationForHostParams as RunnerCheckAuthenticationForHostParams,
+    type RunnerCheckRepositoryAccessParams as RunnerCheckRepositoryAccessParams,
     type RunnerCreateLogsTokenParams as RunnerCreateLogsTokenParams,
     type RunnerCreateRunnerTokenParams as RunnerCreateRunnerTokenParams,
+    type RunnerListScmOrganizationsParams as RunnerListScmOrganizationsParams,
     type RunnerParseContextURLParams as RunnerParseContextURLParams,
     type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams,
   };
@@ -1547,11 +1561,14 @@ export declare namespace Gitpod {
   export type FieldValue = API.FieldValue;
   export type Gateway = API.Gateway;
   export type OrganizationRole = API.OrganizationRole;
+  export type OrganizationTier = API.OrganizationTier;
   export type Principal = API.Principal;
   export type ProjectEnvironmentClass = API.ProjectEnvironmentClass;
+  export type ResourceRole = API.ResourceRole;
   export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
   export type SecretRef = API.SecretRef;
+  export type State = API.State;
   export type Subject = API.Subject;
   export type Task = API.Task;
   export type TaskExecution = API.TaskExecution;

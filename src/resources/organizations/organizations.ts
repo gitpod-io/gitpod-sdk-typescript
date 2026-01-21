@@ -55,6 +55,23 @@ import {
   PolicyUpdateResponse,
   SecurityAgentPolicy,
 } from './policies';
+import * as ScimConfigurationsAPI from './scim-configurations';
+import {
+  ScimConfiguration,
+  ScimConfigurationCreateParams,
+  ScimConfigurationCreateResponse,
+  ScimConfigurationDeleteParams,
+  ScimConfigurationDeleteResponse,
+  ScimConfigurationListParams,
+  ScimConfigurationRegenerateTokenParams,
+  ScimConfigurationRegenerateTokenResponse,
+  ScimConfigurationRetrieveParams,
+  ScimConfigurationRetrieveResponse,
+  ScimConfigurationUpdateParams,
+  ScimConfigurationUpdateResponse,
+  ScimConfigurations,
+  ScimConfigurationsScimConfigurationsPage,
+} from './scim-configurations';
 import * as SSOConfigurationsAPI from './sso-configurations';
 import {
   ProviderType,
@@ -82,6 +99,9 @@ export class Organizations extends APIResource {
     new DomainVerificationsAPI.DomainVerifications(this._client);
   invites: InvitesAPI.Invites = new InvitesAPI.Invites(this._client);
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
+  scimConfigurations: ScimConfigurationsAPI.ScimConfigurations = new ScimConfigurationsAPI.ScimConfigurations(
+    this._client,
+  );
   ssoConfigurations: SSOConfigurationsAPI.SSOConfigurations = new SSOConfigurationsAPI.SSOConfigurations(
     this._client,
   );
@@ -524,7 +544,7 @@ export interface Organization {
   /**
    * The tier of the organization - free, enterprise or core
    */
-  tier: OrganizationTier;
+  tier: Shared.OrganizationTier;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -732,13 +752,6 @@ export interface OrganizationMember {
   avatarUrl?: string;
 }
 
-export type OrganizationTier =
-  | 'ORGANIZATION_TIER_UNSPECIFIED'
-  | 'ORGANIZATION_TIER_FREE'
-  | 'ORGANIZATION_TIER_ENTERPRISE'
-  | 'ORGANIZATION_TIER_CORE'
-  | 'ORGANIZATION_TIER_FREE_ONA';
-
 export interface OrganizationCreateResponse {
   /**
    * organization is the created organization
@@ -852,7 +865,7 @@ export interface OrganizationListMembersParams extends MembersPageParams {
   organizationId: string;
 
   /**
-   * Body param:
+   * Body param
    */
   filter?: OrganizationListMembersParams.Filter;
 
@@ -860,14 +873,32 @@ export interface OrganizationListMembersParams extends MembersPageParams {
    * Body param: pagination contains the pagination options for listing members
    */
   pagination?: OrganizationListMembersParams.Pagination;
+
+  /**
+   * Body param: sort specifies the order of results. When unspecified, the
+   * authenticated user is returned first, followed by other members sorted by name
+   * ascending. When an explicit sort is specified, results are sorted purely by the
+   * requested field without any special handling for the authenticated user.
+   */
+  sort?: OrganizationListMembersParams.Sort;
 }
 
 export namespace OrganizationListMembersParams {
   export interface Filter {
     /**
+     * roles filters members by their organization role
+     */
+    roles?: Array<Shared.OrganizationRole>;
+
+    /**
      * search performs case-insensitive search across member name and email
      */
     search?: string;
+
+    /**
+     * status filters members by their user status
+     */
+    statuses?: Array<Shared.UserStatus>;
   }
 
   /**
@@ -886,6 +917,18 @@ export namespace OrganizationListMembersParams {
      */
     pageSize?: number;
   }
+
+  /**
+   * sort specifies the order of results. When unspecified, the authenticated user is
+   * returned first, followed by other members sorted by name ascending. When an
+   * explicit sort is specified, results are sorted purely by the requested field
+   * without any special handling for the authenticated user.
+   */
+  export interface Sort {
+    field?: 'SORT_FIELD_UNSPECIFIED' | 'SORT_FIELD_NAME' | 'SORT_FIELD_DATE_JOINED';
+
+    order?: 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
+  }
 }
 
 export interface OrganizationSetRoleParams {
@@ -900,6 +943,7 @@ Organizations.CustomDomains = CustomDomains;
 Organizations.DomainVerifications = DomainVerifications;
 Organizations.Invites = Invites;
 Organizations.Policies = Policies;
+Organizations.ScimConfigurations = ScimConfigurations;
 Organizations.SSOConfigurations = SSOConfigurations;
 
 export declare namespace Organizations {
@@ -907,7 +951,6 @@ export declare namespace Organizations {
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
-    type OrganizationTier as OrganizationTier,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationRetrieveResponse as OrganizationRetrieveResponse,
     type OrganizationUpdateResponse as OrganizationUpdateResponse,
@@ -977,6 +1020,23 @@ export declare namespace Organizations {
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,
     type PolicyUpdateParams as PolicyUpdateParams,
+  };
+
+  export {
+    ScimConfigurations as ScimConfigurations,
+    type ScimConfiguration as ScimConfiguration,
+    type ScimConfigurationCreateResponse as ScimConfigurationCreateResponse,
+    type ScimConfigurationRetrieveResponse as ScimConfigurationRetrieveResponse,
+    type ScimConfigurationUpdateResponse as ScimConfigurationUpdateResponse,
+    type ScimConfigurationDeleteResponse as ScimConfigurationDeleteResponse,
+    type ScimConfigurationRegenerateTokenResponse as ScimConfigurationRegenerateTokenResponse,
+    type ScimConfigurationsScimConfigurationsPage as ScimConfigurationsScimConfigurationsPage,
+    type ScimConfigurationCreateParams as ScimConfigurationCreateParams,
+    type ScimConfigurationRetrieveParams as ScimConfigurationRetrieveParams,
+    type ScimConfigurationUpdateParams as ScimConfigurationUpdateParams,
+    type ScimConfigurationListParams as ScimConfigurationListParams,
+    type ScimConfigurationDeleteParams as ScimConfigurationDeleteParams,
+    type ScimConfigurationRegenerateTokenParams as ScimConfigurationRegenerateTokenParams,
   };
 
   export {

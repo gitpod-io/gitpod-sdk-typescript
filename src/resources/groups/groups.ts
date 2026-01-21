@@ -16,7 +16,6 @@ import {
 } from './memberships';
 import * as RoleAssignmentsAPI from './role-assignments';
 import {
-  ResourceRole,
   RoleAssignment,
   RoleAssignmentCreateParams,
   RoleAssignmentCreateResponse,
@@ -26,6 +25,14 @@ import {
   RoleAssignments,
   RoleAssignmentsAssignmentsPage,
 } from './role-assignments';
+import * as SharesAPI from './shares';
+import {
+  ShareCreateParams,
+  ShareCreateResponse,
+  ShareDeleteParams,
+  ShareDeleteResponse,
+  Shares,
+} from './shares';
 import { APIPromise } from '../../core/api-promise';
 import { GroupsPage, type GroupsPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -33,6 +40,7 @@ import { RequestOptions } from '../../internal/request-options';
 export class Groups extends APIResource {
   memberships: MembershipsAPI.Memberships = new MembershipsAPI.Memberships(this._client);
   roleAssignments: RoleAssignmentsAPI.RoleAssignments = new RoleAssignmentsAPI.RoleAssignments(this._client);
+  shares: SharesAPI.Shares = new SharesAPI.Shares(this._client);
 
   /**
    * Creates a new group within an organization.
@@ -335,6 +343,12 @@ export interface Group {
   description?: string;
 
   /**
+   * direct_share indicates that this group is used for direct user sharing on
+   * resources. These groups are hidden from regular group listings.
+   */
+  directShare?: boolean;
+
+  /**
    * member_count is the total number of members in this group
    */
   memberCount?: number;
@@ -510,6 +524,7 @@ export interface GroupDeleteParams {
 
 Groups.Memberships = Memberships;
 Groups.RoleAssignments = RoleAssignments;
+Groups.Shares = Shares;
 
 export declare namespace Groups {
   export {
@@ -541,7 +556,6 @@ export declare namespace Groups {
 
   export {
     RoleAssignments as RoleAssignments,
-    type ResourceRole as ResourceRole,
     type RoleAssignment as RoleAssignment,
     type RoleAssignmentCreateResponse as RoleAssignmentCreateResponse,
     type RoleAssignmentDeleteResponse as RoleAssignmentDeleteResponse,
@@ -549,5 +563,13 @@ export declare namespace Groups {
     type RoleAssignmentCreateParams as RoleAssignmentCreateParams,
     type RoleAssignmentListParams as RoleAssignmentListParams,
     type RoleAssignmentDeleteParams as RoleAssignmentDeleteParams,
+  };
+
+  export {
+    Shares as Shares,
+    type ShareCreateResponse as ShareCreateResponse,
+    type ShareDeleteResponse as ShareDeleteResponse,
+    type ShareCreateParams as ShareCreateParams,
+    type ShareDeleteParams as ShareDeleteParams,
   };
 }
