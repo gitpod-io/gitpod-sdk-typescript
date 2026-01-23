@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.11.0 (2026-01-23)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** add announcement banner fields to organization proto ([2456204](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2456204c95d6c25e38375e778d13c847c9e8d521))
+* **api:** add filters to ListPrebuilds for inventory page ([f338330](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f3383301646f5548e7cc3cc2498dd162e1b64eef))
+* **api:** implement GetAnnouncementBanner and UpdateAnnouncementBanner handlers ([fe9a63c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fe9a63c54dfabeff679a9e1c050a47706539cbd7))
+
 ## 0.10.0 (2026-01-21)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.9.0...v0.10.0)
