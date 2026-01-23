@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  AnnouncementBannerResource,
+  type AnnouncementBanner,
+  type AnnouncementBannerUpdateResponse,
+  type AnnouncementBannerGetResponse,
+  type AnnouncementBannerUpdateParams,
+  type AnnouncementBannerGetParams,
+} from './announcement-banner';
+export {
   CustomDomains,
   type CustomDomain,
   type CustomDomainProvider,
