@@ -460,6 +460,16 @@ export namespace PrebuildListParams {
    */
   export interface Filter {
     /**
+     * creator_ids filters prebuilds by who created them
+     */
+    creatorIds?: Array<string>;
+
+    /**
+     * executor_ids filters prebuilds by whose credentials were used to run them
+     */
+    executorIds?: Array<string>;
+
+    /**
      * phases filters prebuilds by their current phase
      */
     phases?: Array<PrebuildsAPI.PrebuildPhase>;
@@ -468,6 +478,11 @@ export namespace PrebuildListParams {
      * project_ids filters prebuilds to specific projects
      */
     projectIds?: Array<string>;
+
+    /**
+     * triggered_by filters prebuilds by how they were triggered
+     */
+    triggeredBy?: Array<PrebuildsAPI.PrebuildTrigger>;
   }
 
   /**

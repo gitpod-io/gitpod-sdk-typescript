@@ -2,6 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as AnnouncementBannerAPI from './announcement-banner';
+import {
+  AnnouncementBanner,
+  AnnouncementBannerGetParams,
+  AnnouncementBannerGetResponse,
+  AnnouncementBannerResource,
+  AnnouncementBannerUpdateParams,
+  AnnouncementBannerUpdateResponse,
+} from './announcement-banner';
 import * as CustomDomainsAPI from './custom-domains';
 import {
   CustomDomain,
@@ -94,6 +103,8 @@ import { MembersPage, type MembersPageParams, PagePromise } from '../../core/pag
 import { RequestOptions } from '../../internal/request-options';
 
 export class Organizations extends APIResource {
+  announcementBanner: AnnouncementBannerAPI.AnnouncementBannerResource =
+    new AnnouncementBannerAPI.AnnouncementBannerResource(this._client);
   customDomains: CustomDomainsAPI.CustomDomains = new CustomDomainsAPI.CustomDomains(this._client);
   domainVerifications: DomainVerificationsAPI.DomainVerifications =
     new DomainVerificationsAPI.DomainVerifications(this._client);
@@ -939,6 +950,7 @@ export interface OrganizationSetRoleParams {
   role?: Shared.OrganizationRole;
 }
 
+Organizations.AnnouncementBannerResource = AnnouncementBannerResource;
 Organizations.CustomDomains = CustomDomains;
 Organizations.DomainVerifications = DomainVerifications;
 Organizations.Invites = Invites;
@@ -967,6 +979,15 @@ export declare namespace Organizations {
     type OrganizationLeaveParams as OrganizationLeaveParams,
     type OrganizationListMembersParams as OrganizationListMembersParams,
     type OrganizationSetRoleParams as OrganizationSetRoleParams,
+  };
+
+  export {
+    AnnouncementBannerResource as AnnouncementBannerResource,
+    type AnnouncementBanner as AnnouncementBanner,
+    type AnnouncementBannerUpdateResponse as AnnouncementBannerUpdateResponse,
+    type AnnouncementBannerGetResponse as AnnouncementBannerGetResponse,
+    type AnnouncementBannerUpdateParams as AnnouncementBannerUpdateParams,
+    type AnnouncementBannerGetParams as AnnouncementBannerGetParams,
   };
 
   export {
