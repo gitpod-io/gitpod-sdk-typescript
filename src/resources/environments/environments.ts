@@ -1522,6 +1522,12 @@ export type EnvironmentUnarchiveResponse = unknown;
 
 export interface EnvironmentCreateParams {
   /**
+   * name is a user-defined identifier for the environment. If not specified, the
+   * system will generate a name.
+   */
+  name?: string | null;
+
+  /**
    * spec is the configuration of the environment that's required for the to start
    * the environment
    */
@@ -1799,6 +1805,12 @@ export interface EnvironmentCreateEnvironmentTokenParams {
 }
 
 export interface EnvironmentCreateFromProjectParams {
+  /**
+   * name is a user-defined identifier for the environment. If not specified, the
+   * system will generate a name.
+   */
+  name?: string | null;
+
   projectId?: string;
 
   /**
