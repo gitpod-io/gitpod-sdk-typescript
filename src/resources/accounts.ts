@@ -77,40 +77,6 @@ export class Accounts extends APIResource {
   }
 
   /**
-   * Gets the chat identity token for the currently authenticated account.
-   *
-   * Use this method to:
-   *
-   * - Obtain a verification hash for in-app chat identity verification
-   * - Secure chat sessions against impersonation
-   *
-   * The returned hash is an HMAC-SHA256 signature of the account's email, used by
-   * the chat widget to verify user identity.
-   *
-   * ### Examples
-   *
-   * - Get chat identity token:
-   *
-   *   Retrieves the identity verification hash for the authenticated account.
-   *
-   *   ```yaml
-   *   {}
-   *   ```
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.accounts.getChatIdentityToken();
-   * ```
-   */
-  getChatIdentityToken(
-    body: AccountGetChatIdentityTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<AccountGetChatIdentityTokenResponse> {
-    return this._client.post('/gitpod.v1.AccountService/GetChatIdentityToken', { body, ...options });
-  }
-
-  /**
    * Gets the SSO login URL for a specific email domain.
    *
    * Use this method to:
@@ -560,14 +526,6 @@ export interface AccountRetrieveResponse {
 
 export type AccountDeleteResponse = unknown;
 
-export interface AccountGetChatIdentityTokenResponse {
-  /**
-   * email_hash is the HMAC-SHA256 hash of the account's email address, used for chat
-   * widget identity verification
-   */
-  emailHash: string;
-}
-
 export interface AccountGetSSOLoginURLResponse {
   /**
    * login_url is the URL to redirect the user to for SSO login
@@ -599,10 +557,6 @@ export interface AccountDeleteParams {
    * reason is an optional field for the reason for account deletion
    */
   reason?: string | null;
-}
-
-export interface AccountGetChatIdentityTokenParams {
-  empty?: boolean;
 }
 
 export interface AccountGetSSOLoginURLParams {
@@ -734,7 +688,6 @@ export declare namespace Accounts {
     type LoginProvider as LoginProvider,
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountDeleteResponse as AccountDeleteResponse,
-    type AccountGetChatIdentityTokenResponse as AccountGetChatIdentityTokenResponse,
     type AccountGetSSOLoginURLResponse as AccountGetSSOLoginURLResponse,
     type AccountListSSOLoginsResponse as AccountListSSOLoginsResponse,
     type JoinableOrganizationsJoinableOrganizationsPage as JoinableOrganizationsJoinableOrganizationsPage,
@@ -742,7 +695,6 @@ export declare namespace Accounts {
     type AccountListSSOLoginsResponsesLoginsPage as AccountListSSOLoginsResponsesLoginsPage,
     type AccountRetrieveParams as AccountRetrieveParams,
     type AccountDeleteParams as AccountDeleteParams,
-    type AccountGetChatIdentityTokenParams as AccountGetChatIdentityTokenParams,
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
     type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
