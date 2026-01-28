@@ -39,6 +39,7 @@ Types:
 - <code><a href="./src/resources/accounts.ts">LoginProvider</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountRetrieveResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountDeleteResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountGetChatIdentityTokenResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountGetSSOLoginURLResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountListSSOLoginsResponse</a></code>
 
@@ -46,6 +47,7 @@ Methods:
 
 - <code title="post /gitpod.v1.AccountService/GetAccount">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>({ ...params }) -> AccountRetrieveResponse</code>
 - <code title="post /gitpod.v1.AccountService/DeleteAccount">client.accounts.<a href="./src/resources/accounts.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.AccountService/GetChatIdentityToken">client.accounts.<a href="./src/resources/accounts.ts">getChatIdentityToken</a>({ ...params }) -> AccountGetChatIdentityTokenResponse</code>
 - <code title="post /gitpod.v1.AccountService/GetSSOLoginURL">client.accounts.<a href="./src/resources/accounts.ts">getSSOLoginURL</a>({ ...params }) -> AccountGetSSOLoginURLResponse</code>
 - <code title="post /gitpod.v1.AccountService/ListJoinableOrganizations">client.accounts.<a href="./src/resources/accounts.ts">listJoinableOrganizations</a>({ ...params }) -> JoinableOrganizationsJoinableOrganizationsPage</code>
 - <code title="post /gitpod.v1.AccountService/ListLoginProviders">client.accounts.<a href="./src/resources/accounts.ts">listLoginProviders</a>({ ...params }) -> LoginProvidersLoginProvidersPage</code>
