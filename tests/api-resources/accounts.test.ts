@@ -41,18 +41,6 @@ describe('resource accounts', () => {
   });
 
   // Prism tests are disabled
-  test.skip('getChatIdentityToken', async () => {
-    const responsePromise = client.accounts.getChatIdentityToken({});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
   test.skip('getSSOLoginURL: only required params', async () => {
     const responsePromise = client.accounts.getSSOLoginURL({ email: 'user@company.com' });
     const rawResponse = await responsePromise.asResponse();
