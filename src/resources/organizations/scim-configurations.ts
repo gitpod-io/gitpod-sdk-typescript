@@ -23,11 +23,22 @@ export class ScimConfigurations extends APIResource {
    *
    * - Create basic SCIM configuration:
    *
-   *   Creates a SCIM configuration linked to an SSO provider.
+   *   Creates a SCIM configuration linked to an SSO provider with default 1 year
+   *   token expiration.
    *
    *   ```yaml
    *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
    *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
+   *
+   * - Create SCIM configuration with custom token expiration:
+   *
+   *   Creates a SCIM configuration with a 90-day token expiration.
+   *
+   *   ```yaml
+   *   organizationId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   ssoConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   tokenExpiresIn: "7776000s"
    *   ```
    *
    * @example
@@ -214,10 +225,20 @@ export class ScimConfigurations extends APIResource {
    *
    * - Regenerate token:
    *
-   *   Creates a new bearer token, invalidating the old one.
+   *   Creates a new bearer token with the same expiration duration as the previous
+   *   token.
    *
    *   ```yaml
    *   scimConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
+   *
+   * - Regenerate token with new expiration:
+   *
+   *   Creates a new bearer token with a custom 180-day expiration.
+   *
+   *   ```yaml
+   *   scimConfigurationId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   tokenExpiresIn: "15552000s"
    *   ```
    *
    * @example
@@ -261,6 +282,11 @@ export interface ScimConfiguration {
   organizationId: string;
 
   /**
+   * token_expires_at is when the current SCIM token expires
+   */
+  tokenExpiresAt: string;
+
+  /**
    * updated_at is when the SCIM configuration was last updated
    */
   updatedAt: string;
@@ -292,6 +318,11 @@ export interface ScimConfigurationCreateResponse {
    * scim_configuration is the created SCIM configuration
    */
   scimConfiguration: ScimConfiguration;
+
+  /**
+   * token_expires_at is when the token will expire
+   */
+  tokenExpiresAt: string;
 }
 
 export interface ScimConfigurationRetrieveResponse {
@@ -316,6 +347,11 @@ export interface ScimConfigurationRegenerateTokenResponse {
    * previous token - store it securely.
    */
   token: string;
+
+  /**
+   * token_expires_at is when the new token will expire
+   */
+  tokenExpiresAt: string;
 }
 
 export interface ScimConfigurationCreateParams {
@@ -335,6 +371,12 @@ export interface ScimConfigurationCreateParams {
    * name is a human-readable name for the SCIM configuration
    */
   name?: string | null;
+
+  /**
+   * token_expires_in is the duration until the token expires. Defaults to 1 year.
+   * Minimum 1 day, maximum 2 years.
+   */
+  tokenExpiresIn?: string | null;
 }
 
 export interface ScimConfigurationRetrieveParams {
@@ -402,6 +444,12 @@ export interface ScimConfigurationRegenerateTokenParams {
    * for
    */
   scimConfigurationId: string;
+
+  /**
+   * token_expires_in is the duration until the new token expires. If not specified,
+   * uses the same duration as the previous token.
+   */
+  tokenExpiresIn?: string | null;
 }
 
 export declare namespace ScimConfigurations {
