@@ -1411,6 +1411,13 @@ export interface AgentStartExecutionParams {
   name?: string;
 
   /**
+   * runner_id specifies a runner for this agent execution. When set, the agent
+   * execution is routed to this runner instead of the runner associated with the
+   * environment.
+   */
+  runnerId?: string;
+
+  /**
    * workflow_action_id is an optional reference to the workflow execution action
    * that created this agent execution. Used for tracking and event correlation.
    */
