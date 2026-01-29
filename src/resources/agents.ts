@@ -499,6 +499,11 @@ export namespace AgentExecution {
    */
   export interface Metadata {
     /**
+     * annotations are key-value pairs for tracking external context.
+     */
+    annotations?: { [key: string]: string };
+
+    /**
      * A Timestamp represents a point in time independent of any time zone or local
      * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
      * resolution. The count is relative to an epoch at UTC midnight on January 1,
@@ -1313,6 +1318,12 @@ export namespace AgentListExecutionsParams {
   export interface Filter {
     agentIds?: Array<string>;
 
+    /**
+     * annotations filters by key-value pairs. Only executions containing all specified
+     * annotations (with matching values) are returned.
+     */
+    annotations?: { [key: string]: string };
+
     creatorIds?: Array<string>;
 
     environmentIds?: Array<string>;
@@ -1399,6 +1410,13 @@ export interface AgentSendToExecutionParams {
 
 export interface AgentStartExecutionParams {
   agentId?: string;
+
+  /**
+   * annotations are key-value pairs for tracking external context (e.g., Linear
+   * session IDs, GitHub issue references). Keys should follow domain/name convention
+   * (e.g., "linear.app/session-id").
+   */
+  annotations?: { [key: string]: string };
 
   codeContext?: AgentCodeContext;
 
