@@ -171,6 +171,14 @@ export interface RoleAssignment {
   id?: string;
 
   /**
+   * The org-level role that created this assignment, if any.
+   * RESOURCE_ROLE_UNSPECIFIED means this is a direct share (manually created).
+   * Non-zero (e.g., ORG_PROJECTS_ADMIN, ORG_RUNNERS_ADMIN) means this assignment was
+   * derived from an org-level role.
+   */
+  derivedFromOrgRole?: Shared.ResourceRole | null;
+
+  /**
    * Group identifier
    */
   groupId?: string;
