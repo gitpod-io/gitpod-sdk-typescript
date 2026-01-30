@@ -802,6 +802,12 @@ export namespace AgentExecution {
     judgement?: string;
 
     /**
+     * mcp_integration_statuses contains the status of all MCP integrations used by
+     * this agent execution
+     */
+    mcpIntegrationStatuses?: Array<Status.McpIntegrationStatus>;
+
+    /**
      * mode is the current operational mode of the agent execution. This is set by the
      * agent when entering different modes (e.g., Ralph mode via /ona:ralph command).
      */
@@ -898,6 +904,43 @@ export namespace AgentExecution {
 
         toolName?: string;
       }
+    }
+
+    /**
+     * MCPIntegrationStatus represents the status of a single MCP integration within an
+     * agent execution context
+     */
+    export interface McpIntegrationStatus {
+      /**
+       * id is the unique name of the MCP integration
+       */
+      id?: string;
+
+      /**
+       * failure_message contains the reason the MCP integration failed to connect or
+       * operate
+       */
+      failureMessage?: string;
+
+      /**
+       * name is the unique name of the MCP integration (e.g., "linear", "notion")
+       */
+      name?: string;
+
+      /**
+       * phase is the current connection/health phase
+       */
+      phase?:
+        | 'MCP_INTEGRATION_PHASE_UNSPECIFIED'
+        | 'MCP_INTEGRATION_PHASE_INITIALIZING'
+        | 'MCP_INTEGRATION_PHASE_READY'
+        | 'MCP_INTEGRATION_PHASE_FAILED'
+        | 'MCP_INTEGRATION_PHASE_UNAVAILABLE';
+
+      /**
+       * warning_message contains warnings (e.g., rate limiting, degraded performance)
+       */
+      warningMessage?: string;
     }
 
     export interface Outputs {
