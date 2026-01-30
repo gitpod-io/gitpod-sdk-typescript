@@ -910,6 +910,11 @@ export namespace OrganizationListMembersParams {
      * status filters members by their user status
      */
     statuses?: Array<Shared.UserStatus>;
+
+    /**
+     * user_ids filters the response to only members with the specified user IDs
+     */
+    userIds?: Array<string>;
   }
 
   /**
