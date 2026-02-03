@@ -501,10 +501,10 @@ export interface SecretCreateParams {
 
   /**
    * absolute path to the file where the secret is mounted value must be an absolute
-   * path (start with a /):
+   * path (e.g. /path/to/file):
    *
    * ```
-   * this.matches('^/(?:[^/]* /)*.*$')
+   * this.matches('^/[^/].*$')
    * ```
    */
   filePath?: string;
