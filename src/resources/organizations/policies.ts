@@ -222,6 +222,13 @@ export interface OrganizationPolicies {
   requireCustomDomainAccess: boolean;
 
   /**
+   * restrict_account_creation_to_scim controls whether account creation is
+   * restricted to SCIM-provisioned users only. When true and SCIM is configured for
+   * the organization, only users provisioned via SCIM can create accounts.
+   */
+  restrictAccountCreationToScim: boolean;
+
+  /**
    * delete_archived_environments_after controls how long archived environments are
    * kept before automatic deletion. 0 means no automatic deletion. Maximum duration
    * is 4 weeks (2419200 seconds).
@@ -393,6 +400,13 @@ export interface PolicyUpdateParams {
    * domain when one is configured. When true, access via app.gitpod.io is blocked.
    */
   requireCustomDomainAccess?: boolean | null;
+
+  /**
+   * restrict_account_creation_to_scim controls whether account creation is
+   * restricted to SCIM-provisioned users only. When true and SCIM is configured for
+   * the organization, only users provisioned via SCIM can create accounts.
+   */
+  restrictAccountCreationToScim?: boolean | null;
 
   /**
    * security_agent_policy contains security agent configuration updates
