@@ -67,6 +67,7 @@ describe('resource policies', () => {
       membersRequireProjects: true,
       portSharingDisabled: true,
       requireCustomDomainAccess: true,
+      restrictAccountCreationToScim: true,
       securityAgentPolicy: {
         crowdstrike: {
           additionalOptions: { foo: 'string' },
