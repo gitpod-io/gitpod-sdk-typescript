@@ -564,7 +564,9 @@ export type EnvironmentsEnvironmentsPage = EnvironmentsPage<Environment>;
 export type AdmissionLevel =
   | 'ADMISSION_LEVEL_UNSPECIFIED'
   | 'ADMISSION_LEVEL_OWNER_ONLY'
-  | 'ADMISSION_LEVEL_EVERYONE';
+  | 'ADMISSION_LEVEL_EVERYONE'
+  | 'ADMISSION_LEVEL_ORGANIZATION'
+  | 'ADMISSION_LEVEL_CREATOR_ONLY';
 
 /**
  * +resource get environment
