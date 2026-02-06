@@ -151,6 +151,22 @@ export interface CrowdStrikeConfig {
   tags?: string;
 }
 
+/**
+ * ExecutableDenyList contains executables that are blocked from execution in
+ * environments.
+ */
+export interface ExecutableDenyList {
+  /**
+   * enabled controls whether executable blocking is active
+   */
+  enabled?: boolean;
+
+  /**
+   * executables is the list of executable paths or names to block
+   */
+  executables?: Array<string>;
+}
+
 export interface OrganizationPolicies {
   /**
    * agent_policy contains agent-specific policy settings
@@ -242,6 +258,12 @@ export interface OrganizationPolicies {
    * of the editor
    */
   editorVersionRestrictions?: { [key: string]: OrganizationPolicies.EditorVersionRestrictions };
+
+  /**
+   * executable_deny_list contains executables that are blocked from execution in
+   * environments.
+   */
+  executableDenyList?: ExecutableDenyList;
 
   /**
    * maximum_environment_lifetime controls for how long environments are allowed to
@@ -351,6 +373,12 @@ export interface PolicyUpdateParams {
    * editor ID to version policy with allowed major versions.
    */
   editorVersionRestrictions?: { [key: string]: PolicyUpdateParams.EditorVersionRestrictions };
+
+  /**
+   * executable_deny_list contains executables that are blocked from execution in
+   * environments.
+   */
+  executableDenyList?: ExecutableDenyList | null;
 
   /**
    * maximum_environment_lifetime controls for how long environments are allowed to
@@ -505,6 +533,7 @@ export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type ExecutableDenyList as ExecutableDenyList,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,

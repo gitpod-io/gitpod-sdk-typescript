@@ -76,6 +76,8 @@ export {
   type EnvironmentRole,
   type EnvironmentSpec,
   type EnvironmentStatus,
+  type KernelControlsConfig,
+  type Veto,
   type EnvironmentCreateResponse,
   type EnvironmentRetrieveResponse,
   type EnvironmentUpdateResponse,

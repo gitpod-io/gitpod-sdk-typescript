@@ -737,6 +737,11 @@ export interface EnvironmentSpec {
   devcontainer?: EnvironmentSpec.Devcontainer;
 
   /**
+   * kernel_controls_config configures kernel-level controls for this environment
+   */
+  kernelControlsConfig?: KernelControlsConfig;
+
+  /**
    * machine is the machine spec of the environment
    */
   machine?: EnvironmentSpec.Machine;
@@ -1475,6 +1480,43 @@ export namespace EnvironmentStatus {
   }
 }
 
+/**
+ * KernelControlsConfig configures kernel-level controls for the environment
+ */
+export interface KernelControlsConfig {
+  /**
+   * veto controls blocking mechanisms
+   */
+  veto?: Veto;
+}
+
+/**
+ * Veto controls kernel-level blocking mechanisms
+ */
+export interface Veto {
+  /**
+   * exec controls executable blocking
+   */
+  exec?: Veto.Exec;
+}
+
+export namespace Veto {
+  /**
+   * exec controls executable blocking
+   */
+  export interface Exec {
+    /**
+     * denylist is the list of executable paths or names to block
+     */
+    denylist?: Array<string>;
+
+    /**
+     * enabled controls whether executable blocking is active
+     */
+    enabled?: boolean;
+  }
+}
+
 export interface EnvironmentCreateResponse {
   /**
    * +resource get environment
@@ -1573,6 +1615,11 @@ export namespace EnvironmentUpdateParams {
     content?: Spec.Content | null;
 
     devcontainer?: Spec.Devcontainer | null;
+
+    /**
+     * kernel_controls_config configures kernel-level controls for this environment
+     */
+    kernelControlsConfig?: EnvironmentsAPI.KernelControlsConfig | null;
 
     /**
      * ports controls port sharing
@@ -1883,6 +1930,8 @@ export declare namespace Environments {
     type EnvironmentRole as EnvironmentRole,
     type EnvironmentSpec as EnvironmentSpec,
     type EnvironmentStatus as EnvironmentStatus,
+    type KernelControlsConfig as KernelControlsConfig,
+    type Veto as Veto,
     type EnvironmentCreateResponse as EnvironmentCreateResponse,
     type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
     type EnvironmentUpdateResponse as EnvironmentUpdateResponse,
