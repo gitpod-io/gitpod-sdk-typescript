@@ -943,6 +943,18 @@ export namespace EnvironmentSpec {
     name?: string;
 
     /**
+     * scope indicates where this secret originated from. Used to filter secrets during
+     * build (only org and project secrets are injected).
+     */
+    scope?:
+      | 'SCOPE_UNSPECIFIED'
+      | 'SCOPE_ORGANIZATION'
+      | 'SCOPE_PROJECT'
+      | 'SCOPE_USER'
+      | 'SCOPE_SERVICE_ACCOUNT'
+      | 'SCOPE_RUNNER';
+
+    /**
      * session indicated the current session of the secret. When the session does not
      * change, secrets are not reloaded in the environment.
      */
