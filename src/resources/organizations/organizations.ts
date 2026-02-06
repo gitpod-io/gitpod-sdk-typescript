@@ -56,6 +56,7 @@ import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
   CrowdStrikeConfig,
+  ExecutableDenyList,
   OrganizationPolicies,
   Policies,
   PolicyRetrieveParams,
@@ -1040,6 +1041,7 @@ export declare namespace Organizations {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type ExecutableDenyList as ExecutableDenyList,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,

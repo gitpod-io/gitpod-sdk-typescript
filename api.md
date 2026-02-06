@@ -115,6 +115,8 @@ Types:
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentRole</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentSpec</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentStatus</a></code>
+- <code><a href="./src/resources/environments/environments.ts">KernelControlsConfig</a></code>
+- <code><a href="./src/resources/environments/environments.ts">Veto</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentCreateResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentRetrieveResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentUpdateResponse</a></code>
@@ -426,6 +428,7 @@ Types:
 
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ExecutableDenyList</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">PolicyRetrieveResponse</a></code>

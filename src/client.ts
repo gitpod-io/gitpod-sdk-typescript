@@ -260,6 +260,8 @@ import {
   EnvironmentUpdateResponse,
   Environments,
   EnvironmentsEnvironmentsPage,
+  KernelControlsConfig,
+  Veto,
 } from './resources/environments/environments';
 import {
   Group,
@@ -1343,6 +1345,8 @@ export declare namespace Gitpod {
     type EnvironmentRole as EnvironmentRole,
     type EnvironmentSpec as EnvironmentSpec,
     type EnvironmentStatus as EnvironmentStatus,
+    type KernelControlsConfig as KernelControlsConfig,
+    type Veto as Veto,
     type EnvironmentCreateResponse as EnvironmentCreateResponse,
     type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
     type EnvironmentUpdateResponse as EnvironmentUpdateResponse,
