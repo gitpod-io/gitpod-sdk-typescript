@@ -226,8 +226,9 @@ export interface OrganizationPolicies {
   organizationId: string;
 
   /**
-   * port_sharing_disabled controls whether port sharing is disabled in the
-   * organization
+   * port_sharing_disabled controls whether user-initiated port sharing is disabled
+   * in the organization. System ports (VS Code Browser, agents) are always exempt
+   * from this policy.
    */
   portSharingDisabled: boolean;
 
@@ -418,8 +419,9 @@ export interface PolicyUpdateParams {
   membersRequireProjects?: boolean | null;
 
   /**
-   * port_sharing_disabled controls whether port sharing is disabled in the
-   * organization
+   * port_sharing_disabled controls whether user-initiated port sharing is disabled
+   * in the organization. System ports (VS Code Browser, agents) are always exempt
+   * from this policy.
    */
   portSharingDisabled?: boolean | null;
 
