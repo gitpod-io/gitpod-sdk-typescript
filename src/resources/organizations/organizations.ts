@@ -84,6 +84,7 @@ import {
 } from './scim-configurations';
 import * as SSOConfigurationsAPI from './sso-configurations';
 import {
+  AdditionalScopesUpdate,
   ProviderType,
   SSOConfiguration,
   SSOConfigurationCreateParams,
@@ -1069,6 +1070,7 @@ export declare namespace Organizations {
 
   export {
     SSOConfigurations as SSOConfigurations,
+    type AdditionalScopesUpdate as AdditionalScopesUpdate,
     type ProviderType as ProviderType,
     type SSOConfiguration as SSOConfiguration,
     type SSOConfigurationState as SSOConfigurationState,
