@@ -463,6 +463,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/organizations/sso-configurations.ts">AdditionalScopesUpdate</a></code>
 - <code><a href="./src/resources/organizations/sso-configurations.ts">ProviderType</a></code>
 - <code><a href="./src/resources/organizations/sso-configurations.ts">SSOConfiguration</a></code>
 - <code><a href="./src/resources/organizations/sso-configurations.ts">SSOConfigurationState</a></code>

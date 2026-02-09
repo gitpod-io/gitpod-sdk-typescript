@@ -82,6 +82,7 @@ export {
 } from './policies';
 export {
   SSOConfigurations,
+  type AdditionalScopesUpdate,
   type ProviderType,
   type SSOConfiguration,
   type SSOConfigurationState,
