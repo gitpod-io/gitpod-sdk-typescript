@@ -1,5 +1,59 @@
 # Changelog
 
+## 0.11.0 (2026-02-11)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* [backend] Resource admin should be able to see all resource shares ([3554dd2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3554dd27b3c8705f8c4924ecb455902cf588fdb2))
+* [SCIM] Configurable token expiration duration ([cc92f75](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/cc92f75b9e66df803ba991cf99e7ee3d3d780660))
+* **api:** add additionalScopes field to sso-configurations ([27a22de](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/27a22de73c4f16272bd25291f49ad97fcc0a5a80))
+* **api:** add annotations field to agents metadata, filtering, and start params ([0f06d99](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0f06d99feaad1ab5767a11054e8152d0ac11cb1a))
+* **api:** add announcement banner fields to organization proto ([2456204](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2456204c95d6c25e38375e778d13c847c9e8d521))
+* **api:** add derivedFromOrgRole field to groups RoleAssignment model ([c8569bf](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c8569bf65b910a2ec09054b37922a7f235801dac))
+* **api:** add devRunnerId to agents, devEnvironmentId and provider enum to runners ([b5ec4b9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b5ec4b9cad5c7f45eecbaa2b4f8db4e3ce86b2eb))
+* **api:** add exclude_group_id filter to organizations listMembers ([7842c1b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7842c1be5997a74c0dd342ca8791c014ec01dc4c))
+* **api:** add executable_deny_list to environments and organization policies ([4c56fef](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/4c56fef567186a390be111790fc9ebe4f0890f01))
+* **api:** add filters to ListPrebuilds for inventory page ([f338330](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f3383301646f5548e7cc3cc2498dd162e1b64eef))
+* **api:** add mcp integration status to agent execution ([3aa82d4](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3aa82d4ce924b9042882a6ab73ebdf5efeccbf71))
+* **api:** add OPUS_4_6 and OPUS_4_6_EXTENDED model options to agents ([71a7da8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/71a7da87e8a14625d581de3dc263084408929d17))
+* **api:** add port access methods and organization admission level to environments ([8e135fc](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8e135fcaa594dc41275c685dfa5f2b55ac9905bd))
+* **api:** add RESOURCE_ROLE_ORG_AUTOMATIONS_ADMIN to ResourceRole enum ([0158475](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/01584759838decfa20131da3951cdafe391434af))
+* **api:** add RESOURCE_ROLE_ORG_GROUPS_ADMIN to ResourceRole enum ([49a9e2e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/49a9e2e45fb872a0558eeb36a173bc4884f9cdd2))
+* **api:** add RESOURCE_TYPE_ROLE_ASSIGNMENT to ResourceType enum ([b3fa661](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b3fa6617ebcf629042e2149ec77e820b77d411e4))
+* **api:** add restrictAccountCreationToScim field to organizations policies ([03af733](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/03af733583acbec602e1fd3135265b22b054ec50))
+* **api:** add scope field to environment secrets ([f7f7d59](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f7f7d5958bcfff764496180b196ad091398bbba4))
+* **api:** add userIds parameter to organizations list members method ([abf8b99](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/abf8b99d209ab44ad111d0cfb288e4d4f4b0ed58))
+* **api:** add warm pools sub-resource to prebuilds with CRUD operations ([0dd1669](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0dd1669a90e1d26622f7d8bdee0fcc1c01b2bf1d))
+* **api:** implement GetAnnouncementBanner and UpdateAnnouncementBanner handlers ([fe9a63c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fe9a63c54dfabeff679a9e1c050a47706539cbd7))
+* **api:** remove getChatIdentityToken from accounts ([8d245cd](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8d245cdc8c902c931a3576bd077e8b948af128e4))
+* **chat:** add Pylon identity verification for chat widget ([c854d9a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c854d9ab6e97ca02a7382cee062fece872854443))
+* **cli:** add --name flag to environment create command ([bd242aa](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/bd242aad382a2b6057352ac61e7ad29c81068989))
+* **db:** add service_account_tokens table ([02e87ef](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/02e87ef50c5a0a6e64bb8da9d8c2e0edc540ad31))
+* Introduce projects admin org role ([0ac01e0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0ac01e08a99e26ccc8bfac456771983a9d5c61b7))
+* **runner:** add capability check for ListSCMOrganizations ([bbcd73a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/bbcd73af7862f8c68ee89dbbb85500f5a7e7a9f8))
+
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([50c52c4](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/50c52c48613a28225b7159baa3bbbffc0058b575))
+* **client:** avoid removing abort listener too early ([355cba0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/355cba0036cd98971455a407b048c75a545eb7c2))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([2fe9a43](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2fe9a432dda237d7a7aa89691a692c235db65c12))
+* **client:** do not parse responses with empty content-length ([7fb7af3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7fb7af3bf3d6fe18f351c5295b47dacea56c52bd))
+* **client:** restructure abort controller binding ([920167a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/920167a458c06f43b695ba73e22198ab86616af9))
+* **internal:** fix pagination internals not accepting option promises ([1fb2b1e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1fb2b1ed9f7522d70cfa661991f6c5896b290ae3))
+
+
+### Documentation
+
+* **api:** clarify port_sharing_disabled behavior in organization policy ([daac9e5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/daac9e5a5dca952167ab4d09e736c82bfae1cbe9))
+* **api:** update filePath parameter documentation in secrets ([a63aedf](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a63aedf0b1f2e76ffa4b5bfafc69285fe93a555e))
+
 ## 0.10.0 (2026-01-21)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.9.0...v0.10.0)
