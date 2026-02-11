@@ -564,7 +564,9 @@ export type EnvironmentsEnvironmentsPage = EnvironmentsPage<Environment>;
 export type AdmissionLevel =
   | 'ADMISSION_LEVEL_UNSPECIFIED'
   | 'ADMISSION_LEVEL_OWNER_ONLY'
-  | 'ADMISSION_LEVEL_EVERYONE';
+  | 'ADMISSION_LEVEL_EVERYONE'
+  | 'ADMISSION_LEVEL_ORGANIZATION'
+  | 'ADMISSION_LEVEL_CREATOR_ONLY';
 
 /**
  * +resource get environment
@@ -733,6 +735,11 @@ export interface EnvironmentSpec {
    * devcontainer is the devcontainer spec of the environment
    */
   devcontainer?: EnvironmentSpec.Devcontainer;
+
+  /**
+   * kernel_controls_config configures kernel-level controls for this environment
+   */
+  kernelControlsConfig?: KernelControlsConfig;
 
   /**
    * machine is the machine spec of the environment
@@ -934,6 +941,18 @@ export namespace EnvironmentSpec {
      * name is the human readable description of the secret
      */
     name?: string;
+
+    /**
+     * scope indicates where this secret originated from. Used to filter secrets during
+     * build (only org and project secrets are injected).
+     */
+    scope?:
+      | 'SCOPE_UNSPECIFIED'
+      | 'SCOPE_ORGANIZATION'
+      | 'SCOPE_PROJECT'
+      | 'SCOPE_USER'
+      | 'SCOPE_SERVICE_ACCOUNT'
+      | 'SCOPE_RUNNER';
 
     /**
      * session indicated the current session of the secret. When the session does not
@@ -1473,6 +1492,43 @@ export namespace EnvironmentStatus {
   }
 }
 
+/**
+ * KernelControlsConfig configures kernel-level controls for the environment
+ */
+export interface KernelControlsConfig {
+  /**
+   * veto controls blocking mechanisms
+   */
+  veto?: Veto;
+}
+
+/**
+ * Veto controls kernel-level blocking mechanisms
+ */
+export interface Veto {
+  /**
+   * exec controls executable blocking
+   */
+  exec?: Veto.Exec;
+}
+
+export namespace Veto {
+  /**
+   * exec controls executable blocking
+   */
+  export interface Exec {
+    /**
+     * denylist is the list of executable paths or names to block
+     */
+    denylist?: Array<string>;
+
+    /**
+     * enabled controls whether executable blocking is active
+     */
+    enabled?: boolean;
+  }
+}
+
 export interface EnvironmentCreateResponse {
   /**
    * +resource get environment
@@ -1522,6 +1578,12 @@ export type EnvironmentUnarchiveResponse = unknown;
 
 export interface EnvironmentCreateParams {
   /**
+   * name is a user-defined identifier for the environment. If not specified, the
+   * system will generate a name.
+   */
+  name?: string | null;
+
+  /**
    * spec is the configuration of the environment that's required for the to start
    * the environment
    */
@@ -1565,6 +1627,11 @@ export namespace EnvironmentUpdateParams {
     content?: Spec.Content | null;
 
     devcontainer?: Spec.Devcontainer | null;
+
+    /**
+     * kernel_controls_config configures kernel-level controls for this environment
+     */
+    kernelControlsConfig?: EnvironmentsAPI.KernelControlsConfig | null;
 
     /**
      * ports controls port sharing
@@ -1799,6 +1866,12 @@ export interface EnvironmentCreateEnvironmentTokenParams {
 }
 
 export interface EnvironmentCreateFromProjectParams {
+  /**
+   * name is a user-defined identifier for the environment. If not specified, the
+   * system will generate a name.
+   */
+  name?: string | null;
+
   projectId?: string;
 
   /**
@@ -1869,6 +1942,8 @@ export declare namespace Environments {
     type EnvironmentRole as EnvironmentRole,
     type EnvironmentSpec as EnvironmentSpec,
     type EnvironmentStatus as EnvironmentStatus,
+    type KernelControlsConfig as KernelControlsConfig,
+    type Veto as Veto,
     type EnvironmentCreateResponse as EnvironmentCreateResponse,
     type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
     type EnvironmentUpdateResponse as EnvironmentUpdateResponse,

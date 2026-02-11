@@ -151,6 +151,22 @@ export interface CrowdStrikeConfig {
   tags?: string;
 }
 
+/**
+ * ExecutableDenyList contains executables that are blocked from execution in
+ * environments.
+ */
+export interface ExecutableDenyList {
+  /**
+   * enabled controls whether executable blocking is active
+   */
+  enabled?: boolean;
+
+  /**
+   * executables is the list of executable paths or names to block
+   */
+  executables?: Array<string>;
+}
+
 export interface OrganizationPolicies {
   /**
    * agent_policy contains agent-specific policy settings
@@ -210,8 +226,9 @@ export interface OrganizationPolicies {
   organizationId: string;
 
   /**
-   * port_sharing_disabled controls whether port sharing is disabled in the
-   * organization
+   * port_sharing_disabled controls whether user-initiated port sharing is disabled
+   * in the organization. System ports (VS Code Browser, agents) are always exempt
+   * from this policy.
    */
   portSharingDisabled: boolean;
 
@@ -220,6 +237,13 @@ export interface OrganizationPolicies {
    * domain when one is configured. When true, access via app.gitpod.io is blocked.
    */
   requireCustomDomainAccess: boolean;
+
+  /**
+   * restrict_account_creation_to_scim controls whether account creation is
+   * restricted to SCIM-provisioned users only. When true and SCIM is configured for
+   * the organization, only users provisioned via SCIM can create accounts.
+   */
+  restrictAccountCreationToScim: boolean;
 
   /**
    * delete_archived_environments_after controls how long archived environments are
@@ -235,6 +259,12 @@ export interface OrganizationPolicies {
    * of the editor
    */
   editorVersionRestrictions?: { [key: string]: OrganizationPolicies.EditorVersionRestrictions };
+
+  /**
+   * executable_deny_list contains executables that are blocked from execution in
+   * environments.
+   */
+  executableDenyList?: ExecutableDenyList;
 
   /**
    * maximum_environment_lifetime controls for how long environments are allowed to
@@ -346,6 +376,12 @@ export interface PolicyUpdateParams {
   editorVersionRestrictions?: { [key: string]: PolicyUpdateParams.EditorVersionRestrictions };
 
   /**
+   * executable_deny_list contains executables that are blocked from execution in
+   * environments.
+   */
+  executableDenyList?: ExecutableDenyList | null;
+
+  /**
    * maximum_environment_lifetime controls for how long environments are allowed to
    * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
    * seconds).
@@ -383,8 +419,9 @@ export interface PolicyUpdateParams {
   membersRequireProjects?: boolean | null;
 
   /**
-   * port_sharing_disabled controls whether port sharing is disabled in the
-   * organization
+   * port_sharing_disabled controls whether user-initiated port sharing is disabled
+   * in the organization. System ports (VS Code Browser, agents) are always exempt
+   * from this policy.
    */
   portSharingDisabled?: boolean | null;
 
@@ -393,6 +430,13 @@ export interface PolicyUpdateParams {
    * domain when one is configured. When true, access via app.gitpod.io is blocked.
    */
   requireCustomDomainAccess?: boolean | null;
+
+  /**
+   * restrict_account_creation_to_scim controls whether account creation is
+   * restricted to SCIM-provisioned users only. When true and SCIM is configured for
+   * the organization, only users provisioned via SCIM can create accounts.
+   */
+  restrictAccountCreationToScim?: boolean | null;
 
   /**
    * security_agent_policy contains security agent configuration updates
@@ -491,6 +535,7 @@ export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type ExecutableDenyList as ExecutableDenyList,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,

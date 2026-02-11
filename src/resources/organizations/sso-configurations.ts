@@ -237,6 +237,15 @@ export class SSOConfigurations extends APIResource {
 
 export type SSOConfigurationsSSOConfigurationsPage = SSOConfigurationsPage<SSOConfiguration>;
 
+/**
+ * AdditionalScopesUpdate wraps a list of OIDC scopes so that the update request
+ * can distinguish "not changing scopes" (field absent) from "clearing all scopes"
+ * (field present, empty list).
+ */
+export interface AdditionalScopesUpdate {
+  scopes?: Array<string>;
+}
+
 export type ProviderType = 'PROVIDER_TYPE_UNSPECIFIED' | 'PROVIDER_TYPE_BUILTIN' | 'PROVIDER_TYPE_CUSTOM';
 
 export interface SSOConfiguration {
@@ -261,6 +270,12 @@ export interface SSOConfiguration {
    * state is the state of the SSO configuration
    */
   state: SSOConfigurationState;
+
+  /**
+   * additional_scopes are extra OIDC scopes requested from the identity provider
+   * during sign-in.
+   */
+  additionalScopes?: Array<string>;
 
   /**
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
@@ -320,6 +335,13 @@ export interface SSOConfigurationCreateParams {
 
   organizationId: string;
 
+  /**
+   * additional_scopes are extra OIDC scopes to request from the identity provider
+   * during sign-in. These are appended to the default scopes (openid, email,
+   * profile).
+   */
+  additionalScopes?: Array<string>;
+
   displayName?: string;
 
   /**
@@ -342,6 +364,13 @@ export interface SSOConfigurationUpdateParams {
    * sso_configuration_id is the ID of the SSO configuration to update
    */
   ssoConfigurationId: string;
+
+  /**
+   * additional_scopes replaces the configured OIDC scopes when present. When absent
+   * (nil), scopes are left unchanged. When present with an empty scopes list, all
+   * additional scopes are cleared.
+   */
+  additionalScopes?: AdditionalScopesUpdate | null;
 
   /**
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
@@ -410,6 +439,7 @@ export interface SSOConfigurationDeleteParams {
 
 export declare namespace SSOConfigurations {
   export {
+    type AdditionalScopesUpdate as AdditionalScopesUpdate,
     type ProviderType as ProviderType,
     type SSOConfiguration as SSOConfiguration,
     type SSOConfigurationState as SSOConfigurationState,

@@ -499,6 +499,11 @@ export namespace AgentExecution {
    */
   export interface Metadata {
     /**
+     * annotations are key-value pairs for tracking external context.
+     */
+    annotations?: { [key: string]: string };
+
+    /**
      * A Timestamp represents a point in time independent of any time zone or local
      * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
      * resolution. The count is relative to an epoch at UTC midnight on January 1,
@@ -797,6 +802,12 @@ export namespace AgentExecution {
     judgement?: string;
 
     /**
+     * mcp_integration_statuses contains the status of all MCP integrations used by
+     * this agent execution
+     */
+    mcpIntegrationStatuses?: Array<Status.McpIntegrationStatus>;
+
+    /**
      * mode is the current operational mode of the agent execution. This is set by the
      * agent when entering different modes (e.g., Ralph mode via /ona:ralph command).
      */
@@ -843,6 +854,8 @@ export namespace AgentExecution {
       | 'SUPPORTED_MODEL_OPUS_4_EXTENDED'
       | 'SUPPORTED_MODEL_OPUS_4_5'
       | 'SUPPORTED_MODEL_OPUS_4_5_EXTENDED'
+      | 'SUPPORTED_MODEL_OPUS_4_6'
+      | 'SUPPORTED_MODEL_OPUS_4_6_EXTENDED'
       | 'SUPPORTED_MODEL_OPENAI_4O'
       | 'SUPPORTED_MODEL_OPENAI_4O_MINI'
       | 'SUPPORTED_MODEL_OPENAI_O1'
@@ -893,6 +906,43 @@ export namespace AgentExecution {
 
         toolName?: string;
       }
+    }
+
+    /**
+     * MCPIntegrationStatus represents the status of a single MCP integration within an
+     * agent execution context
+     */
+    export interface McpIntegrationStatus {
+      /**
+       * id is the unique name of the MCP integration
+       */
+      id?: string;
+
+      /**
+       * failure_message contains the reason the MCP integration failed to connect or
+       * operate
+       */
+      failureMessage?: string;
+
+      /**
+       * name is the unique name of the MCP integration (e.g., "linear", "notion")
+       */
+      name?: string;
+
+      /**
+       * phase is the current connection/health phase
+       */
+      phase?:
+        | 'MCP_INTEGRATION_PHASE_UNSPECIFIED'
+        | 'MCP_INTEGRATION_PHASE_INITIALIZING'
+        | 'MCP_INTEGRATION_PHASE_READY'
+        | 'MCP_INTEGRATION_PHASE_FAILED'
+        | 'MCP_INTEGRATION_PHASE_UNAVAILABLE';
+
+      /**
+       * warning_message contains warnings (e.g., rate limiting, degraded performance)
+       */
+      warningMessage?: string;
     }
 
     export interface Outputs {
@@ -1313,6 +1363,12 @@ export namespace AgentListExecutionsParams {
   export interface Filter {
     agentIds?: Array<string>;
 
+    /**
+     * annotations filters by key-value pairs. Only executions containing all specified
+     * annotations (with matching values) are returned.
+     */
+    annotations?: { [key: string]: string };
+
     creatorIds?: Array<string>;
 
     environmentIds?: Array<string>;
@@ -1400,6 +1456,13 @@ export interface AgentSendToExecutionParams {
 export interface AgentStartExecutionParams {
   agentId?: string;
 
+  /**
+   * annotations are key-value pairs for tracking external context (e.g., Linear
+   * session IDs, GitHub issue references). Keys should follow domain/name convention
+   * (e.g., "linear.app/session-id").
+   */
+  annotations?: { [key: string]: string };
+
   codeContext?: AgentCodeContext;
 
   /**
@@ -1409,6 +1472,13 @@ export interface AgentStartExecutionParams {
   mode?: AgentMode;
 
   name?: string;
+
+  /**
+   * runner_id specifies a runner for this agent execution. When set, the agent
+   * execution is routed to this runner instead of the runner associated with the
+   * environment.
+   */
+  runnerId?: string;
 
   /**
    * workflow_action_id is an optional reference to the workflow execution action

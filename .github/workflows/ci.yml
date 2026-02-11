@@ -57,7 +57,7 @@ jobs:
       - name: Get GitHub OIDC Token
         if: github.repository == 'stainless-sdks/gitpod-typescript'
         id: github-oidc
-        uses: actions/github-script@00f12e3e20659f42342b1c0226afda7f7c042325 # v6
+        uses: actions/github-script@v8
         with:
           script: core.setOutput('github_token', await core.getIDToken());
 

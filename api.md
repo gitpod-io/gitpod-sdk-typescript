@@ -115,6 +115,8 @@ Types:
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentRole</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentSpec</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentStatus</a></code>
+- <code><a href="./src/resources/environments/environments.ts">KernelControlsConfig</a></code>
+- <code><a href="./src/resources/environments/environments.ts">Veto</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentCreateResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentRetrieveResponse</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentUpdateResponse</a></code>
@@ -355,6 +357,19 @@ Methods:
 - <code title="post /gitpod.v1.OrganizationService/ListMembers">client.organizations.<a href="./src/resources/organizations/organizations.ts">listMembers</a>({ ...params }) -> OrganizationMembersMembersPage</code>
 - <code title="post /gitpod.v1.OrganizationService/SetRole">client.organizations.<a href="./src/resources/organizations/organizations.ts">setRole</a>({ ...params }) -> unknown</code>
 
+## AnnouncementBanner
+
+Types:
+
+- <code><a href="./src/resources/organizations/announcement-banner.ts">AnnouncementBanner</a></code>
+- <code><a href="./src/resources/organizations/announcement-banner.ts">AnnouncementBannerUpdateResponse</a></code>
+- <code><a href="./src/resources/organizations/announcement-banner.ts">AnnouncementBannerGetResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.OrganizationService/UpdateAnnouncementBanner">client.organizations.announcementBanner.<a href="./src/resources/organizations/announcement-banner.ts">update</a>({ ...params }) -> AnnouncementBannerUpdateResponse</code>
+- <code title="post /gitpod.v1.OrganizationService/GetAnnouncementBanner">client.organizations.announcementBanner.<a href="./src/resources/organizations/announcement-banner.ts">get</a>({ ...params }) -> AnnouncementBannerGetResponse</code>
+
 ## CustomDomains
 
 Types:
@@ -413,6 +428,7 @@ Types:
 
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ExecutableDenyList</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">PolicyRetrieveResponse</a></code>
@@ -447,6 +463,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/organizations/sso-configurations.ts">AdditionalScopesUpdate</a></code>
 - <code><a href="./src/resources/organizations/sso-configurations.ts">ProviderType</a></code>
 - <code><a href="./src/resources/organizations/sso-configurations.ts">SSOConfiguration</a></code>
 - <code><a href="./src/resources/organizations/sso-configurations.ts">SSOConfigurationState</a></code>

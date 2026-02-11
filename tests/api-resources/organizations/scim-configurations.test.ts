@@ -29,6 +29,7 @@ describe('resource scimConfigurations', () => {
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
       name: 'name',
+      tokenExpiresIn: '+9125115.360s',
     });
   });
 
@@ -128,6 +129,7 @@ describe('resource scimConfigurations', () => {
   test.skip('regenerateToken: required and optional params', async () => {
     const response = await client.organizations.scimConfigurations.regenerateToken({
       scimConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+      tokenExpiresIn: '+9125115.360s',
     });
   });
 });

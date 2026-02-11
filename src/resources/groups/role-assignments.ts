@@ -171,6 +171,14 @@ export interface RoleAssignment {
   id?: string;
 
   /**
+   * The org-level role that created this assignment, if any.
+   * RESOURCE_ROLE_UNSPECIFIED means this is a direct share (manually created).
+   * Non-zero (e.g., ORG_PROJECTS_ADMIN, ORG_RUNNERS_ADMIN) means this assignment was
+   * derived from an org-level role.
+   */
+  derivedFromOrgRole?: Shared.ResourceRole | null;
+
+  /**
    * Group identifier
    */
   groupId?: string;
@@ -244,6 +252,14 @@ export namespace RoleAssignmentListParams {
      * Empty string is allowed and means no filtering by group
      */
     groupId?: string;
+
+    /**
+     * resource_id filters the response to only role assignments for this specific
+     * resource When provided, users with :grant permission on the resource can see its
+     * role assignments even if they don't belong to the assigned groups Empty string
+     * is allowed and means no filtering by resource
+     */
+    resourceId?: string;
 
     /**
      * resource_roles filters the response to only role assignments with these specific

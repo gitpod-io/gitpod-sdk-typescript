@@ -2,6 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as AnnouncementBannerAPI from './announcement-banner';
+import {
+  AnnouncementBanner,
+  AnnouncementBannerGetParams,
+  AnnouncementBannerGetResponse,
+  AnnouncementBannerResource,
+  AnnouncementBannerUpdateParams,
+  AnnouncementBannerUpdateResponse,
+} from './announcement-banner';
 import * as CustomDomainsAPI from './custom-domains';
 import {
   CustomDomain,
@@ -47,6 +56,7 @@ import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
   CrowdStrikeConfig,
+  ExecutableDenyList,
   OrganizationPolicies,
   Policies,
   PolicyRetrieveParams,
@@ -74,6 +84,7 @@ import {
 } from './scim-configurations';
 import * as SSOConfigurationsAPI from './sso-configurations';
 import {
+  AdditionalScopesUpdate,
   ProviderType,
   SSOConfiguration,
   SSOConfigurationCreateParams,
@@ -94,6 +105,8 @@ import { MembersPage, type MembersPageParams, PagePromise } from '../../core/pag
 import { RequestOptions } from '../../internal/request-options';
 
 export class Organizations extends APIResource {
+  announcementBanner: AnnouncementBannerAPI.AnnouncementBannerResource =
+    new AnnouncementBannerAPI.AnnouncementBannerResource(this._client);
   customDomains: CustomDomainsAPI.CustomDomains = new CustomDomainsAPI.CustomDomains(this._client);
   domainVerifications: DomainVerificationsAPI.DomainVerifications =
     new DomainVerificationsAPI.DomainVerifications(this._client);
@@ -886,6 +899,12 @@ export interface OrganizationListMembersParams extends MembersPageParams {
 export namespace OrganizationListMembersParams {
   export interface Filter {
     /**
+     * exclude_group_ids excludes members who are already in any of the specified
+     * groups
+     */
+    excludeGroupIds?: Array<string>;
+
+    /**
      * roles filters members by their organization role
      */
     roles?: Array<Shared.OrganizationRole>;
@@ -899,6 +918,11 @@ export namespace OrganizationListMembersParams {
      * status filters members by their user status
      */
     statuses?: Array<Shared.UserStatus>;
+
+    /**
+     * user_ids filters the response to only members with the specified user IDs
+     */
+    userIds?: Array<string>;
   }
 
   /**
@@ -939,6 +963,7 @@ export interface OrganizationSetRoleParams {
   role?: Shared.OrganizationRole;
 }
 
+Organizations.AnnouncementBannerResource = AnnouncementBannerResource;
 Organizations.CustomDomains = CustomDomains;
 Organizations.DomainVerifications = DomainVerifications;
 Organizations.Invites = Invites;
@@ -967,6 +992,15 @@ export declare namespace Organizations {
     type OrganizationLeaveParams as OrganizationLeaveParams,
     type OrganizationListMembersParams as OrganizationListMembersParams,
     type OrganizationSetRoleParams as OrganizationSetRoleParams,
+  };
+
+  export {
+    AnnouncementBannerResource as AnnouncementBannerResource,
+    type AnnouncementBanner as AnnouncementBanner,
+    type AnnouncementBannerUpdateResponse as AnnouncementBannerUpdateResponse,
+    type AnnouncementBannerGetResponse as AnnouncementBannerGetResponse,
+    type AnnouncementBannerUpdateParams as AnnouncementBannerUpdateParams,
+    type AnnouncementBannerGetParams as AnnouncementBannerGetParams,
   };
 
   export {
@@ -1014,6 +1048,7 @@ export declare namespace Organizations {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type ExecutableDenyList as ExecutableDenyList,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
@@ -1041,6 +1076,7 @@ export declare namespace Organizations {
 
   export {
     SSOConfigurations as SSOConfigurations,
+    type AdditionalScopesUpdate as AdditionalScopesUpdate,
     type ProviderType as ProviderType,
     type SSOConfiguration as SSOConfiguration,
     type SSOConfigurationState as SSOConfigurationState,

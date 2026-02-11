@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  AnnouncementBannerResource,
+  type AnnouncementBanner,
+  type AnnouncementBannerUpdateResponse,
+  type AnnouncementBannerGetResponse,
+  type AnnouncementBannerUpdateParams,
+  type AnnouncementBannerGetParams,
+} from './announcement-banner';
+export {
   CustomDomains,
   type CustomDomain,
   type CustomDomainProvider,
@@ -64,6 +72,7 @@ export {
   Policies,
   type AgentPolicy,
   type CrowdStrikeConfig,
+  type ExecutableDenyList,
   type OrganizationPolicies,
   type SecurityAgentPolicy,
   type PolicyRetrieveResponse,
@@ -73,6 +82,7 @@ export {
 } from './policies';
 export {
   SSOConfigurations,
+  type AdditionalScopesUpdate,
   type ProviderType,
   type SSOConfiguration,
   type SSOConfigurationState,

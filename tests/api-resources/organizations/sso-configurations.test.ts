@@ -32,6 +32,7 @@ describe('resource ssoConfigurations', () => {
       clientSecret: 'GOCSPX-abcdefghijklmnopqrstuvwxyz123456',
       issuerUrl: 'https://accounts.google.com',
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+      additionalScopes: ['x'],
       displayName: 'displayName',
       emailDomain: 'acme-corp.com',
       emailDomains: ['sfN2.l.iJR-BU.u9JV9.a.m.o2D-4b-Jd.0Z-kX.L.n.S.f.UKbxB'],
@@ -77,6 +78,7 @@ describe('resource ssoConfigurations', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.ssoConfigurations.update({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+      additionalScopes: { scopes: ['x'] },
       claims: { foo: 'string' },
       clientId: 'new-client-id',
       clientSecret: 'new-client-secret',
