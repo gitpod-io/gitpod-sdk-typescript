@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.12.0 (2026-02-11)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** add bulkCreate/bulkDelete/bulkUpdate methods to projects ([d7f93ff](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d7f93ff162fe986f1cc6cf386a51e023637bf7a1))
+
+
+### Chores
+
+* **internal:** avoid type checking errors with ts-reset ([119c515](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/119c5151fffe40d0d0808bcbf8a873bcbdfca451))
+
 ## 0.11.0 (2026-02-11)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.10.0...v0.11.0)
