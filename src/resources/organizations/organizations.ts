@@ -899,6 +899,12 @@ export interface OrganizationListMembersParams extends MembersPageParams {
 export namespace OrganizationListMembersParams {
   export interface Filter {
     /**
+     * exclude_group_ids excludes members who are already in any of the specified
+     * groups
+     */
+    excludeGroupIds?: Array<string>;
+
+    /**
      * roles filters members by their organization role
      */
     roles?: Array<Shared.OrganizationRole>;
