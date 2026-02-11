@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ProjectsAPI from './projects';
 import * as Shared from '../shared';
 import * as EnvironmentClasesAPI from './environment-clases';
 import {
@@ -243,6 +244,155 @@ export class Projects extends APIResource {
    */
   delete(body: ProjectDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post('/gitpod.v1.ProjectService/DeleteProject', { body, ...options });
+  }
+
+  /**
+   * Creates multiple projects in a single request.
+   *
+   * Use this method to:
+   *
+   * - Onboard multiple repositories at once
+   * - Import a batch of projects during initial setup
+   *
+   * Returns successfully created projects and details about any failures. Each
+   * project in the request is processed independently — partial success is possible.
+   *
+   * ### Examples
+   *
+   * - Create multiple projects:
+   *
+   *   Creates several projects in one request.
+   *
+   *   ```yaml
+   *   projects:
+   *     - name: "Frontend"
+   *       initializer:
+   *         specs:
+   *           - git:
+   *               remoteUri: "https://github.com/org/frontend"
+   *     - name: "Backend"
+   *       initializer:
+   *         specs:
+   *           - git:
+   *               remoteUri: "https://github.com/org/backend"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.projects.bulkCreate({
+   *   projects: [
+   *     {
+   *       initializer: {
+   *         specs: [
+   *           {
+   *             git: {
+   *               remoteUri: 'https://github.com/org/frontend',
+   *             },
+   *           },
+   *         ],
+   *       },
+   *       name: 'Frontend',
+   *     },
+   *     {
+   *       initializer: {
+   *         specs: [
+   *           {
+   *             git: {
+   *               remoteUri: 'https://github.com/org/backend',
+   *             },
+   *           },
+   *         ],
+   *       },
+   *       name: 'Backend',
+   *     },
+   *   ],
+   * });
+   * ```
+   */
+  bulkCreate(body: ProjectBulkCreateParams, options?: RequestOptions): APIPromise<ProjectBulkCreateResponse> {
+    return this._client.post('/gitpod.v1.ProjectService/CreateProjects', { body, ...options });
+  }
+
+  /**
+   * Deletes multiple projects in a single request.
+   *
+   * Use this method to:
+   *
+   * - Remove multiple unused projects at once
+   * - Clean up projects in batch
+   *
+   * Returns successfully deleted project IDs and details about any failures. Each
+   * project in the request is processed independently — partial success is possible.
+   *
+   * ### Examples
+   *
+   * - Delete multiple projects:
+   *
+   *   Permanently removes several projects in one request.
+   *
+   *   ```yaml
+   *   projectIds:
+   *     - "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *     - "c1f23g7d-5d78-430e-b5b7-e0949c6eb158"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.projects.bulkDelete({
+   *   projectIds: [
+   *     'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     'c1f23g7d-5d78-430e-b5b7-e0949c6eb158',
+   *   ],
+   * });
+   * ```
+   */
+  bulkDelete(body: ProjectBulkDeleteParams, options?: RequestOptions): APIPromise<ProjectBulkDeleteResponse> {
+    return this._client.post('/gitpod.v1.ProjectService/DeleteProjects', { body, ...options });
+  }
+
+  /**
+   * Updates multiple projects in a single request.
+   *
+   * Use this method to:
+   *
+   * - Modify settings across multiple projects at once
+   * - Apply configuration changes in batch
+   *
+   * Returns successfully updated projects and details about any failures. Each
+   * project in the request is processed independently — partial success is possible.
+   *
+   * ### Examples
+   *
+   * - Update multiple projects:
+   *
+   *   Updates several projects in one request.
+   *
+   *   ```yaml
+   *   projects:
+   *     - projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *       name: "Updated Frontend"
+   *     - projectId: "c1f23g7d-5d78-430e-b5b7-e0949c6eb158"
+   *       name: "Updated Backend"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.projects.bulkUpdate({
+   *   projects: [
+   *     {
+   *       name: 'Updated Frontend',
+   *       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *     },
+   *     {
+   *       name: 'Updated Backend',
+   *       projectId: 'c1f23g7d-5d78-430e-b5b7-e0949c6eb158',
+   *     },
+   *   ],
+   * });
+   * ```
+   */
+  bulkUpdate(body: ProjectBulkUpdateParams, options?: RequestOptions): APIPromise<ProjectBulkUpdateResponse> {
+    return this._client.post('/gitpod.v1.ProjectService/UpdateProjects', { body, ...options });
   }
 
   /**
@@ -730,6 +880,99 @@ export interface ProjectUpdateResponse {
 
 export type ProjectDeleteResponse = unknown;
 
+export interface ProjectBulkCreateResponse {
+  /**
+   * created_projects contains the successfully created projects
+   */
+  createdProjects?: Array<Project>;
+
+  /**
+   * failed_projects contains details about projects that failed to create
+   */
+  failedProjects?: Array<ProjectBulkCreateResponse.FailedProject>;
+}
+
+export namespace ProjectBulkCreateResponse {
+  export interface FailedProject {
+    /**
+     * error describes why the project creation failed
+     */
+    error?: string;
+
+    /**
+     * index is the position in the request array (0-based)
+     */
+    index?: number;
+
+    /**
+     * name is the project name that failed
+     */
+    name?: string;
+  }
+}
+
+export interface ProjectBulkDeleteResponse {
+  /**
+   * deleted_project_ids contains the IDs of successfully deleted projects
+   */
+  deletedProjectIds?: Array<string>;
+
+  /**
+   * failed_projects contains details about projects that failed to delete
+   */
+  failedProjects?: Array<ProjectBulkDeleteResponse.FailedProject>;
+}
+
+export namespace ProjectBulkDeleteResponse {
+  export interface FailedProject {
+    /**
+     * error describes why the project deletion failed
+     */
+    error?: string;
+
+    /**
+     * index is the position in the request array (0-based)
+     */
+    index?: number;
+
+    /**
+     * project_id is the project ID that failed
+     */
+    projectId?: string;
+  }
+}
+
+export interface ProjectBulkUpdateResponse {
+  /**
+   * failed_projects contains details about projects that failed to update
+   */
+  failedProjects?: Array<ProjectBulkUpdateResponse.FailedProject>;
+
+  /**
+   * updated_projects contains the successfully updated projects
+   */
+  updatedProjects?: Array<Project>;
+}
+
+export namespace ProjectBulkUpdateResponse {
+  export interface FailedProject {
+    /**
+     * error describes why the project update failed
+     */
+    error?: string;
+
+    /**
+     * index is the position in the request array (0-based)
+     */
+    index?: number;
+
+    /**
+     * project_id is the project ID that failed
+     */
+    projectId?: string;
+  }
+}
+
 export interface ProjectCreateFromEnvironmentResponse {
   project?: Project;
 }
@@ -899,6 +1142,117 @@ export interface ProjectDeleteParams {
   projectId?: string;
 }
 
+export interface ProjectBulkCreateParams {
+  projects?: Array<ProjectBulkCreateParams.Project>;
+}
+
+export namespace ProjectBulkCreateParams {
+  export interface Project {
+    /**
+     * initializer is the content initializer
+     */
+    initializer: ProjectsAPI.EnvironmentInitializer;
+
+    /**
+     * automations_file_path is the path to the automations file relative to the repo
+     * root path must not be absolute (start with a /):
+     *
+     * ```
+     * this.matches('^$|^[^/].*')
+     * ```
+     */
+    automationsFilePath?: string;
+
+    /**
+     * devcontainer_file_path is the path to the devcontainer file relative to the repo
+     * root path must not be absolute (start with a /):
+     *
+     * ```
+     * this.matches('^$|^[^/].*')
+     * ```
+     */
+    devcontainerFilePath?: string;
+
+    name?: string;
+
+    /**
+     * prebuild_configuration defines how prebuilds are created for this project. If
+     * not set, prebuilds are disabled for the project.
+     */
+    prebuildConfiguration?: ProjectsAPI.ProjectPrebuildConfiguration;
+
+    /**
+     * technical_description is a detailed technical description of the project This
+     * field is not returned by default in GetProject or ListProjects responses 8KB max
+     */
+    technicalDescription?: string;
+  }
+}
+
+export interface ProjectBulkDeleteParams {
+  projectIds?: Array<string>;
+}
+
+export interface ProjectBulkUpdateParams {
+  projects?: Array<ProjectBulkUpdateParams.Project>;
+}
+
+export namespace ProjectBulkUpdateParams {
+  export interface Project {
+    /**
+     * automations_file_path is the path to the automations file relative to the repo
+     * root path must not be absolute (start with a /):
+     *
+     * ```
+     * this.matches('^$|^[^/].*')
+     * ```
+     */
+    automationsFilePath?: string | null;
+
+    /**
+     * devcontainer_file_path is the path to the devcontainer file relative to the repo
+     * root path must not be absolute (start with a /):
+     *
+     * ```
+     * this.matches('^$|^[^/].*')
+     * ```
+     */
+    devcontainerFilePath?: string | null;
+
+    /**
+     * initializer is the content initializer
+     */
+    initializer?: ProjectsAPI.EnvironmentInitializer | null;
+
+    name?: string | null;
+
+    /**
+     * prebuild_configuration defines how prebuilds are created for this project. If
+     * not provided, the existing prebuild configuration is not modified. To disable
+     * prebuilds, set enabled to false.
+     */
+    prebuildConfiguration?: ProjectsAPI.ProjectPrebuildConfiguration | null;
+
+    /**
+     * project_id specifies the project identifier
+     */
+    projectId?: string;
+
+    /**
+     * recommended_editors specifies the editors recommended for this project. If not
+     * provided, the existing recommended editors are not modified. To clear all
+     * recommended editors, set to an empty RecommendedEditors message.
+     */
+    recommendedEditors?: ProjectsAPI.RecommendedEditors | null;
+
+    /**
+     * technical_description is a detailed technical description of the project This
+     * field is not returned by default in GetProject or ListProjects responses 8KB max
+     */
+    technicalDescription?: string | null;
+  }
+}
+
 export interface ProjectCreateFromEnvironmentParams {
   /**
    * environment_id specifies the environment identifier
@@ -923,6 +1277,9 @@ export declare namespace Projects {
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,
     type ProjectDeleteResponse as ProjectDeleteResponse,
+    type ProjectBulkCreateResponse as ProjectBulkCreateResponse,
+    type ProjectBulkDeleteResponse as ProjectBulkDeleteResponse,
+    type ProjectBulkUpdateResponse as ProjectBulkUpdateResponse,
     type ProjectCreateFromEnvironmentResponse as ProjectCreateFromEnvironmentResponse,
     type ProjectsProjectsPage as ProjectsProjectsPage,
     type ProjectCreateParams as ProjectCreateParams,
@@ -930,6 +1287,9 @@ export declare namespace Projects {
     type ProjectUpdateParams as ProjectUpdateParams,
     type ProjectListParams as ProjectListParams,
     type ProjectDeleteParams as ProjectDeleteParams,
+    type ProjectBulkCreateParams as ProjectBulkCreateParams,
+    type ProjectBulkDeleteParams as ProjectBulkDeleteParams,
+    type ProjectBulkUpdateParams as ProjectBulkUpdateParams,
     type ProjectCreateFromEnvironmentParams as ProjectCreateFromEnvironmentParams,
   };
 

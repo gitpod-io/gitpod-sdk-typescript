@@ -519,6 +519,9 @@ Types:
 - <code><a href="./src/resources/projects/projects.ts">ProjectRetrieveResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectUpdateResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectDeleteResponse</a></code>
+- <code><a href="./src/resources/projects/projects.ts">ProjectBulkCreateResponse</a></code>
+- <code><a href="./src/resources/projects/projects.ts">ProjectBulkDeleteResponse</a></code>
+- <code><a href="./src/resources/projects/projects.ts">ProjectBulkUpdateResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectCreateFromEnvironmentResponse</a></code>
 
 Methods:
@@ -528,6 +531,9 @@ Methods:
 - <code title="post /gitpod.v1.ProjectService/UpdateProject">client.projects.<a href="./src/resources/projects/projects.ts">update</a>({ ...params }) -> ProjectUpdateResponse</code>
 - <code title="post /gitpod.v1.ProjectService/ListProjects">client.projects.<a href="./src/resources/projects/projects.ts">list</a>({ ...params }) -> ProjectsProjectsPage</code>
 - <code title="post /gitpod.v1.ProjectService/DeleteProject">client.projects.<a href="./src/resources/projects/projects.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.ProjectService/CreateProjects">client.projects.<a href="./src/resources/projects/projects.ts">bulkCreate</a>({ ...params }) -> ProjectBulkCreateResponse</code>
+- <code title="post /gitpod.v1.ProjectService/DeleteProjects">client.projects.<a href="./src/resources/projects/projects.ts">bulkDelete</a>({ ...params }) -> ProjectBulkDeleteResponse</code>
+- <code title="post /gitpod.v1.ProjectService/UpdateProjects">client.projects.<a href="./src/resources/projects/projects.ts">bulkUpdate</a>({ ...params }) -> ProjectBulkUpdateResponse</code>
 - <code title="post /gitpod.v1.ProjectService/CreateProjectFromEnvironment">client.projects.<a href="./src/resources/projects/projects.ts">createFromEnvironment</a>({ ...params }) -> ProjectCreateFromEnvironmentResponse</code>
 
 ## EnvironmentClases
