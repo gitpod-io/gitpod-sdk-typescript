@@ -302,6 +302,12 @@ import {
 import {
   EnvironmentInitializer,
   Project,
+  ProjectBulkCreateParams,
+  ProjectBulkCreateResponse,
+  ProjectBulkDeleteParams,
+  ProjectBulkDeleteResponse,
+  ProjectBulkUpdateParams,
+  ProjectBulkUpdateResponse,
   ProjectCreateFromEnvironmentParams,
   ProjectCreateFromEnvironmentResponse,
   ProjectCreateParams,
@@ -1481,6 +1487,9 @@ export declare namespace Gitpod {
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,
     type ProjectDeleteResponse as ProjectDeleteResponse,
+    type ProjectBulkCreateResponse as ProjectBulkCreateResponse,
+    type ProjectBulkDeleteResponse as ProjectBulkDeleteResponse,
+    type ProjectBulkUpdateResponse as ProjectBulkUpdateResponse,
     type ProjectCreateFromEnvironmentResponse as ProjectCreateFromEnvironmentResponse,
     type ProjectsProjectsPage as ProjectsProjectsPage,
     type ProjectCreateParams as ProjectCreateParams,
@@ -1488,6 +1497,9 @@ export declare namespace Gitpod {
     type ProjectUpdateParams as ProjectUpdateParams,
     type ProjectListParams as ProjectListParams,
     type ProjectDeleteParams as ProjectDeleteParams,
+    type ProjectBulkCreateParams as ProjectBulkCreateParams,
+    type ProjectBulkDeleteParams as ProjectBulkDeleteParams,
+    type ProjectBulkUpdateParams as ProjectBulkUpdateParams,
     type ProjectCreateFromEnvironmentParams as ProjectCreateFromEnvironmentParams,
   };
 
