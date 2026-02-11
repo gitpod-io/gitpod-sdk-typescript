@@ -101,6 +101,42 @@ describe('resource projects', () => {
   });
 
   // Prism tests are disabled
+  test.skip('bulkCreate', async () => {
+    const responsePromise = client.projects.bulkCreate({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('bulkDelete', async () => {
+    const responsePromise = client.projects.bulkDelete({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('bulkUpdate', async () => {
+    const responsePromise = client.projects.bulkUpdate({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
   test.skip('createFromEnvironment', async () => {
     const responsePromise = client.projects.createFromEnvironment({});
     const rawResponse = await responsePromise.asResponse();
