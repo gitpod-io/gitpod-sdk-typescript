@@ -59,7 +59,11 @@ describe('resource policies', () => {
       defaultEnvironmentImage: 'defaultEnvironmentImage',
       deleteArchivedEnvironmentsAfter: '+9125115.360s',
       editorVersionRestrictions: { foo: { allowedVersions: ['string'] } },
-      executableDenyList: { enabled: true, executables: ['string'] },
+      executableDenyList: {
+        action: 'KERNEL_CONTROLS_ACTION_UNSPECIFIED',
+        enabled: true,
+        executables: ['string'],
+      },
       maximumEnvironmentLifetime: '+9125115.360s',
       maximumEnvironmentsPerUser: '20',
       maximumEnvironmentTimeout: '3600s',
