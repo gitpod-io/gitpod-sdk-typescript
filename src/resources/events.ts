@@ -37,6 +37,16 @@ export class Events extends APIResource {
    *     pageSize: 20
    *   ```
    *
+   * - Filter by time range:
+   *
+   *   ```yaml
+   *   filter:
+   *     from: "2024-01-01T00:00:00Z"
+   *     to: "2024-02-01T00:00:00Z"
+   *   pagination:
+   *     pageSize: 20
+   *   ```
+   *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
@@ -247,9 +257,19 @@ export namespace EventListParams {
 
     actorPrincipals?: Array<Shared.Principal>;
 
+    /**
+     * from filters audit logs created at or after this timestamp (inclusive).
+     */
+    from?: string | null;
+
     subjectIds?: Array<string>;
 
     subjectTypes?: Array<Shared.ResourceType>;
+
+    /**
+     * to filters audit logs created before this timestamp (exclusive).
+     */
+    to?: string | null;
   }
 
   /**
