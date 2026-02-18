@@ -73,6 +73,7 @@ export {
   type AgentPolicy,
   type CrowdStrikeConfig,
   type ExecutableDenyList,
+  type KernelControlsAction,
   type OrganizationPolicies,
   type SecurityAgentPolicy,
   type PolicyRetrieveResponse,

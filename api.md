@@ -429,6 +429,7 @@ Types:
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">ExecutableDenyList</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">PolicyRetrieveResponse</a></code>

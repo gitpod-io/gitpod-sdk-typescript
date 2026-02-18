@@ -157,6 +157,11 @@ export interface CrowdStrikeConfig {
  */
 export interface ExecutableDenyList {
   /**
+   * action specifies what action kernel-level controls take on policy violations
+   */
+  action?: KernelControlsAction;
+
+  /**
    * enabled controls whether executable blocking is active
    */
   enabled?: boolean;
@@ -166,6 +171,14 @@ export interface ExecutableDenyList {
    */
   executables?: Array<string>;
 }
+
+/**
+ * KernelControlsAction defines how a kernel-level policy violation is handled.
+ */
+export type KernelControlsAction =
+  | 'KERNEL_CONTROLS_ACTION_UNSPECIFIED'
+  | 'KERNEL_CONTROLS_ACTION_BLOCK'
+  | 'KERNEL_CONTROLS_ACTION_AUDIT';
 
 export interface OrganizationPolicies {
   /**
@@ -536,6 +549,7 @@ export declare namespace Policies {
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type ExecutableDenyList as ExecutableDenyList,
+    type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
