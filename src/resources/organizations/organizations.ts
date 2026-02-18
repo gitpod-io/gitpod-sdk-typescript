@@ -56,7 +56,6 @@ import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
   CrowdStrikeConfig,
-  ExecutableDenyList,
   KernelControlsAction,
   OrganizationPolicies,
   Policies,
@@ -65,6 +64,7 @@ import {
   PolicyUpdateParams,
   PolicyUpdateResponse,
   SecurityAgentPolicy,
+  VetoExecPolicy,
 } from './policies';
 import * as ScimConfigurationsAPI from './scim-configurations';
 import {
@@ -1049,10 +1049,10 @@ export declare namespace Organizations {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
-    type ExecutableDenyList as ExecutableDenyList,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
+    type VetoExecPolicy as VetoExecPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,
