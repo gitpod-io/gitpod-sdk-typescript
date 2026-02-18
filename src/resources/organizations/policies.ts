@@ -152,27 +152,6 @@ export interface CrowdStrikeConfig {
 }
 
 /**
- * ExecutableDenyList contains executables that are blocked from execution in
- * environments.
- */
-export interface ExecutableDenyList {
-  /**
-   * action specifies what action kernel-level controls take on policy violations
-   */
-  action?: KernelControlsAction;
-
-  /**
-   * enabled controls whether executable blocking is active
-   */
-  enabled?: boolean;
-
-  /**
-   * executables is the list of executable paths or names to block
-   */
-  executables?: Array<string>;
-}
-
-/**
  * KernelControlsAction defines how a kernel-level policy violation is handled.
  */
 export type KernelControlsAction =
@@ -274,10 +253,9 @@ export interface OrganizationPolicies {
   editorVersionRestrictions?: { [key: string]: OrganizationPolicies.EditorVersionRestrictions };
 
   /**
-   * executable_deny_list contains executables that are blocked from execution in
-   * environments.
+   * executable_deny_list contains the veto exec policy for environments.
    */
-  executableDenyList?: ExecutableDenyList;
+  executableDenyList?: VetoExecPolicy;
 
   /**
    * maximum_environment_lifetime controls for how long environments are allowed to
@@ -325,6 +303,27 @@ export interface SecurityAgentPolicy {
    * crowdstrike contains CrowdStrike Falcon configuration
    */
   crowdstrike?: CrowdStrikeConfig;
+}
+
+/**
+ * VetoExecPolicy defines the policy for blocking or auditing executable execution
+ * in environments.
+ */
+export interface VetoExecPolicy {
+  /**
+   * action specifies what action kernel-level controls take on policy violations
+   */
+  action?: KernelControlsAction;
+
+  /**
+   * enabled controls whether executable blocking is active
+   */
+  enabled?: boolean;
+
+  /**
+   * executables is the list of executable paths or names to block
+   */
+  executables?: Array<string>;
 }
 
 export interface PolicyRetrieveResponse {
@@ -389,10 +388,9 @@ export interface PolicyUpdateParams {
   editorVersionRestrictions?: { [key: string]: PolicyUpdateParams.EditorVersionRestrictions };
 
   /**
-   * executable_deny_list contains executables that are blocked from execution in
-   * environments.
+   * executable_deny_list contains the veto exec policy for environments.
    */
-  executableDenyList?: ExecutableDenyList | null;
+  executableDenyList?: VetoExecPolicy | null;
 
   /**
    * maximum_environment_lifetime controls for how long environments are allowed to
@@ -548,10 +546,10 @@ export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
-    type ExecutableDenyList as ExecutableDenyList,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
+    type VetoExecPolicy as VetoExecPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,
