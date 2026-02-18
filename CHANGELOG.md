@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.13.0 (2026-02-18)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** add auditOnly field to Veto.Exec and ExecutableDenyList ([08f9dd2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/08f9dd245a02ef2d831521a86cf72bbb5bdab963))
+* **api:** add runner_side_agent capability to runners ([1451c46](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1451c466af8c2f1a3b098090a98b958d94eb9024))
+* **api:** add WARMPOOL_ADMIN/WARMPOOL_VIEWER to ResourceRole ([04969a3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/04969a38173ca22010780ab4b41b0bb8a4414eb7))
+
+
+### Bug Fixes
+
+* **types:** rename ExecutableDenyList to VetoExecPolicy in organization policies ([0ff5595](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0ff5595a54b7f2cf3a16a49957686b4ed30891c5))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([fd12303](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fd12303e87a280fda1e2f8d84bf328b941393405))
+
 ## 0.12.0 (2026-02-11)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.11.0...v0.12.0)
