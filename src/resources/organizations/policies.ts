@@ -253,11 +253,6 @@ export interface OrganizationPolicies {
   editorVersionRestrictions?: { [key: string]: OrganizationPolicies.EditorVersionRestrictions };
 
   /**
-   * executable_deny_list contains the veto exec policy for environments.
-   */
-  executableDenyList?: VetoExecPolicy;
-
-  /**
    * maximum_environment_lifetime controls for how long environments are allowed to
    * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
    * seconds).
@@ -277,6 +272,11 @@ export interface OrganizationPolicies {
    * environments.
    */
   securityAgentPolicy?: SecurityAgentPolicy;
+
+  /**
+   * veto_exec_policy contains the veto exec policy for environments.
+   */
+  vetoExecPolicy?: VetoExecPolicy;
 }
 
 export namespace OrganizationPolicies {
@@ -388,11 +388,6 @@ export interface PolicyUpdateParams {
   editorVersionRestrictions?: { [key: string]: PolicyUpdateParams.EditorVersionRestrictions };
 
   /**
-   * executable_deny_list contains the veto exec policy for environments.
-   */
-  executableDenyList?: VetoExecPolicy | null;
-
-  /**
    * maximum_environment_lifetime controls for how long environments are allowed to
    * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
    * seconds).
@@ -453,6 +448,11 @@ export interface PolicyUpdateParams {
    * security_agent_policy contains security agent configuration updates
    */
   securityAgentPolicy?: PolicyUpdateParams.SecurityAgentPolicy | null;
+
+  /**
+   * veto_exec_policy contains the veto exec policy for environments.
+   */
+  vetoExecPolicy?: VetoExecPolicy | null;
 }
 
 export namespace PolicyUpdateParams {
