@@ -20,7 +20,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support application/jsonl responses
+  // Mock server tests are disabled
   test.skip('watch', async () => {
     const responsePromise = client.events.watch({});
     const rawResponse = await responsePromise.asResponse();
