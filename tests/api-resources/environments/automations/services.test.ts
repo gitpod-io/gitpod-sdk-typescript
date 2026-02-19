@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource services', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.environments.automations.services.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource services', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.environments.automations.services.retrieve({});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource services', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.environments.automations.services.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource services', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.environments.automations.services.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource services', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.environments.automations.services.delete({});
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +68,7 @@ describe('resource services', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('start', async () => {
     const responsePromise = client.environments.automations.services.start({});
     const rawResponse = await responsePromise.asResponse();
@@ -80,7 +80,7 @@ describe('resource services', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stop', async () => {
     const responsePromise = client.environments.automations.services.stop({});
     const rawResponse = await responsePromise.asResponse();

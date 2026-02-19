@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource gateways', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.gateways.list({});
     const rawResponse = await responsePromise.asResponse();

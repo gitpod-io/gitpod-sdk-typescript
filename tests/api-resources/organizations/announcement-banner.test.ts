@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource announcementBanner', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.organizations.announcementBanner.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -22,7 +22,7 @@ describe('resource announcementBanner', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.announcementBanner.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -31,7 +31,7 @@ describe('resource announcementBanner', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('get: only required params', async () => {
     const responsePromise = client.organizations.announcementBanner.get({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -45,7 +45,7 @@ describe('resource announcementBanner', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('get: required and optional params', async () => {
     const response = await client.organizations.announcementBanner.get({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',

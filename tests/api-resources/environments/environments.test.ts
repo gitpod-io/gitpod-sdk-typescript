@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource environments', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.environments.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.environments.retrieve({
       environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
@@ -34,14 +34,14 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.environments.retrieve({
       environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.environments.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.environments.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -65,7 +65,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.environments.delete({});
     const rawResponse = await responsePromise.asResponse();
@@ -77,7 +77,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createEnvironmentToken: only required params', async () => {
     const responsePromise = client.environments.createEnvironmentToken({
       environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
@@ -91,14 +91,14 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createEnvironmentToken: required and optional params', async () => {
     const response = await client.environments.createEnvironmentToken({
       environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createFromProject', async () => {
     const responsePromise = client.environments.createFromProject({});
     const rawResponse = await responsePromise.asResponse();
@@ -110,7 +110,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createLogsToken', async () => {
     const responsePromise = client.environments.createLogsToken({});
     const rawResponse = await responsePromise.asResponse();
@@ -122,7 +122,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('markActive', async () => {
     const responsePromise = client.environments.markActive({});
     const rawResponse = await responsePromise.asResponse();
@@ -134,7 +134,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('start', async () => {
     const responsePromise = client.environments.start({});
     const rawResponse = await responsePromise.asResponse();
@@ -146,7 +146,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stop', async () => {
     const responsePromise = client.environments.stop({});
     const rawResponse = await responsePromise.asResponse();
@@ -158,7 +158,7 @@ describe('resource environments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unarchive', async () => {
     const responsePromise = client.environments.unarchive({});
     const rawResponse = await responsePromise.asResponse();

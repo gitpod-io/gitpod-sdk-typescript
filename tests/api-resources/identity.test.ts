@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource identity', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('exchangeToken', async () => {
     const responsePromise = client.identity.exchangeToken({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource identity', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getAuthenticatedIdentity', async () => {
     const responsePromise = client.identity.getAuthenticatedIdentity({});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource identity', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getIDToken', async () => {
     const responsePromise = client.identity.getIDToken({});
     const rawResponse = await responsePromise.asResponse();
