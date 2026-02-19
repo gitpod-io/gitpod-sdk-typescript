@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.14.0 (2026-02-19)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** add bpfDebugLevel field to KernelControlsConfig in environments ([a287ad3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a287ad3af6bf663011161691ca7913a446541a42))
+* **api:** add time range filters to event list method ([1b2c056](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1b2c0567bfad884aadcb3bbeb81af84c76afe1c3))
+
+
+### Bug Fixes
+
+* **api:** rename executableDenyList to vetoExecPolicy in policies ([84bf167](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/84bf167dd9dd77c72968cd5267d9a2b25a6caa76))
+
+
+### Chores
+
+* **internal:** remove mock server code ([d7effec](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d7effeca87947f2c067de984a7fac9f4e498eaac))
+
 ## 0.13.0 (2026-02-18)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.12.0...v0.13.0)

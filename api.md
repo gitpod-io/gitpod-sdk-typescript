@@ -108,6 +108,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/environments/environments.ts">AdmissionLevel</a></code>
+- <code><a href="./src/resources/environments/environments.ts">BpfDebugLevel</a></code>
 - <code><a href="./src/resources/environments/environments.ts">Environment</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentActivitySignal</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentMetadata</a></code>
