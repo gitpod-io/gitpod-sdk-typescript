@@ -221,6 +221,7 @@ import {
 } from './resources/usage';
 import {
   AdmissionLevel,
+  BpfDebugLevel,
   Environment,
   EnvironmentActivitySignal,
   EnvironmentCreateEnvironmentTokenParams,
@@ -1352,6 +1353,7 @@ export declare namespace Gitpod {
   export {
     Environments as Environments,
     type AdmissionLevel as AdmissionLevel,
+    type BpfDebugLevel as BpfDebugLevel,
     type Environment as Environment,
     type EnvironmentActivitySignal as EnvironmentActivitySignal,
     type EnvironmentMetadata as EnvironmentMetadata,

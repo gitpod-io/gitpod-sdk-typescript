@@ -570,6 +570,15 @@ export type AdmissionLevel =
   | 'ADMISSION_LEVEL_CREATOR_ONLY';
 
 /**
+ * BPFDebugLevel controls the verbosity of BPF trace_pipe output (bpf_printk).
+ * Applies to all BPF-based agents (veto exec, future agents).
+ */
+export type BpfDebugLevel =
+  | 'BPF_DEBUG_LEVEL_UNSPECIFIED'
+  | 'BPF_DEBUG_LEVEL_INFO'
+  | 'BPF_DEBUG_LEVEL_VERBOSE';
+
+/**
  * +resource get environment
  */
 export interface Environment {
@@ -1941,6 +1950,7 @@ Environments.Classes = Classes;
 export declare namespace Environments {
   export {
     type AdmissionLevel as AdmissionLevel,
+    type BpfDebugLevel as BpfDebugLevel,
     type Environment as Environment,
     type EnvironmentActivitySignal as EnvironmentActivitySignal,
     type EnvironmentMetadata as EnvironmentMetadata,

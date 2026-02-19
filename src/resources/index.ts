@@ -69,6 +69,7 @@ export {
 export {
   Environments,
   type AdmissionLevel,
+  type BpfDebugLevel,
   type Environment,
   type EnvironmentActivitySignal,
   type EnvironmentMetadata,
