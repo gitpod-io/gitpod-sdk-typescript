@@ -101,6 +101,7 @@ import {
   SSOConfigurations,
   SSOConfigurationsSSOConfigurationsPage,
 } from './sso-configurations';
+import * as ProjectsAPI from '../projects/projects';
 import { APIPromise } from '../../core/api-promise';
 import { MembersPage, type MembersPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -957,7 +958,7 @@ export namespace OrganizationListMembersParams {
   export interface Sort {
     field?: 'SORT_FIELD_UNSPECIFIED' | 'SORT_FIELD_NAME' | 'SORT_FIELD_DATE_JOINED';
 
-    order?: 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
+    order?: ProjectsAPI.SortOrder;
   }
 }
 

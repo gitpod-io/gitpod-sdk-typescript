@@ -27,6 +27,8 @@ export {
   type ProjectPhase,
   type ProjectPrebuildConfiguration,
   type RecommendedEditors,
+  type Sort,
+  type SortOrder,
   type ProjectCreateResponse,
   type ProjectRetrieveResponse,
   type ProjectUpdateResponse,
