@@ -451,6 +451,11 @@ export class Organizations extends APIResource {
 
 export type OrganizationMembersMembersPage = MembersPage<OrganizationMember>;
 
+export type CountResponseRelation =
+  | 'COUNT_RESPONSE_RELATION_UNSPECIFIED'
+  | 'COUNT_RESPONSE_RELATION_EQ'
+  | 'COUNT_RESPONSE_RELATION_GTE';
+
 export interface InviteDomains {
   /**
    * domains is the list of domains that are allowed to join the organization
@@ -974,6 +979,7 @@ Organizations.SSOConfigurations = SSOConfigurations;
 
 export declare namespace Organizations {
   export {
+    type CountResponseRelation as CountResponseRelation,
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
