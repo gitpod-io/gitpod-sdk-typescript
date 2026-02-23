@@ -152,6 +152,7 @@ export {
 } from './identity';
 export {
   Organizations,
+  type CountResponseRelation,
   type InviteDomains,
   type Organization,
   type OrganizationMember,

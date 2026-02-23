@@ -272,6 +272,7 @@ import {
   GroupsGroupsPage,
 } from './resources/groups/groups';
 import {
+  CountResponseRelation,
   InviteDomains,
   Organization,
   OrganizationCreateParams,
@@ -1442,6 +1443,7 @@ export declare namespace Gitpod {
 
   export {
     Organizations as Organizations,
+    type CountResponseRelation as CountResponseRelation,
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,

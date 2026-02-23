@@ -336,6 +336,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/organizations/organizations.ts">CountResponseRelation</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">InviteDomains</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationMember</a></code>
