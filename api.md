@@ -518,6 +518,8 @@ Types:
 - <code><a href="./src/resources/projects/projects.ts">ProjectPhase</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectPrebuildConfiguration</a></code>
 - <code><a href="./src/resources/projects/projects.ts">RecommendedEditors</a></code>
+- <code><a href="./src/resources/projects/projects.ts">Sort</a></code>
+- <code><a href="./src/resources/projects/projects.ts">SortOrder</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectCreateResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectRetrieveResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectUpdateResponse</a></code>

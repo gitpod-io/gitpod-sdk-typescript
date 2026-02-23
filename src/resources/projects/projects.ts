@@ -866,6 +866,17 @@ export namespace RecommendedEditors {
   }
 }
 
+export interface Sort {
+  /**
+   * Field name to sort by, in camelCase.
+   */
+  field?: string;
+
+  order?: SortOrder;
+}
+
+export type SortOrder = 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
+
 export interface ProjectCreateResponse {
   project?: Project;
 }
@@ -1089,6 +1100,19 @@ export interface ProjectListParams extends ProjectsPageParams {
    * Body param: pagination contains the pagination options for listing organizations
    */
   pagination?: ProjectListParams.Pagination;
+
+  /**
+   * Body param: sort specifies the order of results. Defaults to popularity
+   * descending.
+   *
+   * Supported fields:
+   *
+   * - "id": Sort by project ID (UUID v7, effectively creation order). Produces a
+   *   stable, deterministic result set suitable for consistent pagination.
+   * - "popularity": Sort by popularity — a precomputed score based on recent
+   *   environment creation activity. Updated periodically by a background job.
+   */
+  sort?: Sort;
 }
 
 export namespace ProjectListParams {
@@ -1273,6 +1297,8 @@ export declare namespace Projects {
     type ProjectPhase as ProjectPhase,
     type ProjectPrebuildConfiguration as ProjectPrebuildConfiguration,
     type RecommendedEditors as RecommendedEditors,
+    type Sort as Sort,
+    type SortOrder as SortOrder,
     type ProjectCreateResponse as ProjectCreateResponse,
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,
