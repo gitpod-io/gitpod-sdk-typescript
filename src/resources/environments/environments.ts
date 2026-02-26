@@ -658,6 +658,13 @@ export interface EnvironmentMetadata {
   lastStartedAt?: string;
 
   /**
+   * lockdown_at is the time at which the environment becomes locked down due to the
+   * organization's maximum environment lifetime policy. Nil when no lifetime policy
+   * applies.
+   */
+  lockdownAt?: string;
+
+  /**
    * name is the name of the environment as specified by the user
    */
   name?: string;
