@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { PagePromise, RecordsPage, type RecordsPageParams } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * UsageService provides usage information about environments, users, and projects.
+ */
 export class Usage extends APIResource {
   /**
    * Lists completed environment runtime records within a specified date range.

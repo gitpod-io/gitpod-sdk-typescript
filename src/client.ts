@@ -1104,16 +1104,27 @@ export class Gitpod {
   agents: API.Agents = new API.Agents(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
+  /**
+   * ErrorsService provides endpoints for clients to report errors
+   *  that will be sent to error reporting systems.
+   */
   errors: API.Errors = new API.Errors(this);
   events: API.Events = new API.Events(this);
   gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
   identity: API.Identity = new API.Identity(this);
   organizations: API.Organizations = new API.Organizations(this);
+  /**
+   * PrebuildService manages prebuilds for projects to enable faster environment startup times.
+   *  Prebuilds create snapshots of environments that can be used to provision new environments quickly.
+   */
   prebuilds: API.Prebuilds = new API.Prebuilds(this);
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
+  /**
+   * UsageService provides usage information about environments, users, and projects.
+   */
   usage: API.Usage = new API.Usage(this);
   users: API.Users = new API.Users(this);
 }
