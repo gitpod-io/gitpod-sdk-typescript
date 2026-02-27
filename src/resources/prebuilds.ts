@@ -7,6 +7,10 @@ import { APIPromise } from '../core/api-promise';
 import { PagePromise, PrebuildsPage, type PrebuildsPageParams } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * PrebuildService manages prebuilds for projects to enable faster environment startup times.
+ *  Prebuilds create snapshots of environments that can be used to provision new environments quickly.
+ */
 export class Prebuilds extends APIResource {
   /**
    * Creates a prebuild for a project.
