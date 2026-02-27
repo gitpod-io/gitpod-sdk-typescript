@@ -494,12 +494,27 @@ export interface GroupUpdateParams {
 
 export interface GroupListParams extends GroupsPageParams {
   /**
+   * Body param: filter contains options for filtering the list of groups.
+   */
+  filter?: GroupListParams.Filter;
+
+  /**
    * Body param: pagination contains the pagination options for listing groups
    */
   pagination?: GroupListParams.Pagination;
 }
 
 export namespace GroupListParams {
+  /**
+   * filter contains options for filtering the list of groups.
+   */
+  export interface Filter {
+    /**
+     * search performs case-insensitive search across group name, description, and ID
+     */
+    search?: string;
+  }
+
   /**
    * pagination contains the pagination options for listing groups
    */
