@@ -1928,6 +1928,13 @@ export interface EnvironmentMarkActiveParams {
 
 export interface EnvironmentStartParams {
   /**
+   * acknowledge_token is the HMAC token from a previous
+   * EnvironmentMaxLifetimeEnforcementDetails response, allowing the user to start an
+   * environment past its max lifetime in warn mode.
+   */
+  acknowledgeToken?: string;
+
+  /**
    * environment_id specifies which environment should be started.
    */
   environmentId?: string;
