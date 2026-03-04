@@ -132,6 +132,8 @@ export interface IdentityExchangeTokenResponse {
 export interface IdentityGetAuthenticatedIdentityResponse {
   organizationId?: string;
 
+  organizationTier?: string;
+
   /**
    * subject is the identity of the current user
    */
