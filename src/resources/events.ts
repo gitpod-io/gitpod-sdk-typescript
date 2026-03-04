@@ -303,6 +303,40 @@ export interface EventWatchParams {
    * events are produed.
    */
   organization?: boolean;
+
+  /**
+   * Filters to limit which events are delivered on organization-scoped streams. When
+   * empty, all events for the scope are delivered. When populated, only events
+   * matching at least one filter entry are forwarded. Not supported for
+   * environment-scoped streams; setting this field returns an error.
+   */
+  resourceTypeFilters?: Array<EventWatchParams.ResourceTypeFilter>;
+}
+
+export namespace EventWatchParams {
+  /**
+   * ResourceTypeFilter restricts which events are delivered for a specific resource
+   * type.
+   */
+  export interface ResourceTypeFilter {
+    /**
+     * If non-empty, only events where the resource was created by one of these user
+     * IDs are delivered. Skipped for DELETE operations (creator info is unavailable
+     * after deletion). Events with no creator information are skipped when this filter
+     * is set (fail-closed).
+     */
+    creatorIds?: Array<string>;
+
+    /**
+     * If non-empty, only events for these specific resource IDs are delivered.
+     */
+    resourceIds?: Array<string>;
+
+    /**
+     * The resource type to filter for.
+     */
+    resourceType?: Shared.ResourceType;
+  }
 }
 
 export declare namespace Events {
