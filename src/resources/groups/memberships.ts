@@ -246,6 +246,11 @@ export interface MembershipRetrieveParams {
 
 export interface MembershipListParams extends MembersPageParams {
   /**
+   * Body param: filter contains options for filtering the list of memberships.
+   */
+  filter?: MembershipListParams.Filter;
+
+  /**
    * Body param
    */
   groupId?: string;
@@ -257,6 +262,17 @@ export interface MembershipListParams extends MembersPageParams {
 }
 
 export namespace MembershipListParams {
+  /**
+   * filter contains options for filtering the list of memberships.
+   */
+  export interface Filter {
+    /**
+     * search performs case-insensitive search across member name, email, ID, and
+     * service account name and description
+     */
+    search?: string;
+  }
+
   /**
    * pagination contains the pagination options for listing memberships
    */
