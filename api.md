@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/shared.ts">AutomationTrigger</a></code>
+- <code><a href="./src/resources/shared.ts">CountResponseRelation</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableItem</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableSource</a></code>
@@ -336,7 +337,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/organizations/organizations.ts">CountResponseRelation</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">InviteDomains</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 - <code><a href="./src/resources/organizations/organizations.ts">OrganizationMember</a></code>

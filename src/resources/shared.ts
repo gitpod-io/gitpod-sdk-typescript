@@ -39,6 +39,11 @@ export interface AutomationTrigger {
   prebuild?: boolean;
 }
 
+export type CountResponseRelation =
+  | 'COUNT_RESPONSE_RELATION_UNSPECIFIED'
+  | 'COUNT_RESPONSE_RELATION_EQ'
+  | 'COUNT_RESPONSE_RELATION_GTE';
+
 export interface EnvironmentClass {
   /**
    * id is the unique identifier of the environment class

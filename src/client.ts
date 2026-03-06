@@ -273,7 +273,6 @@ import {
   GroupsGroupsPage,
 } from './resources/groups/groups';
 import {
-  CountResponseRelation,
   InviteDomains,
   Organization,
   OrganizationCreateParams,
@@ -1444,7 +1443,6 @@ export declare namespace Gitpod {
 
   export {
     Organizations as Organizations,
-    type CountResponseRelation as CountResponseRelation,
     type InviteDomains as InviteDomains,
     type Organization as Organization,
     type OrganizationMember as OrganizationMember,
@@ -1597,6 +1595,7 @@ export declare namespace Gitpod {
   };
 
   export type AutomationTrigger = API.AutomationTrigger;
+  export type CountResponseRelation = API.CountResponseRelation;
   export type EnvironmentClass = API.EnvironmentClass;
   export type EnvironmentVariableItem = API.EnvironmentVariableItem;
   export type EnvironmentVariableSource = API.EnvironmentVariableSource;
