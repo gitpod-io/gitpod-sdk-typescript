@@ -48,7 +48,6 @@ export {
 } from './invites';
 export {
   Organizations,
-  type CountResponseRelation,
   type InviteDomains,
   type Organization,
   type OrganizationMember,
