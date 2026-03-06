@@ -1419,6 +1419,13 @@ export namespace AgentListPromptsParams {
 
     commandPrefix?: string;
 
+    /**
+     * exclude_prompt_content omits the large spec.prompt text from the response. Other
+     * spec fields (is_template, is_command, command, is_skill) are still returned. Use
+     * GetPrompt to retrieve the full prompt content when needed.
+     */
+    excludePromptContent?: boolean;
+
     isCommand?: boolean;
 
     isSkill?: boolean;
