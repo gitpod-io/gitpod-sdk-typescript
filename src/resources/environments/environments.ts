@@ -1606,6 +1606,12 @@ export interface EnvironmentCreateParams {
   name?: string | null;
 
   /**
+   * session_id is the ID of the session this environment belongs to. If empty, a new
+   * session is created implicitly.
+   */
+  sessionId?: string;
+
+  /**
    * spec is the configuration of the environment that's required for the to start
    * the environment
    */
