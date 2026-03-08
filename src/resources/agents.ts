@@ -1490,6 +1490,12 @@ export interface AgentStartExecutionParams {
   runnerId?: string;
 
   /**
+   * session_id is the ID of the session this agent execution belongs to. If empty, a
+   * new session is created implicitly.
+   */
+  sessionId?: string;
+
+  /**
    * workflow_action_id is an optional reference to the workflow execution action
    * that created this agent execution. Used for tracking and event correlation.
    */
