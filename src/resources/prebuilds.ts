@@ -366,6 +366,12 @@ export interface PrebuildStatus {
   snapshotCompletionPercentage?: number;
 
   /**
+   * snapshot_size_bytes is the size of the snapshot in bytes. Only populated when
+   * the snapshot is available (phase is COMPLETED).
+   */
+  snapshotSizeBytes?: string;
+
+  /**
    * status_version is incremented each time the status is updated. Used for
    * optimistic concurrency control.
    */
