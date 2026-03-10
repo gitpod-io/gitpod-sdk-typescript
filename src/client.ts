@@ -117,6 +117,7 @@ import {
   AgentExecutionsAgentExecutionsPage,
   AgentListExecutionsParams,
   AgentListPromptsParams,
+  AgentMessage,
   AgentMode,
   AgentRetrieveExecutionParams,
   AgentRetrieveExecutionResponse,
@@ -135,6 +136,7 @@ import {
   PromptMetadata,
   PromptSpec,
   PromptsPromptsPage,
+  Type,
   UserInputBlock,
 } from './resources/agents';
 import {
@@ -1332,10 +1334,12 @@ export declare namespace Gitpod {
     Agents as Agents,
     type AgentCodeContext as AgentCodeContext,
     type AgentExecution as AgentExecution,
+    type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
+    type Type as Type,
     type UserInputBlock as UserInputBlock,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
