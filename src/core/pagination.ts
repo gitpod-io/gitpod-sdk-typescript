@@ -1780,3 +1780,58 @@ export class TokensPage<Item> extends AbstractPage<Item> implements TokensPageRe
     };
   }
 }
+
+export interface WarmPoolsPageResponse<Item> {
+  pagination: WarmPoolsPageResponse.Pagination;
+
+  warmPools: Array<Item>;
+}
+
+export namespace WarmPoolsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface WarmPoolsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class WarmPoolsPage<Item> extends AbstractPage<Item> implements WarmPoolsPageResponse<Item> {
+  pagination: WarmPoolsPageResponse.Pagination;
+
+  warmPools: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WarmPoolsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.warmPools = body.warmPools || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.warmPools ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
