@@ -493,11 +493,20 @@ Types:
 - <code><a href="./src/resources/prebuilds.ts">PrebuildSpec</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildStatus</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildTrigger</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPool</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolMetadata</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolPhase</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolSpec</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolStatus</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildCreateResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildRetrieveResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildDeleteResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildCancelResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildCreateLogsTokenResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildCreateWarmPoolResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildDeleteWarmPoolResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildRetrieveWarmPoolResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildUpdateWarmPoolResponse</a></code>
 
 Methods:
 
@@ -507,6 +516,11 @@ Methods:
 - <code title="post /gitpod.v1.PrebuildService/DeletePrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.PrebuildService/CancelPrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">cancel</a>({ ...params }) -> PrebuildCancelResponse</code>
 - <code title="post /gitpod.v1.PrebuildService/CreatePrebuildLogsToken">client.prebuilds.<a href="./src/resources/prebuilds.ts">createLogsToken</a>({ ...params }) -> PrebuildCreateLogsTokenResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/CreateWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">createWarmPool</a>({ ...params }) -> PrebuildCreateWarmPoolResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/DeleteWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">deleteWarmPool</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.PrebuildService/ListWarmPools">client.prebuilds.<a href="./src/resources/prebuilds.ts">listWarmPools</a>({ ...params }) -> WarmPoolsWarmPoolsPage</code>
+- <code title="post /gitpod.v1.PrebuildService/GetWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">retrieveWarmPool</a>({ ...params }) -> PrebuildRetrieveWarmPoolResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/UpdateWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">updateWarmPool</a>({ ...params }) -> PrebuildUpdateWarmPoolResponse</code>
 
 # Projects
 

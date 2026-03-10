@@ -119,4 +119,104 @@ describe('resource prebuilds', () => {
       prebuildId: '07e03a28-65a5-4d98-b532-8ea67b188048',
     });
   });
+
+  // Mock server tests are disabled
+  test.skip('createWarmPool: only required params', async () => {
+    const responsePromise = client.prebuilds.createWarmPool({
+      environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+      projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('createWarmPool: required and optional params', async () => {
+    const response = await client.prebuilds.createWarmPool({
+      environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+      projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+      desiredSize: 2,
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('deleteWarmPool: only required params', async () => {
+    const responsePromise = client.prebuilds.deleteWarmPool({
+      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('deleteWarmPool: required and optional params', async () => {
+    const response = await client.prebuilds.deleteWarmPool({
+      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('listWarmPools', async () => {
+    const responsePromise = client.prebuilds.listWarmPools({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveWarmPool: only required params', async () => {
+    const responsePromise = client.prebuilds.retrieveWarmPool({
+      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveWarmPool: required and optional params', async () => {
+    const response = await client.prebuilds.retrieveWarmPool({
+      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateWarmPool: only required params', async () => {
+    const responsePromise = client.prebuilds.updateWarmPool({
+      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateWarmPool: required and optional params', async () => {
+    const response = await client.prebuilds.updateWarmPool({
+      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+      desiredSize: 5,
+    });
+  });
 });

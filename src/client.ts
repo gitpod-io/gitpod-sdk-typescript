@@ -84,6 +84,8 @@ import {
   TasksPageResponse,
   type TokensPageParams,
   TokensPageResponse,
+  type WarmPoolsPageParams,
+  WarmPoolsPageResponse,
 } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
@@ -193,18 +195,33 @@ import {
   PrebuildCreateLogsTokenResponse,
   PrebuildCreateParams,
   PrebuildCreateResponse,
+  PrebuildCreateWarmPoolParams,
+  PrebuildCreateWarmPoolResponse,
   PrebuildDeleteParams,
   PrebuildDeleteResponse,
+  PrebuildDeleteWarmPoolParams,
+  PrebuildDeleteWarmPoolResponse,
   PrebuildListParams,
+  PrebuildListWarmPoolsParams,
   PrebuildMetadata,
   PrebuildPhase,
   PrebuildRetrieveParams,
   PrebuildRetrieveResponse,
+  PrebuildRetrieveWarmPoolParams,
+  PrebuildRetrieveWarmPoolResponse,
   PrebuildSpec,
   PrebuildStatus,
   PrebuildTrigger,
+  PrebuildUpdateWarmPoolParams,
+  PrebuildUpdateWarmPoolResponse,
   Prebuilds,
   PrebuildsPrebuildsPage,
+  WarmPool,
+  WarmPoolMetadata,
+  WarmPoolPhase,
+  WarmPoolSpec,
+  WarmPoolStatus,
+  WarmPoolsWarmPoolsPage,
 } from './resources/prebuilds';
 import {
   Secret,
@@ -1284,6 +1301,12 @@ export declare namespace Gitpod {
   export import TokensPage = Pagination.TokensPage;
   export { type TokensPageParams as TokensPageParams, type TokensPageResponse as TokensPageResponse };
 
+  export import WarmPoolsPage = Pagination.WarmPoolsPage;
+  export {
+    type WarmPoolsPageParams as WarmPoolsPageParams,
+    type WarmPoolsPageResponse as WarmPoolsPageResponse,
+  };
+
   export {
     Accounts as Accounts,
     type Account as Account,
@@ -1473,18 +1496,33 @@ export declare namespace Gitpod {
     type PrebuildSpec as PrebuildSpec,
     type PrebuildStatus as PrebuildStatus,
     type PrebuildTrigger as PrebuildTrigger,
+    type WarmPool as WarmPool,
+    type WarmPoolMetadata as WarmPoolMetadata,
+    type WarmPoolPhase as WarmPoolPhase,
+    type WarmPoolSpec as WarmPoolSpec,
+    type WarmPoolStatus as WarmPoolStatus,
     type PrebuildCreateResponse as PrebuildCreateResponse,
     type PrebuildRetrieveResponse as PrebuildRetrieveResponse,
     type PrebuildDeleteResponse as PrebuildDeleteResponse,
     type PrebuildCancelResponse as PrebuildCancelResponse,
     type PrebuildCreateLogsTokenResponse as PrebuildCreateLogsTokenResponse,
+    type PrebuildCreateWarmPoolResponse as PrebuildCreateWarmPoolResponse,
+    type PrebuildDeleteWarmPoolResponse as PrebuildDeleteWarmPoolResponse,
+    type PrebuildRetrieveWarmPoolResponse as PrebuildRetrieveWarmPoolResponse,
+    type PrebuildUpdateWarmPoolResponse as PrebuildUpdateWarmPoolResponse,
     type PrebuildsPrebuildsPage as PrebuildsPrebuildsPage,
+    type WarmPoolsWarmPoolsPage as WarmPoolsWarmPoolsPage,
     type PrebuildCreateParams as PrebuildCreateParams,
     type PrebuildRetrieveParams as PrebuildRetrieveParams,
     type PrebuildListParams as PrebuildListParams,
     type PrebuildDeleteParams as PrebuildDeleteParams,
     type PrebuildCancelParams as PrebuildCancelParams,
     type PrebuildCreateLogsTokenParams as PrebuildCreateLogsTokenParams,
+    type PrebuildCreateWarmPoolParams as PrebuildCreateWarmPoolParams,
+    type PrebuildDeleteWarmPoolParams as PrebuildDeleteWarmPoolParams,
+    type PrebuildListWarmPoolsParams as PrebuildListWarmPoolsParams,
+    type PrebuildRetrieveWarmPoolParams as PrebuildRetrieveWarmPoolParams,
+    type PrebuildUpdateWarmPoolParams as PrebuildUpdateWarmPoolParams,
   };
 
   export {
