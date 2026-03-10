@@ -966,6 +966,19 @@ export namespace AgentExecution {
 }
 
 /**
+ * AgentMessage is a message sent between agents (e.g. from a parent agent to a
+ * child agent execution, or vice versa).
+ */
+export interface AgentMessage {
+  /**
+   * Free-form payload of the message.
+   */
+  payload?: string;
+
+  type?: Type;
+}
+
+/**
  * AgentMode defines the operational mode of an agent
  */
 export type AgentMode =
@@ -1216,6 +1229,8 @@ export interface PromptSpec {
   prompt?: string;
 }
 
+export type Type = 'TYPE_UNSPECIFIED' | 'TYPE_UPDATE' | 'TYPE_COMPLETE';
+
 export interface UserInputBlock {
   id?: string;
 
@@ -1459,6 +1474,12 @@ export interface AgentRetrievePromptParams {
 export interface AgentSendToExecutionParams {
   agentExecutionId?: string;
 
+  /**
+   * AgentMessage is a message sent between agents (e.g. from a parent agent to a
+   * child agent execution, or vice versa).
+   */
+  agentMessage?: AgentMessage;
+
   userInput?: UserInputBlock;
 }
 
@@ -1574,10 +1595,12 @@ export declare namespace Agents {
   export {
     type AgentCodeContext as AgentCodeContext,
     type AgentExecution as AgentExecution,
+    type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
+    type Type as Type,
     type UserInputBlock as UserInputBlock,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
