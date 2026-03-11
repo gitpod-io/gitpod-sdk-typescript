@@ -33,6 +33,7 @@ export {
   type Role,
   type Type,
   type UserInputBlock,
+  type WakeEvent,
   type AgentCreateExecutionConversationTokenResponse,
   type AgentCreatePromptResponse,
   type AgentDeleteExecutionResponse,

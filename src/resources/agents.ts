@@ -1309,6 +1309,28 @@ export namespace UserInputBlock {
   }
 }
 
+/**
+ * WakeEvent is sent by the backend to wake an agent when a registered interest
+ * fires. Delivered via SendToAgentExecution as a new oneof variant.
+ */
+export interface WakeEvent {
+  timer: WakeEvent.Timer;
+
+  /**
+   * The interest ID that fired (from WaitingInfo.Interest.id).
+   */
+  interestId?: string;
+}
+
+export namespace WakeEvent {
+  export interface Timer {
+    /**
+     * The actual time the timer was evaluated as expired.
+     */
+    firedAt?: string;
+  }
+}
+
 export interface AgentCreateExecutionConversationTokenResponse {
   token?: string;
 }
@@ -1486,6 +1508,12 @@ export interface AgentSendToExecutionParams {
   agentMessage?: AgentMessage;
 
   userInput?: UserInputBlock;
+
+  /**
+   * WakeEvent is sent by the backend to wake an agent when a registered interest
+   * fires. Delivered via SendToAgentExecution as a new oneof variant.
+   */
+  wakeEvent?: WakeEvent;
 }
 
 export interface AgentStartExecutionParams {
@@ -1608,6 +1636,7 @@ export declare namespace Agents {
     type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
     type AgentDeleteExecutionResponse as AgentDeleteExecutionResponse,
