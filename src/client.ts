@@ -136,6 +136,7 @@ import {
   PromptMetadata,
   PromptSpec,
   PromptsPromptsPage,
+  Role,
   Type,
   UserInputBlock,
 } from './resources/agents';
@@ -1339,6 +1340,7 @@ export declare namespace Gitpod {
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
+    type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,

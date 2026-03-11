@@ -1229,6 +1229,11 @@ export interface PromptSpec {
   prompt?: string;
 }
 
+/**
+ * Role identifies the sender's relationship in the parent/child hierarchy.
+ */
+export type Role = 'ROLE_UNSPECIFIED' | 'ROLE_PARENT' | 'ROLE_CHILD';
+
 export type Type = 'TYPE_UNSPECIFIED' | 'TYPE_UPDATE' | 'TYPE_COMPLETE';
 
 export interface UserInputBlock {
@@ -1600,6 +1605,7 @@ export declare namespace Agents {
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
+    type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,

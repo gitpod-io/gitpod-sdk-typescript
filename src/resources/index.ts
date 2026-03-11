@@ -30,6 +30,7 @@ export {
   type Prompt,
   type PromptMetadata,
   type PromptSpec,
+  type Role,
   type Type,
   type UserInputBlock,
   type AgentCreateExecutionConversationTokenResponse,
