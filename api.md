@@ -63,6 +63,7 @@ Types:
 - <code><a href="./src/resources/agents.ts">Prompt</a></code>
 - <code><a href="./src/resources/agents.ts">PromptMetadata</a></code>
 - <code><a href="./src/resources/agents.ts">PromptSpec</a></code>
+- <code><a href="./src/resources/agents.ts">Role</a></code>
 - <code><a href="./src/resources/agents.ts">Type</a></code>
 - <code><a href="./src/resources/agents.ts">UserInputBlock</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreateExecutionConversationTokenResponse</a></code>
