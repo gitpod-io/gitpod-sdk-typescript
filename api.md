@@ -18,6 +18,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
 - <code><a href="./src/resources/shared.ts">SecretRef</a></code>
+- <code><a href="./src/resources/shared.ts">Sort</a></code>
+- <code><a href="./src/resources/shared.ts">SortOrder</a></code>
 - <code><a href="./src/resources/shared.ts">State</a></code>
 - <code><a href="./src/resources/shared.ts">Subject</a></code>
 - <code><a href="./src/resources/shared.ts">Task</a></code>
@@ -536,8 +538,6 @@ Types:
 - <code><a href="./src/resources/projects/projects.ts">ProjectPhase</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectPrebuildConfiguration</a></code>
 - <code><a href="./src/resources/projects/projects.ts">RecommendedEditors</a></code>
-- <code><a href="./src/resources/projects/projects.ts">Sort</a></code>
-- <code><a href="./src/resources/projects/projects.ts">SortOrder</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectCreateResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectRetrieveResponse</a></code>
 - <code><a href="./src/resources/projects/projects.ts">ProjectUpdateResponse</a></code>
