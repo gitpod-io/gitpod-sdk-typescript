@@ -95,6 +95,44 @@ Methods:
 - <code title="post /gitpod.v1.AgentService/StopAgentExecution">client.agents.<a href="./src/resources/agents.ts">stopExecution</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.AgentService/UpdatePrompt">client.agents.<a href="./src/resources/agents.ts">updatePrompt</a>({ ...params }) -> AgentUpdatePromptResponse</code>
 
+# Automations
+
+Types:
+
+- <code><a href="./src/resources/automations.ts">Workflow</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowAction</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowExecution</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowExecutionAction</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowStep</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowTrigger</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowTriggerContext</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationCreateResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationRetrieveResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationUpdateResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationDeleteResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationCancelExecutionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationCancelExecutionActionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationListExecutionOutputsResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationRetrieveExecutionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationRetrieveExecutionActionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationStartExecutionResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.WorkflowService/CreateWorkflow">client.automations.<a href="./src/resources/automations.ts">create</a>({ ...params }) -> AutomationCreateResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/GetWorkflow">client.automations.<a href="./src/resources/automations.ts">retrieve</a>({ ...params }) -> AutomationRetrieveResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/UpdateWorkflow">client.automations.<a href="./src/resources/automations.ts">update</a>({ ...params }) -> AutomationUpdateResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflows">client.automations.<a href="./src/resources/automations.ts">list</a>({ ...params }) -> WorkflowsWorkflowsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/DeleteWorkflow">client.automations.<a href="./src/resources/automations.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.WorkflowService/CancelWorkflowExecution">client.automations.<a href="./src/resources/automations.ts">cancelExecution</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.WorkflowService/CancelWorkflowExecutionAction">client.automations.<a href="./src/resources/automations.ts">cancelExecutionAction</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflowExecutionActions">client.automations.<a href="./src/resources/automations.ts">listExecutionActions</a>({ ...params }) -> WorkflowExecutionActionsWorkflowExecutionActionsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflowExecutionOutputs">client.automations.<a href="./src/resources/automations.ts">listExecutionOutputs</a>({ ...params }) -> AutomationListExecutionOutputsResponsesOutputsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflowExecutions">client.automations.<a href="./src/resources/automations.ts">listExecutions</a>({ ...params }) -> WorkflowExecutionsWorkflowExecutionsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecution">client.automations.<a href="./src/resources/automations.ts">retrieveExecution</a>({ ...params }) -> AutomationRetrieveExecutionResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecutionAction">client.automations.<a href="./src/resources/automations.ts">retrieveExecutionAction</a>({ ...params }) -> AutomationRetrieveExecutionActionResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/StartWorkflow">client.automations.<a href="./src/resources/automations.ts">startExecution</a>({ ...params }) -> AutomationStartExecutionResponse</code>
+
 # Editors
 
 Types:
