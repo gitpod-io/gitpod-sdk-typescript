@@ -348,8 +348,6 @@ import {
   Projects,
   ProjectsProjectsPage,
   RecommendedEditors,
-  Sort,
-  SortOrder,
 } from './resources/projects/projects';
 import {
   GatewayInfo,
@@ -1541,8 +1539,6 @@ export declare namespace Gitpod {
     type ProjectPhase as ProjectPhase,
     type ProjectPrebuildConfiguration as ProjectPrebuildConfiguration,
     type RecommendedEditors as RecommendedEditors,
-    type Sort as Sort,
-    type SortOrder as SortOrder,
     type ProjectCreateResponse as ProjectCreateResponse,
     type ProjectRetrieveResponse as ProjectRetrieveResponse,
     type ProjectUpdateResponse as ProjectUpdateResponse,
@@ -1657,6 +1653,8 @@ export declare namespace Gitpod {
   export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
   export type SecretRef = API.SecretRef;
+  export type Sort = API.Sort;
+  export type SortOrder = API.SortOrder;
   export type State = API.State;
   export type Subject = API.Subject;
   export type Task = API.Task;

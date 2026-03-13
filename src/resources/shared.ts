@@ -341,6 +341,17 @@ export interface SecretRef {
   id?: string;
 }
 
+export interface Sort {
+  /**
+   * Field name to sort by, in camelCase.
+   */
+  field?: string;
+
+  order?: SortOrder;
+}
+
+export type SortOrder = 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
+
 /**
  * Current state of the pull request
  */

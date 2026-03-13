@@ -246,9 +246,16 @@ export interface EventListParams extends EntriesPageParams {
   filter?: EventListParams.Filter;
 
   /**
-   * Body param: pagination contains the pagination options for listing environments
+   * Body param: pagination contains the pagination options for listing audit logs
    */
   pagination?: EventListParams.Pagination;
+
+  /**
+   * Body param: sort specifies the order of results. When unspecified, results are
+   * sorted by creation time descending (newest first). Supported sort fields:
+   * createdAt.
+   */
+  sort?: Shared.Sort;
 }
 
 export namespace EventListParams {
@@ -273,7 +280,7 @@ export namespace EventListParams {
   }
 
   /**
-   * pagination contains the pagination options for listing environments
+   * pagination contains the pagination options for listing audit logs
    */
   export interface Pagination {
     /**
