@@ -45,6 +45,8 @@ import {
   LoginsPageResponse,
   type MembersPageParams,
   MembersPageResponse,
+  type OutputsPageParams,
+  OutputsPageResponse,
   type PersonalAccessTokensPageParams,
   PersonalAccessTokensPageResponse,
   type PoliciesPageParams,
@@ -79,6 +81,12 @@ import {
   TokensPageResponse,
   type WarmPoolsPageParams,
   WarmPoolsPageResponse,
+  type WorkflowExecutionActionsPageParams,
+  WorkflowExecutionActionsPageResponse,
+  type WorkflowExecutionsPageParams,
+  WorkflowExecutionsPageResponse,
+  type WorkflowsPageParams,
+  WorkflowsPageResponse,
 } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
@@ -141,6 +149,43 @@ import {
   UserInputBlock,
   WakeEvent,
 } from './resources/agents';
+import {
+  AutomationCancelExecutionActionParams,
+  AutomationCancelExecutionActionResponse,
+  AutomationCancelExecutionParams,
+  AutomationCancelExecutionResponse,
+  AutomationCreateParams,
+  AutomationCreateResponse,
+  AutomationDeleteParams,
+  AutomationDeleteResponse,
+  AutomationListExecutionActionsParams,
+  AutomationListExecutionOutputsParams,
+  AutomationListExecutionOutputsResponse,
+  AutomationListExecutionOutputsResponsesOutputsPage,
+  AutomationListExecutionsParams,
+  AutomationListParams,
+  AutomationRetrieveExecutionActionParams,
+  AutomationRetrieveExecutionActionResponse,
+  AutomationRetrieveExecutionParams,
+  AutomationRetrieveExecutionResponse,
+  AutomationRetrieveParams,
+  AutomationRetrieveResponse,
+  AutomationStartExecutionParams,
+  AutomationStartExecutionResponse,
+  AutomationUpdateParams,
+  AutomationUpdateResponse,
+  Automations,
+  Workflow,
+  WorkflowAction,
+  WorkflowExecution,
+  WorkflowExecutionAction,
+  WorkflowExecutionActionsWorkflowExecutionActionsPage,
+  WorkflowExecutionsWorkflowExecutionsPage,
+  WorkflowStep,
+  WorkflowTrigger,
+  WorkflowTriggerContext,
+  WorkflowsWorkflowsPage,
+} from './resources/automations';
 import {
   Editor,
   EditorListParams,
@@ -1121,6 +1166,7 @@ export class Gitpod {
 
   accounts: API.Accounts = new API.Accounts(this);
   agents: API.Agents = new API.Agents(this);
+  automations: API.Automations = new API.Automations(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
   /**
@@ -1150,6 +1196,7 @@ export class Gitpod {
 
 Gitpod.Accounts = Accounts;
 Gitpod.Agents = Agents;
+Gitpod.Automations = Automations;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
 Gitpod.Errors = ErrorsAPIErrors;
@@ -1234,6 +1281,9 @@ export declare namespace Gitpod {
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
 
+  export import OutputsPage = Pagination.OutputsPage;
+  export { type OutputsPageParams as OutputsPageParams, type OutputsPageResponse as OutputsPageResponse };
+
   export import PersonalAccessTokensPage = Pagination.PersonalAccessTokensPage;
   export {
     type PersonalAccessTokensPageParams as PersonalAccessTokensPageParams,
@@ -1309,6 +1359,24 @@ export declare namespace Gitpod {
     type WarmPoolsPageResponse as WarmPoolsPageResponse,
   };
 
+  export import WorkflowExecutionActionsPage = Pagination.WorkflowExecutionActionsPage;
+  export {
+    type WorkflowExecutionActionsPageParams as WorkflowExecutionActionsPageParams,
+    type WorkflowExecutionActionsPageResponse as WorkflowExecutionActionsPageResponse,
+  };
+
+  export import WorkflowExecutionsPage = Pagination.WorkflowExecutionsPage;
+  export {
+    type WorkflowExecutionsPageParams as WorkflowExecutionsPageParams,
+    type WorkflowExecutionsPageResponse as WorkflowExecutionsPageResponse,
+  };
+
+  export import WorkflowsPage = Pagination.WorkflowsPage;
+  export {
+    type WorkflowsPageParams as WorkflowsPageParams,
+    type WorkflowsPageResponse as WorkflowsPageResponse,
+  };
+
   export {
     Accounts as Accounts,
     type Account as Account,
@@ -1367,6 +1435,44 @@ export declare namespace Gitpod {
     type AgentStartExecutionParams as AgentStartExecutionParams,
     type AgentStopExecutionParams as AgentStopExecutionParams,
     type AgentUpdatePromptParams as AgentUpdatePromptParams,
+  };
+
+  export {
+    Automations as Automations,
+    type Workflow as Workflow,
+    type WorkflowAction as WorkflowAction,
+    type WorkflowExecution as WorkflowExecution,
+    type WorkflowExecutionAction as WorkflowExecutionAction,
+    type WorkflowStep as WorkflowStep,
+    type WorkflowTrigger as WorkflowTrigger,
+    type WorkflowTriggerContext as WorkflowTriggerContext,
+    type AutomationCreateResponse as AutomationCreateResponse,
+    type AutomationRetrieveResponse as AutomationRetrieveResponse,
+    type AutomationUpdateResponse as AutomationUpdateResponse,
+    type AutomationDeleteResponse as AutomationDeleteResponse,
+    type AutomationCancelExecutionResponse as AutomationCancelExecutionResponse,
+    type AutomationCancelExecutionActionResponse as AutomationCancelExecutionActionResponse,
+    type AutomationListExecutionOutputsResponse as AutomationListExecutionOutputsResponse,
+    type AutomationRetrieveExecutionResponse as AutomationRetrieveExecutionResponse,
+    type AutomationRetrieveExecutionActionResponse as AutomationRetrieveExecutionActionResponse,
+    type AutomationStartExecutionResponse as AutomationStartExecutionResponse,
+    type WorkflowsWorkflowsPage as WorkflowsWorkflowsPage,
+    type WorkflowExecutionActionsWorkflowExecutionActionsPage as WorkflowExecutionActionsWorkflowExecutionActionsPage,
+    type AutomationListExecutionOutputsResponsesOutputsPage as AutomationListExecutionOutputsResponsesOutputsPage,
+    type WorkflowExecutionsWorkflowExecutionsPage as WorkflowExecutionsWorkflowExecutionsPage,
+    type AutomationCreateParams as AutomationCreateParams,
+    type AutomationRetrieveParams as AutomationRetrieveParams,
+    type AutomationUpdateParams as AutomationUpdateParams,
+    type AutomationListParams as AutomationListParams,
+    type AutomationDeleteParams as AutomationDeleteParams,
+    type AutomationCancelExecutionParams as AutomationCancelExecutionParams,
+    type AutomationCancelExecutionActionParams as AutomationCancelExecutionActionParams,
+    type AutomationListExecutionActionsParams as AutomationListExecutionActionsParams,
+    type AutomationListExecutionOutputsParams as AutomationListExecutionOutputsParams,
+    type AutomationListExecutionsParams as AutomationListExecutionsParams,
+    type AutomationRetrieveExecutionParams as AutomationRetrieveExecutionParams,
+    type AutomationRetrieveExecutionActionParams as AutomationRetrieveExecutionActionParams,
+    type AutomationStartExecutionParams as AutomationStartExecutionParams,
   };
 
   export {
