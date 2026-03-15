@@ -1521,9 +1521,9 @@ export interface AgentStartExecutionParams {
   agentId?: string;
 
   /**
-   * annotations are key-value pairs for tracking external context (e.g., Linear
+   * annotations are key-value pairs for tracking external context (e.g., integration
    * session IDs, GitHub issue references). Keys should follow domain/name convention
-   * (e.g., "linear.app/session-id").
+   * (e.g., "agent-client-session/id").
    */
   annotations?: { [key: string]: string };
 
