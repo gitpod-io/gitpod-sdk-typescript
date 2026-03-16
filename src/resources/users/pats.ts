@@ -408,6 +408,12 @@ export interface PersonalAccessToken {
    */
   lastUsed?: string;
 
+  /**
+   * When true, the token can only be used for read operations. Mutations will be
+   * denied at the data layer.
+   */
+  readOnly?: boolean;
+
   userId?: string;
 }
 
