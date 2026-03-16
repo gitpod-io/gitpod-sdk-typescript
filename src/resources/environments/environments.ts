@@ -1919,6 +1919,12 @@ export interface EnvironmentCreateFromProjectParams {
   projectId?: string;
 
   /**
+   * session_id is the ID of the session this environment belongs to. If empty, a new
+   * session is created implicitly.
+   */
+  sessionId?: string;
+
+  /**
    * Spec is the configuration of the environment that's required for the runner to
    * start the environment Configuration already defined in the Project will override
    * parts of the spec, if set
