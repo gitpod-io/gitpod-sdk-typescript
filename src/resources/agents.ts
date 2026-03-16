@@ -1424,6 +1424,12 @@ export namespace AgentListExecutionsParams {
       'AGENT_EXECUTION_ROLE_UNSPECIFIED' | 'AGENT_EXECUTION_ROLE_DEFAULT' | 'AGENT_EXECUTION_ROLE_WORKFLOW'
     >;
 
+    /**
+     * session_ids filters the response to only executions belonging to the specified
+     * sessions
+     */
+    sessionIds?: Array<string>;
+
     statusPhases?: Array<
       'PHASE_UNSPECIFIED' | 'PHASE_PENDING' | 'PHASE_RUNNING' | 'PHASE_WAITING_FOR_INPUT' | 'PHASE_STOPPED'
     >;

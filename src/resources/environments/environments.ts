@@ -1854,6 +1854,12 @@ export namespace EnvironmentListParams {
     runnerKinds?: Array<RunnersAPI.RunnerKind>;
 
     /**
+     * session_ids filters the response to only environments belonging to the specified
+     * sessions
+     */
+    sessionIds?: Array<string>;
+
+    /**
      * actual_phases is a list of phases the environment must be in for it to be
      * returned in the API call
      */
