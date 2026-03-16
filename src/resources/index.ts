@@ -292,6 +292,7 @@ export {
   type RunnerStatus,
   type RunnerVariant,
   type SearchMode,
+  type UpdateWindow,
   type RunnerCreateResponse,
   type RunnerRetrieveResponse,
   type RunnerUpdateResponse,
