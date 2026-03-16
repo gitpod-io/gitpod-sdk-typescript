@@ -643,6 +643,7 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerStatus</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerVariant</a></code>
 - <code><a href="./src/resources/runners/runners.ts">SearchMode</a></code>
+- <code><a href="./src/resources/runners/runners.ts">UpdateWindow</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerRetrieveResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerUpdateResponse</a></code>

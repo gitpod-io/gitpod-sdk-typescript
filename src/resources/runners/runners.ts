@@ -660,6 +660,12 @@ export interface RunnerConfiguration {
    * The release channel the runner is on
    */
   releaseChannel?: RunnerReleaseChannel;
+
+  /**
+   * update_window defines the daily time window (UTC) during which auto-updates are
+   * allowed. If not set, updates are allowed at any time.
+   */
+  updateWindow?: UpdateWindow;
 }
 
 /**
@@ -790,6 +796,24 @@ export type RunnerVariant =
   | 'RUNNER_VARIANT_ENTERPRISE';
 
 export type SearchMode = 'SEARCH_MODE_UNSPECIFIED' | 'SEARCH_MODE_KEYWORD' | 'SEARCH_MODE_NATIVE';
+
+/**
+ * UpdateWindow defines a daily time window (UTC) during which auto-updates are
+ * allowed. The window must be at least 2 hours long. Overnight windows are
+ * supported (e.g., start_hour=22, end_hour=4).
+ */
+export interface UpdateWindow {
+  /**
+   * end_hour is the end of the update window as a UTC hour (0-23). If not set,
+   * defaults to start_hour + 2.
+   */
+  endHour?: number | null;
+
+  /**
+   * start_hour is the beginning of the update window as a UTC hour (0-23). +required
+   */
+  startHour?: number | null;
+}
 
 export interface RunnerCreateResponse {
   runner: Runner;
@@ -1240,6 +1264,14 @@ export namespace RunnerUpdateParams {
        * The release channel the runner is on
        */
       releaseChannel?: RunnersAPI.RunnerReleaseChannel | null;
+
+      /**
+       * update_window defines the daily time window (UTC) during which auto-updates are
+       * allowed. start_hour is required. If end_hour is omitted, it defaults to
+       * start_hour + 2. Send an empty UpdateWindow (no start_hour or end_hour) to clear
+       * a custom window and allow updates at any time.
+       */
+      updateWindow?: RunnersAPI.UpdateWindow | null;
     }
 
     export namespace Configuration {
@@ -1457,6 +1489,7 @@ export declare namespace Runners {
     type RunnerStatus as RunnerStatus,
     type RunnerVariant as RunnerVariant,
     type SearchMode as SearchMode,
+    type UpdateWindow as UpdateWindow,
     type RunnerCreateResponse as RunnerCreateResponse,
     type RunnerRetrieveResponse as RunnerRetrieveResponse,
     type RunnerUpdateResponse as RunnerUpdateResponse,

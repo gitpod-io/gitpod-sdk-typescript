@@ -434,6 +434,7 @@ import {
   Runners,
   RunnersRunnersPage,
   SearchMode,
+  UpdateWindow,
 } from './resources/runners/runners';
 import {
   User,
@@ -1681,6 +1682,7 @@ export declare namespace Gitpod {
     type RunnerStatus as RunnerStatus,
     type RunnerVariant as RunnerVariant,
     type SearchMode as SearchMode,
+    type UpdateWindow as UpdateWindow,
     type RunnerCreateResponse as RunnerCreateResponse,
     type RunnerRetrieveResponse as RunnerRetrieveResponse,
     type RunnerUpdateResponse as RunnerUpdateResponse,
