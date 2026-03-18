@@ -730,6 +730,8 @@ export namespace AgentExecution {
 
     limits?: Spec.Limits;
 
+    loopConditions?: Array<Spec.LoopCondition>;
+
     session?: string;
 
     /**
@@ -747,6 +749,14 @@ export namespace AgentExecution {
       maxIterations?: string;
 
       maxOutputTokens?: string;
+    }
+
+    export interface LoopCondition {
+      id?: string;
+
+      description?: string;
+
+      expression?: string;
     }
   }
 
@@ -1315,15 +1325,39 @@ export namespace UserInputBlock {
  * fires. Delivered via SendToAgentExecution as a new oneof variant.
  */
 export interface WakeEvent {
-  timer: WakeEvent.Timer;
-
   /**
    * The interest ID that fired (from WaitingInfo.Interest.id).
    */
   interestId?: string;
+
+  loopRetrigger?: WakeEvent.LoopRetrigger;
+
+  timer?: WakeEvent.Timer;
 }
 
 export namespace WakeEvent {
+  export interface LoopRetrigger {
+    outputs?: { [key: string]: string };
+
+    unmetConditions?: Array<LoopRetrigger.UnmetCondition>;
+  }
+
+  export namespace LoopRetrigger {
+    export interface UnmetCondition {
+      id?: string;
+
+      description?: string;
+
+      expression?: string;
+
+      iteration?: number;
+
+      maxIterations?: number;
+
+      reason?: string;
+    }
+  }
+
   export interface Timer {
     /**
      * The actual time the timer was evaluated as expired.
