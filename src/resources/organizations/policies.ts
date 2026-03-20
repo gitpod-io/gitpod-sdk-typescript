@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as PoliciesAPI from './policies';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -113,11 +114,24 @@ export interface AgentPolicy {
   scmToolsDisabled: boolean;
 
   /**
+   * conversation_sharing_policy controls whether agent conversations can be shared
+   */
+  conversationSharingPolicy?: ConversationSharingPolicy;
+
+  /**
    * scm_tools_allowed_group_id restricts SCM tools access to members of this group.
    * Empty means no restriction (all users can use SCM tools if not disabled).
    */
   scmToolsAllowedGroupId?: string;
 }
+
+/**
+ * ConversationSharingPolicy controls how agent conversations can be shared.
+ */
+export type ConversationSharingPolicy =
+  | 'CONVERSATION_SHARING_POLICY_UNSPECIFIED'
+  | 'CONVERSATION_SHARING_POLICY_DISABLED'
+  | 'CONVERSATION_SHARING_POLICY_ORGANIZATION';
 
 /**
  * CrowdStrikeConfig configures CrowdStrike Falcon sensor deployment
@@ -477,6 +491,11 @@ export namespace PolicyUpdateParams {
     commandDenyList?: Array<string>;
 
     /**
+     * conversation_sharing_policy controls whether agent conversations can be shared
+     */
+    conversationSharingPolicy?: PoliciesAPI.ConversationSharingPolicy | null;
+
+    /**
      * mcp_disabled controls whether MCP (Model Context Protocol) is disabled for
      * agents
      */
@@ -555,6 +574,7 @@ export namespace PolicyUpdateParams {
 export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
+    type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
