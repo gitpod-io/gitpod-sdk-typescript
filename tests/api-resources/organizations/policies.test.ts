@@ -49,6 +49,7 @@ describe('resource policies', () => {
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       agentPolicy: {
         commandDenyList: ['string'],
+        conversationSharingPolicy: 'CONVERSATION_SHARING_POLICY_UNSPECIFIED',
         mcpDisabled: true,
         scmToolsAllowedGroupId: 'scmToolsAllowedGroupId',
         scmToolsDisabled: true,

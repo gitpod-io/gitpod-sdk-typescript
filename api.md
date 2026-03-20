@@ -473,6 +473,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ConversationSharingPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
