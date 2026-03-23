@@ -2620,6 +2620,15 @@ export namespace AutomationListParams {
     creatorIds?: Array<string>;
 
     /**
+     * has_failed_execution_since filters workflows that have at least one failed
+     * execution with create_time >= the specified timestamp. A failed execution is one
+     * that is COMPLETED with failed_action_count > 0, or STOPPED with
+     * failed_action_count > 0 or a non-empty failure_message. This filter is mutually
+     * exclusive with status_phases.
+     */
+    hasFailedExecutionSince?: string;
+
+    /**
      * search performs case-insensitive search across workflow name, description, and
      * ID
      */
