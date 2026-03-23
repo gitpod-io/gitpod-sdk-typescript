@@ -945,6 +945,16 @@ export namespace EnvironmentSpec {
      */
     containerRegistryBasicAuthHost?: string;
 
+    /**
+     * credential_proxy configures transparent credential injection via the credential
+     * proxy. When set, the credential proxy intercepts HTTPS traffic to the target
+     * hosts and replaces the dummy secret value with the real value in the specified
+     * HTTP header. The real secret value is never exposed in the environment. This
+     * field is orthogonal to mount — a secret can be both mounted (e.g. as a git
+     * credential) and proxied at the same time.
+     */
+    credentialProxy?: Secret.CredentialProxy;
+
     environmentVariable?: string;
 
     /**
@@ -986,6 +996,35 @@ export namespace EnvironmentSpec {
      * source_ref into the source, in case of control-plane this is uuid of the secret
      */
     sourceRef?: string;
+  }
+
+  export namespace Secret {
+    /**
+     * credential_proxy configures transparent credential injection via the credential
+     * proxy. When set, the credential proxy intercepts HTTPS traffic to the target
+     * hosts and replaces the dummy secret value with the real value in the specified
+     * HTTP header. The real secret value is never exposed in the environment. This
+     * field is orthogonal to mount — a secret can be both mounted (e.g. as a git
+     * credential) and proxied at the same time.
+     */
+    export interface CredentialProxy {
+      /**
+       * format describes how the secret value is encoded. The proxy uses this to decode
+       * the value before injecting it into the header.
+       */
+      format?: 'FORMAT_UNSPECIFIED' | 'FORMAT_PLAIN' | 'FORMAT_BASE64';
+
+      /**
+       * header is the HTTP header name to inject (e.g. "Authorization").
+       */
+      header?: string;
+
+      /**
+       * target_hosts lists the hostnames to intercept (for example "github.com" or
+       * "\*.github.com"). Wildcards are subdomain-only and do not match the apex domain.
+       */
+      targetHosts?: Array<string>;
+    }
   }
 
   export interface SSHPublicKey {
