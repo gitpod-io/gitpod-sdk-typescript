@@ -141,8 +141,6 @@ describe('resource prebuilds', () => {
       environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       desiredSize: 2,
-      maxSize: 1,
-      minSize: 1,
     });
   });
 
@@ -219,8 +217,6 @@ describe('resource prebuilds', () => {
     const response = await client.prebuilds.updateWarmPool({
       warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
       desiredSize: 5,
-      maxSize: 1,
-      minSize: 1,
     });
   });
 });
