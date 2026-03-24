@@ -1514,12 +1514,6 @@ export namespace AgentListPromptsParams {
     isSkill?: boolean;
 
     isTemplate?: boolean;
-
-    /**
-     * search performs case-insensitive search across prompt name, description, and
-     * command.
-     */
-    search?: string;
   }
 
   export interface Pagination {
