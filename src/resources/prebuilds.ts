@@ -661,23 +661,9 @@ export interface WarmPoolSpec {
   desiredPhase?: WarmPoolPhase;
 
   /**
-   * @deprecated desired_size is the number of warm instances to maintain.
-   * Deprecated: Use min_size and max_size instead for dynamic scaling. Existing
-   * pools will be migrated to min_size=max_size=desired_size.
+   * desired_size is the number of warm instances to maintain.
    */
   desiredSize?: number;
-
-  /**
-   * max_size is the maximum number of warm instances to maintain. The pool will
-   * never scale above this value. Must be >= min_size and <= 20.
-   */
-  maxSize?: number | null;
-
-  /**
-   * min_size is the minimum number of warm instances to maintain. The pool will
-   * never scale below this value. Must be >= 1 and <= max_size.
-   */
-  minSize?: number | null;
 
   /**
    * snapshot_id is the prebuild snapshot to warm up in the pool. Updated by the
@@ -709,25 +695,10 @@ export interface WarmPoolStatus {
   failureMessage?: string;
 
   /**
-   * running_instances is the number of running warm instances in the pool, ready to
-   * be claimed for near-instant environment startup.
-   */
-  runningInstances?: number;
-
-  /**
    * status_version is incremented each time the status is updated. Used for
    * optimistic concurrency control.
    */
   statusVersion?: string;
-
-  /**
-   * stopped_instances is the number of pre-provisioned but stopped instances in the
-   * pool. When a running instance is claimed, stopped instances are used to backfill
-   * the running pool faster than provisioning from scratch. Stopped instances only
-   * incur storage costs, allowing a larger total pool at lower cost than keeping all
-   * instances running.
-   */
-  stoppedInstances?: number;
 }
 
 export interface PrebuildCreateResponse {
@@ -915,22 +886,9 @@ export interface PrebuildCreateWarmPoolParams {
   projectId: string;
 
   /**
-   * @deprecated desired_size is the number of warm instances to maintain.
-   * Deprecated: Use min_size and max_size instead for dynamic scaling.
+   * desired_size is the number of warm instances to maintain.
    */
   desiredSize?: number;
-
-  /**
-   * max_size is the maximum number of warm instances to maintain. The pool will
-   * never scale above this value. Must be >= min_size and <= 20.
-   */
-  maxSize?: number | null;
-
-  /**
-   * min_size is the minimum number of warm instances to maintain. The pool will
-   * never scale below this value. Must be >= 1 and <= max_size.
-   */
-  minSize?: number | null;
 }
 
 export interface PrebuildDeleteWarmPoolParams {
@@ -1000,22 +958,9 @@ export interface PrebuildUpdateWarmPoolParams {
   warmPoolId: string;
 
   /**
-   * @deprecated desired_size updates the number of warm instances to maintain.
-   * Deprecated: Use min_size and max_size instead for dynamic scaling.
+   * desired_size updates the number of warm instances to maintain.
    */
   desiredSize?: number | null;
-
-  /**
-   * max_size updates the maximum number of warm instances to maintain. The pool will
-   * never scale above this value. Must be >= min_size and <= 20.
-   */
-  maxSize?: number | null;
-
-  /**
-   * min_size updates the minimum number of warm instances to maintain. The pool will
-   * never scale below this value. Must be >= 1 and <= max_size.
-   */
-  minSize?: number | null;
 }
 
 export declare namespace Prebuilds {
