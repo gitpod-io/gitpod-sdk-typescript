@@ -547,12 +547,6 @@ export interface MetricsConfiguration {
   enabled?: boolean;
 
   /**
-   * When true, the runner pushes metrics to the management plane via
-   * ReportRunnerMetrics instead of directly to the remote_write endpoint.
-   */
-  managedMetricsEnabled?: boolean;
-
-  /**
    * password is the password to use for the metrics collector
    */
   password?: string;
@@ -1290,12 +1284,6 @@ export namespace RunnerUpdateParams {
          * enabled indicates whether the runner should collect metrics
          */
         enabled?: boolean | null;
-
-        /**
-         * When true, the runner pushes metrics to the management plane via
-         * ReportRunnerMetrics instead of directly to the remote_write endpoint.
-         */
-        managedMetricsEnabled?: boolean | null;
 
         /**
          * password is the password to use for the metrics collector
