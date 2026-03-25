@@ -705,6 +705,13 @@ export interface WarmPoolStatus {
   phase: WarmPoolPhase;
 
   /**
+   * desired_size is the current target number of instances the autoscaler has
+   * decided on. Unlike running_instances, this value is stable and does not
+   * fluctuate as instances are claimed and backfilled.
+   */
+  desiredSize?: number;
+
+  /**
    * failure_message contains details about why the warm pool is degraded or failed
    */
   failureMessage?: string;
