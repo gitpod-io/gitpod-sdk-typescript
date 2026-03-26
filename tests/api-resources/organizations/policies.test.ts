@@ -50,6 +50,7 @@ describe('resource policies', () => {
       agentPolicy: {
         commandDenyList: ['string'],
         conversationSharingPolicy: 'CONVERSATION_SHARING_POLICY_UNSPECIFIED',
+        maxSubagentsPerEnvironment: 10,
         mcpDisabled: true,
         scmToolsAllowedGroupId: 'scmToolsAllowedGroupId',
         scmToolsDisabled: true,
