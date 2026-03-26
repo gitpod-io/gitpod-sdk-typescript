@@ -119,6 +119,13 @@ export interface AgentPolicy {
   conversationSharingPolicy?: ConversationSharingPolicy;
 
   /**
+   * max_subagents_per_environment limits the number of non-terminal sub-agents a
+   * parent can have running simultaneously in the same environment. Valid range:
+   * 0-10. Zero means use the default (5).
+   */
+  maxSubagentsPerEnvironment?: number;
+
+  /**
    * scm_tools_allowed_group_id restricts SCM tools access to members of this group.
    * Empty means no restriction (all users can use SCM tools if not disabled).
    */
@@ -494,6 +501,13 @@ export namespace PolicyUpdateParams {
      * conversation_sharing_policy controls whether agent conversations can be shared
      */
     conversationSharingPolicy?: PoliciesAPI.ConversationSharingPolicy | null;
+
+    /**
+     * max_subagents_per_environment limits the number of non-terminal sub-agents a
+     * parent can have running simultaneously in the same environment. Valid range:
+     * 0-10. Zero means use the default (5).
+     */
+    maxSubagentsPerEnvironment?: number | null;
 
     /**
      * mcp_disabled controls whether MCP (Model Context Protocol) is disabled for
