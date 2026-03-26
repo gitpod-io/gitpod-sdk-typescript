@@ -142,7 +142,7 @@ describe('resource prebuilds', () => {
       projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       desiredSize: 2,
       maxSize: 1,
-      minSize: 1,
+      minSize: 20,
     });
   });
 
@@ -220,7 +220,7 @@ describe('resource prebuilds', () => {
       warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
       desiredSize: 5,
       maxSize: 1,
-      minSize: 1,
+      minSize: 20,
     });
   });
 });
