@@ -81,7 +81,7 @@ export class Groups extends APIResource {
   }
 
   /**
-   * Gets information about a specific group.
+   * Gets information about a specific group by ID or name.
    *
    * Use this method to:
    *
@@ -91,12 +91,12 @@ export class Groups extends APIResource {
    *
    * ### Examples
    *
-   * - Get group details:
+   * - Get group by ID:
    *
-   *   Retrieves information about a specific group.
+   *   Retrieves information about a specific group by its unique ID.
    *
    *   ```yaml
-   *   groupId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   id: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
    *   ```
    *
    * ### Authorization
@@ -106,7 +106,7 @@ export class Groups extends APIResource {
    * @example
    * ```ts
    * const group = await client.groups.retrieve({
-   *   groupId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
    * });
    * ```
    */
@@ -481,7 +481,20 @@ export interface GroupCreateParams {
 }
 
 export interface GroupRetrieveParams {
+  /**
+   * id looks up the group by its unique ID.
+   */
+  id?: string;
+
+  /**
+   * @deprecated Deprecated: use the group oneof instead.
+   */
   groupId?: string;
+
+  /**
+   * name looks up the group by its name within the caller's organization.
+   */
+  name?: string;
 }
 
 export interface GroupUpdateParams {
@@ -510,9 +523,26 @@ export namespace GroupListParams {
    */
   export interface Filter {
     /**
+     * direct_share filters groups by their direct_share flag. When set, only groups
+     * matching this value are returned.
+     */
+    directShare?: boolean | null;
+
+    /**
+     * group_ids filters the response to only groups with the specified IDs
+     */
+    groupIds?: Array<string>;
+
+    /**
      * search performs case-insensitive search across group name, description, and ID
      */
     search?: string;
+
+    /**
+     * system_managed filters groups by their system_managed flag. When set, only
+     * groups matching this value are returned.
+     */
+    systemManaged?: boolean | null;
   }
 
   /**
