@@ -173,6 +173,61 @@ export interface CrowdStrikeConfig {
 }
 
 /**
+ * CustomAgentEnvMapping maps a script placeholder to an organization secret. The
+ * backend resolves the secret name to a UUID at runtime.
+ */
+export interface CustomAgentEnvMapping {
+  /**
+   * name is the environment variable name used as a placeholder in the start
+   * command.
+   */
+  name?: string;
+
+  /**
+   * secret_name is the name of the organization secret whose value populates this
+   * placeholder.
+   */
+  secretName?: string;
+}
+
+/**
+ * CustomSecurityAgent defines a custom security agent configured by an
+ * organization admin.
+ */
+export interface CustomSecurityAgent {
+  /**
+   * id is a unique identifier for this custom agent within the organization
+   */
+  id: string;
+
+  /**
+   * description is a human-readable description of what this agent does
+   */
+  description?: string;
+
+  /**
+   * enabled controls whether this custom agent is deployed to environments
+   */
+  enabled?: boolean;
+
+  /**
+   * env_mappings maps script placeholders to organization secret names, resolved to
+   * secret values at runtime.
+   */
+  envMappings?: Array<CustomAgentEnvMapping>;
+
+  /**
+   * name is the display name for this custom agent
+   */
+  name?: string;
+
+  /**
+   * start_command is the shell script that starts the agent
+   */
+  startCommand?: string;
+}
+
+/**
  * KernelControlsAction defines how a kernel-level policy violation is handled.
  */
 export type KernelControlsAction =
@@ -590,6 +645,8 @@ export declare namespace Policies {
     type AgentPolicy as AgentPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type CustomAgentEnvMapping as CustomAgentEnvMapping,
+    type CustomSecurityAgent as CustomSecurityAgent,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
