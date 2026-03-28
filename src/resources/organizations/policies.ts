@@ -196,9 +196,10 @@ export interface CustomAgentEnvMapping {
  */
 export interface CustomSecurityAgent {
   /**
-   * id is a unique identifier for this custom agent within the organization
+   * id is a unique identifier for this custom agent within the organization.
+   * Server-generated at save time if empty.
    */
-  id: string;
+  id?: string;
 
   /**
    * description is a human-readable description of what this agent does
