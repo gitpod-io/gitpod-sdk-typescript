@@ -2610,6 +2610,12 @@ export interface AutomationListParams extends WorkflowsPageParams {
    * Body param
    */
   pagination?: AutomationListParams.Pagination;
+
+  /**
+   * Body param: sort specifies the order of results. When unspecified, results are
+   * sorted alphabetically by name ascending.
+   */
+  sort?: AutomationListParams.Sort;
 }
 
 export namespace AutomationListParams {
@@ -2665,6 +2671,16 @@ export namespace AutomationListParams {
      * Maximum 100.
      */
     pageSize?: number;
+  }
+
+  /**
+   * sort specifies the order of results. When unspecified, results are sorted
+   * alphabetically by name ascending.
+   */
+  export interface Sort {
+    field?: 'SORT_FIELD_UNSPECIFIED' | 'SORT_FIELD_NAME' | 'SORT_FIELD_RECENTLY_COMPLETED';
+
+    order?: Shared.SortOrder;
   }
 }
 
