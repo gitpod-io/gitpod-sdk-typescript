@@ -909,6 +909,12 @@ export namespace OrganizationListMembersParams {
     excludeGroupIds?: Array<string>;
 
     /**
+     * exclude_members_in_any_team excludes members who belong to any team in the
+     * organization
+     */
+    excludeMembersInAnyTeam?: boolean;
+
+    /**
      * roles filters members by their organization role
      */
     roles?: Array<Shared.OrganizationRole>;
