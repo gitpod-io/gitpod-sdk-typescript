@@ -2572,6 +2572,12 @@ export interface AutomationUpdateParams {
    */
   description?: string | null;
 
+  /**
+   * When set, enables or disables the workflow. A disabled workflow will not be
+   * triggered by any automatic trigger and manual starts are rejected.
+   */
+  disabled?: boolean | null;
+
   executor?: Shared.Subject | null;
 
   /**
