@@ -1325,6 +1325,8 @@ export namespace UserInputBlock {
  * fires. Delivered via SendToAgentExecution as a new oneof variant.
  */
 export interface WakeEvent {
+  environment?: WakeEvent.Environment;
+
   /**
    * The interest ID that fired (from WaitingInfo.Interest.id).
    */
@@ -1336,6 +1338,17 @@ export interface WakeEvent {
 }
 
 export namespace WakeEvent {
+  export interface Environment {
+    environmentId?: string;
+
+    failureMessage?: Array<string>;
+
+    /**
+     * The phase the environment reached (e.g. "running", "stopped", "deleted").
+     */
+    phase?: string;
+  }
+
   export interface LoopRetrigger {
     outputs?: { [key: string]: string };
 
