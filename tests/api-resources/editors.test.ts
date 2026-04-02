@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource editors', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.editors.retrieve({ id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,12 +20,12 @@ describe('resource editors', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.editors.retrieve({ id: 'd2c94c27-3b76-4a42-b88c-95a85e392c68' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.editors.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -37,7 +37,7 @@ describe('resource editors', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resolveURL: only required params', async () => {
     const responsePromise = client.editors.resolveURL({
       editorId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -53,7 +53,7 @@ describe('resource editors', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resolveURL: required and optional params', async () => {
     const response = await client.editors.resolveURL({
       editorId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',

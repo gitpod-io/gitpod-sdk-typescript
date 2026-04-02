@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource organizations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.create({ name: 'Acme Corp Engineering' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.create({
       name: 'Acme Corp Engineering',
@@ -29,7 +29,7 @@ describe('resource organizations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -43,14 +43,14 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.organizations.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -64,7 +64,7 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -73,7 +73,7 @@ describe('resource organizations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.organizations.delete({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -87,14 +87,14 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.organizations.delete({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('join', async () => {
     const responsePromise = client.organizations.join({});
     const rawResponse = await responsePromise.asResponse();
@@ -106,7 +106,7 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('leave: only required params', async () => {
     const responsePromise = client.organizations.leave({ userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60' });
     const rawResponse = await responsePromise.asResponse();
@@ -118,12 +118,12 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('leave: required and optional params', async () => {
     const response = await client.organizations.leave({ userId: 'f53d2330-3795-4c5d-a1f3-453121af9c60' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listMembers: only required params', async () => {
     const responsePromise = client.organizations.listMembers({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -137,7 +137,7 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listMembers: required and optional params', async () => {
     const response = await client.organizations.listMembers({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -155,7 +155,7 @@ describe('resource organizations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('setRole: only required params', async () => {
     const responsePromise = client.organizations.setRole({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -170,7 +170,7 @@ describe('resource organizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('setRole: required and optional params', async () => {
     const response = await client.organizations.setRole({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',

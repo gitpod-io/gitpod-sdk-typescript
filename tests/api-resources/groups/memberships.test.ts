@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource memberships', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.groups.memberships.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource memberships', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.groups.memberships.retrieve({ subject: {} });
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource memberships', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.groups.memberships.retrieve({
       subject: { id: 'f53d2330-3795-4c5d-a1f3-453121af9c60', principal: 'PRINCIPAL_USER' },
@@ -40,7 +40,7 @@ describe('resource memberships', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.groups.memberships.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -52,7 +52,7 @@ describe('resource memberships', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.groups.memberships.delete({});
     const rawResponse = await responsePromise.asResponse();

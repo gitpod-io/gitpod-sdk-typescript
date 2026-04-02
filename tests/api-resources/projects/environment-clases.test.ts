@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource environmentClases', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.projects.environmentClases.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource environmentClases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.projects.environmentClases.list({});
     const rawResponse = await responsePromise.asResponse();

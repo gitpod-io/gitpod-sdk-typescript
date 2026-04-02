@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource tasks', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.environments.automations.tasks.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource tasks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.environments.automations.tasks.retrieve({});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource tasks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.environments.automations.tasks.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource tasks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.environments.automations.tasks.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource tasks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.environments.automations.tasks.delete({});
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +68,7 @@ describe('resource tasks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('start', async () => {
     const responsePromise = client.environments.automations.tasks.start({});
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource agents', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createExecutionConversationToken', async () => {
     const responsePromise = client.agents.createExecutionConversationToken({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPrompt', async () => {
     const responsePromise = client.agents.createPrompt({});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteExecution', async () => {
     const responsePromise = client.agents.deleteExecution({});
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deletePrompt', async () => {
     const responsePromise = client.agents.deletePrompt({});
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listExecutions', async () => {
     const responsePromise = client.agents.listExecutions({});
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +68,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPrompts', async () => {
     const responsePromise = client.agents.listPrompts({});
     const rawResponse = await responsePromise.asResponse();
@@ -80,7 +80,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveExecution', async () => {
     const responsePromise = client.agents.retrieveExecution({});
     const rawResponse = await responsePromise.asResponse();
@@ -92,7 +92,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrievePrompt', async () => {
     const responsePromise = client.agents.retrievePrompt({});
     const rawResponse = await responsePromise.asResponse();
@@ -104,7 +104,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('sendToExecution', async () => {
     const responsePromise = client.agents.sendToExecution({});
     const rawResponse = await responsePromise.asResponse();
@@ -116,7 +116,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('startExecution', async () => {
     const responsePromise = client.agents.startExecution({});
     const rawResponse = await responsePromise.asResponse();
@@ -128,7 +128,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stopExecution', async () => {
     const responsePromise = client.agents.stopExecution({});
     const rawResponse = await responsePromise.asResponse();
@@ -140,7 +140,7 @@ describe('resource agents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updatePrompt', async () => {
     const responsePromise = client.agents.updatePrompt({});
     const rawResponse = await responsePromise.asResponse();

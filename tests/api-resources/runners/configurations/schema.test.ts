@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource schema', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.runners.configurations.schema.retrieve({});
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource configurations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('validate', async () => {
     const responsePromise = client.runners.configurations.validate({});
     const rawResponse = await responsePromise.asResponse();

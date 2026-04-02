@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource customDomains', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.customDomains.create({
       domainName: 'workspaces.acme-corp.com',
@@ -23,7 +23,7 @@ describe('resource customDomains', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.customDomains.create({
       domainName: 'workspaces.acme-corp.com',
@@ -34,7 +34,7 @@ describe('resource customDomains', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.customDomains.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -48,14 +48,14 @@ describe('resource customDomains', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.customDomains.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.organizations.customDomains.update({
       domainName: 'workspaces.acme-corp.com',
@@ -70,7 +70,7 @@ describe('resource customDomains', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.customDomains.update({
       domainName: 'workspaces.acme-corp.com',
@@ -81,7 +81,7 @@ describe('resource customDomains', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.organizations.customDomains.delete({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -95,7 +95,7 @@ describe('resource customDomains', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.organizations.customDomains.delete({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',

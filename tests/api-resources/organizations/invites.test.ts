@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource invites', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.invites.create({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -22,14 +22,14 @@ describe('resource invites', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.invites.create({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.invites.retrieve({
       organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -43,14 +43,14 @@ describe('resource invites', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.invites.retrieve({
       organizationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSummary: only required params', async () => {
     const responsePromise = client.organizations.invites.getSummary({
       inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -64,7 +64,7 @@ describe('resource invites', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSummary: required and optional params', async () => {
     const response = await client.organizations.invites.getSummary({
       inviteId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',

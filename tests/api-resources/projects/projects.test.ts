@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource projects', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.projects.create({ initializer: {} });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.create({
       initializer: {
@@ -52,7 +52,7 @@ describe('resource projects', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.projects.retrieve({});
     const rawResponse = await responsePromise.asResponse();
@@ -64,7 +64,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.projects.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -76,7 +76,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.projects.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -88,7 +88,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.projects.delete({});
     const rawResponse = await responsePromise.asResponse();
@@ -100,7 +100,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkCreate', async () => {
     const responsePromise = client.projects.bulkCreate({});
     const rawResponse = await responsePromise.asResponse();
@@ -112,7 +112,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkDelete', async () => {
     const responsePromise = client.projects.bulkDelete({});
     const rawResponse = await responsePromise.asResponse();
@@ -124,7 +124,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkUpdate', async () => {
     const responsePromise = client.projects.bulkUpdate({});
     const rawResponse = await responsePromise.asResponse();
@@ -136,7 +136,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createFromEnvironment', async () => {
     const responsePromise = client.projects.createFromEnvironment({});
     const rawResponse = await responsePromise.asResponse();
