@@ -2144,8 +2144,6 @@ export interface WorkflowStep {
    */
   pullRequest?: WorkflowStep.PullRequest;
 
-  report?: WorkflowStep.Report;
-
   /**
    * WorkflowTaskStep represents a task step that executes a command.
    */
@@ -2199,21 +2197,6 @@ export namespace WorkflowStep {
      * ```
      */
     title?: string;
-  }
-
-  export interface Report {
-    /**
-     * Report must have at least one output:
-     *
-     * ```
-     * size(this) >= 1
-     * ```
-     */
-    outputs?: Array<Report.Output>;
-  }
-
-  export namespace Report {
-    export interface Output {}
   }
 
   /**
