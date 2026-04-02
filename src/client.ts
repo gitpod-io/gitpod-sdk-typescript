@@ -18,6 +18,7 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
@@ -51,6 +52,8 @@ import {
   LoginsPageResponse,
   type MembersPageParams,
   MembersPageResponse,
+  type OutputsPageParams,
+  OutputsPageResponse,
   type PersonalAccessTokensPageParams,
   PersonalAccessTokensPageResponse,
   type PoliciesPageParams,
@@ -83,6 +86,14 @@ import {
   TasksPageResponse,
   type TokensPageParams,
   TokensPageResponse,
+  type WarmPoolsPageParams,
+  WarmPoolsPageResponse,
+  type WorkflowExecutionActionsPageParams,
+  WorkflowExecutionActionsPageResponse,
+  type WorkflowExecutionsPageParams,
+  WorkflowExecutionsPageResponse,
+  type WorkflowsPageParams,
+  WorkflowsPageResponse,
 } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
@@ -121,6 +132,7 @@ import {
   AgentExecutionsAgentExecutionsPage,
   AgentListExecutionsParams,
   AgentListPromptsParams,
+  AgentMessage,
   AgentMode,
   AgentRetrieveExecutionParams,
   AgentRetrieveExecutionResponse,
@@ -139,8 +151,48 @@ import {
   PromptMetadata,
   PromptSpec,
   PromptsPromptsPage,
+  Role,
+  Type,
   UserInputBlock,
+  WakeEvent,
 } from './resources/agents';
+import {
+  AutomationCancelExecutionActionParams,
+  AutomationCancelExecutionActionResponse,
+  AutomationCancelExecutionParams,
+  AutomationCancelExecutionResponse,
+  AutomationCreateParams,
+  AutomationCreateResponse,
+  AutomationDeleteParams,
+  AutomationDeleteResponse,
+  AutomationListExecutionActionsParams,
+  AutomationListExecutionOutputsParams,
+  AutomationListExecutionOutputsResponse,
+  AutomationListExecutionOutputsResponsesOutputsPage,
+  AutomationListExecutionsParams,
+  AutomationListParams,
+  AutomationRetrieveExecutionActionParams,
+  AutomationRetrieveExecutionActionResponse,
+  AutomationRetrieveExecutionParams,
+  AutomationRetrieveExecutionResponse,
+  AutomationRetrieveParams,
+  AutomationRetrieveResponse,
+  AutomationStartExecutionParams,
+  AutomationStartExecutionResponse,
+  AutomationUpdateParams,
+  AutomationUpdateResponse,
+  Automations,
+  Workflow,
+  WorkflowAction,
+  WorkflowExecution,
+  WorkflowExecutionAction,
+  WorkflowExecutionActionsWorkflowExecutionActionsPage,
+  WorkflowExecutionsWorkflowExecutionsPage,
+  WorkflowStep,
+  WorkflowTrigger,
+  WorkflowTriggerContext,
+  WorkflowsWorkflowsPage,
+} from './resources/automations';
 import {
   Editor,
   EditorListParams,
@@ -192,18 +244,33 @@ import {
   PrebuildCreateLogsTokenResponse,
   PrebuildCreateParams,
   PrebuildCreateResponse,
+  PrebuildCreateWarmPoolParams,
+  PrebuildCreateWarmPoolResponse,
   PrebuildDeleteParams,
   PrebuildDeleteResponse,
+  PrebuildDeleteWarmPoolParams,
+  PrebuildDeleteWarmPoolResponse,
   PrebuildListParams,
+  PrebuildListWarmPoolsParams,
   PrebuildMetadata,
   PrebuildPhase,
   PrebuildRetrieveParams,
   PrebuildRetrieveResponse,
+  PrebuildRetrieveWarmPoolParams,
+  PrebuildRetrieveWarmPoolResponse,
   PrebuildSpec,
   PrebuildStatus,
   PrebuildTrigger,
+  PrebuildUpdateWarmPoolParams,
+  PrebuildUpdateWarmPoolResponse,
   Prebuilds,
   PrebuildsPrebuildsPage,
+  WarmPool,
+  WarmPoolMetadata,
+  WarmPoolPhase,
+  WarmPoolSpec,
+  WarmPoolStatus,
+  WarmPoolsWarmPoolsPage,
 } from './resources/prebuilds';
 import {
   Secret,
@@ -228,6 +295,7 @@ import {
 } from './resources/usage';
 import {
   AdmissionLevel,
+  BpfDebugLevel,
   Environment,
   EnvironmentActivitySignal,
   EnvironmentCreateEnvironmentTokenParams,
@@ -366,6 +434,7 @@ import {
   Runners,
   RunnersRunnersPage,
   SearchMode,
+  UpdateWindow,
 } from './resources/runners/runners';
 import {
   User,
@@ -568,21 +637,8 @@ export class Gitpod {
   /**
    * Basic re-implementation of `qs.stringify` for primitive types.
    */
-  protected stringifyQuery(query: Record<string, unknown>): string {
-    return Object.entries(query)
-      .filter(([_, value]) => typeof value !== 'undefined')
-      .map(([key, value]) => {
-        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-          return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-        }
-        if (value === null) {
-          return `${encodeURIComponent(key)}=`;
-        }
-        throw new Errors.GitpodError(
-          `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
-        );
-      })
-      .join('&');
+  protected stringifyQuery(query: object | Record<string, unknown>): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -614,12 +670,13 @@ export class Gitpod {
       : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    if (!isEmptyObj(defaultQuery)) {
-      query = { ...defaultQuery, ...query };
+    const pathQuery = Object.fromEntries(url.searchParams);
+    if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+      query = { ...pathQuery, ...defaultQuery, ...query };
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
-      url.search = this.stringifyQuery(query as Record<string, unknown>);
+      url.search = this.stringifyQuery(query);
     }
 
     return url.toString();
@@ -948,9 +1005,9 @@ export class Gitpod {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -1082,7 +1139,7 @@ export class Gitpod {
     ) {
       return {
         bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: this.stringifyQuery(body as Record<string, unknown>),
+        body: this.stringifyQuery(body),
       };
     } else {
       return this.#encoder({ body, headers });
@@ -1110,24 +1167,37 @@ export class Gitpod {
 
   accounts: API.Accounts = new API.Accounts(this);
   agents: API.Agents = new API.Agents(this);
+  automations: API.Automations = new API.Automations(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
+  /**
+   * ErrorsService provides endpoints for clients to report errors
+   *  that will be sent to error reporting systems.
+   */
   errors: API.Errors = new API.Errors(this);
   events: API.Events = new API.Events(this);
   gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
   identity: API.Identity = new API.Identity(this);
   organizations: API.Organizations = new API.Organizations(this);
+  /**
+   * PrebuildService manages prebuilds for projects to enable faster environment startup times.
+   *  Prebuilds create snapshots of environments that can be used to provision new environments quickly.
+   */
   prebuilds: API.Prebuilds = new API.Prebuilds(this);
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
+  /**
+   * UsageService provides usage information about environments, users, and projects.
+   */
   usage: API.Usage = new API.Usage(this);
   users: API.Users = new API.Users(this);
 }
 
 Gitpod.Accounts = Accounts;
 Gitpod.Agents = Agents;
+Gitpod.Automations = Automations;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
 Gitpod.Errors = ErrorsAPIErrors;
@@ -1212,6 +1282,9 @@ export declare namespace Gitpod {
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
 
+  export import OutputsPage = Pagination.OutputsPage;
+  export { type OutputsPageParams as OutputsPageParams, type OutputsPageResponse as OutputsPageResponse };
+
   export import PersonalAccessTokensPage = Pagination.PersonalAccessTokensPage;
   export {
     type PersonalAccessTokensPageParams as PersonalAccessTokensPageParams,
@@ -1281,6 +1354,30 @@ export declare namespace Gitpod {
   export import TokensPage = Pagination.TokensPage;
   export { type TokensPageParams as TokensPageParams, type TokensPageResponse as TokensPageResponse };
 
+  export import WarmPoolsPage = Pagination.WarmPoolsPage;
+  export {
+    type WarmPoolsPageParams as WarmPoolsPageParams,
+    type WarmPoolsPageResponse as WarmPoolsPageResponse,
+  };
+
+  export import WorkflowExecutionActionsPage = Pagination.WorkflowExecutionActionsPage;
+  export {
+    type WorkflowExecutionActionsPageParams as WorkflowExecutionActionsPageParams,
+    type WorkflowExecutionActionsPageResponse as WorkflowExecutionActionsPageResponse,
+  };
+
+  export import WorkflowExecutionsPage = Pagination.WorkflowExecutionsPage;
+  export {
+    type WorkflowExecutionsPageParams as WorkflowExecutionsPageParams,
+    type WorkflowExecutionsPageResponse as WorkflowExecutionsPageResponse,
+  };
+
+  export import WorkflowsPage = Pagination.WorkflowsPage;
+  export {
+    type WorkflowsPageParams as WorkflowsPageParams,
+    type WorkflowsPageResponse as WorkflowsPageResponse,
+  };
+
   export {
     Accounts as Accounts,
     type Account as Account,
@@ -1306,11 +1403,15 @@ export declare namespace Gitpod {
     Agents as Agents,
     type AgentCodeContext as AgentCodeContext,
     type AgentExecution as AgentExecution,
+    type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
+    type Role as Role,
+    type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
     type AgentDeleteExecutionResponse as AgentDeleteExecutionResponse,
@@ -1338,6 +1439,44 @@ export declare namespace Gitpod {
   };
 
   export {
+    Automations as Automations,
+    type Workflow as Workflow,
+    type WorkflowAction as WorkflowAction,
+    type WorkflowExecution as WorkflowExecution,
+    type WorkflowExecutionAction as WorkflowExecutionAction,
+    type WorkflowStep as WorkflowStep,
+    type WorkflowTrigger as WorkflowTrigger,
+    type WorkflowTriggerContext as WorkflowTriggerContext,
+    type AutomationCreateResponse as AutomationCreateResponse,
+    type AutomationRetrieveResponse as AutomationRetrieveResponse,
+    type AutomationUpdateResponse as AutomationUpdateResponse,
+    type AutomationDeleteResponse as AutomationDeleteResponse,
+    type AutomationCancelExecutionResponse as AutomationCancelExecutionResponse,
+    type AutomationCancelExecutionActionResponse as AutomationCancelExecutionActionResponse,
+    type AutomationListExecutionOutputsResponse as AutomationListExecutionOutputsResponse,
+    type AutomationRetrieveExecutionResponse as AutomationRetrieveExecutionResponse,
+    type AutomationRetrieveExecutionActionResponse as AutomationRetrieveExecutionActionResponse,
+    type AutomationStartExecutionResponse as AutomationStartExecutionResponse,
+    type WorkflowsWorkflowsPage as WorkflowsWorkflowsPage,
+    type WorkflowExecutionActionsWorkflowExecutionActionsPage as WorkflowExecutionActionsWorkflowExecutionActionsPage,
+    type AutomationListExecutionOutputsResponsesOutputsPage as AutomationListExecutionOutputsResponsesOutputsPage,
+    type WorkflowExecutionsWorkflowExecutionsPage as WorkflowExecutionsWorkflowExecutionsPage,
+    type AutomationCreateParams as AutomationCreateParams,
+    type AutomationRetrieveParams as AutomationRetrieveParams,
+    type AutomationUpdateParams as AutomationUpdateParams,
+    type AutomationListParams as AutomationListParams,
+    type AutomationDeleteParams as AutomationDeleteParams,
+    type AutomationCancelExecutionParams as AutomationCancelExecutionParams,
+    type AutomationCancelExecutionActionParams as AutomationCancelExecutionActionParams,
+    type AutomationListExecutionActionsParams as AutomationListExecutionActionsParams,
+    type AutomationListExecutionOutputsParams as AutomationListExecutionOutputsParams,
+    type AutomationListExecutionsParams as AutomationListExecutionsParams,
+    type AutomationRetrieveExecutionParams as AutomationRetrieveExecutionParams,
+    type AutomationRetrieveExecutionActionParams as AutomationRetrieveExecutionActionParams,
+    type AutomationStartExecutionParams as AutomationStartExecutionParams,
+  };
+
+  export {
     Editors as Editors,
     type Editor as Editor,
     type EditorVersion as EditorVersion,
@@ -1352,6 +1491,7 @@ export declare namespace Gitpod {
   export {
     Environments as Environments,
     type AdmissionLevel as AdmissionLevel,
+    type BpfDebugLevel as BpfDebugLevel,
     type Environment as Environment,
     type EnvironmentActivitySignal as EnvironmentActivitySignal,
     type EnvironmentMetadata as EnvironmentMetadata,
@@ -1469,18 +1609,33 @@ export declare namespace Gitpod {
     type PrebuildSpec as PrebuildSpec,
     type PrebuildStatus as PrebuildStatus,
     type PrebuildTrigger as PrebuildTrigger,
+    type WarmPool as WarmPool,
+    type WarmPoolMetadata as WarmPoolMetadata,
+    type WarmPoolPhase as WarmPoolPhase,
+    type WarmPoolSpec as WarmPoolSpec,
+    type WarmPoolStatus as WarmPoolStatus,
     type PrebuildCreateResponse as PrebuildCreateResponse,
     type PrebuildRetrieveResponse as PrebuildRetrieveResponse,
     type PrebuildDeleteResponse as PrebuildDeleteResponse,
     type PrebuildCancelResponse as PrebuildCancelResponse,
     type PrebuildCreateLogsTokenResponse as PrebuildCreateLogsTokenResponse,
+    type PrebuildCreateWarmPoolResponse as PrebuildCreateWarmPoolResponse,
+    type PrebuildDeleteWarmPoolResponse as PrebuildDeleteWarmPoolResponse,
+    type PrebuildRetrieveWarmPoolResponse as PrebuildRetrieveWarmPoolResponse,
+    type PrebuildUpdateWarmPoolResponse as PrebuildUpdateWarmPoolResponse,
     type PrebuildsPrebuildsPage as PrebuildsPrebuildsPage,
+    type WarmPoolsWarmPoolsPage as WarmPoolsWarmPoolsPage,
     type PrebuildCreateParams as PrebuildCreateParams,
     type PrebuildRetrieveParams as PrebuildRetrieveParams,
     type PrebuildListParams as PrebuildListParams,
     type PrebuildDeleteParams as PrebuildDeleteParams,
     type PrebuildCancelParams as PrebuildCancelParams,
     type PrebuildCreateLogsTokenParams as PrebuildCreateLogsTokenParams,
+    type PrebuildCreateWarmPoolParams as PrebuildCreateWarmPoolParams,
+    type PrebuildDeleteWarmPoolParams as PrebuildDeleteWarmPoolParams,
+    type PrebuildListWarmPoolsParams as PrebuildListWarmPoolsParams,
+    type PrebuildRetrieveWarmPoolParams as PrebuildRetrieveWarmPoolParams,
+    type PrebuildUpdateWarmPoolParams as PrebuildUpdateWarmPoolParams,
   };
 
   export {
@@ -1527,6 +1682,7 @@ export declare namespace Gitpod {
     type RunnerStatus as RunnerStatus,
     type RunnerVariant as RunnerVariant,
     type SearchMode as SearchMode,
+    type UpdateWindow as UpdateWindow,
     type RunnerCreateResponse as RunnerCreateResponse,
     type RunnerRetrieveResponse as RunnerRetrieveResponse,
     type RunnerUpdateResponse as RunnerUpdateResponse,
@@ -1590,6 +1746,7 @@ export declare namespace Gitpod {
   };
 
   export type AutomationTrigger = API.AutomationTrigger;
+  export type CountResponseRelation = API.CountResponseRelation;
   export type EnvironmentClass = API.EnvironmentClass;
   export type EnvironmentVariableItem = API.EnvironmentVariableItem;
   export type EnvironmentVariableSource = API.EnvironmentVariableSource;
@@ -1604,6 +1761,8 @@ export declare namespace Gitpod {
   export type ResourceType = API.ResourceType;
   export type RunsOn = API.RunsOn;
   export type SecretRef = API.SecretRef;
+  export type Sort = API.Sort;
+  export type SortOrder = API.SortOrder;
   export type State = API.State;
   export type Subject = API.Subject;
   export type Task = API.Task;

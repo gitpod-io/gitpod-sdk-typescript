@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/shared.ts">AutomationTrigger</a></code>
+- <code><a href="./src/resources/shared.ts">CountResponseRelation</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableItem</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableSource</a></code>
@@ -17,6 +18,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">ResourceType</a></code>
 - <code><a href="./src/resources/shared.ts">RunsOn</a></code>
 - <code><a href="./src/resources/shared.ts">SecretRef</a></code>
+- <code><a href="./src/resources/shared.ts">Sort</a></code>
+- <code><a href="./src/resources/shared.ts">SortOrder</a></code>
 - <code><a href="./src/resources/shared.ts">State</a></code>
 - <code><a href="./src/resources/shared.ts">Subject</a></code>
 - <code><a href="./src/resources/shared.ts">Task</a></code>
@@ -57,11 +60,15 @@ Types:
 
 - <code><a href="./src/resources/agents.ts">AgentCodeContext</a></code>
 - <code><a href="./src/resources/agents.ts">AgentExecution</a></code>
+- <code><a href="./src/resources/agents.ts">AgentMessage</a></code>
 - <code><a href="./src/resources/agents.ts">AgentMode</a></code>
 - <code><a href="./src/resources/agents.ts">Prompt</a></code>
 - <code><a href="./src/resources/agents.ts">PromptMetadata</a></code>
 - <code><a href="./src/resources/agents.ts">PromptSpec</a></code>
+- <code><a href="./src/resources/agents.ts">Role</a></code>
+- <code><a href="./src/resources/agents.ts">Type</a></code>
 - <code><a href="./src/resources/agents.ts">UserInputBlock</a></code>
+- <code><a href="./src/resources/agents.ts">WakeEvent</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreateExecutionConversationTokenResponse</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreatePromptResponse</a></code>
 - <code><a href="./src/resources/agents.ts">AgentDeleteExecutionResponse</a></code>
@@ -88,6 +95,44 @@ Methods:
 - <code title="post /gitpod.v1.AgentService/StopAgentExecution">client.agents.<a href="./src/resources/agents.ts">stopExecution</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.AgentService/UpdatePrompt">client.agents.<a href="./src/resources/agents.ts">updatePrompt</a>({ ...params }) -> AgentUpdatePromptResponse</code>
 
+# Automations
+
+Types:
+
+- <code><a href="./src/resources/automations.ts">Workflow</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowAction</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowExecution</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowExecutionAction</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowStep</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowTrigger</a></code>
+- <code><a href="./src/resources/automations.ts">WorkflowTriggerContext</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationCreateResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationRetrieveResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationUpdateResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationDeleteResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationCancelExecutionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationCancelExecutionActionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationListExecutionOutputsResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationRetrieveExecutionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationRetrieveExecutionActionResponse</a></code>
+- <code><a href="./src/resources/automations.ts">AutomationStartExecutionResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.WorkflowService/CreateWorkflow">client.automations.<a href="./src/resources/automations.ts">create</a>({ ...params }) -> AutomationCreateResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/GetWorkflow">client.automations.<a href="./src/resources/automations.ts">retrieve</a>({ ...params }) -> AutomationRetrieveResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/UpdateWorkflow">client.automations.<a href="./src/resources/automations.ts">update</a>({ ...params }) -> AutomationUpdateResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflows">client.automations.<a href="./src/resources/automations.ts">list</a>({ ...params }) -> WorkflowsWorkflowsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/DeleteWorkflow">client.automations.<a href="./src/resources/automations.ts">delete</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.WorkflowService/CancelWorkflowExecution">client.automations.<a href="./src/resources/automations.ts">cancelExecution</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.WorkflowService/CancelWorkflowExecutionAction">client.automations.<a href="./src/resources/automations.ts">cancelExecutionAction</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflowExecutionActions">client.automations.<a href="./src/resources/automations.ts">listExecutionActions</a>({ ...params }) -> WorkflowExecutionActionsWorkflowExecutionActionsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflowExecutionOutputs">client.automations.<a href="./src/resources/automations.ts">listExecutionOutputs</a>({ ...params }) -> AutomationListExecutionOutputsResponsesOutputsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/ListWorkflowExecutions">client.automations.<a href="./src/resources/automations.ts">listExecutions</a>({ ...params }) -> WorkflowExecutionsWorkflowExecutionsPage</code>
+- <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecution">client.automations.<a href="./src/resources/automations.ts">retrieveExecution</a>({ ...params }) -> AutomationRetrieveExecutionResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecutionAction">client.automations.<a href="./src/resources/automations.ts">retrieveExecutionAction</a>({ ...params }) -> AutomationRetrieveExecutionActionResponse</code>
+- <code title="post /gitpod.v1.WorkflowService/StartWorkflow">client.automations.<a href="./src/resources/automations.ts">startExecution</a>({ ...params }) -> AutomationStartExecutionResponse</code>
+
 # Editors
 
 Types:
@@ -108,6 +153,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/environments/environments.ts">AdmissionLevel</a></code>
+- <code><a href="./src/resources/environments/environments.ts">BpfDebugLevel</a></code>
 - <code><a href="./src/resources/environments/environments.ts">Environment</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentActivitySignal</a></code>
 - <code><a href="./src/resources/environments/environments.ts">EnvironmentMetadata</a></code>
@@ -427,7 +473,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ConversationSharingPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">CustomAgentEnvMapping</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">CustomSecurityAgent</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
@@ -491,11 +540,20 @@ Types:
 - <code><a href="./src/resources/prebuilds.ts">PrebuildSpec</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildStatus</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildTrigger</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPool</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolMetadata</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolPhase</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolSpec</a></code>
+- <code><a href="./src/resources/prebuilds.ts">WarmPoolStatus</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildCreateResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildRetrieveResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildDeleteResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildCancelResponse</a></code>
 - <code><a href="./src/resources/prebuilds.ts">PrebuildCreateLogsTokenResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildCreateWarmPoolResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildDeleteWarmPoolResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildRetrieveWarmPoolResponse</a></code>
+- <code><a href="./src/resources/prebuilds.ts">PrebuildUpdateWarmPoolResponse</a></code>
 
 Methods:
 
@@ -505,6 +563,11 @@ Methods:
 - <code title="post /gitpod.v1.PrebuildService/DeletePrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">delete</a>({ ...params }) -> unknown</code>
 - <code title="post /gitpod.v1.PrebuildService/CancelPrebuild">client.prebuilds.<a href="./src/resources/prebuilds.ts">cancel</a>({ ...params }) -> PrebuildCancelResponse</code>
 - <code title="post /gitpod.v1.PrebuildService/CreatePrebuildLogsToken">client.prebuilds.<a href="./src/resources/prebuilds.ts">createLogsToken</a>({ ...params }) -> PrebuildCreateLogsTokenResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/CreateWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">createWarmPool</a>({ ...params }) -> PrebuildCreateWarmPoolResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/DeleteWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">deleteWarmPool</a>({ ...params }) -> unknown</code>
+- <code title="post /gitpod.v1.PrebuildService/ListWarmPools">client.prebuilds.<a href="./src/resources/prebuilds.ts">listWarmPools</a>({ ...params }) -> WarmPoolsWarmPoolsPage</code>
+- <code title="post /gitpod.v1.PrebuildService/GetWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">retrieveWarmPool</a>({ ...params }) -> PrebuildRetrieveWarmPoolResponse</code>
+- <code title="post /gitpod.v1.PrebuildService/UpdateWarmPool">client.prebuilds.<a href="./src/resources/prebuilds.ts">updateWarmPool</a>({ ...params }) -> PrebuildUpdateWarmPoolResponse</code>
 
 # Projects
 
@@ -583,6 +646,7 @@ Types:
 - <code><a href="./src/resources/runners/runners.ts">RunnerStatus</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerVariant</a></code>
 - <code><a href="./src/resources/runners/runners.ts">SearchMode</a></code>
+- <code><a href="./src/resources/runners/runners.ts">UpdateWindow</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerCreateResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerRetrieveResponse</a></code>
 - <code><a href="./src/resources/runners/runners.ts">RunnerUpdateResponse</a></code>

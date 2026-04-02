@@ -570,6 +570,15 @@ export type AdmissionLevel =
   | 'ADMISSION_LEVEL_CREATOR_ONLY';
 
 /**
+ * BPFDebugLevel controls the verbosity of BPF trace_pipe output (bpf_printk).
+ * Applies to all BPF-based agents (veto exec, future agents).
+ */
+export type BpfDebugLevel =
+  | 'BPF_DEBUG_LEVEL_UNSPECIFIED'
+  | 'BPF_DEBUG_LEVEL_INFO'
+  | 'BPF_DEBUG_LEVEL_VERBOSE';
+
+/**
  * +resource get environment
  */
 export interface Environment {
@@ -647,6 +656,13 @@ export interface EnvironmentMetadata {
    * StartEnvironment were called).
    */
   lastStartedAt?: string;
+
+  /**
+   * lockdown_at is the time at which the environment becomes locked down due to the
+   * organization's maximum environment lifetime policy. Nil when no lifetime policy
+   * applies.
+   */
+  lockdownAt?: string;
 
   /**
    * name is the name of the environment as specified by the user
@@ -929,6 +945,16 @@ export namespace EnvironmentSpec {
      */
     containerRegistryBasicAuthHost?: string;
 
+    /**
+     * credential_proxy configures transparent credential injection via the credential
+     * proxy. When set, the credential proxy intercepts HTTPS traffic to the target
+     * hosts and replaces the dummy secret value with the real value in the specified
+     * HTTP header. The real secret value is never exposed in the environment. This
+     * field is orthogonal to mount — a secret can be both mounted (e.g. as a git
+     * credential) and proxied at the same time.
+     */
+    credentialProxy?: Secret.CredentialProxy;
+
     environmentVariable?: string;
 
     /**
@@ -972,6 +998,35 @@ export namespace EnvironmentSpec {
     sourceRef?: string;
   }
 
+  export namespace Secret {
+    /**
+     * credential_proxy configures transparent credential injection via the credential
+     * proxy. When set, the credential proxy intercepts HTTPS traffic to the target
+     * hosts and replaces the dummy secret value with the real value in the specified
+     * HTTP header. The real secret value is never exposed in the environment. This
+     * field is orthogonal to mount — a secret can be both mounted (e.g. as a git
+     * credential) and proxied at the same time.
+     */
+    export interface CredentialProxy {
+      /**
+       * format describes how the secret value is encoded. The proxy uses this to decode
+       * the value before injecting it into the header.
+       */
+      format?: 'FORMAT_UNSPECIFIED' | 'FORMAT_PLAIN' | 'FORMAT_BASE64';
+
+      /**
+       * header is the HTTP header name to inject (e.g. "Authorization").
+       */
+      header?: string;
+
+      /**
+       * target_hosts lists the hostnames to intercept (for example "github.com" or
+       * "\*.github.com"). Wildcards are subdomain-only and do not match the apex domain.
+       */
+      targetHosts?: Array<string>;
+    }
+  }
+
   export interface SSHPublicKey {
     /**
      * id is the unique identifier of the public key
@@ -990,7 +1045,12 @@ export namespace EnvironmentSpec {
   export interface Timeout {
     /**
      * inacitivity is the maximum time of disconnection before the environment is
-     * stopped or paused. Minimum duration is 30 minutes. Set to 0 to disable.
+     * stopped or paused. Minimum duration is 30 minutes. Set to 0 to disable. value
+     * must be 0s (disabled) or at least 1800s (30 minutes):
+     *
+     * ```
+     * this == duration('0s') || this >= duration('1800s')
+     * ```
      */
     disconnected?: string;
   }
@@ -1590,6 +1650,12 @@ export interface EnvironmentCreateParams {
   name?: string | null;
 
   /**
+   * session_id is the ID of the session this environment belongs to. If empty, a new
+   * session is created implicitly.
+   */
+  sessionId?: string;
+
+  /**
    * spec is the configuration of the environment that's required for the to start
    * the environment
    */
@@ -1757,7 +1823,12 @@ export namespace EnvironmentUpdateParams {
     export interface Timeout {
       /**
        * inacitivity is the maximum time of disconnection before the environment is
-       * stopped or paused. Minimum duration is 30 minutes. Set to 0 to disable.
+       * stopped or paused. Minimum duration is 30 minutes. Set to 0 to disable. value
+       * must be 0s (disabled) or at least 1800s (30 minutes):
+       *
+       * ```
+       * this == duration('0s') || this >= duration('1800s')
+       * ```
        */
       disconnected?: string | null;
     }
@@ -1822,6 +1893,12 @@ export namespace EnvironmentListParams {
     runnerKinds?: Array<RunnersAPI.RunnerKind>;
 
     /**
+     * session_ids filters the response to only environments belonging to the specified
+     * sessions
+     */
+    sessionIds?: Array<string>;
+
+    /**
      * actual_phases is a list of phases the environment must be in for it to be
      * returned in the API call
      */
@@ -1879,6 +1956,12 @@ export interface EnvironmentCreateFromProjectParams {
   name?: string | null;
 
   projectId?: string;
+
+  /**
+   * session_id is the ID of the session this environment belongs to. If empty, a new
+   * session is created implicitly.
+   */
+  sessionId?: string;
 
   /**
    * Spec is the configuration of the environment that's required for the runner to
@@ -1941,6 +2024,7 @@ Environments.Classes = Classes;
 export declare namespace Environments {
   export {
     type AdmissionLevel as AdmissionLevel,
+    type BpfDebugLevel as BpfDebugLevel,
     type Environment as Environment,
     type EnvironmentActivitySignal as EnvironmentActivitySignal,
     type EnvironmentMetadata as EnvironmentMetadata,

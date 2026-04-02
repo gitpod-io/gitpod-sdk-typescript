@@ -39,6 +39,11 @@ export interface AutomationTrigger {
   prebuild?: boolean;
 }
 
+export type CountResponseRelation =
+  | 'COUNT_RESPONSE_RELATION_UNSPECIFIED'
+  | 'COUNT_RESPONSE_RELATION_EQ'
+  | 'COUNT_RESPONSE_RELATION_GTE';
+
 export interface EnvironmentClass {
   /**
    * id is the unique identifier of the environment class
@@ -172,8 +177,7 @@ export type Principal =
   | 'PRINCIPAL_RUNNER'
   | 'PRINCIPAL_ENVIRONMENT'
   | 'PRINCIPAL_SERVICE_ACCOUNT'
-  | 'PRINCIPAL_RUNNER_MANAGER'
-  | 'PRINCIPAL_AGENT_EXECUTION';
+  | 'PRINCIPAL_RUNNER_MANAGER';
 
 export interface ProjectEnvironmentClass {
   /**
@@ -205,6 +209,7 @@ export type ResourceRole =
   | 'RESOURCE_ROLE_ORG_PROJECTS_ADMIN'
   | 'RESOURCE_ROLE_ORG_AUTOMATIONS_ADMIN'
   | 'RESOURCE_ROLE_ORG_GROUPS_ADMIN'
+  | 'RESOURCE_ROLE_ORG_AUDIT_LOG_READER'
   | 'RESOURCE_ROLE_GROUP_ADMIN'
   | 'RESOURCE_ROLE_GROUP_VIEWER'
   | 'RESOURCE_ROLE_USER_IDENTITY'
@@ -236,11 +241,11 @@ export type ResourceRole =
   | 'RESOURCE_ROLE_ENVIRONMENT_TASK_ENV'
   | 'RESOURCE_ROLE_SERVICE_ACCOUNT_IDENTITY'
   | 'RESOURCE_ROLE_SERVICE_ACCOUNT_ADMIN'
-  | 'RESOURCE_ROLE_AGENT_EXECUTION_IDENTITY'
   | 'RESOURCE_ROLE_AGENT_EXECUTION_USER'
   | 'RESOURCE_ROLE_AGENT_EXECUTION_ADMIN'
   | 'RESOURCE_ROLE_AGENT_EXECUTION_RUNNER'
   | 'RESOURCE_ROLE_AGENT_EXECUTION_OUTPUTS_REPORTER'
+  | 'RESOURCE_ROLE_AGENT_EXECUTION_VIEWER'
   | 'RESOURCE_ROLE_AGENT_ADMIN'
   | 'RESOURCE_ROLE_AGENT_VIEWER'
   | 'RESOURCE_ROLE_AGENT_EXECUTOR'
@@ -254,7 +259,11 @@ export type ResourceRole =
   | 'RESOURCE_ROLE_WEBHOOK_VIEWER'
   | 'RESOURCE_ROLE_WARMPOOL_RUNNER'
   | 'RESOURCE_ROLE_WARMPOOL_ADMIN'
-  | 'RESOURCE_ROLE_WARMPOOL_VIEWER';
+  | 'RESOURCE_ROLE_WARMPOOL_VIEWER'
+  | 'RESOURCE_ROLE_SESSION_ADMIN'
+  | 'RESOURCE_ROLE_SESSION_USER'
+  | 'RESOURCE_ROLE_TEAM_ADMIN'
+  | 'RESOURCE_ROLE_TEAM_VIEWER';
 
 export type ResourceType =
   | 'RESOURCE_TYPE_UNSPECIFIED'
@@ -305,7 +314,8 @@ export type ResourceType =
   | 'RESOURCE_TYPE_ANNOUNCEMENT_BANNER'
   | 'RESOURCE_TYPE_SERVICE_ACCOUNT_TOKEN'
   | 'RESOURCE_TYPE_ROLE_ASSIGNMENT'
-  | 'RESOURCE_TYPE_WARM_POOL';
+  | 'RESOURCE_TYPE_WARM_POOL'
+  | 'RESOURCE_TYPE_NOTIFICATION';
 
 export interface RunsOn {
   docker?: RunsOn.Docker;
@@ -314,6 +324,12 @@ export interface RunsOn {
    * Machine runs the service/task directly on the VM/machine level.
    */
   machine?: unknown;
+
+  /**
+   * Terminal runs the service inside a managed PTY terminal in the devcontainer.
+   * Users can attach to the terminal interactively via the terminal API.
+   */
+  terminal?: unknown;
 }
 
 export namespace RunsOn {
@@ -333,6 +349,17 @@ export interface SecretRef {
    */
   id?: string;
 }
+
+export interface Sort {
+  /**
+   * Field name to sort by, in camelCase.
+   */
+  field?: string;
+
+  order?: SortOrder;
+}
+
+export type SortOrder = 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
 
 /**
  * Current state of the pull request

@@ -1089,6 +1089,19 @@ export interface ProjectListParams extends ProjectsPageParams {
    * Body param: pagination contains the pagination options for listing organizations
    */
   pagination?: ProjectListParams.Pagination;
+
+  /**
+   * Body param: sort specifies the order of results. Defaults to popularity
+   * descending.
+   *
+   * Supported fields:
+   *
+   * - "id": Sort by project ID (UUID v7, effectively creation order). Produces a
+   *   stable, deterministic result set suitable for consistent pagination.
+   * - "popularity": Sort by popularity — a precomputed score based on recent
+   *   environment creation activity. Updated periodically by a background job.
+   */
+  sort?: Shared.Sort;
 }
 
 export namespace ProjectListParams {

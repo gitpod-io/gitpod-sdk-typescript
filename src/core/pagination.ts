@@ -889,6 +889,61 @@ export class MembersPage<Item> extends AbstractPage<Item> implements MembersPage
   }
 }
 
+export interface OutputsPageResponse<Item> {
+  outputs: Array<Item>;
+
+  pagination: OutputsPageResponse.Pagination;
+}
+
+export namespace OutputsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface OutputsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class OutputsPage<Item> extends AbstractPage<Item> implements OutputsPageResponse<Item> {
+  outputs: Array<Item>;
+
+  pagination: OutputsPageResponse.Pagination;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: OutputsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.outputs = body.outputs || [];
+    this.pagination = body.pagination || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.outputs ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface PersonalAccessTokensPageResponse<Item> {
   pagination: PersonalAccessTokensPageResponse.Pagination;
 
@@ -1763,6 +1818,232 @@ export class TokensPage<Item> extends AbstractPage<Item> implements TokensPageRe
 
   getPaginatedItems(): Item[] {
     return this.tokens ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
+export interface WarmPoolsPageResponse<Item> {
+  pagination: WarmPoolsPageResponse.Pagination;
+
+  warmPools: Array<Item>;
+}
+
+export namespace WarmPoolsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface WarmPoolsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class WarmPoolsPage<Item> extends AbstractPage<Item> implements WarmPoolsPageResponse<Item> {
+  pagination: WarmPoolsPageResponse.Pagination;
+
+  warmPools: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WarmPoolsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.warmPools = body.warmPools || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.warmPools ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
+export interface WorkflowExecutionActionsPageResponse<Item> {
+  pagination: WorkflowExecutionActionsPageResponse.Pagination;
+
+  workflowExecutionActions: Array<Item>;
+}
+
+export namespace WorkflowExecutionActionsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface WorkflowExecutionActionsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class WorkflowExecutionActionsPage<Item>
+  extends AbstractPage<Item>
+  implements WorkflowExecutionActionsPageResponse<Item>
+{
+  pagination: WorkflowExecutionActionsPageResponse.Pagination;
+
+  workflowExecutionActions: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WorkflowExecutionActionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.workflowExecutionActions = body.workflowExecutionActions || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.workflowExecutionActions ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
+export interface WorkflowExecutionsPageResponse<Item> {
+  pagination: WorkflowExecutionsPageResponse.Pagination;
+
+  workflowExecutions: Array<Item>;
+}
+
+export namespace WorkflowExecutionsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface WorkflowExecutionsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class WorkflowExecutionsPage<Item>
+  extends AbstractPage<Item>
+  implements WorkflowExecutionsPageResponse<Item>
+{
+  pagination: WorkflowExecutionsPageResponse.Pagination;
+
+  workflowExecutions: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WorkflowExecutionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.workflowExecutions = body.workflowExecutions || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.workflowExecutions ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
+export interface WorkflowsPageResponse<Item> {
+  pagination: WorkflowsPageResponse.Pagination;
+
+  workflows: Array<Item>;
+}
+
+export namespace WorkflowsPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface WorkflowsPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class WorkflowsPage<Item> extends AbstractPage<Item> implements WorkflowsPageResponse<Item> {
+  pagination: WorkflowsPageResponse.Pagination;
+
+  workflows: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WorkflowsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.workflows = body.workflows || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.workflows ?? [];
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {

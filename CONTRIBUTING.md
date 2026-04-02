@@ -60,7 +60,7 @@ $ yarn link @gitpod/sdk
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global @gitpod/sdk
+$ pnpm link --global @gitpod/sdk
 ```
 
 ## Running tests

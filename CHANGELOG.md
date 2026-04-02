@@ -1,5 +1,100 @@
 # Changelog
 
+## 0.14.0 (2026-04-02)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* [backend/api] add backend search for group members ([d7dee78](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d7dee782586a5d1685a6a3c740e3fa2dc4d80bd5))
+* **agents:** enforce sub-agent depth and concurrency limits in backend ([091e1e1](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/091e1e1dcdb3f67bba806f330766274004234736))
+* **api:** add acknowledgeToken parameter to environments start method ([4e4cf9c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/4e4cf9c8c51749944cd4d37f98ca46fd48524b0f))
+* **api:** add AGENT_EXECUTION_VIEWER role to ResourceRole type ([e728590](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e728590a07f53977b6e22ae1e49db5dedfaf37e6))
+* **api:** add agentMessage param and AgentMessage/Type types to agents ([3116d62](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3116d62117a33546b4293d0914819e26836688c4))
+* **api:** add automations resource with workflows/executions/actions ([c714e29](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c714e295b0d1f65f804fc85a93487e9549a47d1d))
+* **api:** add bpfDebugLevel field to KernelControlsConfig in environments ([a287ad3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a287ad3af6bf663011161691ca7913a446541a42))
+* **api:** add claimsExpression field to SSO configurations ([d341ea2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d341ea27e87d728ff4001679b665cb629335ee63))
+* **api:** add conversation_sharing_policy to agent policy ([bf403a1](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/bf403a175281b9b5e61d644015548d4e1f5f2607))
+* **api:** add CountResponseRelation type ([b873069](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b87306930d710a13c53c98b56b96b812c3521d84))
+* **api:** add credentialProxy field to environments Secret ([02863e6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/02863e6b7f366348e46cb44e53c15404aea596ce))
+* **api:** add customAgents field and CustomSecurityAgent type to policies ([1a61b78](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1a61b782581ec2402a5c628e4f57feb676669323))
+* **api:** add desiredSize field to WarmPoolStatus in prebuilds ([353883c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/353883cb024626e7994a08f2deecea0dd60a1849))
+* **api:** add disabled parameter to automation update method ([badc257](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/badc257d04b0aecb4a3becba683862e2d6d64d0f))
+* **api:** add environment field to agent wake events ([992e5d0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/992e5d0e42c8e6546be7ec08e3ace411edaf015c))
+* **api:** add exclude_team_ids parameter to organization list members ([272e39c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/272e39c392b6a5a6c459e6bbd40407d4a8a6294b))
+* **api:** add excludePromptContent parameter to agents list prompts method ([49a254a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/49a254a20c1966e30bbd4d0e7efe1a124fd0f12e))
+* **api:** add filter parameter to groups list method ([8bc4dd7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8bc4dd780908d6853d89b803caa340bf25537f4d))
+* **api:** add hasFailedExecutionSince parameter to automations list method ([217a0b3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/217a0b3270e3962bf8097c1c0e9748f0d9a4c271))
+* **api:** add lockdownAt field to EnvironmentStatus ([1b40ec9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1b40ec9b2d39a90bc0c82691bf7b7c5b47f2799c))
+* **api:** add loop conditions to agents, update wake event types ([e2f1f5d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e2f1f5d8f0cc088a0f5b2cf503ad003b4833b4c1))
+* **api:** add managedMetricsEnabled field to runners MetricsConfiguration ([b7d2e42](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b7d2e429e498e58bdde9c171e67f90aaacd087da))
+* **api:** add min_size and max_size to prebuilds warm pools ([50e0e9c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/50e0e9c4da97de8fe91ea2b193930556f33dfe74))
+* **api:** add organizationTier to identity authenticated response ([510f3f8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/510f3f8486518e6fb69f44cbc7b34e842b22c1ca))
+* **api:** add read_only field to PersonalAccessToken proto messages ([9dbc9a5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9dbc9a5410b59c6e1161e886a72e5c50ae221bf1))
+* **api:** add RESOURCE_ROLE_ORG_AUDIT_LOG_READER to ResourceRole enum ([811b8f3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/811b8f37b3caed8228b561180d61981c9278f299))
+* **api:** add RESOURCE_TYPE_NOTIFICATION to ResourceType enum ([f605d55](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f605d55f111bf83b4e472fe8b639d0953361ef9e))
+* **api:** add resourceIds to role assignments, simplify executable deny list in policies ([a2c14c0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a2c14c0e1702564a2855ea6d7f49605dd6e7e4c1))
+* **api:** add resourceTypeFilters parameter to events watch method ([07bb8ec](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/07bb8ec587dd0b5b1d5b43ed506ab8733ebbd073))
+* **api:** add role/senderExecutionId fields to agents AgentMessage ([2c815f0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2c815f0c52891d6b0d7869bffdccd28890520b22))
+* **api:** add RUNNER_CAPABILITY_WARM_POOL to RunnerCapability enum ([f7ee363](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f7ee36368822b4dbad149abf3d1944a6d3f1a2fb))
+* **api:** add search parameter to agents list prompts method ([7e78aca](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7e78aca647ff60acafe52ab90c0846207190df66))
+* **api:** add SESSION_ADMIN and SESSION_USER to ResourceRole enum ([186e30f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/186e30fccfe1a41601816d1a46bf163e00c24b18))
+* **api:** add sessionId parameter to agents and environments ([0ef9494](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0ef9494e37d62933fea68a26d73c8932f7ebce11))
+* **api:** add sessionId parameter to environments create from project ([693174b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/693174bb0cc890681450918bde61b0b29656f122))
+* **api:** add sessionIds filter to agents/environments list methods ([52e0a3a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/52e0a3afe617f580ce1dbca45eb761cdd8e9034b))
+* **api:** add snapshotSizeBytes field to PrebuildStatus ([17124f0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/17124f098f482d4d8160f40b26439eb0f741b5e0))
+* **api:** add SONNET_4_6 model variants to AgentExecution ([8646e6e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8646e6ea9fc56779c5785cb0a614116064320cbc))
+* **api:** add sort option to ListAuditLogs ([e617fb0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e617fb005b9122702ee2987a316d12d46bc22c35))
+* **api:** add sort parameter to projects list and Sort/SortOrder types ([3322c72](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3322c72b72dd47a46c674074f580aef9a36dcedd))
+* **api:** add SUPPORTED_MODEL_HAIKU_4_5 to AgentExecution model ([eb7a869](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/eb7a869bec5729291aededfc320b4b9ea499a5f7))
+* **api:** add TEAM_ADMIN and TEAM_VIEWER to ResourceRole ([4428302](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/442830279d79a2181f304c53bacc465616989c42))
+* **api:** add terminal field to RunsOn ([a285f60](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a285f6013dd1382c2dcd5e3d520e90f44af02354))
+* **api:** add time range filters to event list method ([1b2c056](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1b2c0567bfad884aadcb3bbeb81af84c76afe1c3))
+* **api:** add updateWindow field to runners configuration ([54c0225](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/54c0225d6cfbeb43cd5c7163667c29a5e28c08b6))
+* **api:** add WakeEvent type and wakeEvent parameter to agents ([ea254b6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ea254b67bf12c9dca3b8d205d56883c53179dd20))
+* **api:** add warm pool CRUD methods and types to prebuilds ([2ebb4cd](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2ebb4cdb5f1461a96bac9b29cc4ffcf1dbf9c439))
+* **api:** allow min_size &gt;= 0 for warm pool dynamic scaling ([a72b6c8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a72b6c81385168933314a76794899bb91c6114cf))
+* **backend/api,dashboard:** add server-side `recentlyCompleted` sort for `ListWorkflows` ([567bc3a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/567bc3a93c2cc65fd939527a3a0868cf30fd1e44))
+* **ec2:** add RUNNER_CAPABILITY_ASG_WARM_POOL capability ([993a447](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/993a447ef3390cd787661868a28bb2116345821e))
+* **types:** remove agent execution enum values from Principal and ResourceRole ([4378ae7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/4378ae76a8d9b668c2b428009c39ec35aa8dc781))
+
+
+### Bug Fixes
+
+* **api:** remove acknowledgeToken parameter from environments start method ([77917e4](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/77917e43fbdc905617e238b8f2d0c1a9e5c9fade))
+* **api:** rename executableDenyList to vetoExecPolicy in policies ([84bf167](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/84bf167dd9dd77c72968cd5267d9a2b25a6caa76))
+* **client:** preserve URL params already embedded in path ([7424783](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7424783edb1c99c339910557206e36d02cc9ad75))
+* **docs/contributing:** correct pnpm link command ([43ff14c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/43ff14ca7e7126233cd7dd75cd191766b96ab492))
+* fix request delays for retrying to be more respectful of high requested delays ([858345c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/858345c8d80809668d46f6b0757c0fb14702cb73))
+* **types:** make id optional in CustomSecurityAgent ([25f783f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/25f783f7f7490c965a8a9819547d943c95e1bf33))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([74a87ee](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/74a87ee1d29679c394c0c8417f57944f1fcf6b77))
+* **ci:** skip uploading artifacts on stainless-internal branches ([a4c7e10](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a4c7e10ee9bda8648752c8c56f49960a54cca88a))
+* **docs:** add missing descriptions ([ad400e2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ad400e2a897ed2b82a4dff08de92b16d74b0e6d1))
+* **internal:** move stringifyQuery implementation to internal function ([b25ce90](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b25ce90fcccaa5dab211114e17d9c155f26b05c5))
+* **internal:** regenerate SDK with no functional changes ([c095797](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c095797ffaf0db7caedd47aac75b3dc8baa8a3d5))
+* **internal:** regenerate SDK with no functional changes ([cc9b601](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/cc9b601ae180912ef05f7809e416f14e04af28c8))
+* **internal:** regenerate SDK with no functional changes ([ca8c11c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ca8c11c5e9b538421341f2f09c633dcf39439f15))
+* **internal:** regenerate SDK with no functional changes ([a7e1b02](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a7e1b02445a7bd5f00409acf0af72615c91c6202))
+* **internal:** regenerate SDK with no functional changes ([2b0fe0b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2b0fe0b585142ca23d6786d32312650514e4ddd0))
+* **internal:** remove mock server code ([d7effec](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d7effeca87947f2c067de984a7fac9f4e498eaac))
+* **internal:** tweak CI branches ([834cba6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/834cba602e5f46c845b48991abc643c43628aa94))
+* **internal:** update dependencies to address dependabot vulnerabilities ([3daa978](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3daa97802cc6ccbfc732028820ff17c46f775503))
+* **internal:** update gitignore ([51da5bf](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/51da5bfc1509472e2a96ce199097bca3377e7b6a))
+* **test:** update skip reason message ([9e5570d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9e5570d13dbf4c3101e679038a8e4bdb2460882d))
+* **types:** move CountResponseRelation from organizations to shared ([c47174a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c47174a9c78d9785316d7f4085a4aea653b11cc1))
+* update mock server docs ([cd79de5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/cd79de5fbf0ffd6dcc51c8a0d930065335254f1f))
+
+
+### Documentation
+
+* **api:** clarify resourceId/resourceIds permission behavior in groups role assignments ([1b36502](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1b36502903ea6f8a6b558bd152379137191907a8))
+* **api:** clarify timeout constraints in environments and organization policies ([8a68a4d](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8a68a4d7213b28c0c5376ccc3eb873692f4961ba))
+* **api:** update annotations parameter examples in agents ([723978c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/723978c628dab92a05195c67346c796b7232583c))
+
 ## 0.13.0 (2026-02-18)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.12.0...v0.13.0)

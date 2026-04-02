@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource policies', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.policies.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -22,14 +22,14 @@ describe('resource policies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.policies.retrieve({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -43,12 +43,14 @@ describe('resource policies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       agentPolicy: {
         commandDenyList: ['string'],
+        conversationSharingPolicy: 'CONVERSATION_SHARING_POLICY_UNSPECIFIED',
+        maxSubagentsPerEnvironment: 10,
         mcpDisabled: true,
         scmToolsAllowedGroupId: 'scmToolsAllowedGroupId',
         scmToolsDisabled: true,
@@ -59,11 +61,6 @@ describe('resource policies', () => {
       defaultEnvironmentImage: 'defaultEnvironmentImage',
       deleteArchivedEnvironmentsAfter: '+9125115.360s',
       editorVersionRestrictions: { foo: { allowedVersions: ['string'] } },
-      executableDenyList: {
-        action: 'KERNEL_CONTROLS_ACTION_UNSPECIFIED',
-        enabled: true,
-        executables: ['string'],
-      },
       maximumEnvironmentLifetime: '+9125115.360s',
       maximumEnvironmentsPerUser: '20',
       maximumEnvironmentTimeout: '3600s',
@@ -81,6 +78,11 @@ describe('resource policies', () => {
           image: 'image',
           tags: 'tags',
         },
+      },
+      vetoExecPolicy: {
+        action: 'KERNEL_CONTROLS_ACTION_UNSPECIFIED',
+        enabled: true,
+        executables: ['string'],
       },
     });
   });

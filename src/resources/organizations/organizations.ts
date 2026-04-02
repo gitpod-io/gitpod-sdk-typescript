@@ -55,7 +55,10 @@ import {
 import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
+  ConversationSharingPolicy,
   CrowdStrikeConfig,
+  CustomAgentEnvMapping,
+  CustomSecurityAgent,
   KernelControlsAction,
   OrganizationPolicies,
   Policies,
@@ -906,6 +909,12 @@ export namespace OrganizationListMembersParams {
     excludeGroupIds?: Array<string>;
 
     /**
+     * exclude_members_in_any_team excludes members who belong to any team in the
+     * organization
+     */
+    excludeMembersInAnyTeam?: boolean;
+
+    /**
      * roles filters members by their organization role
      */
     roles?: Array<Shared.OrganizationRole>;
@@ -952,7 +961,7 @@ export namespace OrganizationListMembersParams {
   export interface Sort {
     field?: 'SORT_FIELD_UNSPECIFIED' | 'SORT_FIELD_NAME' | 'SORT_FIELD_DATE_JOINED';
 
-    order?: 'SORT_ORDER_UNSPECIFIED' | 'SORT_ORDER_ASC' | 'SORT_ORDER_DESC';
+    order?: Shared.SortOrder;
   }
 }
 
@@ -1048,7 +1057,10 @@ export declare namespace Organizations {
   export {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
+    type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type CustomAgentEnvMapping as CustomAgentEnvMapping,
+    type CustomSecurityAgent as CustomSecurityAgent,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,

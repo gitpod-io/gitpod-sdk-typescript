@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource ssoConfigurations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.organizations.ssoConfigurations.create({
       clientId: '012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com',
@@ -25,7 +25,7 @@ describe('resource ssoConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.organizations.ssoConfigurations.create({
       clientId: '012345678-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com',
@@ -33,13 +33,14 @@ describe('resource ssoConfigurations', () => {
       issuerUrl: 'https://accounts.google.com',
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       additionalScopes: ['x'],
+      claimsExpression: 'claimsExpression',
       displayName: 'displayName',
       emailDomain: 'acme-corp.com',
       emailDomains: ['sfN2.l.iJR-BU.u9JV9.a.m.o2D-4b-Jd.0Z-kX.L.n.S.f.UKbxB'],
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.organizations.ssoConfigurations.retrieve({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -53,14 +54,14 @@ describe('resource ssoConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.organizations.ssoConfigurations.retrieve({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.organizations.ssoConfigurations.update({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -74,12 +75,13 @@ describe('resource ssoConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.organizations.ssoConfigurations.update({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
       additionalScopes: { scopes: ['x'] },
       claims: { foo: 'string' },
+      claimsExpression: 'claimsExpression',
       clientId: 'new-client-id',
       clientSecret: 'new-client-secret',
       displayName: 'displayName',
@@ -90,7 +92,7 @@ describe('resource ssoConfigurations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.organizations.ssoConfigurations.list({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -104,7 +106,7 @@ describe('resource ssoConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.organizations.ssoConfigurations.list({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
@@ -114,7 +116,7 @@ describe('resource ssoConfigurations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.organizations.ssoConfigurations.delete({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
@@ -128,7 +130,7 @@ describe('resource ssoConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.organizations.ssoConfigurations.delete({
       ssoConfigurationId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',

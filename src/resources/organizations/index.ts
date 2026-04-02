@@ -71,7 +71,10 @@ export {
 export {
   Policies,
   type AgentPolicy,
+  type ConversationSharingPolicy,
   type CrowdStrikeConfig,
+  type CustomAgentEnvMapping,
+  type CustomSecurityAgent,
   type KernelControlsAction,
   type OrganizationPolicies,
   type SecurityAgentPolicy,

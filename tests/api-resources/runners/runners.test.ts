@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource runners', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.runners.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.runners.retrieve({});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.runners.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.runners.list({});
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.runners.delete({});
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +68,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('checkAuthenticationForHost', async () => {
     const responsePromise = client.runners.checkAuthenticationForHost({});
     const rawResponse = await responsePromise.asResponse();
@@ -80,7 +80,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('checkRepositoryAccess', async () => {
     const responsePromise = client.runners.checkRepositoryAccess({});
     const rawResponse = await responsePromise.asResponse();
@@ -92,7 +92,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createLogsToken', async () => {
     const responsePromise = client.runners.createLogsToken({});
     const rawResponse = await responsePromise.asResponse();
@@ -104,7 +104,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createRunnerToken', async () => {
     const responsePromise = client.runners.createRunnerToken({});
     const rawResponse = await responsePromise.asResponse();
@@ -116,7 +116,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listScmOrganizations', async () => {
     const responsePromise = client.runners.listScmOrganizations({});
     const rawResponse = await responsePromise.asResponse();
@@ -128,7 +128,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('parseContextURL', async () => {
     const responsePromise = client.runners.parseContextURL({});
     const rawResponse = await responsePromise.asResponse();
@@ -140,7 +140,7 @@ describe('resource runners', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('searchRepositories', async () => {
     const responsePromise = client.runners.searchRepositories({});
     const rawResponse = await responsePromise.asResponse();

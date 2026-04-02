@@ -4,6 +4,10 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * ErrorsService provides endpoints for clients to report errors
+ *  that will be sent to error reporting systems.
+ */
 export class Errors extends APIResource {
   /**
    * ReportErrors allows clients to report batches of errors that will be sent to

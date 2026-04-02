@@ -8,7 +8,7 @@ const client = new Gitpod({
 });
 
 describe('resource dotfiles', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('get', async () => {
     const responsePromise = client.users.dotfiles.get({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource dotfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('set', async () => {
     const responsePromise = client.users.dotfiles.set({});
     const rawResponse = await responsePromise.asResponse();

@@ -730,6 +730,8 @@ export namespace AgentExecution {
 
     limits?: Spec.Limits;
 
+    loopConditions?: Array<Spec.LoopCondition>;
+
     session?: string;
 
     /**
@@ -747,6 +749,14 @@ export namespace AgentExecution {
       maxIterations?: string;
 
       maxOutputTokens?: string;
+    }
+
+    export interface LoopCondition {
+      id?: string;
+
+      description?: string;
+
+      expression?: string;
     }
   }
 
@@ -850,12 +860,15 @@ export namespace AgentExecution {
       | 'SUPPORTED_MODEL_SONNET_4_EXTENDED'
       | 'SUPPORTED_MODEL_SONNET_4_5'
       | 'SUPPORTED_MODEL_SONNET_4_5_EXTENDED'
+      | 'SUPPORTED_MODEL_SONNET_4_6'
+      | 'SUPPORTED_MODEL_SONNET_4_6_EXTENDED'
       | 'SUPPORTED_MODEL_OPUS_4'
       | 'SUPPORTED_MODEL_OPUS_4_EXTENDED'
       | 'SUPPORTED_MODEL_OPUS_4_5'
       | 'SUPPORTED_MODEL_OPUS_4_5_EXTENDED'
       | 'SUPPORTED_MODEL_OPUS_4_6'
       | 'SUPPORTED_MODEL_OPUS_4_6_EXTENDED'
+      | 'SUPPORTED_MODEL_HAIKU_4_5'
       | 'SUPPORTED_MODEL_OPENAI_4O'
       | 'SUPPORTED_MODEL_OPENAI_4O_MINI'
       | 'SUPPORTED_MODEL_OPENAI_O1'
@@ -961,6 +974,19 @@ export namespace AgentExecution {
       environmentId?: string;
     }
   }
+}
+
+/**
+ * AgentMessage is a message sent between agents (e.g. from a parent agent to a
+ * child agent execution, or vice versa).
+ */
+export interface AgentMessage {
+  /**
+   * Free-form payload of the message.
+   */
+  payload?: string;
+
+  type?: Type;
 }
 
 /**
@@ -1214,6 +1240,13 @@ export interface PromptSpec {
   prompt?: string;
 }
 
+/**
+ * Role identifies the sender's relationship in the parent/child hierarchy.
+ */
+export type Role = 'ROLE_UNSPECIFIED' | 'ROLE_PARENT' | 'ROLE_CHILD';
+
+export type Type = 'TYPE_UNSPECIFIED' | 'TYPE_UPDATE' | 'TYPE_COMPLETE';
+
 export interface UserInputBlock {
   id?: string;
 
@@ -1284,6 +1317,65 @@ export namespace UserInputBlock {
    */
   export interface Text {
     content?: string;
+  }
+}
+
+/**
+ * WakeEvent is sent by the backend to wake an agent when a registered interest
+ * fires. Delivered via SendToAgentExecution as a new oneof variant.
+ */
+export interface WakeEvent {
+  environment?: WakeEvent.Environment;
+
+  /**
+   * The interest ID that fired (from WaitingInfo.Interest.id).
+   */
+  interestId?: string;
+
+  loopRetrigger?: WakeEvent.LoopRetrigger;
+
+  timer?: WakeEvent.Timer;
+}
+
+export namespace WakeEvent {
+  export interface Environment {
+    environmentId?: string;
+
+    failureMessage?: Array<string>;
+
+    /**
+     * The phase the environment reached (e.g. "running", "stopped", "deleted").
+     */
+    phase?: string;
+  }
+
+  export interface LoopRetrigger {
+    outputs?: { [key: string]: string };
+
+    unmetConditions?: Array<LoopRetrigger.UnmetCondition>;
+  }
+
+  export namespace LoopRetrigger {
+    export interface UnmetCondition {
+      id?: string;
+
+      description?: string;
+
+      expression?: string;
+
+      iteration?: number;
+
+      maxIterations?: number;
+
+      reason?: string;
+    }
+  }
+
+  export interface Timer {
+    /**
+     * The actual time the timer was evaluated as expired.
+     */
+    firedAt?: string;
   }
 }
 
@@ -1379,6 +1471,12 @@ export namespace AgentListExecutionsParams {
       'AGENT_EXECUTION_ROLE_UNSPECIFIED' | 'AGENT_EXECUTION_ROLE_DEFAULT' | 'AGENT_EXECUTION_ROLE_WORKFLOW'
     >;
 
+    /**
+     * session_ids filters the response to only executions belonging to the specified
+     * sessions
+     */
+    sessionIds?: Array<string>;
+
     statusPhases?: Array<
       'PHASE_UNSPECIFIED' | 'PHASE_PENDING' | 'PHASE_RUNNING' | 'PHASE_WAITING_FOR_INPUT' | 'PHASE_STOPPED'
     >;
@@ -1417,11 +1515,24 @@ export namespace AgentListPromptsParams {
 
     commandPrefix?: string;
 
+    /**
+     * exclude_prompt_content omits the large spec.prompt text from the response. Other
+     * spec fields (is_template, is_command, command, is_skill) are still returned. Use
+     * GetPrompt to retrieve the full prompt content when needed.
+     */
+    excludePromptContent?: boolean;
+
     isCommand?: boolean;
 
     isSkill?: boolean;
 
     isTemplate?: boolean;
+
+    /**
+     * search performs case-insensitive search across prompt name, description, and
+     * command.
+     */
+    search?: string;
   }
 
   export interface Pagination {
@@ -1450,16 +1561,28 @@ export interface AgentRetrievePromptParams {
 export interface AgentSendToExecutionParams {
   agentExecutionId?: string;
 
+  /**
+   * AgentMessage is a message sent between agents (e.g. from a parent agent to a
+   * child agent execution, or vice versa).
+   */
+  agentMessage?: AgentMessage;
+
   userInput?: UserInputBlock;
+
+  /**
+   * WakeEvent is sent by the backend to wake an agent when a registered interest
+   * fires. Delivered via SendToAgentExecution as a new oneof variant.
+   */
+  wakeEvent?: WakeEvent;
 }
 
 export interface AgentStartExecutionParams {
   agentId?: string;
 
   /**
-   * annotations are key-value pairs for tracking external context (e.g., Linear
+   * annotations are key-value pairs for tracking external context (e.g., integration
    * session IDs, GitHub issue references). Keys should follow domain/name convention
-   * (e.g., "linear.app/session-id").
+   * (e.g., "agent-client-session/id").
    */
   annotations?: { [key: string]: string };
 
@@ -1479,6 +1602,12 @@ export interface AgentStartExecutionParams {
    * environment.
    */
   runnerId?: string;
+
+  /**
+   * session_id is the ID of the session this agent execution belongs to. If empty, a
+   * new session is created implicitly.
+   */
+  sessionId?: string;
 
   /**
    * workflow_action_id is an optional reference to the workflow execution action
@@ -1559,11 +1688,15 @@ export declare namespace Agents {
   export {
     type AgentCodeContext as AgentCodeContext,
     type AgentExecution as AgentExecution,
+    type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
+    type Role as Role,
+    type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
     type AgentDeleteExecutionResponse as AgentDeleteExecutionResponse,

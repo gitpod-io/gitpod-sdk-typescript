@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as PoliciesAPI from './policies';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -113,11 +114,31 @@ export interface AgentPolicy {
   scmToolsDisabled: boolean;
 
   /**
+   * conversation_sharing_policy controls whether agent conversations can be shared
+   */
+  conversationSharingPolicy?: ConversationSharingPolicy;
+
+  /**
+   * max_subagents_per_environment limits the number of non-terminal sub-agents a
+   * parent can have running simultaneously in the same environment. Valid range:
+   * 0-10. Zero means use the default (5).
+   */
+  maxSubagentsPerEnvironment?: number;
+
+  /**
    * scm_tools_allowed_group_id restricts SCM tools access to members of this group.
    * Empty means no restriction (all users can use SCM tools if not disabled).
    */
   scmToolsAllowedGroupId?: string;
 }
+
+/**
+ * ConversationSharingPolicy controls how agent conversations can be shared.
+ */
+export type ConversationSharingPolicy =
+  | 'CONVERSATION_SHARING_POLICY_UNSPECIFIED'
+  | 'CONVERSATION_SHARING_POLICY_DISABLED'
+  | 'CONVERSATION_SHARING_POLICY_ORGANIZATION';
 
 /**
  * CrowdStrikeConfig configures CrowdStrike Falcon sensor deployment
@@ -149,6 +170,62 @@ export interface CrowdStrikeConfig {
    * tags are optional tags to apply to the Falcon sensor (comma-separated)
    */
   tags?: string;
+}
+
+/**
+ * CustomAgentEnvMapping maps a script placeholder to an organization secret. The
+ * backend resolves the secret name to a UUID at runtime.
+ */
+export interface CustomAgentEnvMapping {
+  /**
+   * name is the environment variable name used as a placeholder in the start
+   * command.
+   */
+  name?: string;
+
+  /**
+   * secret_name is the name of the organization secret whose value populates this
+   * placeholder.
+   */
+  secretName?: string;
+}
+
+/**
+ * CustomSecurityAgent defines a custom security agent configured by an
+ * organization admin.
+ */
+export interface CustomSecurityAgent {
+  /**
+   * id is a unique identifier for this custom agent within the organization.
+   * Server-generated at save time if empty.
+   */
+  id?: string;
+
+  /**
+   * description is a human-readable description of what this agent does
+   */
+  description?: string;
+
+  /**
+   * enabled controls whether this custom agent is deployed to environments
+   */
+  enabled?: boolean;
+
+  /**
+   * env_mappings maps script placeholders to organization secret names, resolved to
+   * secret values at runtime.
+   */
+  envMappings?: Array<CustomAgentEnvMapping>;
+
+  /**
+   * name is the display name for this custom agent
+   */
+  name?: string;
+
+  /**
+   * start_command is the shell script that starts the agent
+   */
+  startCommand?: string;
 }
 
 /**
@@ -253,11 +330,6 @@ export interface OrganizationPolicies {
   editorVersionRestrictions?: { [key: string]: OrganizationPolicies.EditorVersionRestrictions };
 
   /**
-   * executable_deny_list contains the veto exec policy for environments.
-   */
-  executableDenyList?: VetoExecPolicy;
-
-  /**
    * maximum_environment_lifetime controls for how long environments are allowed to
    * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
    * seconds).
@@ -267,7 +339,12 @@ export interface OrganizationPolicies {
   /**
    * maximum_environment_timeout controls the maximum timeout allowed for
    * environments in seconds. 0 means no limit (never). Minimum duration is 30
-   * minutes (1800 seconds).
+   * minutes (1800 seconds). value must be 0s (no limit) or at least 1800s (30
+   * minutes):
+   *
+   * ```
+   * this == duration('0s') || this >= duration('1800s')
+   * ```
    */
   maximumEnvironmentTimeout?: string;
 
@@ -277,6 +354,11 @@ export interface OrganizationPolicies {
    * environments.
    */
   securityAgentPolicy?: SecurityAgentPolicy;
+
+  /**
+   * veto_exec_policy contains the veto exec policy for environments.
+   */
+  vetoExecPolicy?: VetoExecPolicy;
 }
 
 export namespace OrganizationPolicies {
@@ -388,11 +470,6 @@ export interface PolicyUpdateParams {
   editorVersionRestrictions?: { [key: string]: PolicyUpdateParams.EditorVersionRestrictions };
 
   /**
-   * executable_deny_list contains the veto exec policy for environments.
-   */
-  executableDenyList?: VetoExecPolicy | null;
-
-  /**
    * maximum_environment_lifetime controls for how long environments are allowed to
    * be reused. 0 means no maximum lifetime. Maximum duration is 180 days (15552000
    * seconds).
@@ -408,7 +485,12 @@ export interface PolicyUpdateParams {
   /**
    * maximum_environment_timeout controls the maximum timeout allowed for
    * environments in seconds. 0 means no limit (never). Minimum duration is 30
-   * minutes (1800 seconds).
+   * minutes (1800 seconds). value must be 0s (no limit) or at least 1800s (30
+   * minutes):
+   *
+   * ```
+   * this == duration('0s') || this >= duration('1800s')
+   * ```
    */
   maximumEnvironmentTimeout?: string | null;
 
@@ -453,6 +535,11 @@ export interface PolicyUpdateParams {
    * security_agent_policy contains security agent configuration updates
    */
   securityAgentPolicy?: PolicyUpdateParams.SecurityAgentPolicy | null;
+
+  /**
+   * veto_exec_policy contains the veto exec policy for environments.
+   */
+  vetoExecPolicy?: VetoExecPolicy | null;
 }
 
 export namespace PolicyUpdateParams {
@@ -465,6 +552,18 @@ export namespace PolicyUpdateParams {
      * execute
      */
     commandDenyList?: Array<string>;
+
+    /**
+     * conversation_sharing_policy controls whether agent conversations can be shared
+     */
+    conversationSharingPolicy?: PoliciesAPI.ConversationSharingPolicy | null;
+
+    /**
+     * max_subagents_per_environment limits the number of non-terminal sub-agents a
+     * parent can have running simultaneously in the same environment. Valid range:
+     * 0-10. Zero means use the default (5).
+     */
+    maxSubagentsPerEnvironment?: number | null;
 
     /**
      * mcp_disabled controls whether MCP (Model Context Protocol) is disabled for
@@ -545,7 +644,10 @@ export namespace PolicyUpdateParams {
 export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
+    type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
+    type CustomAgentEnvMapping as CustomAgentEnvMapping,
+    type CustomSecurityAgent as CustomSecurityAgent,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,

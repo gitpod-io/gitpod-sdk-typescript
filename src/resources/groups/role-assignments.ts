@@ -254,12 +254,19 @@ export namespace RoleAssignmentListParams {
     groupId?: string;
 
     /**
-     * resource_id filters the response to only role assignments for this specific
-     * resource When provided, users with :grant permission on the resource can see its
-     * role assignments even if they don't belong to the assigned groups Empty string
-     * is allowed and means no filtering by resource
+     * Filters by a single resource. Non-admin callers with :grant permission on the
+     * resource can see role assignments from groups they don't belong to. Mutually
+     * exclusive with resource_ids.
      */
     resourceId?: string;
+
+    /**
+     * Filters by multiple resources in a single request. Non-admin callers with :grant
+     * permission on a resource can see all role assignments for that resource, even
+     * from groups they don't belong to. The :grant check is applied per-resource
+     * within the batch. Mutually exclusive with resource_id.
+     */
+    resourceIds?: Array<string>;
 
     /**
      * resource_roles filters the response to only role assignments with these specific

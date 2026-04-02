@@ -4,9 +4,19 @@ import { APIResource } from '../core/resource';
 import * as PrebuildsAPI from './prebuilds';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { PagePromise, PrebuildsPage, type PrebuildsPageParams } from '../core/pagination';
+import {
+  PagePromise,
+  PrebuildsPage,
+  type PrebuildsPageParams,
+  WarmPoolsPage,
+  type WarmPoolsPageParams,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * PrebuildService manages prebuilds for projects to enable faster environment startup times.
+ *  Prebuilds create snapshots of environments that can be used to provision new environments quickly.
+ */
 export class Prebuilds extends APIResource {
   /**
    * Creates a prebuild for a project.
@@ -198,9 +208,185 @@ export class Prebuilds extends APIResource {
   ): APIPromise<PrebuildCreateLogsTokenResponse> {
     return this._client.post('/gitpod.v1.PrebuildService/CreatePrebuildLogsToken', { body, ...options });
   }
+
+  /**
+   * Creates a warm pool for a project and environment class.
+   *
+   * A warm pool maintains pre-created environment instances from a prebuild snapshot
+   * so that new environments can start near-instantly.
+   *
+   * Only one warm pool is allowed per <project, environment_class> pair. The
+   * environment class must have prebuilds enabled on the project.
+   *
+   * The pool's snapshot is managed automatically: when a new prebuild completes for
+   * the same project and environment class, the pool's snapshot is updated and the
+   * runner rotates instances.
+   *
+   * ### Examples
+   *
+   * - Create warm pool:
+   *
+   *   Creates a warm pool with 2 instances for a project and environment class.
+   *
+   *   ```yaml
+   *   projectId: "b0e12f6c-4c67-429d-a4a6-d9838b5da047"
+   *   environmentClassId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   desiredSize: 2
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.prebuilds.createWarmPool({
+   *   environmentClassId:
+   *     'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *   projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+   *   desiredSize: 2,
+   * });
+   * ```
+   */
+  createWarmPool(
+    body: PrebuildCreateWarmPoolParams,
+    options?: RequestOptions,
+  ): APIPromise<PrebuildCreateWarmPoolResponse> {
+    return this._client.post('/gitpod.v1.PrebuildService/CreateWarmPool', { body, ...options });
+  }
+
+  /**
+   * Deletes a warm pool.
+   *
+   * Deletion is processed asynchronously. The pool is marked for deletion and the
+   * runner drains instances in the background.
+   *
+   * Warm pools are also automatically deleted when prebuilds are disabled on the
+   * project or the environment class is removed from the prebuild configuration.
+   *
+   * ### Examples
+   *
+   * - Delete warm pool:
+   *
+   *   ```yaml
+   *   warmPoolId: "a1b2c3d4-5678-9abc-def0-1234567890ab"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.prebuilds.deleteWarmPool({
+   *   warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+   * });
+   * ```
+   */
+  deleteWarmPool(body: PrebuildDeleteWarmPoolParams, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.post('/gitpod.v1.PrebuildService/DeleteWarmPool', { body, ...options });
+  }
+
+  /**
+   * Lists warm pools with optional filtering.
+   *
+   * Use this method to:
+   *
+   * - View all warm pools for a project
+   * - Monitor warm pool status across environment classes
+   *
+   * ### Examples
+   *
+   * - List warm pools for a project:
+   *
+   *   ```yaml
+   *   filter:
+   *     projectIds: ["b0e12f6c-4c67-429d-a4a6-d9838b5da047"]
+   *   ```
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const warmPool of client.prebuilds.listWarmPools(
+   *   {
+   *     filter: {
+   *       projectIds: ['b0e12f6c-4c67-429d-a4a6-d9838b5da047'],
+   *     },
+   *   },
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  listWarmPools(
+    params: PrebuildListWarmPoolsParams,
+    options?: RequestOptions,
+  ): PagePromise<WarmPoolsWarmPoolsPage, WarmPool> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.PrebuildService/ListWarmPools', WarmPoolsPage<WarmPool>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
+  }
+
+  /**
+   * Gets details about a specific warm pool.
+   *
+   * Use this method to:
+   *
+   * - Check warm pool status and phase
+   * - View the current snapshot being warmed
+   * - Monitor pool health
+   *
+   * ### Examples
+   *
+   * - Get warm pool:
+   *
+   *   ```yaml
+   *   warmPoolId: "a1b2c3d4-5678-9abc-def0-1234567890ab"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.prebuilds.retrieveWarmPool({
+   *   warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+   * });
+   * ```
+   */
+  retrieveWarmPool(
+    body: PrebuildRetrieveWarmPoolParams,
+    options?: RequestOptions,
+  ): APIPromise<PrebuildRetrieveWarmPoolResponse> {
+    return this._client.post('/gitpod.v1.PrebuildService/GetWarmPool', { body, ...options });
+  }
+
+  /**
+   * Updates a warm pool's configuration.
+   *
+   * Use this method to change the desired pool size.
+   *
+   * ### Examples
+   *
+   * - Update pool size:
+   *
+   *   ```yaml
+   *   warmPoolId: "a1b2c3d4-5678-9abc-def0-1234567890ab"
+   *   desiredSize: 5
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.prebuilds.updateWarmPool({
+   *   warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+   *   desiredSize: 5,
+   * });
+   * ```
+   */
+  updateWarmPool(
+    body: PrebuildUpdateWarmPoolParams,
+    options?: RequestOptions,
+  ): APIPromise<PrebuildUpdateWarmPoolResponse> {
+    return this._client.post('/gitpod.v1.PrebuildService/UpdateWarmPool', { body, ...options });
+  }
 }
 
 export type PrebuildsPrebuildsPage = PrebuildsPage<Prebuild>;
+
+export type WarmPoolsWarmPoolsPage = WarmPoolsPage<WarmPool>;
 
 /**
  * Prebuild represents a prebuild for a project that creates a snapshot for faster
@@ -362,6 +548,12 @@ export interface PrebuildStatus {
   snapshotCompletionPercentage?: number;
 
   /**
+   * snapshot_size_bytes is the size of the snapshot in bytes. Only populated when
+   * the snapshot is available (phase is COMPLETED).
+   */
+  snapshotSizeBytes?: string;
+
+  /**
    * status_version is incremented each time the status is updated. Used for
    * optimistic concurrency control.
    */
@@ -383,6 +575,168 @@ export type PrebuildTrigger =
   | 'PREBUILD_TRIGGER_UNSPECIFIED'
   | 'PREBUILD_TRIGGER_MANUAL'
   | 'PREBUILD_TRIGGER_SCHEDULED';
+
+/**
+ * WarmPool maintains pre-created environment instances from a prebuild snapshot
+ * for near-instant environment startup. One warm pool exists per <project,
+ * environment_class> pair.
+ */
+export interface WarmPool {
+  /**
+   * metadata contains organizational and ownership information
+   */
+  metadata: WarmPoolMetadata;
+
+  /**
+   * spec contains the desired configuration for this warm pool
+   */
+  spec: WarmPoolSpec;
+
+  /**
+   * status contains the current status reported by the runner
+   */
+  status: WarmPoolStatus;
+
+  /**
+   * id is the unique identifier for the warm pool
+   */
+  id?: string;
+}
+
+/**
+ * WarmPoolMetadata contains metadata about the warm pool
+ */
+export interface WarmPoolMetadata {
+  /**
+   * created_at is when the warm pool was created
+   */
+  createdAt: string;
+
+  /**
+   * updated_at is when the warm pool was last updated
+   */
+  updatedAt: string;
+
+  /**
+   * environment_class_id is the environment class whose instances are warmed
+   */
+  environmentClassId?: string;
+
+  /**
+   * organization_id is the ID of the organization that owns the warm pool
+   */
+  organizationId?: string;
+
+  /**
+   * project_id is the ID of the project this warm pool belongs to
+   */
+  projectId?: string;
+
+  /**
+   * runner_id is the runner that manages this warm pool. Derived from the
+   * environment class.
+   */
+  runnerId?: string;
+}
+
+/**
+ * WarmPoolPhase represents the lifecycle phase of a warm pool
+ */
+export type WarmPoolPhase =
+  | 'WARM_POOL_PHASE_UNSPECIFIED'
+  | 'WARM_POOL_PHASE_PENDING'
+  | 'WARM_POOL_PHASE_READY'
+  | 'WARM_POOL_PHASE_DEGRADED'
+  | 'WARM_POOL_PHASE_DELETING'
+  | 'WARM_POOL_PHASE_DELETED';
+
+/**
+ * WarmPoolSpec contains the desired configuration for a warm pool
+ */
+export interface WarmPoolSpec {
+  /**
+   * desired_phase is the intended lifecycle phase for this warm pool. Managed by the
+   * API and reconciler.
+   */
+  desiredPhase?: WarmPoolPhase;
+
+  /**
+   * @deprecated desired_size is the number of warm instances to maintain.
+   * Deprecated: Use min_size and max_size instead for dynamic scaling. Existing
+   * pools will be migrated to min_size=max_size=desired_size.
+   */
+  desiredSize?: number;
+
+  /**
+   * max_size is the maximum number of warm instances to maintain. The pool will
+   * never scale above this value. Must be >= min_size and <= 20.
+   */
+  maxSize?: number | null;
+
+  /**
+   * min_size is the minimum number of warm instances to maintain. The pool will
+   * never scale below this value. Must be >= 0 and <= max_size. Set to 0 to allow
+   * full scale-down.
+   */
+  minSize?: number | null;
+
+  /**
+   * snapshot_id is the prebuild snapshot to warm up in the pool. Updated by the
+   * reconciler when a new prebuild completes for this project and environment class.
+   * Empty when no completed prebuild exists yet.
+   */
+  snapshotId?: string | null;
+
+  /**
+   * spec_version is incremented each time the spec is updated. Used for optimistic
+   * concurrency control.
+   */
+  specVersion?: string;
+}
+
+/**
+ * WarmPoolStatus contains the current status of a warm pool as reported by the
+ * runner
+ */
+export interface WarmPoolStatus {
+  /**
+   * phase is the current phase of the warm pool lifecycle
+   */
+  phase: WarmPoolPhase;
+
+  /**
+   * desired_size is the current target number of instances the autoscaler has
+   * decided on. Unlike running_instances, this value is stable and does not
+   * fluctuate as instances are claimed and backfilled.
+   */
+  desiredSize?: number;
+
+  /**
+   * failure_message contains details about why the warm pool is degraded or failed
+   */
+  failureMessage?: string;
+
+  /**
+   * running_instances is the number of running warm instances in the pool, ready to
+   * be claimed for near-instant environment startup.
+   */
+  runningInstances?: number;
+
+  /**
+   * status_version is incremented each time the status is updated. Used for
+   * optimistic concurrency control.
+   */
+  statusVersion?: string;
+
+  /**
+   * stopped_instances is the number of pre-provisioned but stopped instances in the
+   * pool. When a running instance is claimed, stopped instances are used to backfill
+   * the running pool faster than provisioning from scratch. Stopped instances only
+   * incur storage costs, allowing a larger total pool at lower cost than keeping all
+   * instances running.
+   */
+  stoppedInstances?: number;
+}
 
 export interface PrebuildCreateResponse {
   /**
@@ -415,6 +769,35 @@ export interface PrebuildCreateLogsTokenResponse {
    * access_token is the token that can be used to access the logs of the prebuild
    */
   accessToken: string;
+}
+
+export interface PrebuildCreateWarmPoolResponse {
+  /**
+   * WarmPool maintains pre-created environment instances from a prebuild snapshot
+   * for near-instant environment startup. One warm pool exists per <project,
+   * environment_class> pair.
+   */
+  warmPool: WarmPool;
+}
+
+export type PrebuildDeleteWarmPoolResponse = unknown;
+
+export interface PrebuildRetrieveWarmPoolResponse {
+  /**
+   * WarmPool maintains pre-created environment instances from a prebuild snapshot
+   * for near-instant environment startup. One warm pool exists per <project,
+   * environment_class> pair.
+   */
+  warmPool: WarmPool;
+}
+
+export interface PrebuildUpdateWarmPoolResponse {
+  /**
+   * WarmPool maintains pre-created environment instances from a prebuild snapshot
+   * for near-instant environment startup. One warm pool exists per <project,
+   * environment_class> pair.
+   */
+  warmPool: WarmPool;
 }
 
 export interface PrebuildCreateParams {
@@ -526,6 +909,125 @@ export interface PrebuildCreateLogsTokenParams {
   prebuildId: string;
 }
 
+export interface PrebuildCreateWarmPoolParams {
+  /**
+   * environment_class_id specifies which environment class to warm. Must be listed
+   * in the project's prebuild configuration environment_class_ids.
+   */
+  environmentClassId: string;
+
+  /**
+   * project_id specifies the project this warm pool belongs to. The project must
+   * have prebuilds enabled.
+   */
+  projectId: string;
+
+  /**
+   * @deprecated desired_size is the number of warm instances to maintain.
+   * Deprecated: Use min_size and max_size instead for dynamic scaling.
+   */
+  desiredSize?: number;
+
+  /**
+   * max_size is the maximum number of warm instances to maintain. The pool will
+   * never scale above this value. Must be >= min_size and <= 20.
+   */
+  maxSize?: number | null;
+
+  /**
+   * min_size is the minimum number of warm instances to maintain. The pool will
+   * never scale below this value. Must be >= 0 and <= max_size. Set to 0 to allow
+   * full scale-down.
+   */
+  minSize?: number | null;
+}
+
+export interface PrebuildDeleteWarmPoolParams {
+  /**
+   * warm_pool_id specifies the warm pool to delete
+   */
+  warmPoolId: string;
+}
+
+export interface PrebuildListWarmPoolsParams extends WarmPoolsPageParams {
+  /**
+   * Body param: filter contains the filter options for listing warm pools
+   */
+  filter?: PrebuildListWarmPoolsParams.Filter;
+
+  /**
+   * Body param: pagination contains the pagination options for listing warm pools
+   */
+  pagination?: PrebuildListWarmPoolsParams.Pagination;
+}
+
+export namespace PrebuildListWarmPoolsParams {
+  /**
+   * filter contains the filter options for listing warm pools
+   */
+  export interface Filter {
+    /**
+     * environment_class_ids filters warm pools to specific environment classes
+     */
+    environmentClassIds?: Array<string>;
+
+    /**
+     * project_ids filters warm pools to specific projects
+     */
+    projectIds?: Array<string>;
+  }
+
+  /**
+   * pagination contains the pagination options for listing warm pools
+   */
+  export interface Pagination {
+    /**
+     * Token for the next set of results that was returned as next_token of a
+     * PaginationResponse
+     */
+    token?: string;
+
+    /**
+     * Page size is the maximum number of results to retrieve per page. Defaults to 25.
+     * Maximum 100.
+     */
+    pageSize?: number;
+  }
+}
+
+export interface PrebuildRetrieveWarmPoolParams {
+  /**
+   * warm_pool_id specifies the warm pool to retrieve
+   */
+  warmPoolId: string;
+}
+
+export interface PrebuildUpdateWarmPoolParams {
+  /**
+   * warm_pool_id specifies the warm pool to update
+   */
+  warmPoolId: string;
+
+  /**
+   * @deprecated desired_size updates the number of warm instances to maintain.
+   * Deprecated: Use min_size and max_size instead for dynamic scaling.
+   */
+  desiredSize?: number | null;
+
+  /**
+   * max_size updates the maximum number of warm instances to maintain. The pool will
+   * never scale above this value. Must be >= min_size and <= 20.
+   */
+  maxSize?: number | null;
+
+  /**
+   * min_size updates the minimum number of warm instances to maintain. The pool will
+   * never scale below this value. Must be >= 0 and <= max_size. Set to 0 to allow
+   * full scale-down.
+   */
+  minSize?: number | null;
+}
+
 export declare namespace Prebuilds {
   export {
     type Prebuild as Prebuild,
@@ -534,17 +1036,32 @@ export declare namespace Prebuilds {
     type PrebuildSpec as PrebuildSpec,
     type PrebuildStatus as PrebuildStatus,
     type PrebuildTrigger as PrebuildTrigger,
+    type WarmPool as WarmPool,
+    type WarmPoolMetadata as WarmPoolMetadata,
+    type WarmPoolPhase as WarmPoolPhase,
+    type WarmPoolSpec as WarmPoolSpec,
+    type WarmPoolStatus as WarmPoolStatus,
     type PrebuildCreateResponse as PrebuildCreateResponse,
     type PrebuildRetrieveResponse as PrebuildRetrieveResponse,
     type PrebuildDeleteResponse as PrebuildDeleteResponse,
     type PrebuildCancelResponse as PrebuildCancelResponse,
     type PrebuildCreateLogsTokenResponse as PrebuildCreateLogsTokenResponse,
+    type PrebuildCreateWarmPoolResponse as PrebuildCreateWarmPoolResponse,
+    type PrebuildDeleteWarmPoolResponse as PrebuildDeleteWarmPoolResponse,
+    type PrebuildRetrieveWarmPoolResponse as PrebuildRetrieveWarmPoolResponse,
+    type PrebuildUpdateWarmPoolResponse as PrebuildUpdateWarmPoolResponse,
     type PrebuildsPrebuildsPage as PrebuildsPrebuildsPage,
+    type WarmPoolsWarmPoolsPage as WarmPoolsWarmPoolsPage,
     type PrebuildCreateParams as PrebuildCreateParams,
     type PrebuildRetrieveParams as PrebuildRetrieveParams,
     type PrebuildListParams as PrebuildListParams,
     type PrebuildDeleteParams as PrebuildDeleteParams,
     type PrebuildCancelParams as PrebuildCancelParams,
     type PrebuildCreateLogsTokenParams as PrebuildCreateLogsTokenParams,
+    type PrebuildCreateWarmPoolParams as PrebuildCreateWarmPoolParams,
+    type PrebuildDeleteWarmPoolParams as PrebuildDeleteWarmPoolParams,
+    type PrebuildListWarmPoolsParams as PrebuildListWarmPoolsParams,
+    type PrebuildRetrieveWarmPoolParams as PrebuildRetrieveWarmPoolParams,
+    type PrebuildUpdateWarmPoolParams as PrebuildUpdateWarmPoolParams,
   };
 }

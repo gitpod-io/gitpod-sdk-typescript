@@ -283,6 +283,15 @@ export interface SSOConfiguration {
   claims?: { [key: string]: string };
 
   /**
+   * claims_expression is a CEL (Common Expression Language) expression evaluated
+   * against the OIDC token claims during login. When set, the expression must
+   * evaluate to true for the login to succeed. The expression has access to a
+   * `claims` variable containing all token claims as a map. Example:
+   * `claims.email_verified && claims.email.endsWith("@example.com")`
+   */
+  claimsExpression?: string;
+
+  /**
    * client_id is the client ID of the OIDC application set on the IdP
    */
   clientId?: string;
@@ -342,6 +351,14 @@ export interface SSOConfigurationCreateParams {
    */
   additionalScopes?: Array<string>;
 
+  /**
+   * claims_expression is an optional CEL expression evaluated against OIDC token
+   * claims during login. When set, the expression must evaluate to true for the
+   * login to succeed. Example:
+   * `claims.email_verified && claims.email.endsWith("@example.com")`
+   */
+  claimsExpression?: string | null;
+
   displayName?: string;
 
   /**
@@ -376,6 +393,13 @@ export interface SSOConfigurationUpdateParams {
    * claims are key/value pairs that defines a mapping of claims issued by the IdP.
    */
   claims?: { [key: string]: string };
+
+  /**
+   * claims_expression is a CEL expression evaluated against OIDC token claims during
+   * login. When set, the expression must evaluate to true for the login to succeed.
+   * When present with an empty string, the expression is cleared.
+   */
+  claimsExpression?: string | null;
 
   /**
    * client_id is the client ID of the SSO provider
