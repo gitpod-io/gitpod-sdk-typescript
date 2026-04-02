@@ -38,21 +38,6 @@ describe('resource automations', () => {
               draft: true,
               title: 'title',
             },
-            report: {
-              outputs: [
-                {
-                  acceptanceCriteria: 'acceptanceCriteria',
-                  boolean: {},
-                  command: 'command',
-                  float: { max: 0, min: 0 },
-                  integer: { max: 0, min: 0 },
-                  key: 'key',
-                  prompt: 'prompt',
-                  string: { pattern: 'pattern' },
-                  title: 'title',
-                },
-              ],
-            },
             task: { command: 'command' },
           },
         ],
@@ -74,21 +59,6 @@ describe('resource automations', () => {
               description: 'description',
               draft: true,
               title: 'title',
-            },
-            report: {
-              outputs: [
-                {
-                  acceptanceCriteria: 'acceptanceCriteria',
-                  boolean: {},
-                  command: 'command',
-                  float: { max: 0, min: 0 },
-                  integer: { max: 0, min: 0 },
-                  key: 'key',
-                  prompt: 'prompt',
-                  string: { pattern: 'pattern' },
-                  title: 'title',
-                },
-              ],
             },
             task: { command: 'command' },
           },
