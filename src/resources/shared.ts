@@ -324,12 +324,6 @@ export interface RunsOn {
    * Machine runs the service/task directly on the VM/machine level.
    */
   machine?: unknown;
-
-  /**
-   * Terminal runs the service inside a managed PTY terminal in the devcontainer.
-   * Users can attach to the terminal interactively via the terminal API.
-   */
-  terminal?: unknown;
 }
 
 export namespace RunsOn {
