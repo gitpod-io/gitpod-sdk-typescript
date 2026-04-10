@@ -1292,6 +1292,12 @@ export namespace EnvironmentStatus {
           | 'CHANGE_TYPE_UNTRACKED';
 
         /**
+         * old_path is the previous path of the file before a rename or copy. Only set when
+         * change_type is RENAMED or COPIED.
+         */
+        oldPath?: string;
+
+        /**
          * path is the path of the file
          */
         path?: string;
