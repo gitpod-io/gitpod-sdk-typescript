@@ -145,7 +145,7 @@ export namespace AutomationsFile {
 
     runsOn?: Shared.RunsOn;
 
-    triggeredBy?: Array<'manual' | 'postEnvironmentStart' | 'postDevcontainerStart'>;
+    triggeredBy?: Array<'manual' | 'postEnvironmentStart' | 'postDevcontainerStart' | 'prebuild'>;
   }
 
   export namespace Services {
