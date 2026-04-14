@@ -79,6 +79,7 @@ describe('resource automations', () => {
           manual: {},
           pullRequest: {
             events: ['PULL_REQUEST_EVENT_UNSPECIFIED'],
+            integrationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             webhookId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           },
           time: { cronExpression: 'cronExpression' },
