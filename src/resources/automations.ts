@@ -2286,6 +2286,13 @@ export namespace WorkflowTrigger {
     >;
 
     /**
+     * integration_id is the optional ID of an integration that acts as the source of
+     * webhook events. When set, the trigger will be activated when the webhook
+     * receives events.
+     */
+    integrationId?: string | null;
+
+    /**
      * webhook_id is the optional ID of a webhook that this trigger is bound to. When
      * set, the trigger will be activated when the webhook receives events. This allows
      * multiple workflows to share a single webhook endpoint.
