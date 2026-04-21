@@ -1322,6 +1322,22 @@ export namespace UserInputBlock {
 }
 
 /**
+ * UserInputMetadata carries integration-specific context for a user input.
+ * Internal only — not exposed in public SDKs. External API consumers should not
+ * set these fields; they are populated by integration handlers.
+ */
+export interface UserInputMetadata {
+  /**
+   * Origin of this input — set by integration handlers to their host (e.g.
+   * "github.com", "slack.com"). Empty for non-integration callers. This field drives
+   * emission gating: when set, agent responses are only emitted to the matching
+   * integration. Treated as trusted input from integration handlers; not validated
+   * against registered hosts.
+   */
+  source?: string;
+}
+
+/**
  * WakeEvent is sent by the backend to wake an agent when a registered interest
  * fires. Delivered via SendToAgentExecution as a new oneof variant.
  */
@@ -1697,6 +1713,7 @@ export declare namespace Agents {
     type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type UserInputMetadata as UserInputMetadata,
     type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,

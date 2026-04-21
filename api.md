@@ -68,6 +68,7 @@ Types:
 - <code><a href="./src/resources/agents.ts">Role</a></code>
 - <code><a href="./src/resources/agents.ts">Type</a></code>
 - <code><a href="./src/resources/agents.ts">UserInputBlock</a></code>
+- <code><a href="./src/resources/agents.ts">UserInputMetadata</a></code>
 - <code><a href="./src/resources/agents.ts">WakeEvent</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreateExecutionConversationTokenResponse</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreatePromptResponse</a></code>

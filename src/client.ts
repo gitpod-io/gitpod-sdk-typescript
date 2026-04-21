@@ -147,6 +147,7 @@ import {
   Role,
   Type,
   UserInputBlock,
+  UserInputMetadata,
   WakeEvent,
 } from './resources/agents';
 import {
@@ -1411,6 +1412,7 @@ export declare namespace Gitpod {
     type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type UserInputMetadata as UserInputMetadata,
     type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
