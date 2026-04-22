@@ -873,7 +873,8 @@ export namespace AgentExecution {
       | 'SUPPORTED_MODEL_OPENAI_4O'
       | 'SUPPORTED_MODEL_OPENAI_4O_MINI'
       | 'SUPPORTED_MODEL_OPENAI_O1'
-      | 'SUPPORTED_MODEL_OPENAI_O1_MINI';
+      | 'SUPPORTED_MODEL_OPENAI_O1_MINI'
+      | 'SUPPORTED_MODEL_OPENAI_AUTO';
 
     /**
      * transcript_url is the URL to the LLM transcript (all messages exchanged between
