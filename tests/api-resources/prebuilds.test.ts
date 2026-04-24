@@ -2,18 +2,15 @@
 
 import Gitpod from '@gitpod/sdk';
 
-const client = new Gitpod({
-  bearerToken: 'My Bearer Token',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Gitpod({ bearerToken: 'My Bearer Token', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource prebuilds', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.prebuilds.create({
-      projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-      spec: {},
-    });
+    projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+    spec: {},
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -26,14 +23,14 @@ describe('resource prebuilds', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.prebuilds.create({
-      projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-      spec: {
-        desiredPhase: 'PREBUILD_PHASE_UNSPECIFIED',
-        specVersion: 'specVersion',
-        timeout: '3600s',
-      },
-      environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+    projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+    spec: {
+    desiredPhase: 'PREBUILD_PHASE_UNSPECIFIED',
+    specVersion: 'specVersion',
+    timeout: '3600s',
+  },
+    environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+  });
   });
 
   // Mock server tests are disabled
@@ -101,9 +98,7 @@ describe('resource prebuilds', () => {
 
   // Mock server tests are disabled
   test.skip('createLogsToken: only required params', async () => {
-    const responsePromise = client.prebuilds.createLogsToken({
-      prebuildId: '07e03a28-65a5-4d98-b532-8ea67b188048',
-    });
+    const responsePromise = client.prebuilds.createLogsToken({ prebuildId: '07e03a28-65a5-4d98-b532-8ea67b188048' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -115,17 +110,12 @@ describe('resource prebuilds', () => {
 
   // Mock server tests are disabled
   test.skip('createLogsToken: required and optional params', async () => {
-    const response = await client.prebuilds.createLogsToken({
-      prebuildId: '07e03a28-65a5-4d98-b532-8ea67b188048',
-    });
+    const response = await client.prebuilds.createLogsToken({ prebuildId: '07e03a28-65a5-4d98-b532-8ea67b188048' });
   });
 
   // Mock server tests are disabled
   test.skip('createWarmPool: only required params', async () => {
-    const responsePromise = client.prebuilds.createWarmPool({
-      environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
-      projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-    });
+    const responsePromise = client.prebuilds.createWarmPool({ environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68', projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -138,19 +128,17 @@ describe('resource prebuilds', () => {
   // Mock server tests are disabled
   test.skip('createWarmPool: required and optional params', async () => {
     const response = await client.prebuilds.createWarmPool({
-      environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
-      projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
-      desiredSize: 2,
-      maxSize: 1,
-      minSize: 20,
-    });
+    environmentClassId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+    projectId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
+    desiredSize: 2,
+    maxSize: 1,
+    minSize: 20,
+  });
   });
 
   // Mock server tests are disabled
   test.skip('deleteWarmPool: only required params', async () => {
-    const responsePromise = client.prebuilds.deleteWarmPool({
-      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
-    });
+    const responsePromise = client.prebuilds.deleteWarmPool({ warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -162,9 +150,7 @@ describe('resource prebuilds', () => {
 
   // Mock server tests are disabled
   test.skip('deleteWarmPool: required and optional params', async () => {
-    const response = await client.prebuilds.deleteWarmPool({
-      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
-    });
+    const response = await client.prebuilds.deleteWarmPool({ warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab' });
   });
 
   // Mock server tests are disabled
@@ -181,9 +167,7 @@ describe('resource prebuilds', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveWarmPool: only required params', async () => {
-    const responsePromise = client.prebuilds.retrieveWarmPool({
-      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
-    });
+    const responsePromise = client.prebuilds.retrieveWarmPool({ warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -195,16 +179,12 @@ describe('resource prebuilds', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveWarmPool: required and optional params', async () => {
-    const response = await client.prebuilds.retrieveWarmPool({
-      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
-    });
+    const response = await client.prebuilds.retrieveWarmPool({ warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab' });
   });
 
   // Mock server tests are disabled
   test.skip('updateWarmPool: only required params', async () => {
-    const responsePromise = client.prebuilds.updateWarmPool({
-      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
-    });
+    const responsePromise = client.prebuilds.updateWarmPool({ warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -217,10 +197,10 @@ describe('resource prebuilds', () => {
   // Mock server tests are disabled
   test.skip('updateWarmPool: required and optional params', async () => {
     const response = await client.prebuilds.updateWarmPool({
-      warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
-      desiredSize: 5,
-      maxSize: 1,
-      minSize: 20,
-    });
+    warmPoolId: 'a1b2c3d4-5678-9abc-def0-1234567890ab',
+    desiredSize: 5,
+    maxSize: 1,
+    minSize: 20,
+  });
   });
 });

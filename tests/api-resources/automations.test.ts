@@ -2,10 +2,7 @@
 
 import Gitpod from '@gitpod/sdk';
 
-const client = new Gitpod({
-  bearerToken: 'My Bearer Token',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Gitpod({ bearerToken: 'My Bearer Token', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource automations', () => {
   // Mock server tests are disabled
@@ -23,69 +20,63 @@ describe('resource automations', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.automations.create({
-      action: {
-        limits: {
-          maxParallel: 0,
-          maxTotal: 0,
-          perExecution: { maxTime: '+9125115.360s' },
-        },
-        steps: [
-          {
-            agent: { prompt: 'prompt' },
-            pullRequest: {
-              branch: 'branch',
-              description: 'description',
-              draft: true,
-              title: 'title',
-            },
-            task: { command: 'command' },
-          },
-        ],
-      },
-      description: 'description',
-      executor: { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', principal: 'PRINCIPAL_UNSPECIFIED' },
-      name: 'name',
-      report: {
-        limits: {
-          maxParallel: 0,
-          maxTotal: 0,
-          perExecution: { maxTime: '+9125115.360s' },
-        },
-        steps: [
-          {
-            agent: { prompt: 'prompt' },
-            pullRequest: {
-              branch: 'branch',
-              description: 'description',
-              draft: true,
-              title: 'title',
-            },
-            task: { command: 'command' },
-          },
-        ],
-      },
-      triggers: [
-        {
-          context: {
-            agent: { prompt: 'prompt' },
-            fromTrigger: {},
-            projects: { projectIds: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] },
-            repositories: {
-              environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              repoSelector: { repoSearchString: 'x', scmHost: 'x' },
-              repositoryUrls: { repoUrls: ['x'] },
-            },
-          },
-          manual: {},
-          pullRequest: {
-            events: ['PULL_REQUEST_EVENT_UNSPECIFIED'],
-            integrationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            webhookId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          },
-          time: { cronExpression: 'cronExpression' },
-        },
-      ],
-    });
+    action: {
+    limits: {
+    maxParallel: 0,
+    maxTotal: 0,
+    perExecution: { maxTime: '+9125115.360s' },
+  },
+    steps: [{
+    agent: { prompt: 'prompt' },
+    pullRequest: {
+    branch: 'branch',
+    description: 'description',
+    draft: true,
+    title: 'title',
+  },
+    task: { command: 'command' },
+  }],
+  },
+    description: 'description',
+    executor: { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', principal: 'PRINCIPAL_UNSPECIFIED' },
+    name: 'name',
+    report: {
+    limits: {
+    maxParallel: 0,
+    maxTotal: 0,
+    perExecution: { maxTime: '+9125115.360s' },
+  },
+    steps: [{
+    agent: { prompt: 'prompt' },
+    pullRequest: {
+    branch: 'branch',
+    description: 'description',
+    draft: true,
+    title: 'title',
+  },
+    task: { command: 'command' },
+  }],
+  },
+    triggers: [{
+    context: {
+    agent: { prompt: 'prompt' },
+    fromTrigger: {},
+    projects: { projectIds: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] },
+    repositories: {
+    environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    repoSelector: { repoSearchString: 'x', scmHost: 'x' },
+    repositoryUrls: { repoUrls: ['x'] },
+  },
+  },
+    manual: {},
+    pullRequest: {
+    events: ['PULL_REQUEST_EVENT_UNSPECIFIED'],
+    integrationId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    webhookId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+  },
+    time: { cronExpression: 'cronExpression' },
+  }],
+  });
   });
 
   // Mock server tests are disabled

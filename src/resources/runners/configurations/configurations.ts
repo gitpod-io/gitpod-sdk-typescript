@@ -3,59 +3,19 @@
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
 import * as EnvironmentClassesAPI from './environment-classes';
-import {
-  EnvironmentClassCreateParams,
-  EnvironmentClassCreateResponse,
-  EnvironmentClassListParams,
-  EnvironmentClassRetrieveParams,
-  EnvironmentClassRetrieveResponse,
-  EnvironmentClassUpdateParams,
-  EnvironmentClassUpdateResponse,
-  EnvironmentClasses,
-} from './environment-classes';
+import { EnvironmentClassCreateParams, EnvironmentClassCreateResponse, EnvironmentClassListParams, EnvironmentClassRetrieveParams, EnvironmentClassRetrieveResponse, EnvironmentClassUpdateParams, EnvironmentClassUpdateResponse, EnvironmentClasses } from './environment-classes';
 import * as HostAuthenticationTokensAPI from './host-authentication-tokens';
-import {
-  HostAuthenticationToken,
-  HostAuthenticationTokenCreateParams,
-  HostAuthenticationTokenCreateResponse,
-  HostAuthenticationTokenDeleteParams,
-  HostAuthenticationTokenDeleteResponse,
-  HostAuthenticationTokenListParams,
-  HostAuthenticationTokenRetrieveParams,
-  HostAuthenticationTokenRetrieveResponse,
-  HostAuthenticationTokenSource,
-  HostAuthenticationTokenUpdateParams,
-  HostAuthenticationTokenUpdateResponse,
-  HostAuthenticationTokens,
-  HostAuthenticationTokensTokensPage,
-} from './host-authentication-tokens';
+import { HostAuthenticationToken, HostAuthenticationTokenCreateParams, HostAuthenticationTokenCreateResponse, HostAuthenticationTokenDeleteParams, HostAuthenticationTokenDeleteResponse, HostAuthenticationTokenListParams, HostAuthenticationTokenRetrieveParams, HostAuthenticationTokenRetrieveResponse, HostAuthenticationTokenSource, HostAuthenticationTokenUpdateParams, HostAuthenticationTokenUpdateResponse, HostAuthenticationTokens, HostAuthenticationTokensTokensPage } from './host-authentication-tokens';
 import * as SchemaAPI from './schema';
 import { RunnerConfigurationSchema, Schema, SchemaRetrieveParams, SchemaRetrieveResponse } from './schema';
 import * as ScmIntegrationsAPI from './scm-integrations';
-import {
-  ScmIntegration as ScmIntegrationsAPIScmIntegration,
-  ScmIntegrationCreateParams,
-  ScmIntegrationCreateResponse,
-  ScmIntegrationDeleteParams,
-  ScmIntegrationDeleteResponse,
-  ScmIntegrationListParams,
-  ScmIntegrationOAuthConfig,
-  ScmIntegrationRetrieveParams,
-  ScmIntegrationRetrieveResponse,
-  ScmIntegrationUpdateParams,
-  ScmIntegrationUpdateResponse,
-  ScmIntegrations,
-  ScmIntegrationsIntegrationsPage,
-} from './scm-integrations';
+import { ScmIntegration as ScmIntegrationsAPIScmIntegration, ScmIntegrationCreateParams, ScmIntegrationCreateResponse, ScmIntegrationDeleteParams, ScmIntegrationDeleteResponse, ScmIntegrationListParams, ScmIntegrationOAuthConfig, ScmIntegrationRetrieveParams, ScmIntegrationRetrieveResponse, ScmIntegrationUpdateParams, ScmIntegrationUpdateResponse, ScmIntegrations, ScmIntegrationsIntegrationsPage } from './scm-integrations';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
 export class Configurations extends APIResource {
-  environmentClasses: EnvironmentClassesAPI.EnvironmentClasses = new EnvironmentClassesAPI.EnvironmentClasses(
-    this._client,
-  );
-  hostAuthenticationTokens: HostAuthenticationTokensAPI.HostAuthenticationTokens =
-    new HostAuthenticationTokensAPI.HostAuthenticationTokens(this._client);
+  environmentClasses: EnvironmentClassesAPI.EnvironmentClasses = new EnvironmentClassesAPI.EnvironmentClasses(this._client);
+  hostAuthenticationTokens: HostAuthenticationTokensAPI.HostAuthenticationTokens = new HostAuthenticationTokensAPI.HostAuthenticationTokens(this._client);
   schema: SchemaAPI.Schema = new SchemaAPI.Schema(this._client);
   scmIntegrations: ScmIntegrationsAPI.ScmIntegrations = new ScmIntegrationsAPI.ScmIntegrations(this._client);
 
@@ -99,14 +59,8 @@ export class Configurations extends APIResource {
    *   });
    * ```
    */
-  validate(
-    body: ConfigurationValidateParams,
-    options?: RequestOptions,
-  ): APIPromise<ConfigurationValidateResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/ValidateRunnerConfiguration', {
-      body,
-      ...options,
-    });
+  validate(body: ConfigurationValidateParams, options?: RequestOptions): APIPromise<ConfigurationValidateResponse> {
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/ValidateRunnerConfiguration', { body, ...options });
   }
 }
 
@@ -217,7 +171,7 @@ export declare namespace Configurations {
     type FieldValidationError as FieldValidationError,
     type ScmIntegrationValidationResult as ScmIntegrationValidationResult,
     type ConfigurationValidateResponse as ConfigurationValidateResponse,
-    type ConfigurationValidateParams as ConfigurationValidateParams,
+    type ConfigurationValidateParams as ConfigurationValidateParams
   };
 
   export {
@@ -228,7 +182,7 @@ export declare namespace Configurations {
     type EnvironmentClassCreateParams as EnvironmentClassCreateParams,
     type EnvironmentClassRetrieveParams as EnvironmentClassRetrieveParams,
     type EnvironmentClassUpdateParams as EnvironmentClassUpdateParams,
-    type EnvironmentClassListParams as EnvironmentClassListParams,
+    type EnvironmentClassListParams as EnvironmentClassListParams
   };
 
   export {
@@ -244,14 +198,14 @@ export declare namespace Configurations {
     type HostAuthenticationTokenRetrieveParams as HostAuthenticationTokenRetrieveParams,
     type HostAuthenticationTokenUpdateParams as HostAuthenticationTokenUpdateParams,
     type HostAuthenticationTokenListParams as HostAuthenticationTokenListParams,
-    type HostAuthenticationTokenDeleteParams as HostAuthenticationTokenDeleteParams,
+    type HostAuthenticationTokenDeleteParams as HostAuthenticationTokenDeleteParams
   };
 
   export {
     Schema as Schema,
     type RunnerConfigurationSchema as RunnerConfigurationSchema,
     type SchemaRetrieveResponse as SchemaRetrieveResponse,
-    type SchemaRetrieveParams as SchemaRetrieveParams,
+    type SchemaRetrieveParams as SchemaRetrieveParams
   };
 
   export {
@@ -267,6 +221,6 @@ export declare namespace Configurations {
     type ScmIntegrationRetrieveParams as ScmIntegrationRetrieveParams,
     type ScmIntegrationUpdateParams as ScmIntegrationUpdateParams,
     type ScmIntegrationListParams as ScmIntegrationListParams,
-    type ScmIntegrationDeleteParams as ScmIntegrationDeleteParams,
+    type ScmIntegrationDeleteParams as ScmIntegrationDeleteParams
   };
 }

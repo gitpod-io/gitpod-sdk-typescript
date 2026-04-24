@@ -55,10 +55,7 @@ export class SSOConfigurations extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: SSOConfigurationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<SSOConfigurationCreateResponse> {
+  create(body: SSOConfigurationCreateParams, options?: RequestOptions): APIPromise<SSOConfigurationCreateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/CreateSSOConfiguration', { body, ...options });
   }
 
@@ -90,10 +87,7 @@ export class SSOConfigurations extends APIResource {
    *   });
    * ```
    */
-  retrieve(
-    body: SSOConfigurationRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<SSOConfigurationRetrieveResponse> {
+  retrieve(body: SSOConfigurationRetrieveParams, options?: RequestOptions): APIPromise<SSOConfigurationRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetSSOConfiguration', { body, ...options });
   }
 
@@ -190,16 +184,9 @@ export class SSOConfigurations extends APIResource {
    * }
    * ```
    */
-  list(
-    params: SSOConfigurationListParams,
-    options?: RequestOptions,
-  ): PagePromise<SSOConfigurationsSSOConfigurationsPage, SSOConfiguration> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.OrganizationService/ListSSOConfigurations',
-      SSOConfigurationsPage<SSOConfiguration>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  list(params: SSOConfigurationListParams, options?: RequestOptions): PagePromise<SSOConfigurationsSSOConfigurationsPage, SSOConfiguration> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.OrganizationService/ListSSOConfigurations', SSOConfigurationsPage<SSOConfiguration>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -235,7 +222,7 @@ export class SSOConfigurations extends APIResource {
   }
 }
 
-export type SSOConfigurationsSSOConfigurationsPage = SSOConfigurationsPage<SSOConfiguration>;
+export type SSOConfigurationsSSOConfigurationsPage = SSOConfigurationsPage<SSOConfiguration>
 
 /**
  * AdditionalScopesUpdate wraps a list of OIDC scopes so that the update request
@@ -246,7 +233,7 @@ export interface AdditionalScopesUpdate {
   scopes?: Array<string>;
 }
 
-export type ProviderType = 'PROVIDER_TYPE_UNSPECIFIED' | 'PROVIDER_TYPE_BUILTIN' | 'PROVIDER_TYPE_CUSTOM';
+export type ProviderType = 'PROVIDER_TYPE_UNSPECIFIED' | 'PROVIDER_TYPE_BUILTIN' | 'PROVIDER_TYPE_CUSTOM'
 
 export interface SSOConfiguration {
   /**
@@ -303,10 +290,7 @@ export interface SSOConfiguration {
   emailDomains?: Array<string>;
 }
 
-export type SSOConfigurationState =
-  | 'SSO_CONFIGURATION_STATE_UNSPECIFIED'
-  | 'SSO_CONFIGURATION_STATE_INACTIVE'
-  | 'SSO_CONFIGURATION_STATE_ACTIVE';
+export type SSOConfigurationState = 'SSO_CONFIGURATION_STATE_UNSPECIFIED' | 'SSO_CONFIGURATION_STATE_INACTIVE' | 'SSO_CONFIGURATION_STATE_ACTIVE'
 
 export interface SSOConfigurationCreateResponse {
   /**
@@ -322,9 +306,9 @@ export interface SSOConfigurationRetrieveResponse {
   ssoConfiguration: SSOConfiguration;
 }
 
-export type SSOConfigurationUpdateResponse = unknown;
+export type SSOConfigurationUpdateResponse = unknown
 
-export type SSOConfigurationDeleteResponse = unknown;
+export type SSOConfigurationDeleteResponse = unknown
 
 export interface SSOConfigurationCreateParams {
   /**
@@ -476,6 +460,6 @@ export declare namespace SSOConfigurations {
     type SSOConfigurationRetrieveParams as SSOConfigurationRetrieveParams,
     type SSOConfigurationUpdateParams as SSOConfigurationUpdateParams,
     type SSOConfigurationListParams as SSOConfigurationListParams,
-    type SSOConfigurationDeleteParams as SSOConfigurationDeleteParams,
+    type SSOConfigurationDeleteParams as SSOConfigurationDeleteParams
   };
 }

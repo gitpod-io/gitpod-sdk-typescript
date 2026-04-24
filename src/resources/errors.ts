@@ -165,13 +165,7 @@ export interface ErrorEvent {
 /**
  * Error severity levels (aligned with Sentry levels)
  */
-export type ErrorLevel =
-  | 'ERROR_LEVEL_UNSPECIFIED'
-  | 'ERROR_LEVEL_DEBUG'
-  | 'ERROR_LEVEL_INFO'
-  | 'ERROR_LEVEL_WARNING'
-  | 'ERROR_LEVEL_ERROR'
-  | 'ERROR_LEVEL_FATAL';
+export type ErrorLevel = 'ERROR_LEVEL_UNSPECIFIED' | 'ERROR_LEVEL_DEBUG' | 'ERROR_LEVEL_INFO' | 'ERROR_LEVEL_WARNING' | 'ERROR_LEVEL_ERROR' | 'ERROR_LEVEL_FATAL'
 
 /**
  * Exception information (Sentry-compatible)
@@ -322,7 +316,7 @@ export interface StackFrame {
  * is indicated by HTTP 200 status code, failures by other status codes Empty
  * response - success indicated by HTTP status code
  */
-export type ErrorReportErrorsResponse = unknown;
+export type ErrorReportErrorsResponse = unknown
 
 export interface ErrorReportErrorsParams {
   /**
@@ -341,6 +335,6 @@ export declare namespace Errors {
     type RequestInfo as RequestInfo,
     type StackFrame as StackFrame,
     type ErrorReportErrorsResponse as ErrorReportErrorsResponse,
-    type ErrorReportErrorsParams as ErrorReportErrorsParams,
+    type ErrorReportErrorsParams as ErrorReportErrorsParams
   };
 }

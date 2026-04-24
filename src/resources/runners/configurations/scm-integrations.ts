@@ -43,14 +43,8 @@ export class ScmIntegrations extends APIResource {
    *   );
    * ```
    */
-  create(
-    body: ScmIntegrationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<ScmIntegrationCreateResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/CreateSCMIntegration', {
-      body,
-      ...options,
-    });
+  create(body: ScmIntegrationCreateParams, options?: RequestOptions): APIPromise<ScmIntegrationCreateResponse> {
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/CreateSCMIntegration', { body, ...options });
   }
 
   /**
@@ -80,10 +74,7 @@ export class ScmIntegrations extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    body: ScmIntegrationRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ScmIntegrationRetrieveResponse> {
+  retrieve(body: ScmIntegrationRetrieveParams, options?: RequestOptions): APIPromise<ScmIntegrationRetrieveResponse> {
     return this._client.post('/gitpod.v1.RunnerConfigurationService/GetSCMIntegration', { body, ...options });
   }
 
@@ -121,10 +112,7 @@ export class ScmIntegrations extends APIResource {
    * ```
    */
   update(body: ScmIntegrationUpdateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateSCMIntegration', {
-      body,
-      ...options,
-    });
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateSCMIntegration', { body, ...options });
   }
 
   /**
@@ -164,16 +152,9 @@ export class ScmIntegrations extends APIResource {
    * }
    * ```
    */
-  list(
-    params: ScmIntegrationListParams,
-    options?: RequestOptions,
-  ): PagePromise<ScmIntegrationsIntegrationsPage, ScmIntegration> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.RunnerConfigurationService/ListSCMIntegrations',
-      IntegrationsPage<ScmIntegration>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  list(params: ScmIntegrationListParams, options?: RequestOptions): PagePromise<ScmIntegrationsIntegrationsPage, ScmIntegration> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.RunnerConfigurationService/ListSCMIntegrations', IntegrationsPage<ScmIntegration>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -204,14 +185,11 @@ export class ScmIntegrations extends APIResource {
    * ```
    */
   delete(body: ScmIntegrationDeleteParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteSCMIntegration', {
-      body,
-      ...options,
-    });
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteSCMIntegration', { body, ...options });
   }
 }
 
-export type ScmIntegrationsIntegrationsPage = IntegrationsPage<ScmIntegration>;
+export type ScmIntegrationsIntegrationsPage = IntegrationsPage<ScmIntegration>
 
 export interface ScmIntegration {
   /**
@@ -274,9 +252,9 @@ export interface ScmIntegrationRetrieveResponse {
   integration?: ScmIntegration;
 }
 
-export type ScmIntegrationUpdateResponse = unknown;
+export type ScmIntegrationUpdateResponse = unknown
 
-export type ScmIntegrationDeleteResponse = unknown;
+export type ScmIntegrationDeleteResponse = unknown
 
 export interface ScmIntegrationCreateParams {
   host?: string;
@@ -422,6 +400,6 @@ export declare namespace ScmIntegrations {
     type ScmIntegrationRetrieveParams as ScmIntegrationRetrieveParams,
     type ScmIntegrationUpdateParams as ScmIntegrationUpdateParams,
     type ScmIntegrationListParams as ScmIntegrationListParams,
-    type ScmIntegrationDeleteParams as ScmIntegrationDeleteParams,
+    type ScmIntegrationDeleteParams as ScmIntegrationDeleteParams
   };
 }

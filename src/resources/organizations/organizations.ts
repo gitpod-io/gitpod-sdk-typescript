@@ -3,125 +3,31 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as AnnouncementBannerAPI from './announcement-banner';
-import {
-  AnnouncementBanner,
-  AnnouncementBannerGetParams,
-  AnnouncementBannerGetResponse,
-  AnnouncementBannerResource,
-  AnnouncementBannerUpdateParams,
-  AnnouncementBannerUpdateResponse,
-} from './announcement-banner';
+import { AnnouncementBanner, AnnouncementBannerGetParams, AnnouncementBannerGetResponse, AnnouncementBannerResource, AnnouncementBannerUpdateParams, AnnouncementBannerUpdateResponse } from './announcement-banner';
 import * as CustomDomainsAPI from './custom-domains';
-import {
-  CustomDomain,
-  CustomDomainCreateParams,
-  CustomDomainCreateResponse,
-  CustomDomainDeleteParams,
-  CustomDomainDeleteResponse,
-  CustomDomainProvider,
-  CustomDomainRetrieveParams,
-  CustomDomainRetrieveResponse,
-  CustomDomainUpdateParams,
-  CustomDomainUpdateResponse,
-  CustomDomains,
-} from './custom-domains';
+import { CustomDomain, CustomDomainCreateParams, CustomDomainCreateResponse, CustomDomainDeleteParams, CustomDomainDeleteResponse, CustomDomainProvider, CustomDomainRetrieveParams, CustomDomainRetrieveResponse, CustomDomainUpdateParams, CustomDomainUpdateResponse, CustomDomains } from './custom-domains';
 import * as DomainVerificationsAPI from './domain-verifications';
-import {
-  DomainVerification,
-  DomainVerificationCreateParams,
-  DomainVerificationCreateResponse,
-  DomainVerificationDeleteParams,
-  DomainVerificationDeleteResponse,
-  DomainVerificationListParams,
-  DomainVerificationRetrieveParams,
-  DomainVerificationRetrieveResponse,
-  DomainVerificationState,
-  DomainVerificationVerifyParams,
-  DomainVerificationVerifyResponse,
-  DomainVerifications,
-  DomainVerificationsDomainVerificationsPage,
-} from './domain-verifications';
+import { DomainVerification, DomainVerificationCreateParams, DomainVerificationCreateResponse, DomainVerificationDeleteParams, DomainVerificationDeleteResponse, DomainVerificationListParams, DomainVerificationRetrieveParams, DomainVerificationRetrieveResponse, DomainVerificationState, DomainVerificationVerifyParams, DomainVerificationVerifyResponse, DomainVerifications, DomainVerificationsDomainVerificationsPage } from './domain-verifications';
 import * as InvitesAPI from './invites';
-import {
-  InviteCreateParams,
-  InviteCreateResponse,
-  InviteGetSummaryParams,
-  InviteGetSummaryResponse,
-  InviteRetrieveParams,
-  InviteRetrieveResponse,
-  Invites,
-  OrganizationInvite,
-} from './invites';
+import { InviteCreateParams, InviteCreateResponse, InviteGetSummaryParams, InviteGetSummaryResponse, InviteRetrieveParams, InviteRetrieveResponse, Invites, OrganizationInvite } from './invites';
 import * as PoliciesAPI from './policies';
-import {
-  AgentPolicy,
-  ConversationSharingPolicy,
-  CrowdStrikeConfig,
-  CustomAgentEnvMapping,
-  CustomSecurityAgent,
-  KernelControlsAction,
-  OrganizationPolicies,
-  Policies,
-  PolicyRetrieveParams,
-  PolicyRetrieveResponse,
-  PolicyUpdateParams,
-  PolicyUpdateResponse,
-  SecurityAgentPolicy,
-  VetoExecPolicy,
-} from './policies';
+import { AgentPolicy, ConversationSharingPolicy, CrowdStrikeConfig, CustomAgentEnvMapping, CustomSecurityAgent, KernelControlsAction, OrganizationPolicies, Policies, PolicyRetrieveParams, PolicyRetrieveResponse, PolicyUpdateParams, PolicyUpdateResponse, SecurityAgentPolicy, VetoExecPolicy } from './policies';
 import * as ScimConfigurationsAPI from './scim-configurations';
-import {
-  ScimConfiguration,
-  ScimConfigurationCreateParams,
-  ScimConfigurationCreateResponse,
-  ScimConfigurationDeleteParams,
-  ScimConfigurationDeleteResponse,
-  ScimConfigurationListParams,
-  ScimConfigurationRegenerateTokenParams,
-  ScimConfigurationRegenerateTokenResponse,
-  ScimConfigurationRetrieveParams,
-  ScimConfigurationRetrieveResponse,
-  ScimConfigurationUpdateParams,
-  ScimConfigurationUpdateResponse,
-  ScimConfigurations,
-  ScimConfigurationsScimConfigurationsPage,
-} from './scim-configurations';
+import { ScimConfiguration, ScimConfigurationCreateParams, ScimConfigurationCreateResponse, ScimConfigurationDeleteParams, ScimConfigurationDeleteResponse, ScimConfigurationListParams, ScimConfigurationRegenerateTokenParams, ScimConfigurationRegenerateTokenResponse, ScimConfigurationRetrieveParams, ScimConfigurationRetrieveResponse, ScimConfigurationUpdateParams, ScimConfigurationUpdateResponse, ScimConfigurations, ScimConfigurationsScimConfigurationsPage } from './scim-configurations';
 import * as SSOConfigurationsAPI from './sso-configurations';
-import {
-  AdditionalScopesUpdate,
-  ProviderType,
-  SSOConfiguration,
-  SSOConfigurationCreateParams,
-  SSOConfigurationCreateResponse,
-  SSOConfigurationDeleteParams,
-  SSOConfigurationDeleteResponse,
-  SSOConfigurationListParams,
-  SSOConfigurationRetrieveParams,
-  SSOConfigurationRetrieveResponse,
-  SSOConfigurationState,
-  SSOConfigurationUpdateParams,
-  SSOConfigurationUpdateResponse,
-  SSOConfigurations,
-  SSOConfigurationsSSOConfigurationsPage,
-} from './sso-configurations';
+import { AdditionalScopesUpdate, ProviderType, SSOConfiguration, SSOConfigurationCreateParams, SSOConfigurationCreateResponse, SSOConfigurationDeleteParams, SSOConfigurationDeleteResponse, SSOConfigurationListParams, SSOConfigurationRetrieveParams, SSOConfigurationRetrieveResponse, SSOConfigurationState, SSOConfigurationUpdateParams, SSOConfigurationUpdateResponse, SSOConfigurations, SSOConfigurationsSSOConfigurationsPage } from './sso-configurations';
 import { APIPromise } from '../../core/api-promise';
 import { MembersPage, type MembersPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Organizations extends APIResource {
-  announcementBanner: AnnouncementBannerAPI.AnnouncementBannerResource =
-    new AnnouncementBannerAPI.AnnouncementBannerResource(this._client);
+  announcementBanner: AnnouncementBannerAPI.AnnouncementBannerResource = new AnnouncementBannerAPI.AnnouncementBannerResource(this._client);
   customDomains: CustomDomainsAPI.CustomDomains = new CustomDomainsAPI.CustomDomains(this._client);
-  domainVerifications: DomainVerificationsAPI.DomainVerifications =
-    new DomainVerificationsAPI.DomainVerifications(this._client);
+  domainVerifications: DomainVerificationsAPI.DomainVerifications = new DomainVerificationsAPI.DomainVerifications(this._client);
   invites: InvitesAPI.Invites = new InvitesAPI.Invites(this._client);
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
-  scimConfigurations: ScimConfigurationsAPI.ScimConfigurations = new ScimConfigurationsAPI.ScimConfigurations(
-    this._client,
-  );
-  ssoConfigurations: SSOConfigurationsAPI.SSOConfigurations = new SSOConfigurationsAPI.SSOConfigurations(
-    this._client,
-  );
+  scimConfigurations: ScimConfigurationsAPI.ScimConfigurations = new ScimConfigurationsAPI.ScimConfigurations(this._client);
+  ssoConfigurations: SSOConfigurationsAPI.SSOConfigurations = new SSOConfigurationsAPI.SSOConfigurations(this._client);
 
   /**
    * Creates a new organization with the specified name and settings.
@@ -192,10 +98,7 @@ export class Organizations extends APIResource {
    * });
    * ```
    */
-  retrieve(
-    body: OrganizationRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<OrganizationRetrieveResponse> {
+  retrieve(body: OrganizationRetrieveParams, options?: RequestOptions): APIPromise<OrganizationRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetOrganization', { body, ...options });
   }
 
@@ -394,16 +297,9 @@ export class Organizations extends APIResource {
    * }
    * ```
    */
-  listMembers(
-    params: OrganizationListMembersParams,
-    options?: RequestOptions,
-  ): PagePromise<OrganizationMembersMembersPage, OrganizationMember> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.OrganizationService/ListMembers',
-      MembersPage<OrganizationMember>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  listMembers(params: OrganizationListMembersParams, options?: RequestOptions): PagePromise<OrganizationMembersMembersPage, OrganizationMember> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.OrganizationService/ListMembers', MembersPage<OrganizationMember>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -452,7 +348,7 @@ export class Organizations extends APIResource {
   }
 }
 
-export type OrganizationMembersMembersPage = MembersPage<OrganizationMember>;
+export type OrganizationMembersMembersPage = MembersPage<OrganizationMember>
 
 export interface InviteDomains {
   /**
@@ -796,7 +692,7 @@ export interface OrganizationUpdateResponse {
   organization: Organization;
 }
 
-export type OrganizationDeleteResponse = unknown;
+export type OrganizationDeleteResponse = unknown
 
 export interface OrganizationJoinResponse {
   /**
@@ -805,9 +701,9 @@ export interface OrganizationJoinResponse {
   member: OrganizationMember;
 }
 
-export type OrganizationLeaveResponse = unknown;
+export type OrganizationLeaveResponse = unknown
 
-export type OrganizationSetRoleResponse = unknown;
+export type OrganizationSetRoleResponse = unknown
 
 export interface OrganizationCreateParams {
   /**
@@ -1001,7 +897,7 @@ export declare namespace Organizations {
     type OrganizationJoinParams as OrganizationJoinParams,
     type OrganizationLeaveParams as OrganizationLeaveParams,
     type OrganizationListMembersParams as OrganizationListMembersParams,
-    type OrganizationSetRoleParams as OrganizationSetRoleParams,
+    type OrganizationSetRoleParams as OrganizationSetRoleParams
   };
 
   export {
@@ -1010,7 +906,7 @@ export declare namespace Organizations {
     type AnnouncementBannerUpdateResponse as AnnouncementBannerUpdateResponse,
     type AnnouncementBannerGetResponse as AnnouncementBannerGetResponse,
     type AnnouncementBannerUpdateParams as AnnouncementBannerUpdateParams,
-    type AnnouncementBannerGetParams as AnnouncementBannerGetParams,
+    type AnnouncementBannerGetParams as AnnouncementBannerGetParams
   };
 
   export {
@@ -1024,7 +920,7 @@ export declare namespace Organizations {
     type CustomDomainCreateParams as CustomDomainCreateParams,
     type CustomDomainRetrieveParams as CustomDomainRetrieveParams,
     type CustomDomainUpdateParams as CustomDomainUpdateParams,
-    type CustomDomainDeleteParams as CustomDomainDeleteParams,
+    type CustomDomainDeleteParams as CustomDomainDeleteParams
   };
 
   export {
@@ -1040,7 +936,7 @@ export declare namespace Organizations {
     type DomainVerificationRetrieveParams as DomainVerificationRetrieveParams,
     type DomainVerificationListParams as DomainVerificationListParams,
     type DomainVerificationDeleteParams as DomainVerificationDeleteParams,
-    type DomainVerificationVerifyParams as DomainVerificationVerifyParams,
+    type DomainVerificationVerifyParams as DomainVerificationVerifyParams
   };
 
   export {
@@ -1051,7 +947,7 @@ export declare namespace Organizations {
     type InviteGetSummaryResponse as InviteGetSummaryResponse,
     type InviteCreateParams as InviteCreateParams,
     type InviteRetrieveParams as InviteRetrieveParams,
-    type InviteGetSummaryParams as InviteGetSummaryParams,
+    type InviteGetSummaryParams as InviteGetSummaryParams
   };
 
   export {
@@ -1068,7 +964,7 @@ export declare namespace Organizations {
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,
-    type PolicyUpdateParams as PolicyUpdateParams,
+    type PolicyUpdateParams as PolicyUpdateParams
   };
 
   export {
@@ -1085,7 +981,7 @@ export declare namespace Organizations {
     type ScimConfigurationUpdateParams as ScimConfigurationUpdateParams,
     type ScimConfigurationListParams as ScimConfigurationListParams,
     type ScimConfigurationDeleteParams as ScimConfigurationDeleteParams,
-    type ScimConfigurationRegenerateTokenParams as ScimConfigurationRegenerateTokenParams,
+    type ScimConfigurationRegenerateTokenParams as ScimConfigurationRegenerateTokenParams
   };
 
   export {
@@ -1103,6 +999,6 @@ export declare namespace Organizations {
     type SSOConfigurationRetrieveParams as SSOConfigurationRetrieveParams,
     type SSOConfigurationUpdateParams as SSOConfigurationUpdateParams,
     type SSOConfigurationListParams as SSOConfigurationListParams,
-    type SSOConfigurationDeleteParams as SSOConfigurationDeleteParams,
+    type SSOConfigurationDeleteParams as SSOConfigurationDeleteParams
   };
 }

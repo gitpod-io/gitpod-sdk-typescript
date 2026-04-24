@@ -3,44 +3,9 @@
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
 import * as ServicesAPI from './services';
-import {
-  Service,
-  ServiceCreateParams,
-  ServiceCreateResponse,
-  ServiceDeleteParams,
-  ServiceDeleteResponse,
-  ServiceListParams,
-  ServiceMetadata,
-  ServicePhase,
-  ServiceRetrieveParams,
-  ServiceRetrieveResponse,
-  ServiceRole,
-  ServiceSpec,
-  ServiceStartParams,
-  ServiceStartResponse,
-  ServiceStatus,
-  ServiceStopParams,
-  ServiceStopResponse,
-  ServiceUpdateParams,
-  ServiceUpdateResponse,
-  Services as ServicesAPIServices,
-  ServicesServicesPage,
-} from './services';
+import { Service, ServiceCreateParams, ServiceCreateResponse, ServiceDeleteParams, ServiceDeleteResponse, ServiceListParams, ServiceMetadata, ServicePhase, ServiceRetrieveParams, ServiceRetrieveResponse, ServiceRole, ServiceSpec, ServiceStartParams, ServiceStartResponse, ServiceStatus, ServiceStopParams, ServiceStopResponse, ServiceUpdateParams, ServiceUpdateResponse, Services as ServicesAPIServices, ServicesServicesPage } from './services';
 import * as TasksAPI from './tasks/tasks';
-import {
-  TaskCreateParams,
-  TaskCreateResponse,
-  TaskDeleteParams,
-  TaskDeleteResponse,
-  TaskListParams,
-  TaskRetrieveParams,
-  TaskRetrieveResponse,
-  TaskStartParams,
-  TaskStartResponse,
-  TaskUpdateParams,
-  TaskUpdateResponse,
-  Tasks as TasksAPITasks,
-} from './tasks/tasks';
+import { TaskCreateParams, TaskCreateResponse, TaskDeleteParams, TaskDeleteResponse, TaskListParams, TaskRetrieveParams, TaskRetrieveResponse, TaskStartParams, TaskStartResponse, TaskUpdateParams, TaskUpdateResponse, Tasks as TasksAPITasks } from './tasks/tasks';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
@@ -114,10 +79,7 @@ export class Automations extends APIResource {
    * ```
    */
   upsert(body: AutomationUpsertParams, options?: RequestOptions): APIPromise<AutomationUpsertResponse> {
-    return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpsertAutomationsFile', {
-      body,
-      ...options,
-    });
+    return this._client.post('/gitpod.v1.EnvironmentAutomationService/UpsertAutomationsFile', { body, ...options });
   }
 }
 
@@ -220,7 +182,7 @@ export declare namespace Automations {
   export {
     type AutomationsFile as AutomationsFile,
     type AutomationUpsertResponse as AutomationUpsertResponse,
-    type AutomationUpsertParams as AutomationUpsertParams,
+    type AutomationUpsertParams as AutomationUpsertParams
   };
 
   export {
@@ -244,7 +206,7 @@ export declare namespace Automations {
     type ServiceListParams as ServiceListParams,
     type ServiceDeleteParams as ServiceDeleteParams,
     type ServiceStartParams as ServiceStartParams,
-    type ServiceStopParams as ServiceStopParams,
+    type ServiceStopParams as ServiceStopParams
   };
 
   export {
@@ -259,6 +221,6 @@ export declare namespace Automations {
     type TaskUpdateParams as TaskUpdateParams,
     type TaskListParams as TaskListParams,
     type TaskDeleteParams as TaskDeleteParams,
-    type TaskStartParams as TaskStartParams,
+    type TaskStartParams as TaskStartParams
   };
 }

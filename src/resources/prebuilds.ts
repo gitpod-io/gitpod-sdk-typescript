@@ -4,13 +4,7 @@ import { APIResource } from '../core/resource';
 import * as PrebuildsAPI from './prebuilds';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import {
-  PagePromise,
-  PrebuildsPage,
-  type PrebuildsPageParams,
-  WarmPoolsPage,
-  type WarmPoolsPageParams,
-} from '../core/pagination';
+import { PagePromise, PrebuildsPage, type PrebuildsPageParams, WarmPoolsPage, type WarmPoolsPageParams } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 /**
@@ -106,13 +100,8 @@ export class Prebuilds extends APIResource {
    * ```
    */
   list(params: PrebuildListParams, options?: RequestOptions): PagePromise<PrebuildsPrebuildsPage, Prebuild> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.PrebuildService/ListPrebuilds', PrebuildsPage<Prebuild>, {
-      query: { token, pageSize },
-      body,
-      method: 'post',
-      ...options,
-    });
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.PrebuildService/ListPrebuilds', PrebuildsPage<Prebuild>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -202,10 +191,7 @@ export class Prebuilds extends APIResource {
    * });
    * ```
    */
-  createLogsToken(
-    body: PrebuildCreateLogsTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<PrebuildCreateLogsTokenResponse> {
+  createLogsToken(body: PrebuildCreateLogsTokenParams, options?: RequestOptions): APIPromise<PrebuildCreateLogsTokenResponse> {
     return this._client.post('/gitpod.v1.PrebuildService/CreatePrebuildLogsToken', { body, ...options });
   }
 
@@ -244,10 +230,7 @@ export class Prebuilds extends APIResource {
    * });
    * ```
    */
-  createWarmPool(
-    body: PrebuildCreateWarmPoolParams,
-    options?: RequestOptions,
-  ): APIPromise<PrebuildCreateWarmPoolResponse> {
+  createWarmPool(body: PrebuildCreateWarmPoolParams, options?: RequestOptions): APIPromise<PrebuildCreateWarmPoolResponse> {
     return this._client.post('/gitpod.v1.PrebuildService/CreateWarmPool', { body, ...options });
   }
 
@@ -310,17 +293,9 @@ export class Prebuilds extends APIResource {
    * }
    * ```
    */
-  listWarmPools(
-    params: PrebuildListWarmPoolsParams,
-    options?: RequestOptions,
-  ): PagePromise<WarmPoolsWarmPoolsPage, WarmPool> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.PrebuildService/ListWarmPools', WarmPoolsPage<WarmPool>, {
-      query: { token, pageSize },
-      body,
-      method: 'post',
-      ...options,
-    });
+  listWarmPools(params: PrebuildListWarmPoolsParams, options?: RequestOptions): PagePromise<WarmPoolsWarmPoolsPage, WarmPool> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.PrebuildService/ListWarmPools', WarmPoolsPage<WarmPool>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -347,10 +322,7 @@ export class Prebuilds extends APIResource {
    * });
    * ```
    */
-  retrieveWarmPool(
-    body: PrebuildRetrieveWarmPoolParams,
-    options?: RequestOptions,
-  ): APIPromise<PrebuildRetrieveWarmPoolResponse> {
+  retrieveWarmPool(body: PrebuildRetrieveWarmPoolParams, options?: RequestOptions): APIPromise<PrebuildRetrieveWarmPoolResponse> {
     return this._client.post('/gitpod.v1.PrebuildService/GetWarmPool', { body, ...options });
   }
 
@@ -376,17 +348,14 @@ export class Prebuilds extends APIResource {
    * });
    * ```
    */
-  updateWarmPool(
-    body: PrebuildUpdateWarmPoolParams,
-    options?: RequestOptions,
-  ): APIPromise<PrebuildUpdateWarmPoolResponse> {
+  updateWarmPool(body: PrebuildUpdateWarmPoolParams, options?: RequestOptions): APIPromise<PrebuildUpdateWarmPoolResponse> {
     return this._client.post('/gitpod.v1.PrebuildService/UpdateWarmPool', { body, ...options });
   }
 }
 
-export type PrebuildsPrebuildsPage = PrebuildsPage<Prebuild>;
+export type PrebuildsPrebuildsPage = PrebuildsPage<Prebuild>
 
-export type WarmPoolsWarmPoolsPage = WarmPoolsPage<WarmPool>;
+export type WarmPoolsWarmPoolsPage = WarmPoolsPage<WarmPool>
 
 /**
  * Prebuild represents a prebuild for a project that creates a snapshot for faster
@@ -470,19 +439,7 @@ export interface PrebuildMetadata {
 /**
  * PrebuildPhase represents the lifecycle phase of a prebuild
  */
-export type PrebuildPhase =
-  | 'PREBUILD_PHASE_UNSPECIFIED'
-  | 'PREBUILD_PHASE_PENDING'
-  | 'PREBUILD_PHASE_STARTING'
-  | 'PREBUILD_PHASE_RUNNING'
-  | 'PREBUILD_PHASE_STOPPING'
-  | 'PREBUILD_PHASE_SNAPSHOTTING'
-  | 'PREBUILD_PHASE_COMPLETED'
-  | 'PREBUILD_PHASE_FAILED'
-  | 'PREBUILD_PHASE_CANCELLING'
-  | 'PREBUILD_PHASE_CANCELLED'
-  | 'PREBUILD_PHASE_DELETING'
-  | 'PREBUILD_PHASE_DELETED';
+export type PrebuildPhase = 'PREBUILD_PHASE_UNSPECIFIED' | 'PREBUILD_PHASE_PENDING' | 'PREBUILD_PHASE_STARTING' | 'PREBUILD_PHASE_RUNNING' | 'PREBUILD_PHASE_STOPPING' | 'PREBUILD_PHASE_SNAPSHOTTING' | 'PREBUILD_PHASE_COMPLETED' | 'PREBUILD_PHASE_FAILED' | 'PREBUILD_PHASE_CANCELLING' | 'PREBUILD_PHASE_CANCELLED' | 'PREBUILD_PHASE_DELETING' | 'PREBUILD_PHASE_DELETED'
 
 /**
  * PrebuildSpec contains the configuration used to create a prebuild
@@ -571,10 +528,7 @@ export interface PrebuildStatus {
 /**
  * PrebuildTrigger indicates how the prebuild was triggered
  */
-export type PrebuildTrigger =
-  | 'PREBUILD_TRIGGER_UNSPECIFIED'
-  | 'PREBUILD_TRIGGER_MANUAL'
-  | 'PREBUILD_TRIGGER_SCHEDULED';
+export type PrebuildTrigger = 'PREBUILD_TRIGGER_UNSPECIFIED' | 'PREBUILD_TRIGGER_MANUAL' | 'PREBUILD_TRIGGER_SCHEDULED'
 
 /**
  * WarmPool maintains pre-created environment instances from a prebuild snapshot
@@ -642,13 +596,7 @@ export interface WarmPoolMetadata {
 /**
  * WarmPoolPhase represents the lifecycle phase of a warm pool
  */
-export type WarmPoolPhase =
-  | 'WARM_POOL_PHASE_UNSPECIFIED'
-  | 'WARM_POOL_PHASE_PENDING'
-  | 'WARM_POOL_PHASE_READY'
-  | 'WARM_POOL_PHASE_DEGRADED'
-  | 'WARM_POOL_PHASE_DELETING'
-  | 'WARM_POOL_PHASE_DELETED';
+export type WarmPoolPhase = 'WARM_POOL_PHASE_UNSPECIFIED' | 'WARM_POOL_PHASE_PENDING' | 'WARM_POOL_PHASE_READY' | 'WARM_POOL_PHASE_DEGRADED' | 'WARM_POOL_PHASE_DELETING' | 'WARM_POOL_PHASE_DELETED'
 
 /**
  * WarmPoolSpec contains the desired configuration for a warm pool
@@ -754,7 +702,7 @@ export interface PrebuildRetrieveResponse {
   prebuild: Prebuild;
 }
 
-export type PrebuildDeleteResponse = unknown;
+export type PrebuildDeleteResponse = unknown
 
 export interface PrebuildCancelResponse {
   /**
@@ -780,7 +728,7 @@ export interface PrebuildCreateWarmPoolResponse {
   warmPool: WarmPool;
 }
 
-export type PrebuildDeleteWarmPoolResponse = unknown;
+export type PrebuildDeleteWarmPoolResponse = unknown
 
 export interface PrebuildRetrieveWarmPoolResponse {
   /**
@@ -1062,6 +1010,6 @@ export declare namespace Prebuilds {
     type PrebuildDeleteWarmPoolParams as PrebuildDeleteWarmPoolParams,
     type PrebuildListWarmPoolsParams as PrebuildListWarmPoolsParams,
     type PrebuildRetrieveWarmPoolParams as PrebuildRetrieveWarmPoolParams,
-    type PrebuildUpdateWarmPoolParams as PrebuildUpdateWarmPoolParams,
+    type PrebuildUpdateWarmPoolParams as PrebuildUpdateWarmPoolParams
   };
 }
