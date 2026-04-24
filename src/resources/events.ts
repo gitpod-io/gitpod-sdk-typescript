@@ -61,17 +61,9 @@ export class Events extends APIResource {
    * }
    * ```
    */
-  list(
-    params: EventListParams,
-    options?: RequestOptions,
-  ): PagePromise<EventListResponsesEntriesPage, EventListResponse> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.EventService/ListAuditLogs', EntriesPage<EventListResponse>, {
-      query: { token, pageSize },
-      body,
-      method: 'post',
-      ...options,
-    });
+  list(params: EventListParams, options?: RequestOptions): PagePromise<EventListResponsesEntriesPage, EventListResponse> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.EventService/ListAuditLogs', EntriesPage<EventListResponse>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -99,31 +91,13 @@ export class Events extends APIResource {
    * ```
    */
   watch(body: EventWatchParams, options?: RequestOptions): APIPromise<JSONLDecoder<EventWatchResponse>> {
-    return this._client
-      .post('/gitpod.v1.EventService/WatchEvents', {
-        body,
-        ...options,
-        headers: buildHeaders([
-          { 'Content-Type': 'application/jsonl', Accept: 'application/jsonl' },
-          options?.headers,
-        ]),
-        stream: true,
-        __binaryResponse: true,
-      })
-      ._thenUnwrap((_, props) => JSONLDecoder.fromResponse(props.response, props.controller)) as APIPromise<
-      JSONLDecoder<EventWatchResponse>
-    >;
+    return this._client.post('/gitpod.v1.EventService/WatchEvents', { body, ...options, headers: buildHeaders([{'Content-Type': 'application/jsonl', Accept: 'application/jsonl'}, options?.headers]), stream: true, __binaryResponse: true })._thenUnwrap((_, props) => JSONLDecoder.fromResponse(props.response, props.controller)) as APIPromise<JSONLDecoder<EventWatchResponse>>;
   }
 }
 
-export type EventListResponsesEntriesPage = EntriesPage<EventListResponse>;
+export type EventListResponsesEntriesPage = EntriesPage<EventListResponse>
 
-export type ResourceOperation =
-  | 'RESOURCE_OPERATION_UNSPECIFIED'
-  | 'RESOURCE_OPERATION_CREATE'
-  | 'RESOURCE_OPERATION_UPDATE'
-  | 'RESOURCE_OPERATION_DELETE'
-  | 'RESOURCE_OPERATION_UPDATE_STATUS';
+export type ResourceOperation = 'RESOURCE_OPERATION_UNSPECIFIED' | 'RESOURCE_OPERATION_CREATE' | 'RESOURCE_OPERATION_UPDATE' | 'RESOURCE_OPERATION_DELETE' | 'RESOURCE_OPERATION_UPDATE_STATUS'
 
 export interface EventListResponse {
   id?: string;
@@ -353,6 +327,6 @@ export declare namespace Events {
     type EventWatchResponse as EventWatchResponse,
     type EventListResponsesEntriesPage as EventListResponsesEntriesPage,
     type EventListParams as EventListParams,
-    type EventWatchParams as EventWatchParams,
+    type EventWatchParams as EventWatchParams
   };
 }

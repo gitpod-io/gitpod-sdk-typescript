@@ -4,35 +4,16 @@ import { APIResource } from '../../core/resource';
 import * as ProjectsAPI from './projects';
 import * as Shared from '../shared';
 import * as EnvironmentClasesAPI from './environment-clases';
-import {
-  EnvironmentClaseListParams,
-  EnvironmentClaseUpdateParams,
-  EnvironmentClaseUpdateResponse,
-  EnvironmentClases,
-} from './environment-clases';
+import { EnvironmentClaseListParams, EnvironmentClaseUpdateParams, EnvironmentClaseUpdateResponse, EnvironmentClases } from './environment-clases';
 import * as PoliciesAPI from './policies';
-import {
-  Policies,
-  PolicyCreateParams,
-  PolicyCreateResponse,
-  PolicyDeleteParams,
-  PolicyDeleteResponse,
-  PolicyListParams,
-  PolicyUpdateParams,
-  PolicyUpdateResponse,
-  ProjectPoliciesPoliciesPage,
-  ProjectPolicy,
-  ProjectRole,
-} from './policies';
+import { Policies, PolicyCreateParams, PolicyCreateResponse, PolicyDeleteParams, PolicyDeleteResponse, PolicyListParams, PolicyUpdateParams, PolicyUpdateResponse, ProjectPoliciesPoliciesPage, ProjectPolicy, ProjectRole } from './policies';
 import * as RunnersAPI from '../runners/runners';
 import { APIPromise } from '../../core/api-promise';
 import { PagePromise, ProjectsPage, type ProjectsPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Projects extends APIResource {
-  environmentClases: EnvironmentClasesAPI.EnvironmentClases = new EnvironmentClasesAPI.EnvironmentClases(
-    this._client,
-  );
+  environmentClases: EnvironmentClasesAPI.EnvironmentClases = new EnvironmentClasesAPI.EnvironmentClases(this._client);
   policies: PoliciesAPI.Policies = new PoliciesAPI.Policies(this._client);
 
   /**
@@ -207,13 +188,8 @@ export class Projects extends APIResource {
    * ```
    */
   list(params: ProjectListParams, options?: RequestOptions): PagePromise<ProjectsProjectsPage, Project> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.ProjectService/ListProjects', ProjectsPage<Project>, {
-      query: { token, pageSize },
-      body,
-      method: 'post',
-      ...options,
-    });
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.ProjectService/ListProjects', ProjectsPage<Project>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -424,15 +400,12 @@ export class Projects extends APIResource {
    *   });
    * ```
    */
-  createFromEnvironment(
-    body: ProjectCreateFromEnvironmentParams,
-    options?: RequestOptions,
-  ): APIPromise<ProjectCreateFromEnvironmentResponse> {
+  createFromEnvironment(body: ProjectCreateFromEnvironmentParams, options?: RequestOptions): APIPromise<ProjectCreateFromEnvironmentResponse> {
     return this._client.post('/gitpod.v1.ProjectService/CreateProjectFromEnvironment', { body, ...options });
   }
 }
 
-export type ProjectsProjectsPage = ProjectsPage<Project>;
+export type ProjectsProjectsPage = ProjectsPage<Project>
 
 /**
  * EnvironmentInitializer specifies how an environment is to be initialized
@@ -475,13 +448,7 @@ export namespace EnvironmentInitializer {
       /**
        * the target mode determines what gets checked out
        */
-      targetMode?:
-        | 'CLONE_TARGET_MODE_UNSPECIFIED'
-        | 'CLONE_TARGET_MODE_REMOTE_HEAD'
-        | 'CLONE_TARGET_MODE_REMOTE_COMMIT'
-        | 'CLONE_TARGET_MODE_REMOTE_BRANCH'
-        | 'CLONE_TARGET_MODE_LOCAL_BRANCH'
-        | 'CLONE_TARGET_MODE_REMOTE_TAG';
+      targetMode?: 'CLONE_TARGET_MODE_UNSPECIFIED' | 'CLONE_TARGET_MODE_REMOTE_HEAD' | 'CLONE_TARGET_MODE_REMOTE_COMMIT' | 'CLONE_TARGET_MODE_REMOTE_BRANCH' | 'CLONE_TARGET_MODE_LOCAL_BRANCH' | 'CLONE_TARGET_MODE_REMOTE_TAG';
 
       /**
        * upstream_Remote_uri is the fork upstream of a repository
@@ -767,7 +734,7 @@ export interface ProjectMetadata {
   updatedAt?: string;
 }
 
-export type ProjectPhase = 'PROJECT_PHASE_UNSPECIFIED' | 'PROJECT_PHASE_ACTIVE' | 'PROJECT_PHASE_DELETED';
+export type ProjectPhase = 'PROJECT_PHASE_UNSPECIFIED' | 'PROJECT_PHASE_ACTIVE' | 'PROJECT_PHASE_DELETED'
 
 /**
  * ProjectPrebuildConfiguration defines how prebuilds are created for a project.
@@ -878,7 +845,7 @@ export interface ProjectUpdateResponse {
   project?: Project;
 }
 
-export type ProjectDeleteResponse = unknown;
+export type ProjectDeleteResponse = unknown
 
 export interface ProjectBulkCreateResponse {
   /**
@@ -1303,14 +1270,14 @@ export declare namespace Projects {
     type ProjectBulkCreateParams as ProjectBulkCreateParams,
     type ProjectBulkDeleteParams as ProjectBulkDeleteParams,
     type ProjectBulkUpdateParams as ProjectBulkUpdateParams,
-    type ProjectCreateFromEnvironmentParams as ProjectCreateFromEnvironmentParams,
+    type ProjectCreateFromEnvironmentParams as ProjectCreateFromEnvironmentParams
   };
 
   export {
     EnvironmentClases as EnvironmentClases,
     type EnvironmentClaseUpdateResponse as EnvironmentClaseUpdateResponse,
     type EnvironmentClaseUpdateParams as EnvironmentClaseUpdateParams,
-    type EnvironmentClaseListParams as EnvironmentClaseListParams,
+    type EnvironmentClaseListParams as EnvironmentClaseListParams
   };
 
   export {
@@ -1324,6 +1291,6 @@ export declare namespace Projects {
     type PolicyCreateParams as PolicyCreateParams,
     type PolicyUpdateParams as PolicyUpdateParams,
     type PolicyListParams as PolicyListParams,
-    type PolicyDeleteParams as PolicyDeleteParams,
+    type PolicyDeleteParams as PolicyDeleteParams
   };
 }

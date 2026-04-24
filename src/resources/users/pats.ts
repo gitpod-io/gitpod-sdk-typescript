@@ -3,11 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
-import {
-  PagePromise,
-  PersonalAccessTokensPage,
-  type PersonalAccessTokensPageParams,
-} from '../../core/pagination';
+import { PagePromise, PersonalAccessTokensPage, type PersonalAccessTokensPageParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Pats extends APIResource {
@@ -48,16 +44,9 @@ export class Pats extends APIResource {
    * }
    * ```
    */
-  list(
-    params: PatListParams,
-    options?: RequestOptions,
-  ): PagePromise<PersonalAccessTokensPersonalAccessTokensPage, PersonalAccessToken> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.UserService/ListPersonalAccessTokens',
-      PersonalAccessTokensPage<PersonalAccessToken>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  list(params: PatListParams, options?: RequestOptions): PagePromise<PersonalAccessTokensPersonalAccessTokensPage, PersonalAccessToken> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.UserService/ListPersonalAccessTokens', PersonalAccessTokensPage<PersonalAccessToken>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -123,7 +112,7 @@ export class Pats extends APIResource {
   }
 }
 
-export type PersonalAccessTokensPersonalAccessTokensPage = PersonalAccessTokensPage<PersonalAccessToken>;
+export type PersonalAccessTokensPersonalAccessTokensPage = PersonalAccessTokensPage<PersonalAccessToken>
 
 export interface PersonalAccessToken {
   id?: string;
@@ -417,7 +406,7 @@ export interface PersonalAccessToken {
   userId?: string;
 }
 
-export type PatDeleteResponse = unknown;
+export type PatDeleteResponse = unknown
 
 export interface PatGetResponse {
   pat: PersonalAccessToken;
@@ -475,6 +464,6 @@ export declare namespace Pats {
     type PersonalAccessTokensPersonalAccessTokensPage as PersonalAccessTokensPersonalAccessTokensPage,
     type PatListParams as PatListParams,
     type PatDeleteParams as PatDeleteParams,
-    type PatGetParams as PatGetParams,
+    type PatGetParams as PatGetParams
   };
 }

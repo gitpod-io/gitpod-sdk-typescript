@@ -2,10 +2,7 @@
 
 import Gitpod from '@gitpod/sdk';
 
-const client = new Gitpod({
-  bearerToken: 'My Bearer Token',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Gitpod({ bearerToken: 'My Bearer Token', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource projects', () => {
   // Mock server tests are disabled
@@ -23,33 +20,29 @@ describe('resource projects', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.create({
-      initializer: {
-        specs: [
-          {
-            contextUrl: { url: 'https://example.com' },
-            git: {
-              checkoutLocation: 'checkoutLocation',
-              cloneTarget: 'cloneTarget',
-              remoteUri: 'https://github.com/org/repo',
-              targetMode: 'CLONE_TARGET_MODE_UNSPECIFIED',
-              upstreamRemoteUri: 'upstreamRemoteUri',
-            },
-          },
-        ],
-      },
-      automationsFilePath: 'automationsFilePath',
-      devcontainerFilePath: 'devcontainerFilePath',
-      name: 'Web Application',
-      prebuildConfiguration: {
-        enabled: true,
-        enableJetbrainsWarmup: true,
-        environmentClassIds: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-        executor: { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', principal: 'PRINCIPAL_UNSPECIFIED' },
-        timeout: '+9125115.360s',
-        trigger: { dailySchedule: { hourUtc: 23 } },
-      },
-      technicalDescription: 'technicalDescription',
-    });
+    initializer: { specs: [{
+    contextUrl: { url: 'https://example.com' },
+    git: {
+    checkoutLocation: 'checkoutLocation',
+    cloneTarget: 'cloneTarget',
+    remoteUri: 'https://github.com/org/repo',
+    targetMode: 'CLONE_TARGET_MODE_UNSPECIFIED',
+    upstreamRemoteUri: 'upstreamRemoteUri',
+  },
+  }] },
+    automationsFilePath: 'automationsFilePath',
+    devcontainerFilePath: 'devcontainerFilePath',
+    name: 'Web Application',
+    prebuildConfiguration: {
+    enabled: true,
+    enableJetbrainsWarmup: true,
+    environmentClassIds: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+    executor: { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', principal: 'PRINCIPAL_UNSPECIFIED' },
+    timeout: '+9125115.360s',
+    trigger: { dailySchedule: { hourUtc: 23 } },
+  },
+    technicalDescription: 'technicalDescription',
+  });
   });
 
   // Mock server tests are disabled

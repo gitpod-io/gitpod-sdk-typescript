@@ -2,10 +2,7 @@
 
 import Gitpod from '@gitpod/sdk';
 
-const client = new Gitpod({
-  bearerToken: 'My Bearer Token',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Gitpod({ bearerToken: 'My Bearer Token', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource environments', () => {
   // Mock server tests are disabled
@@ -22,9 +19,7 @@ describe('resource environments', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.environments.retrieve({
-      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
-    });
+    const responsePromise = client.environments.retrieve({ environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -36,9 +31,7 @@ describe('resource environments', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.environments.retrieve({
-      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
-    });
+    const response = await client.environments.retrieve({ environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048' });
   });
 
   // Mock server tests are disabled
@@ -79,9 +72,7 @@ describe('resource environments', () => {
 
   // Mock server tests are disabled
   test.skip('createEnvironmentToken: only required params', async () => {
-    const responsePromise = client.environments.createEnvironmentToken({
-      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
-    });
+    const responsePromise = client.environments.createEnvironmentToken({ environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,9 +84,7 @@ describe('resource environments', () => {
 
   // Mock server tests are disabled
   test.skip('createEnvironmentToken: required and optional params', async () => {
-    const response = await client.environments.createEnvironmentToken({
-      environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048',
-    });
+    const response = await client.environments.createEnvironmentToken({ environmentId: '07e03a28-65a5-4d98-b532-8ea67b188048' });
   });
 
   // Mock server tests are disabled

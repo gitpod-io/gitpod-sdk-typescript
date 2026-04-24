@@ -127,17 +127,9 @@ export class Memberships extends APIResource {
    * }
    * ```
    */
-  list(
-    params: MembershipListParams,
-    options?: RequestOptions,
-  ): PagePromise<GroupMembershipsMembersPage, GroupMembership> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.GroupService/ListMemberships', MembersPage<GroupMembership>, {
-      query: { token, pageSize },
-      body,
-      method: 'post',
-      ...options,
-    });
+  list(params: MembershipListParams, options?: RequestOptions): PagePromise<GroupMembershipsMembersPage, GroupMembership> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.GroupService/ListMemberships', MembersPage<GroupMembership>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -175,7 +167,7 @@ export class Memberships extends APIResource {
   }
 }
 
-export type GroupMembershipsMembersPage = MembersPage<GroupMembership>;
+export type GroupMembershipsMembersPage = MembersPage<GroupMembership>
 
 /**
  * GroupMembership represents a subject's membership in a group
@@ -224,7 +216,7 @@ export interface MembershipRetrieveResponse {
 /**
  * Empty response
  */
-export type MembershipDeleteResponse = unknown;
+export type MembershipDeleteResponse = unknown
 
 export interface MembershipCreateParams {
   groupId?: string;
@@ -308,6 +300,6 @@ export declare namespace Memberships {
     type MembershipCreateParams as MembershipCreateParams,
     type MembershipRetrieveParams as MembershipRetrieveParams,
     type MembershipListParams as MembershipListParams,
-    type MembershipDeleteParams as MembershipDeleteParams,
+    type MembershipDeleteParams as MembershipDeleteParams
   };
 }

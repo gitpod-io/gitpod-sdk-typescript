@@ -2,37 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import * as MembershipsAPI from './memberships';
-import {
-  GroupMembership,
-  GroupMembershipsMembersPage,
-  MembershipCreateParams,
-  MembershipCreateResponse,
-  MembershipDeleteParams,
-  MembershipDeleteResponse,
-  MembershipListParams,
-  MembershipRetrieveParams,
-  MembershipRetrieveResponse,
-  Memberships,
-} from './memberships';
+import { GroupMembership, GroupMembershipsMembersPage, MembershipCreateParams, MembershipCreateResponse, MembershipDeleteParams, MembershipDeleteResponse, MembershipListParams, MembershipRetrieveParams, MembershipRetrieveResponse, Memberships } from './memberships';
 import * as RoleAssignmentsAPI from './role-assignments';
-import {
-  RoleAssignment,
-  RoleAssignmentCreateParams,
-  RoleAssignmentCreateResponse,
-  RoleAssignmentDeleteParams,
-  RoleAssignmentDeleteResponse,
-  RoleAssignmentListParams,
-  RoleAssignments,
-  RoleAssignmentsAssignmentsPage,
-} from './role-assignments';
+import { RoleAssignment, RoleAssignmentCreateParams, RoleAssignmentCreateResponse, RoleAssignmentDeleteParams, RoleAssignmentDeleteResponse, RoleAssignmentListParams, RoleAssignments, RoleAssignmentsAssignmentsPage } from './role-assignments';
 import * as SharesAPI from './shares';
-import {
-  ShareCreateParams,
-  ShareCreateResponse,
-  ShareDeleteParams,
-  ShareDeleteResponse,
-  Shares,
-} from './shares';
+import { ShareCreateParams, ShareCreateResponse, ShareDeleteParams, ShareDeleteResponse, Shares } from './shares';
 import { APIPromise } from '../../core/api-promise';
 import { GroupsPage, type GroupsPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -198,13 +172,8 @@ export class Groups extends APIResource {
    * ```
    */
   list(params: GroupListParams, options?: RequestOptions): PagePromise<GroupsGroupsPage, Group> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList('/gitpod.v1.GroupService/ListGroups', GroupsPage<Group>, {
-      query: { token, pageSize },
-      body,
-      method: 'post',
-      ...options,
-    });
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.GroupService/ListGroups', GroupsPage<Group>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -243,7 +212,7 @@ export class Groups extends APIResource {
   }
 }
 
-export type GroupsGroupsPage = GroupsPage<Group>;
+export type GroupsGroupsPage = GroupsPage<Group>
 
 export interface Group {
   id?: string;
@@ -470,7 +439,7 @@ export interface GroupUpdateResponse {
 /**
  * Empty response
  */
-export type GroupDeleteResponse = unknown;
+export type GroupDeleteResponse = unknown
 
 export interface GroupCreateParams {
   description?: string;
@@ -583,7 +552,7 @@ export declare namespace Groups {
     type GroupRetrieveParams as GroupRetrieveParams,
     type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
-    type GroupDeleteParams as GroupDeleteParams,
+    type GroupDeleteParams as GroupDeleteParams
   };
 
   export {
@@ -596,7 +565,7 @@ export declare namespace Groups {
     type MembershipCreateParams as MembershipCreateParams,
     type MembershipRetrieveParams as MembershipRetrieveParams,
     type MembershipListParams as MembershipListParams,
-    type MembershipDeleteParams as MembershipDeleteParams,
+    type MembershipDeleteParams as MembershipDeleteParams
   };
 
   export {
@@ -607,7 +576,7 @@ export declare namespace Groups {
     type RoleAssignmentsAssignmentsPage as RoleAssignmentsAssignmentsPage,
     type RoleAssignmentCreateParams as RoleAssignmentCreateParams,
     type RoleAssignmentListParams as RoleAssignmentListParams,
-    type RoleAssignmentDeleteParams as RoleAssignmentDeleteParams,
+    type RoleAssignmentDeleteParams as RoleAssignmentDeleteParams
   };
 
   export {
@@ -615,6 +584,6 @@ export declare namespace Groups {
     type ShareCreateResponse as ShareCreateResponse,
     type ShareDeleteResponse as ShareDeleteResponse,
     type ShareCreateParams as ShareCreateParams,
-    type ShareDeleteParams as ShareDeleteParams,
+    type ShareDeleteParams as ShareDeleteParams
   };
 }

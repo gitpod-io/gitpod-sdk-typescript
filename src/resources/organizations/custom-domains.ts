@@ -61,10 +61,7 @@ export class CustomDomains extends APIResource {
    *   });
    * ```
    */
-  retrieve(
-    body: CustomDomainRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CustomDomainRetrieveResponse> {
+  retrieve(body: CustomDomainRetrieveParams, options?: RequestOptions): APIPromise<CustomDomainRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetCustomDomain', { body, ...options });
   }
 
@@ -186,10 +183,7 @@ export interface CustomDomain {
  * CustomDomainProvider represents the cloud provider for custom domain
  * configuration
  */
-export type CustomDomainProvider =
-  | 'CUSTOM_DOMAIN_PROVIDER_UNSPECIFIED'
-  | 'CUSTOM_DOMAIN_PROVIDER_AWS'
-  | 'CUSTOM_DOMAIN_PROVIDER_GCP';
+export type CustomDomainProvider = 'CUSTOM_DOMAIN_PROVIDER_UNSPECIFIED' | 'CUSTOM_DOMAIN_PROVIDER_AWS' | 'CUSTOM_DOMAIN_PROVIDER_GCP'
 
 /**
  * CreateCustomDomainResponse is the response message for creating a custom domain
@@ -221,7 +215,7 @@ export interface CustomDomainUpdateResponse {
 /**
  * DeleteCustomDomainResponse is the response message for deleting a custom domain
  */
-export type CustomDomainDeleteResponse = unknown;
+export type CustomDomainDeleteResponse = unknown
 
 export interface CustomDomainCreateParams {
   /**
@@ -306,6 +300,6 @@ export declare namespace CustomDomains {
     type CustomDomainCreateParams as CustomDomainCreateParams,
     type CustomDomainRetrieveParams as CustomDomainRetrieveParams,
     type CustomDomainUpdateParams as CustomDomainUpdateParams,
-    type CustomDomainDeleteParams as CustomDomainDeleteParams,
+    type CustomDomainDeleteParams as CustomDomainDeleteParams
   };
 }

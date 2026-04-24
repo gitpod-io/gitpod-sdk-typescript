@@ -52,20 +52,13 @@ export class Usage extends APIResource {
    * }
    * ```
    */
-  listEnvironmentRuntimeRecords(
-    params: UsageListEnvironmentRuntimeRecordsParams,
-    options?: RequestOptions,
-  ): PagePromise<EnvironmentUsageRecordsRecordsPage, EnvironmentUsageRecord> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.UsageService/ListEnvironmentUsageRecords',
-      RecordsPage<EnvironmentUsageRecord>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  listEnvironmentRuntimeRecords(params: UsageListEnvironmentRuntimeRecordsParams, options?: RequestOptions): PagePromise<EnvironmentUsageRecordsRecordsPage, EnvironmentUsageRecord> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.UsageService/ListEnvironmentUsageRecords', RecordsPage<EnvironmentUsageRecord>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 }
 
-export type EnvironmentUsageRecordsRecordsPage = RecordsPage<EnvironmentUsageRecord>;
+export type EnvironmentUsageRecordsRecordsPage = RecordsPage<EnvironmentUsageRecord>
 
 /**
  * EnvironmentUsageRecord represents a record of an environment from start to stop.
@@ -180,6 +173,6 @@ export declare namespace Usage {
   export {
     type EnvironmentUsageRecord as EnvironmentUsageRecord,
     type EnvironmentUsageRecordsRecordsPage as EnvironmentUsageRecordsRecordsPage,
-    type UsageListEnvironmentRuntimeRecordsParams as UsageListEnvironmentRuntimeRecordsParams,
+    type UsageListEnvironmentRuntimeRecordsParams as UsageListEnvironmentRuntimeRecordsParams
   };
 }

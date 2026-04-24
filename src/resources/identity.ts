@@ -32,10 +32,7 @@ export class Identity extends APIResource {
    * });
    * ```
    */
-  exchangeToken(
-    body: IdentityExchangeTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<IdentityExchangeTokenResponse> {
+  exchangeToken(body: IdentityExchangeTokenParams, options?: RequestOptions): APIPromise<IdentityExchangeTokenResponse> {
     return this._client.post('/gitpod.v1.IdentityService/ExchangeToken', { body, ...options });
   }
 
@@ -65,10 +62,7 @@ export class Identity extends APIResource {
    *   await client.identity.getAuthenticatedIdentity();
    * ```
    */
-  getAuthenticatedIdentity(
-    body: IdentityGetAuthenticatedIdentityParams,
-    options?: RequestOptions,
-  ): APIPromise<IdentityGetAuthenticatedIdentityResponse> {
+  getAuthenticatedIdentity(body: IdentityGetAuthenticatedIdentityParams, options?: RequestOptions): APIPromise<IdentityGetAuthenticatedIdentityResponse> {
     return this._client.post('/gitpod.v1.IdentityService/GetAuthenticatedIdentity', { body, ...options });
   }
 
@@ -112,15 +106,12 @@ export class Identity extends APIResource {
    * });
    * ```
    */
-  getIDToken(
-    body: IdentityGetIDTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<IdentityGetIDTokenResponse> {
+  getIDToken(body: IdentityGetIDTokenParams, options?: RequestOptions): APIPromise<IdentityGetIDTokenResponse> {
     return this._client.post('/gitpod.v1.IdentityService/GetIDToken', { body, ...options });
   }
 }
 
-export type IDTokenVersion = 'ID_TOKEN_VERSION_UNSPECIFIED' | 'ID_TOKEN_VERSION_V1' | 'ID_TOKEN_VERSION_V2';
+export type IDTokenVersion = 'ID_TOKEN_VERSION_UNSPECIFIED' | 'ID_TOKEN_VERSION_V1' | 'ID_TOKEN_VERSION_V2'
 
 export interface IdentityExchangeTokenResponse {
   /**
@@ -172,6 +163,6 @@ export declare namespace Identity {
     type IdentityGetIDTokenResponse as IdentityGetIDTokenResponse,
     type IdentityExchangeTokenParams as IdentityExchangeTokenParams,
     type IdentityGetAuthenticatedIdentityParams as IdentityGetAuthenticatedIdentityParams,
-    type IdentityGetIDTokenParams as IdentityGetIDTokenParams,
+    type IdentityGetIDTokenParams as IdentityGetIDTokenParams
   };
 }

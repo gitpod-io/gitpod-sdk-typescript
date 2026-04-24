@@ -48,14 +48,8 @@ export class HostAuthenticationTokens extends APIResource {
    *   );
    * ```
    */
-  create(
-    body: HostAuthenticationTokenCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<HostAuthenticationTokenCreateResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/CreateHostAuthenticationToken', {
-      body,
-      ...options,
-    });
+  create(body: HostAuthenticationTokenCreateParams, options?: RequestOptions): APIPromise<HostAuthenticationTokenCreateResponse> {
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/CreateHostAuthenticationToken', { body, ...options });
   }
 
   /**
@@ -85,14 +79,8 @@ export class HostAuthenticationTokens extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    body: HostAuthenticationTokenRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<HostAuthenticationTokenRetrieveResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/GetHostAuthenticationToken', {
-      body,
-      ...options,
-    });
+  retrieve(body: HostAuthenticationTokenRetrieveParams, options?: RequestOptions): APIPromise<HostAuthenticationTokenRetrieveResponse> {
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/GetHostAuthenticationToken', { body, ...options });
   }
 
   /**
@@ -131,10 +119,7 @@ export class HostAuthenticationTokens extends APIResource {
    * ```
    */
   update(body: HostAuthenticationTokenUpdateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateHostAuthenticationToken', {
-      body,
-      ...options,
-    });
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateHostAuthenticationToken', { body, ...options });
   }
 
   /**
@@ -183,16 +168,9 @@ export class HostAuthenticationTokens extends APIResource {
    * }
    * ```
    */
-  list(
-    params: HostAuthenticationTokenListParams,
-    options?: RequestOptions,
-  ): PagePromise<HostAuthenticationTokensTokensPage, HostAuthenticationToken> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.RunnerConfigurationService/ListHostAuthenticationTokens',
-      TokensPage<HostAuthenticationToken>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  list(params: HostAuthenticationTokenListParams, options?: RequestOptions): PagePromise<HostAuthenticationTokensTokensPage, HostAuthenticationToken> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.RunnerConfigurationService/ListHostAuthenticationTokens', TokensPage<HostAuthenticationToken>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -223,14 +201,11 @@ export class HostAuthenticationTokens extends APIResource {
    * ```
    */
   delete(body: HostAuthenticationTokenDeleteParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteHostAuthenticationToken', {
-      body,
-      ...options,
-    });
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/DeleteHostAuthenticationToken', { body, ...options });
   }
 }
 
-export type HostAuthenticationTokensTokensPage = TokensPage<HostAuthenticationToken>;
+export type HostAuthenticationTokensTokensPage = TokensPage<HostAuthenticationToken>
 
 export interface HostAuthenticationToken {
   id: string;
@@ -360,10 +335,7 @@ export interface HostAuthenticationToken {
   userId?: string;
 }
 
-export type HostAuthenticationTokenSource =
-  | 'HOST_AUTHENTICATION_TOKEN_SOURCE_UNSPECIFIED'
-  | 'HOST_AUTHENTICATION_TOKEN_SOURCE_OAUTH'
-  | 'HOST_AUTHENTICATION_TOKEN_SOURCE_PAT';
+export type HostAuthenticationTokenSource = 'HOST_AUTHENTICATION_TOKEN_SOURCE_UNSPECIFIED' | 'HOST_AUTHENTICATION_TOKEN_SOURCE_OAUTH' | 'HOST_AUTHENTICATION_TOKEN_SOURCE_PAT'
 
 export interface HostAuthenticationTokenCreateResponse {
   token: HostAuthenticationToken;
@@ -373,9 +345,9 @@ export interface HostAuthenticationTokenRetrieveResponse {
   token: HostAuthenticationToken;
 }
 
-export type HostAuthenticationTokenUpdateResponse = unknown;
+export type HostAuthenticationTokenUpdateResponse = unknown
 
-export type HostAuthenticationTokenDeleteResponse = unknown;
+export type HostAuthenticationTokenDeleteResponse = unknown
 
 export interface HostAuthenticationTokenCreateParams {
   /**
@@ -669,6 +641,6 @@ export declare namespace HostAuthenticationTokens {
     type HostAuthenticationTokenRetrieveParams as HostAuthenticationTokenRetrieveParams,
     type HostAuthenticationTokenUpdateParams as HostAuthenticationTokenUpdateParams,
     type HostAuthenticationTokenListParams as HostAuthenticationTokenListParams,
-    type HostAuthenticationTokenDeleteParams as HostAuthenticationTokenDeleteParams,
+    type HostAuthenticationTokenDeleteParams as HostAuthenticationTokenDeleteParams
   };
 }

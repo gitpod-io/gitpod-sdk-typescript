@@ -54,10 +54,7 @@ export class RoleAssignments extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: RoleAssignmentCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<RoleAssignmentCreateResponse> {
+  create(body: RoleAssignmentCreateParams, options?: RequestOptions): APIPromise<RoleAssignmentCreateResponse> {
     return this._client.post('/gitpod.v1.GroupService/CreateRoleAssignment', { body, ...options });
   }
 
@@ -112,16 +109,9 @@ export class RoleAssignments extends APIResource {
    * }
    * ```
    */
-  list(
-    params: RoleAssignmentListParams,
-    options?: RequestOptions,
-  ): PagePromise<RoleAssignmentsAssignmentsPage, RoleAssignment> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.GroupService/ListRoleAssignments',
-      AssignmentsPage<RoleAssignment>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  list(params: RoleAssignmentListParams, options?: RequestOptions): PagePromise<RoleAssignmentsAssignmentsPage, RoleAssignment> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.GroupService/ListRoleAssignments', AssignmentsPage<RoleAssignment>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -159,7 +149,7 @@ export class RoleAssignments extends APIResource {
   }
 }
 
-export type RoleAssignmentsAssignmentsPage = AssignmentsPage<RoleAssignment>;
+export type RoleAssignmentsAssignmentsPage = AssignmentsPage<RoleAssignment>
 
 /**
  * RoleAssignment represents a role assigned to a group on a specific resource
@@ -214,7 +204,7 @@ export interface RoleAssignmentCreateResponse {
 /**
  * Empty response
  */
-export type RoleAssignmentDeleteResponse = unknown;
+export type RoleAssignmentDeleteResponse = unknown
 
 export interface RoleAssignmentCreateParams {
   groupId?: string;
@@ -317,6 +307,6 @@ export declare namespace RoleAssignments {
     type RoleAssignmentsAssignmentsPage as RoleAssignmentsAssignmentsPage,
     type RoleAssignmentCreateParams as RoleAssignmentCreateParams,
     type RoleAssignmentListParams as RoleAssignmentListParams,
-    type RoleAssignmentDeleteParams as RoleAssignmentDeleteParams,
+    type RoleAssignmentDeleteParams as RoleAssignmentDeleteParams
   };
 }

@@ -108,16 +108,9 @@ export class Policies extends APIResource {
    * }
    * ```
    */
-  list(
-    params: PolicyListParams,
-    options?: RequestOptions,
-  ): PagePromise<ProjectPoliciesPoliciesPage, ProjectPolicy> {
-    const { token, pageSize, ...body } = params;
-    return this._client.getAPIList(
-      '/gitpod.v1.ProjectService/ListProjectPolicies',
-      PoliciesPage<ProjectPolicy>,
-      { query: { token, pageSize }, body, method: 'post', ...options },
-    );
+  list(params: PolicyListParams, options?: RequestOptions): PagePromise<ProjectPoliciesPoliciesPage, ProjectPolicy> {
+    const { token, pageSize, ...body } = params
+    return this._client.getAPIList('/gitpod.v1.ProjectService/ListProjectPolicies', PoliciesPage<ProjectPolicy>, { query: { token, pageSize }, body, method: 'post', ...options });
   }
 
   /**
@@ -153,7 +146,7 @@ export class Policies extends APIResource {
   }
 }
 
-export type ProjectPoliciesPoliciesPage = PoliciesPage<ProjectPolicy>;
+export type ProjectPoliciesPoliciesPage = PoliciesPage<ProjectPolicy>
 
 export interface ProjectPolicy {
   groupId?: string;
@@ -164,11 +157,7 @@ export interface ProjectPolicy {
   role?: ProjectRole;
 }
 
-export type ProjectRole =
-  | 'PROJECT_ROLE_UNSPECIFIED'
-  | 'PROJECT_ROLE_ADMIN'
-  | 'PROJECT_ROLE_USER'
-  | 'PROJECT_ROLE_EDITOR';
+export type ProjectRole = 'PROJECT_ROLE_UNSPECIFIED' | 'PROJECT_ROLE_ADMIN' | 'PROJECT_ROLE_USER' | 'PROJECT_ROLE_EDITOR'
 
 export interface PolicyCreateResponse {
   policy?: ProjectPolicy;
@@ -178,7 +167,7 @@ export interface PolicyUpdateResponse {
   policy?: ProjectPolicy;
 }
 
-export type PolicyDeleteResponse = unknown;
+export type PolicyDeleteResponse = unknown
 
 export interface PolicyCreateParams {
   /**
@@ -263,6 +252,6 @@ export declare namespace Policies {
     type PolicyCreateParams as PolicyCreateParams,
     type PolicyUpdateParams as PolicyUpdateParams,
     type PolicyListParams as PolicyListParams,
-    type PolicyDeleteParams as PolicyDeleteParams,
+    type PolicyDeleteParams as PolicyDeleteParams
   };
 }
