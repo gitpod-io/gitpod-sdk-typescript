@@ -318,6 +318,7 @@ export {
   type RunnerParseContextURLParams,
   type RunnerSearchRepositoriesParams,
   type RunnersRunnersPage,
+  type RunnerListScmOrganizationsResponsesOrganizationsPage,
 } from './runners/runners';
 export {
   Secrets,

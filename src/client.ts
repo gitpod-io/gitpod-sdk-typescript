@@ -52,6 +52,8 @@ import {
   LoginsPageResponse,
   type MembersPageParams,
   MembersPageResponse,
+  type OrganizationsPageParams,
+  OrganizationsPageResponse,
   type OutputsPageParams,
   OutputsPageResponse,
   type PersonalAccessTokensPageParams,
@@ -418,6 +420,7 @@ import {
   RunnerListParams,
   RunnerListScmOrganizationsParams,
   RunnerListScmOrganizationsResponse,
+  RunnerListScmOrganizationsResponsesOrganizationsPage,
   RunnerParseContextURLParams,
   RunnerParseContextURLResponse,
   RunnerPhase,
@@ -1283,6 +1286,12 @@ export declare namespace Gitpod {
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
 
+  export import OrganizationsPage = Pagination.OrganizationsPage;
+  export {
+    type OrganizationsPageParams as OrganizationsPageParams,
+    type OrganizationsPageResponse as OrganizationsPageResponse,
+  };
+
   export import OutputsPage = Pagination.OutputsPage;
   export { type OutputsPageParams as OutputsPageParams, type OutputsPageResponse as OutputsPageResponse };
 
@@ -1697,6 +1706,7 @@ export declare namespace Gitpod {
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
     type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
+    type RunnerListScmOrganizationsResponsesOrganizationsPage as RunnerListScmOrganizationsResponsesOrganizationsPage,
     type RunnerCreateParams as RunnerCreateParams,
     type RunnerRetrieveParams as RunnerRetrieveParams,
     type RunnerUpdateParams as RunnerUpdateParams,
