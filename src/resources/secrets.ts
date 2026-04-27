@@ -117,8 +117,13 @@ export class Secrets extends APIResource {
    * ```
    */
   list(params: SecretListParams, options?: RequestOptions): PagePromise<SecretsSecretsPage, Secret> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.SecretService/ListSecrets', SecretsPage<Secret>, { query: { token, pageSize }, body, method: 'post', ...options });
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.SecretService/ListSecrets', SecretsPage<Secret>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
   }
 
   /**
@@ -212,7 +217,7 @@ export class Secrets extends APIResource {
   }
 }
 
-export type SecretsSecretsPage = SecretsPage<Secret>
+export type SecretsSecretsPage = SecretsPage<Secret>;
 
 export interface Secret {
   id?: string;
@@ -466,13 +471,13 @@ export interface SecretCreateResponse {
   secret?: Secret;
 }
 
-export type SecretDeleteResponse = unknown
+export type SecretDeleteResponse = unknown;
 
 export interface SecretGetValueResponse {
   value?: string;
 }
 
-export type SecretUpdateValueResponse = unknown
+export type SecretUpdateValueResponse = unknown;
 
 export interface SecretCreateParams {
   /**
@@ -598,6 +603,6 @@ export declare namespace Secrets {
     type SecretListParams as SecretListParams,
     type SecretDeleteParams as SecretDeleteParams,
     type SecretGetValueParams as SecretGetValueParams,
-    type SecretUpdateValueParams as SecretUpdateValueParams
+    type SecretUpdateValueParams as SecretUpdateValueParams,
   };
 }

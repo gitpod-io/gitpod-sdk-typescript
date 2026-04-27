@@ -4,11 +4,36 @@ import { APIResource } from '../../core/resource';
 import * as RunnersAPI from './runners';
 import * as Shared from '../shared';
 import * as PoliciesAPI from './policies';
-import { Policies, PolicyCreateParams, PolicyCreateResponse, PolicyDeleteParams, PolicyDeleteResponse, PolicyListParams, PolicyUpdateParams, PolicyUpdateResponse, RunnerPoliciesPoliciesPage, RunnerPolicy, RunnerRole } from './policies';
+import {
+  Policies,
+  PolicyCreateParams,
+  PolicyCreateResponse,
+  PolicyDeleteParams,
+  PolicyDeleteResponse,
+  PolicyListParams,
+  PolicyUpdateParams,
+  PolicyUpdateResponse,
+  RunnerPoliciesPoliciesPage,
+  RunnerPolicy,
+  RunnerRole,
+} from './policies';
 import * as ConfigurationsAPI from './configurations/configurations';
-import { ConfigurationValidateParams, ConfigurationValidateResponse, Configurations, EnvironmentClassValidationResult, FieldValidationError, ScmIntegrationValidationResult } from './configurations/configurations';
+import {
+  ConfigurationValidateParams,
+  ConfigurationValidateResponse,
+  Configurations,
+  EnvironmentClassValidationResult,
+  FieldValidationError,
+  ScmIntegrationValidationResult,
+} from './configurations/configurations';
 import { APIPromise } from '../../core/api-promise';
-import { OrganizationsPage, type OrganizationsPageParams, PagePromise, RunnersPage, type RunnersPageParams } from '../../core/pagination';
+import {
+  OrganizationsPage,
+  type OrganizationsPageParams,
+  PagePromise,
+  RunnersPage,
+  type RunnersPageParams,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Runners extends APIResource {
@@ -195,8 +220,13 @@ export class Runners extends APIResource {
    * ```
    */
   list(params: RunnerListParams, options?: RequestOptions): PagePromise<RunnersRunnersPage, Runner> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.RunnerService/ListRunners', RunnersPage<Runner>, { query: { token, pageSize }, body, method: 'post', ...options });
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.RunnerService/ListRunners', RunnersPage<Runner>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
   }
 
   /**
@@ -256,7 +286,10 @@ export class Runners extends APIResource {
    *   });
    * ```
    */
-  checkAuthenticationForHost(body: RunnerCheckAuthenticationForHostParams, options?: RequestOptions): APIPromise<RunnerCheckAuthenticationForHostResponse> {
+  checkAuthenticationForHost(
+    body: RunnerCheckAuthenticationForHostParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerCheckAuthenticationForHostResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CheckAuthenticationForHost', { body, ...options });
   }
 
@@ -295,7 +328,10 @@ export class Runners extends APIResource {
    * );
    * ```
    */
-  checkRepositoryAccess(body: RunnerCheckRepositoryAccessParams, options?: RequestOptions): APIPromise<RunnerCheckRepositoryAccessResponse> {
+  checkRepositoryAccess(
+    body: RunnerCheckRepositoryAccessParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerCheckRepositoryAccessResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CheckRepositoryAccess', { body, ...options });
   }
 
@@ -321,7 +357,10 @@ export class Runners extends APIResource {
    * });
    * ```
    */
-  createLogsToken(body: RunnerCreateLogsTokenParams, options?: RequestOptions): APIPromise<RunnerCreateLogsTokenResponse> {
+  createLogsToken(
+    body: RunnerCreateLogsTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerCreateLogsTokenResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CreateRunnerLogsToken', { body, ...options });
   }
 
@@ -353,7 +392,10 @@ export class Runners extends APIResource {
    * });
    * ```
    */
-  createRunnerToken(body: RunnerCreateRunnerTokenParams, options?: RequestOptions): APIPromise<RunnerCreateRunnerTokenResponse> {
+  createRunnerToken(
+    body: RunnerCreateRunnerTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerCreateRunnerTokenResponse> {
     return this._client.post('/gitpod.v1.RunnerService/CreateRunnerToken', { body, ...options });
   }
 
@@ -401,9 +443,16 @@ export class Runners extends APIResource {
    * }
    * ```
    */
-  listScmOrganizations(params: RunnerListScmOrganizationsParams, options?: RequestOptions): PagePromise<RunnerListScmOrganizationsResponsesOrganizationsPage, RunnerListScmOrganizationsResponse> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.RunnerService/ListSCMOrganizations', OrganizationsPage<RunnerListScmOrganizationsResponse>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listScmOrganizations(
+    params: RunnerListScmOrganizationsParams,
+    options?: RequestOptions,
+  ): PagePromise<RunnerListScmOrganizationsResponsesOrganizationsPage, RunnerListScmOrganizationsResponse> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.RunnerService/ListSCMOrganizations',
+      OrganizationsPage<RunnerListScmOrganizationsResponse>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -439,7 +488,10 @@ export class Runners extends APIResource {
    * });
    * ```
    */
-  parseContextURL(body: RunnerParseContextURLParams, options?: RequestOptions): APIPromise<RunnerParseContextURLResponse> {
+  parseContextURL(
+    body: RunnerParseContextURLParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerParseContextURLResponse> {
     return this._client.post('/gitpod.v1.RunnerService/ParseContextURL', { body, ...options });
   }
 
@@ -482,14 +534,18 @@ export class Runners extends APIResource {
    * });
    * ```
    */
-  searchRepositories(body: RunnerSearchRepositoriesParams, options?: RequestOptions): APIPromise<RunnerSearchRepositoriesResponse> {
+  searchRepositories(
+    body: RunnerSearchRepositoriesParams,
+    options?: RequestOptions,
+  ): APIPromise<RunnerSearchRepositoriesResponse> {
     return this._client.post('/gitpod.v1.RunnerService/SearchRepositories', { body, ...options });
   }
 }
 
-export type RunnersRunnersPage = RunnersPage<Runner>
+export type RunnersRunnersPage = RunnersPage<Runner>;
 
-export type RunnerListScmOrganizationsResponsesOrganizationsPage = OrganizationsPage<RunnerListScmOrganizationsResponse>
+export type RunnerListScmOrganizationsResponsesOrganizationsPage =
+  OrganizationsPage<RunnerListScmOrganizationsResponse>;
 
 export interface GatewayInfo {
   /**
@@ -503,7 +559,12 @@ export interface GatewayInfo {
   latency?: string;
 }
 
-export type LogLevel = 'LOG_LEVEL_UNSPECIFIED' | 'LOG_LEVEL_DEBUG' | 'LOG_LEVEL_INFO' | 'LOG_LEVEL_WARN' | 'LOG_LEVEL_ERROR'
+export type LogLevel =
+  | 'LOG_LEVEL_UNSPECIFIED'
+  | 'LOG_LEVEL_DEBUG'
+  | 'LOG_LEVEL_INFO'
+  | 'LOG_LEVEL_WARN'
+  | 'LOG_LEVEL_ERROR';
 
 export interface MetricsConfiguration {
   /**
@@ -583,7 +644,21 @@ export interface Runner {
   updatedAt?: string;
 }
 
-export type RunnerCapability = 'RUNNER_CAPABILITY_UNSPECIFIED' | 'RUNNER_CAPABILITY_FETCH_LOCAL_SCM_INTEGRATIONS' | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY' | 'RUNNER_CAPABILITY_AGENT_EXECUTION' | 'RUNNER_CAPABILITY_ALLOW_ENV_TOKEN_POPULATION' | 'RUNNER_CAPABILITY_DEFAULT_DEV_CONTAINER_IMAGE' | 'RUNNER_CAPABILITY_ENVIRONMENT_SNAPSHOT' | 'RUNNER_CAPABILITY_PREBUILDS_BEFORE_SNAPSHOT_TRIGGER' | 'RUNNER_CAPABILITY_LIST_SCM_ORGANIZATIONS' | 'RUNNER_CAPABILITY_CHECK_REPOSITORY_ACCESS' | 'RUNNER_CAPABILITY_RUNNER_SIDE_AGENT' | 'RUNNER_CAPABILITY_WARM_POOL' | 'RUNNER_CAPABILITY_ASG_WARM_POOL' | 'RUNNER_CAPABILITY_PORT_AUTHENTICATION'
+export type RunnerCapability =
+  | 'RUNNER_CAPABILITY_UNSPECIFIED'
+  | 'RUNNER_CAPABILITY_FETCH_LOCAL_SCM_INTEGRATIONS'
+  | 'RUNNER_CAPABILITY_SECRET_CONTAINER_REGISTRY'
+  | 'RUNNER_CAPABILITY_AGENT_EXECUTION'
+  | 'RUNNER_CAPABILITY_ALLOW_ENV_TOKEN_POPULATION'
+  | 'RUNNER_CAPABILITY_DEFAULT_DEV_CONTAINER_IMAGE'
+  | 'RUNNER_CAPABILITY_ENVIRONMENT_SNAPSHOT'
+  | 'RUNNER_CAPABILITY_PREBUILDS_BEFORE_SNAPSHOT_TRIGGER'
+  | 'RUNNER_CAPABILITY_LIST_SCM_ORGANIZATIONS'
+  | 'RUNNER_CAPABILITY_CHECK_REPOSITORY_ACCESS'
+  | 'RUNNER_CAPABILITY_RUNNER_SIDE_AGENT'
+  | 'RUNNER_CAPABILITY_WARM_POOL'
+  | 'RUNNER_CAPABILITY_ASG_WARM_POOL'
+  | 'RUNNER_CAPABILITY_PORT_AUTHENTICATION';
 
 export interface RunnerConfiguration {
   /**
@@ -630,21 +705,42 @@ export interface RunnerConfiguration {
 /**
  * RunnerKind represents the kind of a runner
  */
-export type RunnerKind = 'RUNNER_KIND_UNSPECIFIED' | 'RUNNER_KIND_LOCAL' | 'RUNNER_KIND_REMOTE' | 'RUNNER_KIND_LOCAL_CONFIGURATION'
+export type RunnerKind =
+  | 'RUNNER_KIND_UNSPECIFIED'
+  | 'RUNNER_KIND_LOCAL'
+  | 'RUNNER_KIND_REMOTE'
+  | 'RUNNER_KIND_LOCAL_CONFIGURATION';
 
 /**
  * RunnerPhase represents the phase a runner is in
  */
-export type RunnerPhase = 'RUNNER_PHASE_UNSPECIFIED' | 'RUNNER_PHASE_CREATED' | 'RUNNER_PHASE_INACTIVE' | 'RUNNER_PHASE_ACTIVE' | 'RUNNER_PHASE_DELETING' | 'RUNNER_PHASE_DELETED' | 'RUNNER_PHASE_DEGRADED'
+export type RunnerPhase =
+  | 'RUNNER_PHASE_UNSPECIFIED'
+  | 'RUNNER_PHASE_CREATED'
+  | 'RUNNER_PHASE_INACTIVE'
+  | 'RUNNER_PHASE_ACTIVE'
+  | 'RUNNER_PHASE_DELETING'
+  | 'RUNNER_PHASE_DELETED'
+  | 'RUNNER_PHASE_DEGRADED';
 
 /**
  * RunnerProvider identifies the specific implementation type of a runner. Each
  * provider maps to a specific kind of runner (local or remote), as specified below
  * for each provider.
  */
-export type RunnerProvider = 'RUNNER_PROVIDER_UNSPECIFIED' | 'RUNNER_PROVIDER_AWS_EC2' | 'RUNNER_PROVIDER_LINUX_HOST' | 'RUNNER_PROVIDER_DESKTOP_MAC' | 'RUNNER_PROVIDER_MANAGED' | 'RUNNER_PROVIDER_GCP' | 'RUNNER_PROVIDER_DEV_AGENT'
+export type RunnerProvider =
+  | 'RUNNER_PROVIDER_UNSPECIFIED'
+  | 'RUNNER_PROVIDER_AWS_EC2'
+  | 'RUNNER_PROVIDER_LINUX_HOST'
+  | 'RUNNER_PROVIDER_DESKTOP_MAC'
+  | 'RUNNER_PROVIDER_MANAGED'
+  | 'RUNNER_PROVIDER_GCP'
+  | 'RUNNER_PROVIDER_DEV_AGENT';
 
-export type RunnerReleaseChannel = 'RUNNER_RELEASE_CHANNEL_UNSPECIFIED' | 'RUNNER_RELEASE_CHANNEL_STABLE' | 'RUNNER_RELEASE_CHANNEL_LATEST'
+export type RunnerReleaseChannel =
+  | 'RUNNER_RELEASE_CHANNEL_UNSPECIFIED'
+  | 'RUNNER_RELEASE_CHANNEL_STABLE'
+  | 'RUNNER_RELEASE_CHANNEL_LATEST';
 
 export interface RunnerSpec {
   /**
@@ -728,9 +824,12 @@ export interface RunnerStatus {
   version?: string;
 }
 
-export type RunnerVariant = 'RUNNER_VARIANT_UNSPECIFIED' | 'RUNNER_VARIANT_STANDARD' | 'RUNNER_VARIANT_ENTERPRISE'
+export type RunnerVariant =
+  | 'RUNNER_VARIANT_UNSPECIFIED'
+  | 'RUNNER_VARIANT_STANDARD'
+  | 'RUNNER_VARIANT_ENTERPRISE';
 
-export type SearchMode = 'SEARCH_MODE_UNSPECIFIED' | 'SEARCH_MODE_KEYWORD' | 'SEARCH_MODE_NATIVE'
+export type SearchMode = 'SEARCH_MODE_UNSPECIFIED' | 'SEARCH_MODE_KEYWORD' | 'SEARCH_MODE_NATIVE';
 
 /**
  * UpdateWindow defines a daily time window (UTC) during which auto-updates are
@@ -770,9 +869,9 @@ export interface RunnerRetrieveResponse {
   runner: Runner;
 }
 
-export type RunnerUpdateResponse = unknown
+export type RunnerUpdateResponse = unknown;
 
-export type RunnerDeleteResponse = unknown
+export type RunnerDeleteResponse = unknown;
 
 export interface RunnerCheckAuthenticationForHostResponse {
   authenticated?: boolean;
@@ -1478,7 +1577,7 @@ export declare namespace Runners {
     type RunnerCreateRunnerTokenParams as RunnerCreateRunnerTokenParams,
     type RunnerListScmOrganizationsParams as RunnerListScmOrganizationsParams,
     type RunnerParseContextURLParams as RunnerParseContextURLParams,
-    type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams
+    type RunnerSearchRepositoriesParams as RunnerSearchRepositoriesParams,
   };
 
   export {
@@ -1487,7 +1586,7 @@ export declare namespace Runners {
     type FieldValidationError as FieldValidationError,
     type ScmIntegrationValidationResult as ScmIntegrationValidationResult,
     type ConfigurationValidateResponse as ConfigurationValidateResponse,
-    type ConfigurationValidateParams as ConfigurationValidateParams
+    type ConfigurationValidateParams as ConfigurationValidateParams,
   };
 
   export {
@@ -1501,6 +1600,6 @@ export declare namespace Runners {
     type PolicyCreateParams as PolicyCreateParams,
     type PolicyUpdateParams as PolicyUpdateParams,
     type PolicyListParams as PolicyListParams,
-    type PolicyDeleteParams as PolicyDeleteParams
+    type PolicyDeleteParams as PolicyDeleteParams,
   };
 }

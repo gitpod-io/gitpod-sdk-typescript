@@ -5,7 +5,11 @@ import * as Shared from '../../shared';
 import { EnvironmentClassesEnvironmentClassesPage } from '../../shared';
 import * as RunnersAPI from '../runners';
 import { APIPromise } from '../../../core/api-promise';
-import { EnvironmentClassesPage, type EnvironmentClassesPageParams, PagePromise } from '../../../core/pagination';
+import {
+  EnvironmentClassesPage,
+  type EnvironmentClassesPageParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 
 export class EnvironmentClasses extends APIResource {
@@ -51,8 +55,14 @@ export class EnvironmentClasses extends APIResource {
    *   );
    * ```
    */
-  create(body: EnvironmentClassCreateParams, options?: RequestOptions): APIPromise<EnvironmentClassCreateResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/CreateEnvironmentClass', { body, ...options });
+  create(
+    body: EnvironmentClassCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentClassCreateResponse> {
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/CreateEnvironmentClass', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -85,8 +95,14 @@ export class EnvironmentClasses extends APIResource {
    *   );
    * ```
    */
-  retrieve(body: EnvironmentClassRetrieveParams, options?: RequestOptions): APIPromise<EnvironmentClassRetrieveResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/GetEnvironmentClass', { body, ...options });
+  retrieve(
+    body: EnvironmentClassRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentClassRetrieveResponse> {
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/GetEnvironmentClass', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -126,7 +142,10 @@ export class EnvironmentClasses extends APIResource {
    * ```
    */
   update(body: EnvironmentClassUpdateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateEnvironmentClass', { body, ...options });
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/UpdateEnvironmentClass', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -175,9 +194,16 @@ export class EnvironmentClasses extends APIResource {
    * }
    * ```
    */
-  list(params: EnvironmentClassListParams, options?: RequestOptions): PagePromise<EnvironmentClassesEnvironmentClassesPage, Shared.EnvironmentClass> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.RunnerConfigurationService/ListEnvironmentClasses', EnvironmentClassesPage<Shared.EnvironmentClass>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: EnvironmentClassListParams,
+    options?: RequestOptions,
+  ): PagePromise<EnvironmentClassesEnvironmentClassesPage, Shared.EnvironmentClass> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.RunnerConfigurationService/ListEnvironmentClasses',
+      EnvironmentClassesPage<Shared.EnvironmentClass>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 }
 
@@ -189,7 +215,7 @@ export interface EnvironmentClassRetrieveResponse {
   environmentClass?: Shared.EnvironmentClass;
 }
 
-export type EnvironmentClassUpdateResponse = unknown
+export type EnvironmentClassUpdateResponse = unknown;
 
 export interface EnvironmentClassCreateParams {
   configuration?: Array<Shared.FieldValue>;
@@ -288,8 +314,8 @@ export declare namespace EnvironmentClasses {
     type EnvironmentClassCreateParams as EnvironmentClassCreateParams,
     type EnvironmentClassRetrieveParams as EnvironmentClassRetrieveParams,
     type EnvironmentClassUpdateParams as EnvironmentClassUpdateParams,
-    type EnvironmentClassListParams as EnvironmentClassListParams
+    type EnvironmentClassListParams as EnvironmentClassListParams,
   };
 }
 
-export { type EnvironmentClassesEnvironmentClassesPage }
+export { type EnvironmentClassesEnvironmentClassesPage };

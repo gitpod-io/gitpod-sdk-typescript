@@ -36,7 +36,10 @@ export class AnnouncementBannerResource extends APIResource {
    *   });
    * ```
    */
-  update(body: AnnouncementBannerUpdateParams, options?: RequestOptions): APIPromise<AnnouncementBannerUpdateResponse> {
+  update(
+    body: AnnouncementBannerUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<AnnouncementBannerUpdateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateAnnouncementBanner', { body, ...options });
   }
 
@@ -62,7 +65,10 @@ export class AnnouncementBannerResource extends APIResource {
    *   });
    * ```
    */
-  get(body: AnnouncementBannerGetParams, options?: RequestOptions): APIPromise<AnnouncementBannerGetResponse> {
+  get(
+    body: AnnouncementBannerGetParams,
+    options?: RequestOptions,
+  ): APIPromise<AnnouncementBannerGetResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetAnnouncementBanner', { body, ...options });
   }
 }
@@ -128,6 +134,6 @@ export declare namespace AnnouncementBannerResource {
     type AnnouncementBannerUpdateResponse as AnnouncementBannerUpdateResponse,
     type AnnouncementBannerGetResponse as AnnouncementBannerGetResponse,
     type AnnouncementBannerUpdateParams as AnnouncementBannerUpdateParams,
-    type AnnouncementBannerGetParams as AnnouncementBannerGetParams
+    type AnnouncementBannerGetParams as AnnouncementBannerGetParams,
   };
 }

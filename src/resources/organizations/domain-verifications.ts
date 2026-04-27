@@ -2,7 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DomainVerificationsPage, type DomainVerificationsPageParams, PagePromise } from '../../core/pagination';
+import {
+  DomainVerificationsPage,
+  type DomainVerificationsPageParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class DomainVerifications extends APIResource {
@@ -45,7 +49,10 @@ export class DomainVerifications extends APIResource {
    *   });
    * ```
    */
-  create(body: DomainVerificationCreateParams, options?: RequestOptions): APIPromise<DomainVerificationCreateResponse> {
+  create(
+    body: DomainVerificationCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<DomainVerificationCreateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/CreateDomainVerification', { body, ...options });
   }
 
@@ -77,7 +84,10 @@ export class DomainVerifications extends APIResource {
    *   });
    * ```
    */
-  retrieve(body: DomainVerificationRetrieveParams, options?: RequestOptions): APIPromise<DomainVerificationRetrieveResponse> {
+  retrieve(
+    body: DomainVerificationRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<DomainVerificationRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetDomainVerification', { body, ...options });
   }
 
@@ -127,9 +137,16 @@ export class DomainVerifications extends APIResource {
    * }
    * ```
    */
-  list(params: DomainVerificationListParams, options?: RequestOptions): PagePromise<DomainVerificationsDomainVerificationsPage, DomainVerification> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.OrganizationService/ListDomainVerifications', DomainVerificationsPage<DomainVerification>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: DomainVerificationListParams,
+    options?: RequestOptions,
+  ): PagePromise<DomainVerificationsDomainVerificationsPage, DomainVerification> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.OrganizationService/ListDomainVerifications',
+      DomainVerificationsPage<DomainVerification>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -192,12 +209,15 @@ export class DomainVerifications extends APIResource {
    *   });
    * ```
    */
-  verify(body: DomainVerificationVerifyParams, options?: RequestOptions): APIPromise<DomainVerificationVerifyResponse> {
+  verify(
+    body: DomainVerificationVerifyParams,
+    options?: RequestOptions,
+  ): APIPromise<DomainVerificationVerifyResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/VerifyDomain', { body, ...options });
   }
 }
 
-export type DomainVerificationsDomainVerificationsPage = DomainVerificationsPage<DomainVerification>
+export type DomainVerificationsDomainVerificationsPage = DomainVerificationsPage<DomainVerification>;
 
 export interface DomainVerification {
   id: string;
@@ -395,7 +415,10 @@ export interface DomainVerification {
   verifiedAt?: string;
 }
 
-export type DomainVerificationState = 'DOMAIN_VERIFICATION_STATE_UNSPECIFIED' | 'DOMAIN_VERIFICATION_STATE_PENDING' | 'DOMAIN_VERIFICATION_STATE_VERIFIED'
+export type DomainVerificationState =
+  | 'DOMAIN_VERIFICATION_STATE_UNSPECIFIED'
+  | 'DOMAIN_VERIFICATION_STATE_PENDING'
+  | 'DOMAIN_VERIFICATION_STATE_VERIFIED';
 
 export interface DomainVerificationCreateResponse {
   domainVerification: DomainVerification;
@@ -405,7 +428,7 @@ export interface DomainVerificationRetrieveResponse {
   domainVerification: DomainVerification;
 }
 
-export type DomainVerificationDeleteResponse = unknown
+export type DomainVerificationDeleteResponse = unknown;
 
 export interface DomainVerificationVerifyResponse {
   domainVerification: DomainVerification;
@@ -470,6 +493,6 @@ export declare namespace DomainVerifications {
     type DomainVerificationRetrieveParams as DomainVerificationRetrieveParams,
     type DomainVerificationListParams as DomainVerificationListParams,
     type DomainVerificationDeleteParams as DomainVerificationDeleteParams,
-    type DomainVerificationVerifyParams as DomainVerificationVerifyParams
+    type DomainVerificationVerifyParams as DomainVerificationVerifyParams,
   };
 }

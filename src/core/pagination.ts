@@ -87,7 +87,8 @@ export class PagePromise<
     super(
       client,
       request,
-      async (client, props) => new Page(client, props.response, await defaultParseResponse(client, props), props.options)
+      async (client, props) =>
+        new Page(client, props.response, await defaultParseResponse(client, props), props.options),
     );
   }
 
@@ -124,12 +125,20 @@ export interface AgentExecutionsPageParams {
   token?: string;
 }
 
-export class AgentExecutionsPage<Item> extends AbstractPage<Item> implements AgentExecutionsPageResponse<Item> {
+export class AgentExecutionsPage<Item>
+  extends AbstractPage<Item>
+  implements AgentExecutionsPageResponse<Item>
+{
   agentExecutions: Array<Item>;
 
   pagination: AgentExecutionsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: AgentExecutionsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: AgentExecutionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.agentExecutions = body.agentExecutions || [];
@@ -141,7 +150,7 @@ export class AgentExecutionsPage<Item> extends AbstractPage<Item> implements Age
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -179,7 +188,12 @@ export class AssignmentsPage<Item> extends AbstractPage<Item> implements Assignm
 
   pagination: AssignmentsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: AssignmentsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: AssignmentsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.assignments = body.assignments || [];
@@ -191,7 +205,7 @@ export class AssignmentsPage<Item> extends AbstractPage<Item> implements Assignm
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -224,12 +238,20 @@ export interface DomainVerificationsPageParams {
   token?: string;
 }
 
-export class DomainVerificationsPage<Item> extends AbstractPage<Item> implements DomainVerificationsPageResponse<Item> {
+export class DomainVerificationsPage<Item>
+  extends AbstractPage<Item>
+  implements DomainVerificationsPageResponse<Item>
+{
   domainVerifications: Array<Item>;
 
   pagination: DomainVerificationsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: DomainVerificationsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: DomainVerificationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.domainVerifications = body.domainVerifications || [];
@@ -241,7 +263,7 @@ export class DomainVerificationsPage<Item> extends AbstractPage<Item> implements
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -279,7 +301,12 @@ export class EditorsPage<Item> extends AbstractPage<Item> implements EditorsPage
 
   pagination: EditorsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: EditorsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: EditorsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.editors = body.editors || [];
@@ -291,7 +318,7 @@ export class EditorsPage<Item> extends AbstractPage<Item> implements EditorsPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -329,7 +356,12 @@ export class EntriesPage<Item> extends AbstractPage<Item> implements EntriesPage
 
   pagination: EntriesPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: EntriesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: EntriesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.entries = body.entries || [];
@@ -341,7 +373,7 @@ export class EntriesPage<Item> extends AbstractPage<Item> implements EntriesPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -374,12 +406,20 @@ export interface EnvironmentClassesPageParams {
   token?: string;
 }
 
-export class EnvironmentClassesPage<Item> extends AbstractPage<Item> implements EnvironmentClassesPageResponse<Item> {
+export class EnvironmentClassesPage<Item>
+  extends AbstractPage<Item>
+  implements EnvironmentClassesPageResponse<Item>
+{
   environmentClasses: Array<Item>;
 
   pagination: EnvironmentClassesPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: EnvironmentClassesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: EnvironmentClassesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.environmentClasses = body.environmentClasses || [];
@@ -391,7 +431,7 @@ export class EnvironmentClassesPage<Item> extends AbstractPage<Item> implements 
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -429,7 +469,12 @@ export class EnvironmentsPage<Item> extends AbstractPage<Item> implements Enviro
 
   pagination: EnvironmentsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: EnvironmentsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: EnvironmentsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.environments = body.environments || [];
@@ -441,7 +486,7 @@ export class EnvironmentsPage<Item> extends AbstractPage<Item> implements Enviro
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -479,7 +524,12 @@ export class GatewaysPage<Item> extends AbstractPage<Item> implements GatewaysPa
 
   pagination: GatewaysPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: GatewaysPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: GatewaysPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.gateways = body.gateways || [];
@@ -491,7 +541,7 @@ export class GatewaysPage<Item> extends AbstractPage<Item> implements GatewaysPa
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -529,7 +579,12 @@ export class GroupsPage<Item> extends AbstractPage<Item> implements GroupsPageRe
 
   pagination: GroupsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: GroupsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: GroupsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.groups = body.groups || [];
@@ -541,7 +596,7 @@ export class GroupsPage<Item> extends AbstractPage<Item> implements GroupsPageRe
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -579,7 +634,12 @@ export class IntegrationsPage<Item> extends AbstractPage<Item> implements Integr
 
   pagination: IntegrationsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: IntegrationsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: IntegrationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.integrations = body.integrations || [];
@@ -591,7 +651,7 @@ export class IntegrationsPage<Item> extends AbstractPage<Item> implements Integr
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -624,12 +684,20 @@ export interface JoinableOrganizationsPageParams {
   token?: string;
 }
 
-export class JoinableOrganizationsPage<Item> extends AbstractPage<Item> implements JoinableOrganizationsPageResponse<Item> {
+export class JoinableOrganizationsPage<Item>
+  extends AbstractPage<Item>
+  implements JoinableOrganizationsPageResponse<Item>
+{
   joinableOrganizations: Array<Item>;
 
   pagination: JoinableOrganizationsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: JoinableOrganizationsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: JoinableOrganizationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.joinableOrganizations = body.joinableOrganizations || [];
@@ -641,7 +709,7 @@ export class JoinableOrganizationsPage<Item> extends AbstractPage<Item> implemen
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -679,7 +747,12 @@ export class LoginProvidersPage<Item> extends AbstractPage<Item> implements Logi
 
   pagination: LoginProvidersPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: LoginProvidersPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: LoginProvidersPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.loginProviders = body.loginProviders || [];
@@ -691,7 +764,7 @@ export class LoginProvidersPage<Item> extends AbstractPage<Item> implements Logi
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -729,7 +802,12 @@ export class LoginsPage<Item> extends AbstractPage<Item> implements LoginsPageRe
 
   pagination: LoginsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: LoginsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: LoginsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.logins = body.logins || [];
@@ -741,7 +819,7 @@ export class LoginsPage<Item> extends AbstractPage<Item> implements LoginsPageRe
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -779,7 +857,12 @@ export class MembersPage<Item> extends AbstractPage<Item> implements MembersPage
 
   pagination: MembersPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: MembersPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: MembersPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.members = body.members || [];
@@ -791,7 +874,7 @@ export class MembersPage<Item> extends AbstractPage<Item> implements MembersPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -829,7 +912,12 @@ export class OrganizationsPage<Item> extends AbstractPage<Item> implements Organ
 
   pagination: OrganizationsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: OrganizationsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: OrganizationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.organizations = body.organizations || [];
@@ -841,7 +929,7 @@ export class OrganizationsPage<Item> extends AbstractPage<Item> implements Organ
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -879,7 +967,12 @@ export class OutputsPage<Item> extends AbstractPage<Item> implements OutputsPage
 
   pagination: OutputsPageResponse.Pagination;
 
-  constructor(client: Gitpod, response: Response, body: OutputsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: OutputsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.outputs = body.outputs || [];
@@ -891,7 +984,7 @@ export class OutputsPage<Item> extends AbstractPage<Item> implements OutputsPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -924,12 +1017,20 @@ export interface PersonalAccessTokensPageParams {
   token?: string;
 }
 
-export class PersonalAccessTokensPage<Item> extends AbstractPage<Item> implements PersonalAccessTokensPageResponse<Item> {
+export class PersonalAccessTokensPage<Item>
+  extends AbstractPage<Item>
+  implements PersonalAccessTokensPageResponse<Item>
+{
   pagination: PersonalAccessTokensPageResponse.Pagination;
 
   personalAccessTokens: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: PersonalAccessTokensPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: PersonalAccessTokensPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -941,7 +1042,7 @@ export class PersonalAccessTokensPage<Item> extends AbstractPage<Item> implement
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -979,7 +1080,12 @@ export class PoliciesPage<Item> extends AbstractPage<Item> implements PoliciesPa
 
   policies: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: PoliciesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: PoliciesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -991,7 +1097,7 @@ export class PoliciesPage<Item> extends AbstractPage<Item> implements PoliciesPa
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1029,7 +1135,12 @@ export class PrebuildsPage<Item> extends AbstractPage<Item> implements Prebuilds
 
   prebuilds: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: PrebuildsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: PrebuildsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1041,7 +1152,7 @@ export class PrebuildsPage<Item> extends AbstractPage<Item> implements Prebuilds
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1074,12 +1185,20 @@ export interface ProjectEnvironmentClassesPageParams {
   token?: string;
 }
 
-export class ProjectEnvironmentClassesPage<Item> extends AbstractPage<Item> implements ProjectEnvironmentClassesPageResponse<Item> {
+export class ProjectEnvironmentClassesPage<Item>
+  extends AbstractPage<Item>
+  implements ProjectEnvironmentClassesPageResponse<Item>
+{
   pagination: ProjectEnvironmentClassesPageResponse.Pagination;
 
   projectEnvironmentClasses: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: ProjectEnvironmentClassesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: ProjectEnvironmentClassesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1091,7 +1210,7 @@ export class ProjectEnvironmentClassesPage<Item> extends AbstractPage<Item> impl
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1129,7 +1248,12 @@ export class ProjectsPage<Item> extends AbstractPage<Item> implements ProjectsPa
 
   projects: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: ProjectsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: ProjectsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1141,7 +1265,7 @@ export class ProjectsPage<Item> extends AbstractPage<Item> implements ProjectsPa
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1179,7 +1303,12 @@ export class PromptsPage<Item> extends AbstractPage<Item> implements PromptsPage
 
   prompts: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: PromptsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: PromptsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1191,7 +1320,7 @@ export class PromptsPage<Item> extends AbstractPage<Item> implements PromptsPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1229,7 +1358,12 @@ export class RecordsPage<Item> extends AbstractPage<Item> implements RecordsPage
 
   records: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: RecordsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: RecordsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1241,7 +1375,7 @@ export class RecordsPage<Item> extends AbstractPage<Item> implements RecordsPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1279,7 +1413,12 @@ export class RepositoriesPage<Item> extends AbstractPage<Item> implements Reposi
 
   repositories: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: RepositoriesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: RepositoriesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1291,7 +1430,7 @@ export class RepositoriesPage<Item> extends AbstractPage<Item> implements Reposi
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1329,7 +1468,12 @@ export class RunnersPage<Item> extends AbstractPage<Item> implements RunnersPage
 
   runners: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: RunnersPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: RunnersPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1341,7 +1485,7 @@ export class RunnersPage<Item> extends AbstractPage<Item> implements RunnersPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1374,12 +1518,20 @@ export interface ScimConfigurationsPageParams {
   token?: string;
 }
 
-export class ScimConfigurationsPage<Item> extends AbstractPage<Item> implements ScimConfigurationsPageResponse<Item> {
+export class ScimConfigurationsPage<Item>
+  extends AbstractPage<Item>
+  implements ScimConfigurationsPageResponse<Item>
+{
   pagination: ScimConfigurationsPageResponse.Pagination;
 
   scimConfigurations: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: ScimConfigurationsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: ScimConfigurationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1391,7 +1543,7 @@ export class ScimConfigurationsPage<Item> extends AbstractPage<Item> implements 
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1429,7 +1581,12 @@ export class SecretsPage<Item> extends AbstractPage<Item> implements SecretsPage
 
   secrets: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: SecretsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: SecretsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1441,7 +1598,7 @@ export class SecretsPage<Item> extends AbstractPage<Item> implements SecretsPage
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1479,7 +1636,12 @@ export class ServicesPage<Item> extends AbstractPage<Item> implements ServicesPa
 
   services: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: ServicesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: ServicesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1491,7 +1653,7 @@ export class ServicesPage<Item> extends AbstractPage<Item> implements ServicesPa
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1524,12 +1686,20 @@ export interface SSOConfigurationsPageParams {
   token?: string;
 }
 
-export class SSOConfigurationsPage<Item> extends AbstractPage<Item> implements SSOConfigurationsPageResponse<Item> {
+export class SSOConfigurationsPage<Item>
+  extends AbstractPage<Item>
+  implements SSOConfigurationsPageResponse<Item>
+{
   pagination: SSOConfigurationsPageResponse.Pagination;
 
   ssoConfigurations: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: SSOConfigurationsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: SSOConfigurationsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1541,7 +1711,7 @@ export class SSOConfigurationsPage<Item> extends AbstractPage<Item> implements S
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1579,7 +1749,12 @@ export class TaskExecutionsPage<Item> extends AbstractPage<Item> implements Task
 
   taskExecutions: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: TaskExecutionsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: TaskExecutionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1591,7 +1766,7 @@ export class TaskExecutionsPage<Item> extends AbstractPage<Item> implements Task
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1629,7 +1804,12 @@ export class TasksPage<Item> extends AbstractPage<Item> implements TasksPageResp
 
   tasks: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: TasksPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: TasksPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1641,7 +1821,7 @@ export class TasksPage<Item> extends AbstractPage<Item> implements TasksPageResp
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1679,7 +1859,12 @@ export class TokensPage<Item> extends AbstractPage<Item> implements TokensPageRe
 
   tokens: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: TokensPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: TokensPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1691,7 +1876,7 @@ export class TokensPage<Item> extends AbstractPage<Item> implements TokensPageRe
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1729,7 +1914,12 @@ export class WarmPoolsPage<Item> extends AbstractPage<Item> implements WarmPools
 
   warmPools: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: WarmPoolsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WarmPoolsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1741,7 +1931,7 @@ export class WarmPoolsPage<Item> extends AbstractPage<Item> implements WarmPools
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1774,12 +1964,20 @@ export interface WorkflowExecutionActionsPageParams {
   token?: string;
 }
 
-export class WorkflowExecutionActionsPage<Item> extends AbstractPage<Item> implements WorkflowExecutionActionsPageResponse<Item> {
+export class WorkflowExecutionActionsPage<Item>
+  extends AbstractPage<Item>
+  implements WorkflowExecutionActionsPageResponse<Item>
+{
   pagination: WorkflowExecutionActionsPageResponse.Pagination;
 
   workflowExecutionActions: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: WorkflowExecutionActionsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WorkflowExecutionActionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1791,7 +1989,7 @@ export class WorkflowExecutionActionsPage<Item> extends AbstractPage<Item> imple
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1824,12 +2022,20 @@ export interface WorkflowExecutionsPageParams {
   token?: string;
 }
 
-export class WorkflowExecutionsPage<Item> extends AbstractPage<Item> implements WorkflowExecutionsPageResponse<Item> {
+export class WorkflowExecutionsPage<Item>
+  extends AbstractPage<Item>
+  implements WorkflowExecutionsPageResponse<Item>
+{
   pagination: WorkflowExecutionsPageResponse.Pagination;
 
   workflowExecutions: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: WorkflowExecutionsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WorkflowExecutionsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1841,7 +2047,7 @@ export class WorkflowExecutionsPage<Item> extends AbstractPage<Item> implements 
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }
@@ -1879,7 +2085,12 @@ export class WorkflowsPage<Item> extends AbstractPage<Item> implements Workflows
 
   workflows: Array<Item>;
 
-  constructor(client: Gitpod, response: Response, body: WorkflowsPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: WorkflowsPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.pagination = body.pagination || {};
@@ -1891,7 +2102,7 @@ export class WorkflowsPage<Item> extends AbstractPage<Item> implements Workflows
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.pagination?.nextToken
+    const cursor = this.pagination?.nextToken;
     if (!cursor) {
       return null;
     }

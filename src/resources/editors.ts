@@ -80,8 +80,13 @@ export class Editors extends APIResource {
    * ```
    */
   list(params: EditorListParams, options?: RequestOptions): PagePromise<EditorsEditorsPage, Editor> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.EditorService/ListEditors', EditorsPage<Editor>, { query: { token, pageSize }, body, method: 'post', ...options });
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.EditorService/ListEditors', EditorsPage<Editor>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
   }
 
   /**
@@ -120,7 +125,7 @@ export class Editors extends APIResource {
   }
 }
 
-export type EditorsEditorsPage = EditorsPage<Editor>
+export type EditorsEditorsPage = EditorsPage<Editor>;
 
 export interface Editor {
   id: string;
@@ -247,6 +252,6 @@ export declare namespace Editors {
     type EditorsEditorsPage as EditorsEditorsPage,
     type EditorRetrieveParams as EditorRetrieveParams,
     type EditorListParams as EditorListParams,
-    type EditorResolveURLParams as EditorResolveURLParams
+    type EditorResolveURLParams as EditorResolveURLParams,
   };
 }

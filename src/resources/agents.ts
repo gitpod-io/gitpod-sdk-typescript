@@ -4,7 +4,13 @@ import { APIResource } from '../core/resource';
 import * as AgentsAPI from './agents';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { AgentExecutionsPage, type AgentExecutionsPageParams, PagePromise, PromptsPage, type PromptsPageParams } from '../core/pagination';
+import {
+  AgentExecutionsPage,
+  type AgentExecutionsPageParams,
+  PagePromise,
+  PromptsPage,
+  type PromptsPageParams,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Agents extends APIResource {
@@ -31,8 +37,14 @@ export class Agents extends APIResource {
    *   });
    * ```
    */
-  createExecutionConversationToken(body: AgentCreateExecutionConversationTokenParams, options?: RequestOptions): APIPromise<AgentCreateExecutionConversationTokenResponse> {
-    return this._client.post('/gitpod.v1.AgentService/CreateAgentExecutionConversationToken', { body, ...options });
+  createExecutionConversationToken(
+    body: AgentCreateExecutionConversationTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentCreateExecutionConversationTokenResponse> {
+    return this._client.post('/gitpod.v1.AgentService/CreateAgentExecutionConversationToken', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -48,7 +60,10 @@ export class Agents extends APIResource {
    * const response = await client.agents.createPrompt();
    * ```
    */
-  createPrompt(body: AgentCreatePromptParams, options?: RequestOptions): APIPromise<AgentCreatePromptResponse> {
+  createPrompt(
+    body: AgentCreatePromptParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentCreatePromptResponse> {
     return this._client.post('/gitpod.v1.AgentService/CreatePrompt', { body, ...options });
   }
 
@@ -126,9 +141,16 @@ export class Agents extends APIResource {
    * }
    * ```
    */
-  listExecutions(params: AgentListExecutionsParams, options?: RequestOptions): PagePromise<AgentExecutionsAgentExecutionsPage, AgentExecution> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.AgentService/ListAgentExecutions', AgentExecutionsPage<AgentExecution>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listExecutions(
+    params: AgentListExecutionsParams,
+    options?: RequestOptions,
+  ): PagePromise<AgentExecutionsAgentExecutionsPage, AgentExecution> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.AgentService/ListAgentExecutions',
+      AgentExecutionsPage<AgentExecution>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -158,9 +180,17 @@ export class Agents extends APIResource {
    * }
    * ```
    */
-  listPrompts(params: AgentListPromptsParams, options?: RequestOptions): PagePromise<PromptsPromptsPage, Prompt> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.AgentService/ListPrompts', PromptsPage<Prompt>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listPrompts(
+    params: AgentListPromptsParams,
+    options?: RequestOptions,
+  ): PagePromise<PromptsPromptsPage, Prompt> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.AgentService/ListPrompts', PromptsPage<Prompt>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
   }
 
   /**
@@ -188,7 +218,10 @@ export class Agents extends APIResource {
    * });
    * ```
    */
-  retrieveExecution(body: AgentRetrieveExecutionParams, options?: RequestOptions): APIPromise<AgentRetrieveExecutionResponse> {
+  retrieveExecution(
+    body: AgentRetrieveExecutionParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentRetrieveExecutionResponse> {
     return this._client.post('/gitpod.v1.AgentService/GetAgentExecution', { body, ...options });
   }
 
@@ -216,7 +249,10 @@ export class Agents extends APIResource {
    * });
    * ```
    */
-  retrievePrompt(body: AgentRetrievePromptParams, options?: RequestOptions): APIPromise<AgentRetrievePromptResponse> {
+  retrievePrompt(
+    body: AgentRetrievePromptParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentRetrievePromptResponse> {
     return this._client.post('/gitpod.v1.AgentService/GetPrompt', { body, ...options });
   }
 
@@ -282,7 +318,10 @@ export class Agents extends APIResource {
    * });
    * ```
    */
-  startExecution(body: AgentStartExecutionParams, options?: RequestOptions): APIPromise<AgentStartExecutionResponse> {
+  startExecution(
+    body: AgentStartExecutionParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentStartExecutionResponse> {
     return this._client.post('/gitpod.v1.AgentService/StartAgent', { body, ...options });
   }
 
@@ -326,14 +365,17 @@ export class Agents extends APIResource {
    * const response = await client.agents.updatePrompt();
    * ```
    */
-  updatePrompt(body: AgentUpdatePromptParams, options?: RequestOptions): APIPromise<AgentUpdatePromptResponse> {
+  updatePrompt(
+    body: AgentUpdatePromptParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentUpdatePromptResponse> {
     return this._client.post('/gitpod.v1.AgentService/UpdatePrompt', { body, ...options });
   }
 }
 
-export type AgentExecutionsAgentExecutionsPage = AgentExecutionsPage<AgentExecution>
+export type AgentExecutionsAgentExecutionsPage = AgentExecutionsPage<AgentExecution>;
 
-export type PromptsPromptsPage = PromptsPage<Prompt>
+export type PromptsPromptsPage = PromptsPage<Prompt>;
 
 export interface AgentCodeContext {
   contextUrl?: AgentCodeContext.ContextURL;
@@ -562,7 +604,10 @@ export namespace AgentExecution {
     /**
      * role is the role of the agent execution
      */
-    role?: 'AGENT_EXECUTION_ROLE_UNSPECIFIED' | 'AGENT_EXECUTION_ROLE_DEFAULT' | 'AGENT_EXECUTION_ROLE_WORKFLOW';
+    role?:
+      | 'AGENT_EXECUTION_ROLE_UNSPECIFIED'
+      | 'AGENT_EXECUTION_ROLE_DEFAULT'
+      | 'AGENT_EXECUTION_ROLE_WORKFLOW';
 
     /**
      * A Timestamp represents a point in time independent of any time zone or local
@@ -676,7 +721,12 @@ export namespace AgentExecution {
     /**
      * desired_phase is the desired phase of the agent run
      */
-    desiredPhase?: 'PHASE_UNSPECIFIED' | 'PHASE_PENDING' | 'PHASE_RUNNING' | 'PHASE_WAITING_FOR_INPUT' | 'PHASE_STOPPED';
+    desiredPhase?:
+      | 'PHASE_UNSPECIFIED'
+      | 'PHASE_PENDING'
+      | 'PHASE_RUNNING'
+      | 'PHASE_WAITING_FOR_INPUT'
+      | 'PHASE_STOPPED';
 
     limits?: Spec.Limits;
 
@@ -744,7 +794,13 @@ export namespace AgentExecution {
     /**
      * failure_reason contains a structured reason code for the failure.
      */
-    failureReason?: 'AGENT_EXECUTION_FAILURE_REASON_UNSPECIFIED' | 'AGENT_EXECUTION_FAILURE_REASON_ENVIRONMENT' | 'AGENT_EXECUTION_FAILURE_REASON_SERVICE' | 'AGENT_EXECUTION_FAILURE_REASON_LLM_INTEGRATION' | 'AGENT_EXECUTION_FAILURE_REASON_INTERNAL' | 'AGENT_EXECUTION_FAILURE_REASON_AGENT_EXECUTION';
+    failureReason?:
+      | 'AGENT_EXECUTION_FAILURE_REASON_UNSPECIFIED'
+      | 'AGENT_EXECUTION_FAILURE_REASON_ENVIRONMENT'
+      | 'AGENT_EXECUTION_FAILURE_REASON_SERVICE'
+      | 'AGENT_EXECUTION_FAILURE_REASON_LLM_INTEGRATION'
+      | 'AGENT_EXECUTION_FAILURE_REASON_INTERNAL'
+      | 'AGENT_EXECUTION_FAILURE_REASON_AGENT_EXECUTION';
 
     inputTokensUsed?: string;
 
@@ -776,7 +832,12 @@ export namespace AgentExecution {
 
     outputTokensUsed?: string;
 
-    phase?: 'PHASE_UNSPECIFIED' | 'PHASE_PENDING' | 'PHASE_RUNNING' | 'PHASE_WAITING_FOR_INPUT' | 'PHASE_STOPPED';
+    phase?:
+      | 'PHASE_UNSPECIFIED'
+      | 'PHASE_PENDING'
+      | 'PHASE_RUNNING'
+      | 'PHASE_WAITING_FOR_INPUT'
+      | 'PHASE_STOPPED';
 
     session?: string;
 
@@ -790,7 +851,30 @@ export namespace AgentExecution {
     /**
      * supported_model is the LLM model being used by the agent execution.
      */
-    supportedModel?: 'SUPPORTED_MODEL_UNSPECIFIED' | 'SUPPORTED_MODEL_SONNET_3_5' | 'SUPPORTED_MODEL_SONNET_3_7' | 'SUPPORTED_MODEL_SONNET_3_7_EXTENDED' | 'SUPPORTED_MODEL_SONNET_4' | 'SUPPORTED_MODEL_SONNET_4_EXTENDED' | 'SUPPORTED_MODEL_SONNET_4_5' | 'SUPPORTED_MODEL_SONNET_4_5_EXTENDED' | 'SUPPORTED_MODEL_SONNET_4_6' | 'SUPPORTED_MODEL_SONNET_4_6_EXTENDED' | 'SUPPORTED_MODEL_OPUS_4' | 'SUPPORTED_MODEL_OPUS_4_EXTENDED' | 'SUPPORTED_MODEL_OPUS_4_5' | 'SUPPORTED_MODEL_OPUS_4_5_EXTENDED' | 'SUPPORTED_MODEL_OPUS_4_6' | 'SUPPORTED_MODEL_OPUS_4_6_EXTENDED' | 'SUPPORTED_MODEL_OPUS_4_7' | 'SUPPORTED_MODEL_HAIKU_4_5' | 'SUPPORTED_MODEL_OPENAI_4O' | 'SUPPORTED_MODEL_OPENAI_4O_MINI' | 'SUPPORTED_MODEL_OPENAI_O1' | 'SUPPORTED_MODEL_OPENAI_O1_MINI' | 'SUPPORTED_MODEL_OPENAI_AUTO';
+    supportedModel?:
+      | 'SUPPORTED_MODEL_UNSPECIFIED'
+      | 'SUPPORTED_MODEL_SONNET_3_5'
+      | 'SUPPORTED_MODEL_SONNET_3_7'
+      | 'SUPPORTED_MODEL_SONNET_3_7_EXTENDED'
+      | 'SUPPORTED_MODEL_SONNET_4'
+      | 'SUPPORTED_MODEL_SONNET_4_EXTENDED'
+      | 'SUPPORTED_MODEL_SONNET_4_5'
+      | 'SUPPORTED_MODEL_SONNET_4_5_EXTENDED'
+      | 'SUPPORTED_MODEL_SONNET_4_6'
+      | 'SUPPORTED_MODEL_SONNET_4_6_EXTENDED'
+      | 'SUPPORTED_MODEL_OPUS_4'
+      | 'SUPPORTED_MODEL_OPUS_4_EXTENDED'
+      | 'SUPPORTED_MODEL_OPUS_4_5'
+      | 'SUPPORTED_MODEL_OPUS_4_5_EXTENDED'
+      | 'SUPPORTED_MODEL_OPUS_4_6'
+      | 'SUPPORTED_MODEL_OPUS_4_6_EXTENDED'
+      | 'SUPPORTED_MODEL_OPUS_4_7'
+      | 'SUPPORTED_MODEL_HAIKU_4_5'
+      | 'SUPPORTED_MODEL_OPENAI_4O'
+      | 'SUPPORTED_MODEL_OPENAI_4O_MINI'
+      | 'SUPPORTED_MODEL_OPENAI_O1'
+      | 'SUPPORTED_MODEL_OPENAI_O1_MINI'
+      | 'SUPPORTED_MODEL_OPENAI_AUTO';
 
     /**
      * transcript_url is the URL to the LLM transcript (all messages exchanged between
@@ -863,7 +947,12 @@ export namespace AgentExecution {
       /**
        * phase is the current connection/health phase
        */
-      phase?: 'MCP_INTEGRATION_PHASE_UNSPECIFIED' | 'MCP_INTEGRATION_PHASE_INITIALIZING' | 'MCP_INTEGRATION_PHASE_READY' | 'MCP_INTEGRATION_PHASE_FAILED' | 'MCP_INTEGRATION_PHASE_UNAVAILABLE';
+      phase?:
+        | 'MCP_INTEGRATION_PHASE_UNSPECIFIED'
+        | 'MCP_INTEGRATION_PHASE_INITIALIZING'
+        | 'MCP_INTEGRATION_PHASE_READY'
+        | 'MCP_INTEGRATION_PHASE_FAILED'
+        | 'MCP_INTEGRATION_PHASE_UNAVAILABLE';
 
       /**
        * warning_message contains warnings (e.g., rate limiting, degraded performance)
@@ -905,7 +994,12 @@ export interface AgentMessage {
 /**
  * AgentMode defines the operational mode of an agent
  */
-export type AgentMode = 'AGENT_MODE_UNSPECIFIED' | 'AGENT_MODE_EXECUTION' | 'AGENT_MODE_PLANNING' | 'AGENT_MODE_RALPH' | 'AGENT_MODE_SPEC'
+export type AgentMode =
+  | 'AGENT_MODE_UNSPECIFIED'
+  | 'AGENT_MODE_EXECUTION'
+  | 'AGENT_MODE_PLANNING'
+  | 'AGENT_MODE_RALPH'
+  | 'AGENT_MODE_SPEC';
 
 export interface Prompt {
   id?: string;
@@ -1151,9 +1245,9 @@ export interface PromptSpec {
 /**
  * Role identifies the sender's relationship in the parent/child hierarchy.
  */
-export type Role = 'ROLE_UNSPECIFIED' | 'ROLE_PARENT' | 'ROLE_CHILD'
+export type Role = 'ROLE_UNSPECIFIED' | 'ROLE_PARENT' | 'ROLE_CHILD';
 
-export type Type = 'TYPE_UNSPECIFIED' | 'TYPE_UPDATE' | 'TYPE_COMPLETE'
+export type Type = 'TYPE_UNSPECIFIED' | 'TYPE_UPDATE' | 'TYPE_COMPLETE';
 
 export interface UserInputBlock {
   id?: string;
@@ -1311,9 +1405,9 @@ export interface AgentCreatePromptResponse {
   prompt?: Prompt;
 }
 
-export type AgentDeleteExecutionResponse = unknown
+export type AgentDeleteExecutionResponse = unknown;
 
-export type AgentDeletePromptResponse = unknown
+export type AgentDeletePromptResponse = unknown;
 
 export interface AgentRetrieveExecutionResponse {
   agentExecution?: AgentExecution;
@@ -1323,13 +1417,13 @@ export interface AgentRetrievePromptResponse {
   prompt?: Prompt;
 }
 
-export type AgentSendToExecutionResponse = unknown
+export type AgentSendToExecutionResponse = unknown;
 
 export interface AgentStartExecutionResponse {
   agentExecutionId?: string;
 }
 
-export type AgentStopExecutionResponse = unknown
+export type AgentStopExecutionResponse = unknown;
 
 export interface AgentUpdatePromptResponse {
   prompt?: Prompt;
@@ -1391,7 +1485,9 @@ export namespace AgentListExecutionsParams {
 
     projectIds?: Array<string>;
 
-    roles?: Array<'AGENT_EXECUTION_ROLE_UNSPECIFIED' | 'AGENT_EXECUTION_ROLE_DEFAULT' | 'AGENT_EXECUTION_ROLE_WORKFLOW'>;
+    roles?: Array<
+      'AGENT_EXECUTION_ROLE_UNSPECIFIED' | 'AGENT_EXECUTION_ROLE_DEFAULT' | 'AGENT_EXECUTION_ROLE_WORKFLOW'
+    >;
 
     /**
      * session_ids filters the response to only executions belonging to the specified
@@ -1399,7 +1495,9 @@ export namespace AgentListExecutionsParams {
      */
     sessionIds?: Array<string>;
 
-    statusPhases?: Array<'PHASE_UNSPECIFIED' | 'PHASE_PENDING' | 'PHASE_RUNNING' | 'PHASE_WAITING_FOR_INPUT' | 'PHASE_STOPPED'>;
+    statusPhases?: Array<
+      'PHASE_UNSPECIFIED' | 'PHASE_PENDING' | 'PHASE_RUNNING' | 'PHASE_WAITING_FOR_INPUT' | 'PHASE_STOPPED'
+    >;
   }
 
   export interface Pagination {
@@ -1641,6 +1739,6 @@ export declare namespace Agents {
     type AgentSendToExecutionParams as AgentSendToExecutionParams,
     type AgentStartExecutionParams as AgentStartExecutionParams,
     type AgentStopExecutionParams as AgentStopExecutionParams,
-    type AgentUpdatePromptParams as AgentUpdatePromptParams
+    type AgentUpdatePromptParams as AgentUpdatePromptParams,
   };
 }

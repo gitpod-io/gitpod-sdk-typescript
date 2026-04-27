@@ -3,7 +3,15 @@
 import { APIResource } from '../core/resource';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { JoinableOrganizationsPage, type JoinableOrganizationsPageParams, LoginProvidersPage, type LoginProvidersPageParams, LoginsPage, type LoginsPageParams, PagePromise } from '../core/pagination';
+import {
+  JoinableOrganizationsPage,
+  type JoinableOrganizationsPageParams,
+  LoginProvidersPage,
+  type LoginProvidersPageParams,
+  LoginsPage,
+  type LoginsPageParams,
+  PagePromise,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Accounts extends APIResource {
@@ -103,7 +111,10 @@ export class Accounts extends APIResource {
    * });
    * ```
    */
-  getSSOLoginURL(body: AccountGetSSOLoginURLParams, options?: RequestOptions): APIPromise<AccountGetSSOLoginURLResponse> {
+  getSSOLoginURL(
+    body: AccountGetSSOLoginURLParams,
+    options?: RequestOptions,
+  ): APIPromise<AccountGetSSOLoginURLResponse> {
     return this._client.post('/gitpod.v1.AccountService/GetSSOLoginURL', { body, ...options });
   }
 
@@ -134,9 +145,16 @@ export class Accounts extends APIResource {
    * }
    * ```
    */
-  listJoinableOrganizations(params: AccountListJoinableOrganizationsParams, options?: RequestOptions): PagePromise<JoinableOrganizationsJoinableOrganizationsPage, JoinableOrganization> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.AccountService/ListJoinableOrganizations', JoinableOrganizationsPage<JoinableOrganization>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listJoinableOrganizations(
+    params: AccountListJoinableOrganizationsParams,
+    options?: RequestOptions,
+  ): PagePromise<JoinableOrganizationsJoinableOrganizationsPage, JoinableOrganization> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.AccountService/ListJoinableOrganizations',
+      JoinableOrganizationsPage<JoinableOrganization>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -180,9 +198,16 @@ export class Accounts extends APIResource {
    * }
    * ```
    */
-  listLoginProviders(params: AccountListLoginProvidersParams, options?: RequestOptions): PagePromise<LoginProvidersLoginProvidersPage, LoginProvider> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.AccountService/ListLoginProviders', LoginProvidersPage<LoginProvider>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listLoginProviders(
+    params: AccountListLoginProvidersParams,
+    options?: RequestOptions,
+  ): PagePromise<LoginProvidersLoginProvidersPage, LoginProvider> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.AccountService/ListLoginProviders',
+      LoginProvidersPage<LoginProvider>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -198,17 +223,24 @@ export class Accounts extends APIResource {
    * }
    * ```
    */
-  listSSOLogins(params: AccountListSSOLoginsParams, options?: RequestOptions): PagePromise<AccountListSSOLoginsResponsesLoginsPage, AccountListSSOLoginsResponse> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.AccountService/ListSSOLogins', LoginsPage<AccountListSSOLoginsResponse>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listSSOLogins(
+    params: AccountListSSOLoginsParams,
+    options?: RequestOptions,
+  ): PagePromise<AccountListSSOLoginsResponsesLoginsPage, AccountListSSOLoginsResponse> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.AccountService/ListSSOLogins',
+      LoginsPage<AccountListSSOLoginsResponse>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 }
 
-export type JoinableOrganizationsJoinableOrganizationsPage = JoinableOrganizationsPage<JoinableOrganization>
+export type JoinableOrganizationsJoinableOrganizationsPage = JoinableOrganizationsPage<JoinableOrganization>;
 
-export type LoginProvidersLoginProvidersPage = LoginProvidersPage<LoginProvider>
+export type LoginProvidersLoginProvidersPage = LoginProvidersPage<LoginProvider>;
 
-export type AccountListSSOLoginsResponsesLoginsPage = LoginsPage<AccountListSSOLoginsResponse>
+export type AccountListSSOLoginsResponsesLoginsPage = LoginsPage<AccountListSSOLoginsResponse>;
 
 export interface Account {
   id: string;
@@ -492,7 +524,7 @@ export interface AccountRetrieveResponse {
   account: Account;
 }
 
-export type AccountDeleteResponse = unknown
+export type AccountDeleteResponse = unknown;
 
 export interface AccountGetSSOLoginURLResponse {
   /**
@@ -666,6 +698,6 @@ export declare namespace Accounts {
     type AccountGetSSOLoginURLParams as AccountGetSSOLoginURLParams,
     type AccountListJoinableOrganizationsParams as AccountListJoinableOrganizationsParams,
     type AccountListLoginProvidersParams as AccountListLoginProvidersParams,
-    type AccountListSSOLoginsParams as AccountListSSOLoginsParams
+    type AccountListSSOLoginsParams as AccountListSSOLoginsParams,
   };
 }

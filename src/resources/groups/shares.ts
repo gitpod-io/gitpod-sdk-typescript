@@ -103,12 +103,12 @@ export class Shares extends APIResource {
 /**
  * Empty response on success
  */
-export type ShareCreateResponse = unknown
+export type ShareCreateResponse = unknown;
 
 /**
  * Empty response on success
  */
-export type ShareDeleteResponse = unknown
+export type ShareDeleteResponse = unknown;
 
 export interface ShareCreateParams {
   /**
@@ -164,6 +164,6 @@ export declare namespace Shares {
     type ShareCreateResponse as ShareCreateResponse,
     type ShareDeleteResponse as ShareDeleteResponse,
     type ShareCreateParams as ShareCreateParams,
-    type ShareDeleteParams as ShareDeleteParams
+    type ShareDeleteParams as ShareDeleteParams,
   };
 }

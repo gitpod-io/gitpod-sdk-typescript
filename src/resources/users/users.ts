@@ -3,9 +3,25 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as DotfilesAPI from './dotfiles';
-import { DotfileGetParams, DotfileGetResponse, DotfileSetParams, DotfileSetResponse, Dotfiles, DotfilesConfiguration } from './dotfiles';
+import {
+  DotfileGetParams,
+  DotfileGetResponse,
+  DotfileSetParams,
+  DotfileSetResponse,
+  Dotfiles,
+  DotfilesConfiguration,
+} from './dotfiles';
 import * as PatsAPI from './pats';
-import { PatDeleteParams, PatDeleteResponse, PatGetParams, PatGetResponse, PatListParams, Pats, PersonalAccessToken, PersonalAccessTokensPersonalAccessTokensPage } from './pats';
+import {
+  PatDeleteParams,
+  PatDeleteResponse,
+  PatGetParams,
+  PatGetResponse,
+  PatListParams,
+  Pats,
+  PersonalAccessToken,
+  PersonalAccessTokensPersonalAccessTokensPage,
+} from './pats';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -51,7 +67,10 @@ export class Users extends APIResource {
    * const response = await client.users.getAuthenticatedUser();
    * ```
    */
-  getAuthenticatedUser(body: UserGetAuthenticatedUserParams, options?: RequestOptions): APIPromise<UserGetAuthenticatedUserResponse> {
+  getAuthenticatedUser(
+    body: UserGetAuthenticatedUserParams,
+    options?: RequestOptions,
+  ): APIPromise<UserGetAuthenticatedUserResponse> {
     return this._client.post('/gitpod.v1.UserService/GetAuthenticatedUser', { body, ...options });
   }
 
@@ -165,7 +184,7 @@ export interface User {
   status?: Shared.UserStatus;
 }
 
-export type UserDeleteUserResponse = unknown
+export type UserDeleteUserResponse = unknown;
 
 export interface UserGetAuthenticatedUserResponse {
   user: User;
@@ -175,7 +194,7 @@ export interface UserGetUserResponse {
   user: User;
 }
 
-export type UserSetSuspendedResponse = unknown
+export type UserSetSuspendedResponse = unknown;
 
 export interface UserDeleteUserParams {
   userId?: string;
@@ -208,7 +227,7 @@ export declare namespace Users {
     type UserDeleteUserParams as UserDeleteUserParams,
     type UserGetAuthenticatedUserParams as UserGetAuthenticatedUserParams,
     type UserGetUserParams as UserGetUserParams,
-    type UserSetSuspendedParams as UserSetSuspendedParams
+    type UserSetSuspendedParams as UserSetSuspendedParams,
   };
 
   export {
@@ -217,7 +236,7 @@ export declare namespace Users {
     type DotfileGetResponse as DotfileGetResponse,
     type DotfileSetResponse as DotfileSetResponse,
     type DotfileGetParams as DotfileGetParams,
-    type DotfileSetParams as DotfileSetParams
+    type DotfileSetParams as DotfileSetParams,
   };
 
   export {
@@ -228,6 +247,6 @@ export declare namespace Users {
     type PersonalAccessTokensPersonalAccessTokensPage as PersonalAccessTokensPersonalAccessTokensPage,
     type PatListParams as PatListParams,
     type PatDeleteParams as PatDeleteParams,
-    type PatGetParams as PatGetParams
+    type PatGetParams as PatGetParams,
   };
 }

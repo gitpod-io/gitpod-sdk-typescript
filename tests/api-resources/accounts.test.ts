@@ -2,7 +2,10 @@
 
 import Gitpod from '@gitpod/sdk';
 
-const client = new Gitpod({ bearerToken: 'My Bearer Token', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Gitpod({
+  bearerToken: 'My Bearer Token',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource accounts', () => {
   // Mock server tests are disabled
@@ -31,7 +34,10 @@ describe('resource accounts', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.accounts.delete({ accountId: 'f53d2330-3795-4c5d-a1f3-453121af9c60', reason: 'reason' });
+    const response = await client.accounts.delete({
+      accountId: 'f53d2330-3795-4c5d-a1f3-453121af9c60',
+      reason: 'reason',
+    });
   });
 
   // Mock server tests are disabled
@@ -48,7 +54,10 @@ describe('resource accounts', () => {
 
   // Mock server tests are disabled
   test.skip('getSSOLoginURL: required and optional params', async () => {
-    const response = await client.accounts.getSSOLoginURL({ email: 'user@company.com', returnTo: 'https://example.com' });
+    const response = await client.accounts.getSSOLoginURL({
+      email: 'user@company.com',
+      returnTo: 'https://example.com',
+    });
   });
 
   // Mock server tests are disabled
@@ -90,11 +99,11 @@ describe('resource accounts', () => {
   // Mock server tests are disabled
   test.skip('listSSOLogins: required and optional params', async () => {
     const response = await client.accounts.listSSOLogins({
-    email: 'dev@stainless.com',
-    token: 'token',
-    pageSize: 0,
-    pagination: { token: 'token', pageSize: 100 },
-    returnTo: 'https://example.com',
-  });
+      email: 'dev@stainless.com',
+      token: 'token',
+      pageSize: 0,
+      pagination: { token: 'token', pageSize: 100 },
+      returnTo: 'https://example.com',
+    });
   });
 });
