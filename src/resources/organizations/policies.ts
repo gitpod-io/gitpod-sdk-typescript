@@ -84,7 +84,10 @@ export class Policies extends APIResource {
    * ```
    */
   update(body: PolicyUpdateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.OrganizationService/UpdateOrganizationPolicies', { body, ...options });
+    return this._client.post('/gitpod.v1.OrganizationService/UpdateOrganizationPolicies', {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -132,7 +135,10 @@ export interface AgentPolicy {
 /**
  * ConversationSharingPolicy controls how agent conversations can be shared.
  */
-export type ConversationSharingPolicy = 'CONVERSATION_SHARING_POLICY_UNSPECIFIED' | 'CONVERSATION_SHARING_POLICY_DISABLED' | 'CONVERSATION_SHARING_POLICY_ORGANIZATION'
+export type ConversationSharingPolicy =
+  | 'CONVERSATION_SHARING_POLICY_UNSPECIFIED'
+  | 'CONVERSATION_SHARING_POLICY_DISABLED'
+  | 'CONVERSATION_SHARING_POLICY_ORGANIZATION';
 
 /**
  * CrowdStrikeConfig configures CrowdStrike Falcon sensor deployment
@@ -225,7 +231,10 @@ export interface CustomSecurityAgent {
 /**
  * KernelControlsAction defines how a kernel-level policy violation is handled.
  */
-export type KernelControlsAction = 'KERNEL_CONTROLS_ACTION_UNSPECIFIED' | 'KERNEL_CONTROLS_ACTION_BLOCK' | 'KERNEL_CONTROLS_ACTION_AUDIT'
+export type KernelControlsAction =
+  | 'KERNEL_CONTROLS_ACTION_UNSPECIFIED'
+  | 'KERNEL_CONTROLS_ACTION_BLOCK'
+  | 'KERNEL_CONTROLS_ACTION_AUDIT';
 
 export interface OrganizationPolicies {
   /**
@@ -403,7 +412,7 @@ export interface PolicyRetrieveResponse {
   policies: OrganizationPolicies;
 }
 
-export type PolicyUpdateResponse = unknown
+export type PolicyUpdateResponse = unknown;
 
 export interface PolicyRetrieveParams {
   /**
@@ -646,6 +655,6 @@ export declare namespace Policies {
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
     type PolicyUpdateResponse as PolicyUpdateResponse,
     type PolicyRetrieveParams as PolicyRetrieveParams,
-    type PolicyUpdateParams as PolicyUpdateParams
+    type PolicyUpdateParams as PolicyUpdateParams,
   };
 }

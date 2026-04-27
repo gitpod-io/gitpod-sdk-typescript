@@ -79,7 +79,10 @@ export class Invites extends APIResource {
    * ```
    */
   getSummary(body: InviteGetSummaryParams, options?: RequestOptions): APIPromise<InviteGetSummaryResponse> {
-    return this._client.post('/gitpod.v1.OrganizationService/GetOrganizationInviteSummary', { body, ...options });
+    return this._client.post('/gitpod.v1.OrganizationService/GetOrganizationInviteSummary', {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -127,6 +130,6 @@ export declare namespace Invites {
     type InviteGetSummaryResponse as InviteGetSummaryResponse,
     type InviteCreateParams as InviteCreateParams,
     type InviteRetrieveParams as InviteRetrieveParams,
-    type InviteGetSummaryParams as InviteGetSummaryParams
+    type InviteGetSummaryParams as InviteGetSummaryParams,
   };
 }

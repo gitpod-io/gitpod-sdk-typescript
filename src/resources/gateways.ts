@@ -10,9 +10,17 @@ export class Gateways extends APIResource {
   /**
    * ListGateways
    */
-  list(params: GatewayListParams, options?: RequestOptions): PagePromise<GatewaysGatewaysPage, Shared.Gateway> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.GatewayService/ListGateways', GatewaysPage<Shared.Gateway>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: GatewayListParams,
+    options?: RequestOptions,
+  ): PagePromise<GatewaysGatewaysPage, Shared.Gateway> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.GatewayService/ListGateways', GatewaysPage<Shared.Gateway>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
   }
 }
 
@@ -43,9 +51,7 @@ export namespace GatewayListParams {
 }
 
 export declare namespace Gateways {
-  export {
-    type GatewayListParams as GatewayListParams
-  };
+  export { type GatewayListParams as GatewayListParams };
 }
 
-export { type GatewaysGatewaysPage }
+export { type GatewaysGatewaysPage };

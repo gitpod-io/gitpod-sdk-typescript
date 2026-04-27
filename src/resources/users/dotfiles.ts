@@ -78,7 +78,7 @@ export interface DotfileGetResponse {
   dotfilesConfiguration: DotfilesConfiguration;
 }
 
-export type DotfileSetResponse = unknown
+export type DotfileSetResponse = unknown;
 
 export interface DotfileGetParams {
   empty?: boolean;
@@ -94,6 +94,6 @@ export declare namespace Dotfiles {
     type DotfileGetResponse as DotfileGetResponse,
     type DotfileSetResponse as DotfileSetResponse,
     type DotfileGetParams as DotfileGetParams,
-    type DotfileSetParams as DotfileSetParams
+    type DotfileSetParams as DotfileSetParams,
   };
 }

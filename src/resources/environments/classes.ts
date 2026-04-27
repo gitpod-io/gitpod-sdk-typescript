@@ -4,7 +4,11 @@ import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { EnvironmentClassesEnvironmentClassesPage } from '../shared';
 import * as RunnersAPI from '../runners/runners';
-import { EnvironmentClassesPage, type EnvironmentClassesPageParams, PagePromise } from '../../core/pagination';
+import {
+  EnvironmentClassesPage,
+  type EnvironmentClassesPageParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Classes extends APIResource {
@@ -36,9 +40,16 @@ export class Classes extends APIResource {
    * }
    * ```
    */
-  list(params: ClassListParams, options?: RequestOptions): PagePromise<EnvironmentClassesEnvironmentClassesPage, Shared.EnvironmentClass> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.EnvironmentService/ListEnvironmentClasses', EnvironmentClassesPage<Shared.EnvironmentClass>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: ClassListParams,
+    options?: RequestOptions,
+  ): PagePromise<EnvironmentClassesEnvironmentClassesPage, Shared.EnvironmentClass> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.EnvironmentService/ListEnvironmentClasses',
+      EnvironmentClassesPage<Shared.EnvironmentClass>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 }
 
@@ -108,9 +119,7 @@ export namespace ClassListParams {
 }
 
 export declare namespace Classes {
-  export {
-    type ClassListParams as ClassListParams
-  };
+  export { type ClassListParams as ClassListParams };
 }
 
-export { type EnvironmentClassesEnvironmentClassesPage }
+export { type EnvironmentClassesEnvironmentClassesPage };

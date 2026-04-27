@@ -5,7 +5,17 @@ import * as AutomationsAPI from './automations';
 import * as AgentsAPI from './agents';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { OutputsPage, type OutputsPageParams, PagePromise, WorkflowExecutionActionsPage, type WorkflowExecutionActionsPageParams, WorkflowExecutionsPage, type WorkflowExecutionsPageParams, WorkflowsPage, type WorkflowsPageParams } from '../core/pagination';
+import {
+  OutputsPage,
+  type OutputsPageParams,
+  PagePromise,
+  WorkflowExecutionActionsPage,
+  type WorkflowExecutionActionsPageParams,
+  WorkflowExecutionsPage,
+  type WorkflowExecutionsPageParams,
+  WorkflowsPage,
+  type WorkflowsPageParams,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Automations extends APIResource {
@@ -146,9 +156,17 @@ export class Automations extends APIResource {
    * }
    * ```
    */
-  list(params: AutomationListParams, options?: RequestOptions): PagePromise<WorkflowsWorkflowsPage, Workflow> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.WorkflowService/ListWorkflows', WorkflowsPage<Workflow>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: AutomationListParams,
+    options?: RequestOptions,
+  ): PagePromise<WorkflowsWorkflowsPage, Workflow> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList('/gitpod.v1.WorkflowService/ListWorkflows', WorkflowsPage<Workflow>, {
+      query: { token, pageSize },
+      body,
+      method: 'post',
+      ...options,
+    });
   }
 
   /**
@@ -240,8 +258,14 @@ export class Automations extends APIResource {
    *   });
    * ```
    */
-  cancelExecutionAction(body: AutomationCancelExecutionActionParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.WorkflowService/CancelWorkflowExecutionAction', { body, ...options });
+  cancelExecutionAction(
+    body: AutomationCancelExecutionActionParams,
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    return this._client.post('/gitpod.v1.WorkflowService/CancelWorkflowExecutionAction', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -283,9 +307,16 @@ export class Automations extends APIResource {
    * }
    * ```
    */
-  listExecutionActions(params: AutomationListExecutionActionsParams, options?: RequestOptions): PagePromise<WorkflowExecutionActionsWorkflowExecutionActionsPage, WorkflowExecutionAction> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.WorkflowService/ListWorkflowExecutionActions', WorkflowExecutionActionsPage<WorkflowExecutionAction>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listExecutionActions(
+    params: AutomationListExecutionActionsParams,
+    options?: RequestOptions,
+  ): PagePromise<WorkflowExecutionActionsWorkflowExecutionActionsPage, WorkflowExecutionAction> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.WorkflowService/ListWorkflowExecutionActions',
+      WorkflowExecutionActionsPage<WorkflowExecutionAction>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -328,9 +359,16 @@ export class Automations extends APIResource {
    * }
    * ```
    */
-  listExecutionOutputs(params: AutomationListExecutionOutputsParams, options?: RequestOptions): PagePromise<AutomationListExecutionOutputsResponsesOutputsPage, AutomationListExecutionOutputsResponse> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.WorkflowService/ListWorkflowExecutionOutputs', OutputsPage<AutomationListExecutionOutputsResponse>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listExecutionOutputs(
+    params: AutomationListExecutionOutputsParams,
+    options?: RequestOptions,
+  ): PagePromise<AutomationListExecutionOutputsResponsesOutputsPage, AutomationListExecutionOutputsResponse> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.WorkflowService/ListWorkflowExecutionOutputs',
+      OutputsPage<AutomationListExecutionOutputsResponse>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -370,9 +408,16 @@ export class Automations extends APIResource {
    * }
    * ```
    */
-  listExecutions(params: AutomationListExecutionsParams, options?: RequestOptions): PagePromise<WorkflowExecutionsWorkflowExecutionsPage, WorkflowExecution> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.WorkflowService/ListWorkflowExecutions', WorkflowExecutionsPage<WorkflowExecution>, { query: { token, pageSize }, body, method: 'post', ...options });
+  listExecutions(
+    params: AutomationListExecutionsParams,
+    options?: RequestOptions,
+  ): PagePromise<WorkflowExecutionsWorkflowExecutionsPage, WorkflowExecution> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.WorkflowService/ListWorkflowExecutions',
+      WorkflowExecutionsPage<WorkflowExecution>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -404,7 +449,10 @@ export class Automations extends APIResource {
    * );
    * ```
    */
-  retrieveExecution(body: AutomationRetrieveExecutionParams, options?: RequestOptions): APIPromise<AutomationRetrieveExecutionResponse> {
+  retrieveExecution(
+    body: AutomationRetrieveExecutionParams,
+    options?: RequestOptions,
+  ): APIPromise<AutomationRetrieveExecutionResponse> {
     return this._client.post('/gitpod.v1.WorkflowService/GetWorkflowExecution', { body, ...options });
   }
 
@@ -436,7 +484,10 @@ export class Automations extends APIResource {
    *   });
    * ```
    */
-  retrieveExecutionAction(body: AutomationRetrieveExecutionActionParams, options?: RequestOptions): APIPromise<AutomationRetrieveExecutionActionResponse> {
+  retrieveExecutionAction(
+    body: AutomationRetrieveExecutionActionParams,
+    options?: RequestOptions,
+  ): APIPromise<AutomationRetrieveExecutionActionResponse> {
     return this._client.post('/gitpod.v1.WorkflowService/GetWorkflowExecutionAction', { body, ...options });
   }
 
@@ -466,18 +517,23 @@ export class Automations extends APIResource {
    * });
    * ```
    */
-  startExecution(body: AutomationStartExecutionParams, options?: RequestOptions): APIPromise<AutomationStartExecutionResponse> {
+  startExecution(
+    body: AutomationStartExecutionParams,
+    options?: RequestOptions,
+  ): APIPromise<AutomationStartExecutionResponse> {
     return this._client.post('/gitpod.v1.WorkflowService/StartWorkflow', { body, ...options });
   }
 }
 
-export type WorkflowsWorkflowsPage = WorkflowsPage<Workflow>
+export type WorkflowsWorkflowsPage = WorkflowsPage<Workflow>;
 
-export type WorkflowExecutionActionsWorkflowExecutionActionsPage = WorkflowExecutionActionsPage<WorkflowExecutionAction>
+export type WorkflowExecutionActionsWorkflowExecutionActionsPage =
+  WorkflowExecutionActionsPage<WorkflowExecutionAction>;
 
-export type AutomationListExecutionOutputsResponsesOutputsPage = OutputsPage<AutomationListExecutionOutputsResponse>
+export type AutomationListExecutionOutputsResponsesOutputsPage =
+  OutputsPage<AutomationListExecutionOutputsResponse>;
 
-export type WorkflowExecutionsWorkflowExecutionsPage = WorkflowExecutionsPage<WorkflowExecution>
+export type WorkflowExecutionsWorkflowExecutionsPage = WorkflowExecutionsPage<WorkflowExecution>;
 
 /**
  * Workflow represents a workflow configuration.
@@ -1235,7 +1291,15 @@ export namespace WorkflowExecution {
 
     pendingActionCount?: number;
 
-    phase?: 'WORKFLOW_EXECUTION_PHASE_UNSPECIFIED' | 'WORKFLOW_EXECUTION_PHASE_PENDING' | 'WORKFLOW_EXECUTION_PHASE_RUNNING' | 'WORKFLOW_EXECUTION_PHASE_STOPPING' | 'WORKFLOW_EXECUTION_PHASE_STOPPED' | 'WORKFLOW_EXECUTION_PHASE_DELETING' | 'WORKFLOW_EXECUTION_PHASE_DELETED' | 'WORKFLOW_EXECUTION_PHASE_COMPLETED';
+    phase?:
+      | 'WORKFLOW_EXECUTION_PHASE_UNSPECIFIED'
+      | 'WORKFLOW_EXECUTION_PHASE_PENDING'
+      | 'WORKFLOW_EXECUTION_PHASE_RUNNING'
+      | 'WORKFLOW_EXECUTION_PHASE_STOPPING'
+      | 'WORKFLOW_EXECUTION_PHASE_STOPPED'
+      | 'WORKFLOW_EXECUTION_PHASE_DELETING'
+      | 'WORKFLOW_EXECUTION_PHASE_DELETED'
+      | 'WORKFLOW_EXECUTION_PHASE_COMPLETED';
 
     runningActionCount?: number;
 
@@ -1258,7 +1322,10 @@ export namespace WorkflowExecution {
       /**
        * Error code identifying the type of error.
        */
-      code?: 'WORKFLOW_ERROR_CODE_UNSPECIFIED' | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR' | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
+      code?:
+        | 'WORKFLOW_ERROR_CODE_UNSPECIFIED'
+        | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR'
+        | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
 
       /**
        * Human-readable error message.
@@ -1315,7 +1382,10 @@ export namespace WorkflowExecution {
       /**
        * Error code identifying the type of error.
        */
-      code?: 'WORKFLOW_ERROR_CODE_UNSPECIFIED' | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR' | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
+      code?:
+        | 'WORKFLOW_ERROR_CODE_UNSPECIFIED'
+        | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR'
+        | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
 
       /**
        * Human-readable error message.
@@ -1639,7 +1709,15 @@ export namespace WorkflowExecutionAction {
     /**
      * WorkflowExecutionActionPhase defines the phases of workflow execution action.
      */
-    phase?: 'WORKFLOW_EXECUTION_ACTION_PHASE_UNSPECIFIED' | 'WORKFLOW_EXECUTION_ACTION_PHASE_PENDING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_RUNNING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPED' | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETED' | 'WORKFLOW_EXECUTION_ACTION_PHASE_DONE';
+    phase?:
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_UNSPECIFIED'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_PENDING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_RUNNING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPED'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETED'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_DONE';
 
     /**
      * Step-level progress tracking
@@ -1663,7 +1741,10 @@ export namespace WorkflowExecutionAction {
       /**
        * Error code identifying the type of error.
        */
-      code?: 'WORKFLOW_ERROR_CODE_UNSPECIFIED' | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR' | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
+      code?:
+        | 'WORKFLOW_ERROR_CODE_UNSPECIFIED'
+        | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR'
+        | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
 
       /**
        * Human-readable error message.
@@ -1814,7 +1895,13 @@ export namespace WorkflowExecutionAction {
        */
       finishedAt?: string;
 
-      phase?: 'STEP_PHASE_UNSPECIFIED' | 'STEP_PHASE_PENDING' | 'STEP_PHASE_RUNNING' | 'STEP_PHASE_DONE' | 'STEP_PHASE_FAILED' | 'STEP_PHASE_CANCELLED';
+      phase?:
+        | 'STEP_PHASE_UNSPECIFIED'
+        | 'STEP_PHASE_PENDING'
+        | 'STEP_PHASE_RUNNING'
+        | 'STEP_PHASE_DONE'
+        | 'STEP_PHASE_FAILED'
+        | 'STEP_PHASE_CANCELLED';
 
       /**
        * A Timestamp represents a point in time independent of any time zone or local
@@ -1929,7 +2016,10 @@ export namespace WorkflowExecutionAction {
         /**
          * Error code identifying the type of error.
          */
-        code?: 'WORKFLOW_ERROR_CODE_UNSPECIFIED' | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR' | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
+        code?:
+          | 'WORKFLOW_ERROR_CODE_UNSPECIFIED'
+          | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR'
+          | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
 
         /**
          * Human-readable error message.
@@ -1987,7 +2077,10 @@ export namespace WorkflowExecutionAction {
       /**
        * Error code identifying the type of error.
        */
-      code?: 'WORKFLOW_ERROR_CODE_UNSPECIFIED' | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR' | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
+      code?:
+        | 'WORKFLOW_ERROR_CODE_UNSPECIFIED'
+        | 'WORKFLOW_ERROR_CODE_ENVIRONMENT_ERROR'
+        | 'WORKFLOW_ERROR_CODE_AGENT_ERROR';
 
       /**
        * Human-readable error message.
@@ -2182,7 +2275,16 @@ export namespace WorkflowTrigger {
    * for PRs in repositories matching the trigger context.
    */
   export interface PullRequest {
-    events?: Array<'PULL_REQUEST_EVENT_UNSPECIFIED' | 'PULL_REQUEST_EVENT_OPENED' | 'PULL_REQUEST_EVENT_UPDATED' | 'PULL_REQUEST_EVENT_APPROVED' | 'PULL_REQUEST_EVENT_MERGED' | 'PULL_REQUEST_EVENT_CLOSED' | 'PULL_REQUEST_EVENT_READY_FOR_REVIEW' | 'PULL_REQUEST_EVENT_REVIEW_REQUESTED'>;
+    events?: Array<
+      | 'PULL_REQUEST_EVENT_UNSPECIFIED'
+      | 'PULL_REQUEST_EVENT_OPENED'
+      | 'PULL_REQUEST_EVENT_UPDATED'
+      | 'PULL_REQUEST_EVENT_APPROVED'
+      | 'PULL_REQUEST_EVENT_MERGED'
+      | 'PULL_REQUEST_EVENT_CLOSED'
+      | 'PULL_REQUEST_EVENT_READY_FOR_REVIEW'
+      | 'PULL_REQUEST_EVENT_REVIEW_REQUESTED'
+    >;
 
     /**
      * integration_id is the optional ID of an integration that acts as the source of
@@ -2352,11 +2454,11 @@ export interface AutomationUpdateResponse {
   workflow?: Workflow;
 }
 
-export type AutomationDeleteResponse = unknown
+export type AutomationDeleteResponse = unknown;
 
-export type AutomationCancelExecutionResponse = unknown
+export type AutomationCancelExecutionResponse = unknown;
 
-export type AutomationCancelExecutionActionResponse = unknown
+export type AutomationCancelExecutionActionResponse = unknown;
 
 export interface AutomationListExecutionOutputsResponse {
   actionId?: string;
@@ -2540,7 +2642,16 @@ export namespace AutomationListParams {
      * workflows whose most recent execution matches one of the specified phases are
      * returned.
      */
-    statusPhases?: Array<'WORKFLOW_EXECUTION_PHASE_UNSPECIFIED' | 'WORKFLOW_EXECUTION_PHASE_PENDING' | 'WORKFLOW_EXECUTION_PHASE_RUNNING' | 'WORKFLOW_EXECUTION_PHASE_STOPPING' | 'WORKFLOW_EXECUTION_PHASE_STOPPED' | 'WORKFLOW_EXECUTION_PHASE_DELETING' | 'WORKFLOW_EXECUTION_PHASE_DELETED' | 'WORKFLOW_EXECUTION_PHASE_COMPLETED'>;
+    statusPhases?: Array<
+      | 'WORKFLOW_EXECUTION_PHASE_UNSPECIFIED'
+      | 'WORKFLOW_EXECUTION_PHASE_PENDING'
+      | 'WORKFLOW_EXECUTION_PHASE_RUNNING'
+      | 'WORKFLOW_EXECUTION_PHASE_STOPPING'
+      | 'WORKFLOW_EXECUTION_PHASE_STOPPED'
+      | 'WORKFLOW_EXECUTION_PHASE_DELETING'
+      | 'WORKFLOW_EXECUTION_PHASE_DELETED'
+      | 'WORKFLOW_EXECUTION_PHASE_COMPLETED'
+    >;
 
     workflowIds?: Array<string>;
   }
@@ -2609,7 +2720,16 @@ export interface AutomationListExecutionActionsParams extends WorkflowExecutionA
 
 export namespace AutomationListExecutionActionsParams {
   export interface Filter {
-    phases?: Array<'WORKFLOW_EXECUTION_ACTION_PHASE_UNSPECIFIED' | 'WORKFLOW_EXECUTION_ACTION_PHASE_PENDING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_RUNNING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPED' | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETING' | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETED' | 'WORKFLOW_EXECUTION_ACTION_PHASE_DONE'>;
+    phases?: Array<
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_UNSPECIFIED'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_PENDING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_RUNNING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_STOPPED'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETING'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_DELETED'
+      | 'WORKFLOW_EXECUTION_ACTION_PHASE_DONE'
+    >;
 
     workflowExecutionActionIds?: Array<string>;
 
@@ -2694,7 +2814,16 @@ export namespace AutomationListExecutionsParams {
      */
     search?: string;
 
-    statusPhases?: Array<'WORKFLOW_EXECUTION_PHASE_UNSPECIFIED' | 'WORKFLOW_EXECUTION_PHASE_PENDING' | 'WORKFLOW_EXECUTION_PHASE_RUNNING' | 'WORKFLOW_EXECUTION_PHASE_STOPPING' | 'WORKFLOW_EXECUTION_PHASE_STOPPED' | 'WORKFLOW_EXECUTION_PHASE_DELETING' | 'WORKFLOW_EXECUTION_PHASE_DELETED' | 'WORKFLOW_EXECUTION_PHASE_COMPLETED'>;
+    statusPhases?: Array<
+      | 'WORKFLOW_EXECUTION_PHASE_UNSPECIFIED'
+      | 'WORKFLOW_EXECUTION_PHASE_PENDING'
+      | 'WORKFLOW_EXECUTION_PHASE_RUNNING'
+      | 'WORKFLOW_EXECUTION_PHASE_STOPPING'
+      | 'WORKFLOW_EXECUTION_PHASE_STOPPED'
+      | 'WORKFLOW_EXECUTION_PHASE_DELETING'
+      | 'WORKFLOW_EXECUTION_PHASE_DELETED'
+      | 'WORKFLOW_EXECUTION_PHASE_COMPLETED'
+    >;
 
     workflowExecutionIds?: Array<string>;
 
@@ -2780,6 +2909,6 @@ export declare namespace Automations {
     type AutomationListExecutionsParams as AutomationListExecutionsParams,
     type AutomationRetrieveExecutionParams as AutomationRetrieveExecutionParams,
     type AutomationRetrieveExecutionActionParams as AutomationRetrieveExecutionActionParams,
-    type AutomationStartExecutionParams as AutomationStartExecutionParams
+    type AutomationStartExecutionParams as AutomationStartExecutionParams,
   };
 }

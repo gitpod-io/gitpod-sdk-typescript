@@ -37,7 +37,10 @@ export class Executions extends APIResource {
    * ```
    */
   retrieve(body: ExecutionRetrieveParams, options?: RequestOptions): APIPromise<ExecutionRetrieveResponse> {
-    return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetTaskExecution', { body, ...options });
+    return this._client.post('/gitpod.v1.EnvironmentAutomationService/GetTaskExecution', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -91,9 +94,16 @@ export class Executions extends APIResource {
    * }
    * ```
    */
-  list(params: ExecutionListParams, options?: RequestOptions): PagePromise<TaskExecutionsTaskExecutionsPage, Shared.TaskExecution> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.EnvironmentAutomationService/ListTaskExecutions', TaskExecutionsPage<Shared.TaskExecution>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: ExecutionListParams,
+    options?: RequestOptions,
+  ): PagePromise<TaskExecutionsTaskExecutionsPage, Shared.TaskExecution> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.EnvironmentAutomationService/ListTaskExecutions',
+      TaskExecutionsPage<Shared.TaskExecution>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -124,7 +134,10 @@ export class Executions extends APIResource {
    * ```
    */
   stop(body: ExecutionStopParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.EnvironmentAutomationService/StopTaskExecution', { body, ...options });
+    return this._client.post('/gitpod.v1.EnvironmentAutomationService/StopTaskExecution', {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -132,7 +145,7 @@ export interface ExecutionRetrieveResponse {
   taskExecution: Shared.TaskExecution;
 }
 
-export type ExecutionStopResponse = unknown
+export type ExecutionStopResponse = unknown;
 
 export interface ExecutionRetrieveParams {
   id?: string;
@@ -204,8 +217,8 @@ export declare namespace Executions {
     type ExecutionStopResponse as ExecutionStopResponse,
     type ExecutionRetrieveParams as ExecutionRetrieveParams,
     type ExecutionListParams as ExecutionListParams,
-    type ExecutionStopParams as ExecutionStopParams
+    type ExecutionStopParams as ExecutionStopParams,
   };
 }
 
-export { type TaskExecutionsTaskExecutionsPage }
+export { type TaskExecutionsTaskExecutionsPage };

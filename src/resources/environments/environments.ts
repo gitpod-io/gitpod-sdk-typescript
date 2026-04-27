@@ -9,7 +9,12 @@ import * as PoliciesAPI from '../organizations/policies';
 import * as ProjectsAPI from '../projects/projects';
 import * as RunnersAPI from '../runners/runners';
 import * as AutomationsAPI from './automations/automations';
-import { AutomationUpsertParams, AutomationUpsertResponse, Automations, AutomationsFile as AutomationsAPIAutomationsFile } from './automations/automations';
+import {
+  AutomationUpsertParams,
+  AutomationUpsertResponse,
+  Automations,
+  AutomationsFile as AutomationsAPIAutomationsFile,
+} from './automations/automations';
 import { APIPromise } from '../../core/api-promise';
 import { EnvironmentsPage, type EnvironmentsPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -136,7 +141,10 @@ export class Environments extends APIResource {
    * });
    * ```
    */
-  retrieve(body: EnvironmentRetrieveParams, options?: RequestOptions): APIPromise<EnvironmentRetrieveResponse> {
+  retrieve(
+    body: EnvironmentRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentRetrieveResponse> {
     return this._client.post('/gitpod.v1.EnvironmentService/GetEnvironment', { body, ...options });
   }
 
@@ -265,9 +273,16 @@ export class Environments extends APIResource {
    * }
    * ```
    */
-  list(params: EnvironmentListParams, options?: RequestOptions): PagePromise<EnvironmentsEnvironmentsPage, Environment> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.EnvironmentService/ListEnvironments', EnvironmentsPage<Environment>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: EnvironmentListParams,
+    options?: RequestOptions,
+  ): PagePromise<EnvironmentsEnvironmentsPage, Environment> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.EnvironmentService/ListEnvironments',
+      EnvironmentsPage<Environment>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -331,8 +346,14 @@ export class Environments extends APIResource {
    *   });
    * ```
    */
-  createEnvironmentToken(body: EnvironmentCreateEnvironmentTokenParams, options?: RequestOptions): APIPromise<EnvironmentCreateEnvironmentTokenResponse> {
-    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentAccessToken', { body, ...options });
+  createEnvironmentToken(
+    body: EnvironmentCreateEnvironmentTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentCreateEnvironmentTokenResponse> {
+    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentAccessToken', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -381,8 +402,14 @@ export class Environments extends APIResource {
    *   });
    * ```
    */
-  createFromProject(body: EnvironmentCreateFromProjectParams, options?: RequestOptions): APIPromise<EnvironmentCreateFromProjectResponse> {
-    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentFromProject', { body, ...options });
+  createFromProject(
+    body: EnvironmentCreateFromProjectParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentCreateFromProjectResponse> {
+    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentFromProject', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -408,8 +435,14 @@ export class Environments extends APIResource {
    * });
    * ```
    */
-  createLogsToken(body: EnvironmentCreateLogsTokenParams, options?: RequestOptions): APIPromise<EnvironmentCreateLogsTokenResponse> {
-    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentLogsToken', { body, ...options });
+  createLogsToken(
+    body: EnvironmentCreateLogsTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<EnvironmentCreateLogsTokenResponse> {
+    return this._client.post('/gitpod.v1.EnvironmentService/CreateEnvironmentLogsToken', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -524,18 +557,26 @@ export class Environments extends APIResource {
   }
 }
 
-export type EnvironmentsEnvironmentsPage = EnvironmentsPage<Environment>
+export type EnvironmentsEnvironmentsPage = EnvironmentsPage<Environment>;
 
 /**
  * Admission level describes who can access an environment instance and its ports.
  */
-export type AdmissionLevel = 'ADMISSION_LEVEL_UNSPECIFIED' | 'ADMISSION_LEVEL_OWNER_ONLY' | 'ADMISSION_LEVEL_EVERYONE' | 'ADMISSION_LEVEL_ORGANIZATION' | 'ADMISSION_LEVEL_CREATOR_ONLY'
+export type AdmissionLevel =
+  | 'ADMISSION_LEVEL_UNSPECIFIED'
+  | 'ADMISSION_LEVEL_OWNER_ONLY'
+  | 'ADMISSION_LEVEL_EVERYONE'
+  | 'ADMISSION_LEVEL_ORGANIZATION'
+  | 'ADMISSION_LEVEL_CREATOR_ONLY';
 
 /**
  * BPFDebugLevel controls the verbosity of BPF trace_pipe output (bpf_printk).
  * Applies to all BPF-based agents (veto exec, future agents).
  */
-export type BpfDebugLevel = 'BPF_DEBUG_LEVEL_UNSPECIFIED' | 'BPF_DEBUG_LEVEL_INFO' | 'BPF_DEBUG_LEVEL_VERBOSE'
+export type BpfDebugLevel =
+  | 'BPF_DEBUG_LEVEL_UNSPECIFIED'
+  | 'BPF_DEBUG_LEVEL_INFO'
+  | 'BPF_DEBUG_LEVEL_VERBOSE';
 
 /**
  * +resource get environment
@@ -662,12 +703,25 @@ export interface EnvironmentMetadata {
   runnerId?: string;
 }
 
-export type EnvironmentPhase = 'ENVIRONMENT_PHASE_UNSPECIFIED' | 'ENVIRONMENT_PHASE_CREATING' | 'ENVIRONMENT_PHASE_STARTING' | 'ENVIRONMENT_PHASE_RUNNING' | 'ENVIRONMENT_PHASE_UPDATING' | 'ENVIRONMENT_PHASE_STOPPING' | 'ENVIRONMENT_PHASE_STOPPED' | 'ENVIRONMENT_PHASE_DELETING' | 'ENVIRONMENT_PHASE_DELETED'
+export type EnvironmentPhase =
+  | 'ENVIRONMENT_PHASE_UNSPECIFIED'
+  | 'ENVIRONMENT_PHASE_CREATING'
+  | 'ENVIRONMENT_PHASE_STARTING'
+  | 'ENVIRONMENT_PHASE_RUNNING'
+  | 'ENVIRONMENT_PHASE_UPDATING'
+  | 'ENVIRONMENT_PHASE_STOPPING'
+  | 'ENVIRONMENT_PHASE_STOPPED'
+  | 'ENVIRONMENT_PHASE_DELETING'
+  | 'ENVIRONMENT_PHASE_DELETED';
 
 /**
  * EnvironmentRole represents the role of an environment
  */
-export type EnvironmentRole = 'ENVIRONMENT_ROLE_UNSPECIFIED' | 'ENVIRONMENT_ROLE_DEFAULT' | 'ENVIRONMENT_ROLE_PREBUILD' | 'ENVIRONMENT_ROLE_WORKFLOW'
+export type EnvironmentRole =
+  | 'ENVIRONMENT_ROLE_UNSPECIFIED'
+  | 'ENVIRONMENT_ROLE_DEFAULT'
+  | 'ENVIRONMENT_ROLE_PREBUILD'
+  | 'ENVIRONMENT_ROLE_WORKFLOW';
 
 /**
  * EnvironmentSpec specifies the configuration of an environment for an environment
@@ -919,7 +973,13 @@ export namespace EnvironmentSpec {
      * scope indicates where this secret originated from. Used to filter secrets during
      * build (only org and project secrets are injected).
      */
-    scope?: 'SCOPE_UNSPECIFIED' | 'SCOPE_ORGANIZATION' | 'SCOPE_PROJECT' | 'SCOPE_USER' | 'SCOPE_SERVICE_ACCOUNT' | 'SCOPE_RUNNER';
+    scope?:
+      | 'SCOPE_UNSPECIFIED'
+      | 'SCOPE_ORGANIZATION'
+      | 'SCOPE_PROJECT'
+      | 'SCOPE_USER'
+      | 'SCOPE_SERVICE_ACCOUNT'
+      | 'SCOPE_RUNNER';
 
     /**
      * session indicated the current session of the secret. When the session does not
@@ -1091,7 +1151,11 @@ export namespace EnvironmentStatus {
      * automations_file_presence indicates how an automations file is present in the
      * environment.
      */
-    automationsFilePresence?: 'PRESENCE_UNSPECIFIED' | 'PRESENCE_ABSENT' | 'PRESENCE_DISCOVERED' | 'PRESENCE_SPECIFIED';
+    automationsFilePresence?:
+      | 'PRESENCE_UNSPECIFIED'
+      | 'PRESENCE_ABSENT'
+      | 'PRESENCE_DISCOVERED'
+      | 'PRESENCE_SPECIFIED';
 
     /**
      * failure_message contains the reason the automations file failed to be applied.
@@ -1102,7 +1166,14 @@ export namespace EnvironmentStatus {
     /**
      * phase is the current phase of the automations file.
      */
-    phase?: 'CONTENT_PHASE_UNSPECIFIED' | 'CONTENT_PHASE_CREATING' | 'CONTENT_PHASE_INITIALIZING' | 'CONTENT_PHASE_READY' | 'CONTENT_PHASE_UPDATING' | 'CONTENT_PHASE_FAILED' | 'CONTENT_PHASE_UNAVAILABLE';
+    phase?:
+      | 'CONTENT_PHASE_UNSPECIFIED'
+      | 'CONTENT_PHASE_CREATING'
+      | 'CONTENT_PHASE_INITIALIZING'
+      | 'CONTENT_PHASE_READY'
+      | 'CONTENT_PHASE_UPDATING'
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
 
     /**
      * session is the automations file session that is currently applied in the
@@ -1141,7 +1212,14 @@ export namespace EnvironmentStatus {
     /**
      * phase is the current phase of the environment content
      */
-    phase?: 'CONTENT_PHASE_UNSPECIFIED' | 'CONTENT_PHASE_CREATING' | 'CONTENT_PHASE_INITIALIZING' | 'CONTENT_PHASE_READY' | 'CONTENT_PHASE_UPDATING' | 'CONTENT_PHASE_FAILED' | 'CONTENT_PHASE_UNAVAILABLE';
+    phase?:
+      | 'CONTENT_PHASE_UNSPECIFIED'
+      | 'CONTENT_PHASE_CREATING'
+      | 'CONTENT_PHASE_INITIALIZING'
+      | 'CONTENT_PHASE_READY'
+      | 'CONTENT_PHASE_UPDATING'
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
 
     /**
      * session is the session that is currently active in the environment.
@@ -1203,7 +1281,15 @@ export namespace EnvironmentStatus {
         /**
          * ChangeType is the type of change that happened to the file
          */
-        changeType?: 'CHANGE_TYPE_UNSPECIFIED' | 'CHANGE_TYPE_ADDED' | 'CHANGE_TYPE_MODIFIED' | 'CHANGE_TYPE_DELETED' | 'CHANGE_TYPE_RENAMED' | 'CHANGE_TYPE_COPIED' | 'CHANGE_TYPE_UPDATED_BUT_UNMERGED' | 'CHANGE_TYPE_UNTRACKED';
+        changeType?:
+          | 'CHANGE_TYPE_UNSPECIFIED'
+          | 'CHANGE_TYPE_ADDED'
+          | 'CHANGE_TYPE_MODIFIED'
+          | 'CHANGE_TYPE_DELETED'
+          | 'CHANGE_TYPE_RENAMED'
+          | 'CHANGE_TYPE_COPIED'
+          | 'CHANGE_TYPE_UPDATED_BUT_UNMERGED'
+          | 'CHANGE_TYPE_UNTRACKED';
 
         /**
          * old_path is the previous path of the file before a rename or copy. Only set when
@@ -1250,7 +1336,11 @@ export namespace EnvironmentStatus {
      * devcontainer_file_presence indicates how the devcontainer file is present in the
      * repo.
      */
-    devcontainerFilePresence?: 'PRESENCE_UNSPECIFIED' | 'PRESENCE_GENERATED' | 'PRESENCE_DISCOVERED' | 'PRESENCE_SPECIFIED';
+    devcontainerFilePresence?:
+      | 'PRESENCE_UNSPECIFIED'
+      | 'PRESENCE_GENERATED'
+      | 'PRESENCE_DISCOVERED'
+      | 'PRESENCE_SPECIFIED';
 
     /**
      * failure_message contains the reason the devcontainer failed to operate.
@@ -1353,7 +1443,15 @@ export namespace EnvironmentStatus {
     /**
      * phase is the current phase of the environment machine
      */
-    phase?: 'PHASE_UNSPECIFIED' | 'PHASE_CREATING' | 'PHASE_STARTING' | 'PHASE_RUNNING' | 'PHASE_STOPPING' | 'PHASE_STOPPED' | 'PHASE_DELETING' | 'PHASE_DELETED';
+    phase?:
+      | 'PHASE_UNSPECIFIED'
+      | 'PHASE_CREATING'
+      | 'PHASE_STARTING'
+      | 'PHASE_RUNNING'
+      | 'PHASE_STOPPING'
+      | 'PHASE_STOPPED'
+      | 'PHASE_DELETING'
+      | 'PHASE_DELETED';
 
     /**
      * session is the session that is currently active in the machine.
@@ -1400,7 +1498,11 @@ export namespace EnvironmentStatus {
 
     specVersion?: string;
 
-    statusCode?: 'STATUS_CODE_UNSPECIFIED' | 'STATUS_CODE_OK' | 'STATUS_CODE_INVALID_RESOURCE' | 'STATUS_CODE_FAILED_PRECONDITION';
+    statusCode?:
+      | 'STATUS_CODE_UNSPECIFIED'
+      | 'STATUS_CODE_OK'
+      | 'STATUS_CODE_INVALID_RESOURCE'
+      | 'STATUS_CODE_FAILED_PRECONDITION';
   }
 
   export interface Secret {
@@ -1414,7 +1516,14 @@ export namespace EnvironmentStatus {
      */
     failureMessage?: string;
 
-    phase?: 'CONTENT_PHASE_UNSPECIFIED' | 'CONTENT_PHASE_CREATING' | 'CONTENT_PHASE_INITIALIZING' | 'CONTENT_PHASE_READY' | 'CONTENT_PHASE_UPDATING' | 'CONTENT_PHASE_FAILED' | 'CONTENT_PHASE_UNAVAILABLE';
+    phase?:
+      | 'CONTENT_PHASE_UNSPECIFIED'
+      | 'CONTENT_PHASE_CREATING'
+      | 'CONTENT_PHASE_INITIALIZING'
+      | 'CONTENT_PHASE_READY'
+      | 'CONTENT_PHASE_UPDATING'
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
 
     secretName?: string;
 
@@ -1439,7 +1548,14 @@ export namespace EnvironmentStatus {
     /**
      * phase is the current phase of the public key
      */
-    phase?: 'CONTENT_PHASE_UNSPECIFIED' | 'CONTENT_PHASE_CREATING' | 'CONTENT_PHASE_INITIALIZING' | 'CONTENT_PHASE_READY' | 'CONTENT_PHASE_UPDATING' | 'CONTENT_PHASE_FAILED' | 'CONTENT_PHASE_UNAVAILABLE';
+    phase?:
+      | 'CONTENT_PHASE_UNSPECIFIED'
+      | 'CONTENT_PHASE_CREATING'
+      | 'CONTENT_PHASE_INITIALIZING'
+      | 'CONTENT_PHASE_READY'
+      | 'CONTENT_PHASE_UPDATING'
+      | 'CONTENT_PHASE_FAILED'
+      | 'CONTENT_PHASE_UNAVAILABLE';
   }
 }
 
@@ -1499,9 +1615,9 @@ export interface EnvironmentRetrieveResponse {
   environment: Environment;
 }
 
-export type EnvironmentUpdateResponse = unknown
+export type EnvironmentUpdateResponse = unknown;
 
-export type EnvironmentDeleteResponse = unknown
+export type EnvironmentDeleteResponse = unknown;
 
 export interface EnvironmentCreateEnvironmentTokenResponse {
   /**
@@ -1524,13 +1640,13 @@ export interface EnvironmentCreateLogsTokenResponse {
   accessToken: string;
 }
 
-export type EnvironmentMarkActiveResponse = unknown
+export type EnvironmentMarkActiveResponse = unknown;
 
-export type EnvironmentStartResponse = unknown
+export type EnvironmentStartResponse = unknown;
 
-export type EnvironmentStopResponse = unknown
+export type EnvironmentStopResponse = unknown;
 
-export type EnvironmentUnarchiveResponse = unknown
+export type EnvironmentUnarchiveResponse = unknown;
 
 export interface EnvironmentCreateParams {
   /**
@@ -1742,7 +1858,12 @@ export namespace EnvironmentListParams {
     /**
      * archival_status filters the response based on environment archive status
      */
-    archivalStatus?: 'ARCHIVAL_STATUS_UNSPECIFIED' | 'ARCHIVAL_STATUS_ACTIVE' | 'ARCHIVAL_STATUS_ARCHIVED' | 'ARCHIVAL_STATUS_ALL' | null;
+    archivalStatus?:
+      | 'ARCHIVAL_STATUS_UNSPECIFIED'
+      | 'ARCHIVAL_STATUS_ACTIVE'
+      | 'ARCHIVAL_STATUS_ARCHIVED'
+      | 'ARCHIVAL_STATUS_ALL'
+      | null;
 
     /**
      * created_before filters environments created before this timestamp
@@ -1942,18 +2063,15 @@ export declare namespace Environments {
     type EnvironmentMarkActiveParams as EnvironmentMarkActiveParams,
     type EnvironmentStartParams as EnvironmentStartParams,
     type EnvironmentStopParams as EnvironmentStopParams,
-    type EnvironmentUnarchiveParams as EnvironmentUnarchiveParams
+    type EnvironmentUnarchiveParams as EnvironmentUnarchiveParams,
   };
 
   export {
     Automations as Automations,
     type AutomationsAPIAutomationsFile as AutomationsFile,
     type AutomationUpsertResponse as AutomationUpsertResponse,
-    type AutomationUpsertParams as AutomationUpsertParams
+    type AutomationUpsertParams as AutomationUpsertParams,
   };
 
-  export {
-    Classes as Classes,
-    type ClassListParams as ClassListParams
-  };
+  export { Classes as Classes, type ClassListParams as ClassListParams };
 }

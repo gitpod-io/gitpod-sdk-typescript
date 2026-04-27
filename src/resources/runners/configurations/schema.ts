@@ -33,7 +33,10 @@ export class Schema extends APIResource {
    * ```
    */
   retrieve(body: SchemaRetrieveParams, options?: RequestOptions): APIPromise<SchemaRetrieveResponse> {
-    return this._client.post('/gitpod.v1.RunnerConfigurationService/GetRunnerConfigurationSchema', { body, ...options });
+    return this._client.post('/gitpod.v1.RunnerConfigurationService/GetRunnerConfigurationSchema', {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -259,6 +262,6 @@ export declare namespace Schema {
   export {
     type RunnerConfigurationSchema as RunnerConfigurationSchema,
     type SchemaRetrieveResponse as SchemaRetrieveResponse,
-    type SchemaRetrieveParams as SchemaRetrieveParams
+    type SchemaRetrieveParams as SchemaRetrieveParams,
   };
 }

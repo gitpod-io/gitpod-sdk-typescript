@@ -108,9 +108,16 @@ export class Policies extends APIResource {
    * }
    * ```
    */
-  list(params: PolicyListParams, options?: RequestOptions): PagePromise<RunnerPoliciesPoliciesPage, RunnerPolicy> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.RunnerService/ListRunnerPolicies', PoliciesPage<RunnerPolicy>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: PolicyListParams,
+    options?: RequestOptions,
+  ): PagePromise<RunnerPoliciesPoliciesPage, RunnerPolicy> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.RunnerService/ListRunnerPolicies',
+      PoliciesPage<RunnerPolicy>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -146,7 +153,7 @@ export class Policies extends APIResource {
   }
 }
 
-export type RunnerPoliciesPoliciesPage = PoliciesPage<RunnerPolicy>
+export type RunnerPoliciesPoliciesPage = PoliciesPage<RunnerPolicy>;
 
 export interface RunnerPolicy {
   groupId?: string;
@@ -157,7 +164,7 @@ export interface RunnerPolicy {
   role?: RunnerRole;
 }
 
-export type RunnerRole = 'RUNNER_ROLE_UNSPECIFIED' | 'RUNNER_ROLE_ADMIN' | 'RUNNER_ROLE_USER'
+export type RunnerRole = 'RUNNER_ROLE_UNSPECIFIED' | 'RUNNER_ROLE_ADMIN' | 'RUNNER_ROLE_USER';
 
 export interface PolicyCreateResponse {
   policy: RunnerPolicy;
@@ -167,7 +174,7 @@ export interface PolicyUpdateResponse {
   policy: RunnerPolicy;
 }
 
-export type PolicyDeleteResponse = unknown
+export type PolicyDeleteResponse = unknown;
 
 export interface PolicyCreateParams {
   /**
@@ -252,6 +259,6 @@ export declare namespace Policies {
     type PolicyCreateParams as PolicyCreateParams,
     type PolicyUpdateParams as PolicyUpdateParams,
     type PolicyListParams as PolicyListParams,
-    type PolicyDeleteParams as PolicyDeleteParams
+    type PolicyDeleteParams as PolicyDeleteParams,
   };
 }

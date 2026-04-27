@@ -4,7 +4,11 @@ import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { ProjectEnvironmentClassesProjectEnvironmentClassesPage } from '../shared';
 import { APIPromise } from '../../core/api-promise';
-import { PagePromise, ProjectEnvironmentClassesPage, type ProjectEnvironmentClassesPageParams } from '../../core/pagination';
+import {
+  PagePromise,
+  ProjectEnvironmentClassesPage,
+  type ProjectEnvironmentClassesPageParams,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class EnvironmentClases extends APIResource {
@@ -47,7 +51,10 @@ export class EnvironmentClases extends APIResource {
    * ```
    */
   update(body: EnvironmentClaseUpdateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/gitpod.v1.ProjectService/UpdateProjectEnvironmentClasses', { body, ...options });
+    return this._client.post('/gitpod.v1.ProjectService/UpdateProjectEnvironmentClasses', {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -82,13 +89,20 @@ export class EnvironmentClases extends APIResource {
    * }
    * ```
    */
-  list(params: EnvironmentClaseListParams, options?: RequestOptions): PagePromise<ProjectEnvironmentClassesProjectEnvironmentClassesPage, Shared.ProjectEnvironmentClass> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.ProjectService/ListProjectEnvironmentClasses', ProjectEnvironmentClassesPage<Shared.ProjectEnvironmentClass>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: EnvironmentClaseListParams,
+    options?: RequestOptions,
+  ): PagePromise<ProjectEnvironmentClassesProjectEnvironmentClassesPage, Shared.ProjectEnvironmentClass> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.ProjectService/ListProjectEnvironmentClasses',
+      ProjectEnvironmentClassesPage<Shared.ProjectEnvironmentClass>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 }
 
-export type EnvironmentClaseUpdateResponse = unknown
+export type EnvironmentClaseUpdateResponse = unknown;
 
 export interface EnvironmentClaseUpdateParams {
   projectEnvironmentClasses?: Array<Shared.ProjectEnvironmentClass>;
@@ -135,8 +149,8 @@ export declare namespace EnvironmentClases {
   export {
     type EnvironmentClaseUpdateResponse as EnvironmentClaseUpdateResponse,
     type EnvironmentClaseUpdateParams as EnvironmentClaseUpdateParams,
-    type EnvironmentClaseListParams as EnvironmentClaseListParams
+    type EnvironmentClaseListParams as EnvironmentClaseListParams,
   };
 }
 
-export { type ProjectEnvironmentClassesProjectEnvironmentClassesPage }
+export { type ProjectEnvironmentClassesProjectEnvironmentClassesPage };

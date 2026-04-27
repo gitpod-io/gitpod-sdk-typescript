@@ -2,7 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { PagePromise, ScimConfigurationsPage, type ScimConfigurationsPageParams } from '../../core/pagination';
+import {
+  PagePromise,
+  ScimConfigurationsPage,
+  type ScimConfigurationsPageParams,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class ScimConfigurations extends APIResource {
@@ -47,7 +51,10 @@ export class ScimConfigurations extends APIResource {
    *   });
    * ```
    */
-  create(body: ScimConfigurationCreateParams, options?: RequestOptions): APIPromise<ScimConfigurationCreateResponse> {
+  create(
+    body: ScimConfigurationCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<ScimConfigurationCreateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/CreateSCIMConfiguration', { body, ...options });
   }
 
@@ -79,7 +86,10 @@ export class ScimConfigurations extends APIResource {
    *   });
    * ```
    */
-  retrieve(body: ScimConfigurationRetrieveParams, options?: RequestOptions): APIPromise<ScimConfigurationRetrieveResponse> {
+  retrieve(
+    body: ScimConfigurationRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ScimConfigurationRetrieveResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/GetSCIMConfiguration', { body, ...options });
   }
 
@@ -121,7 +131,10 @@ export class ScimConfigurations extends APIResource {
    *   });
    * ```
    */
-  update(body: ScimConfigurationUpdateParams, options?: RequestOptions): APIPromise<ScimConfigurationUpdateResponse> {
+  update(
+    body: ScimConfigurationUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ScimConfigurationUpdateResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/UpdateSCIMConfiguration', { body, ...options });
   }
 
@@ -155,9 +168,16 @@ export class ScimConfigurations extends APIResource {
    * }
    * ```
    */
-  list(params: ScimConfigurationListParams, options?: RequestOptions): PagePromise<ScimConfigurationsScimConfigurationsPage, ScimConfiguration> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.OrganizationService/ListSCIMConfigurations', ScimConfigurationsPage<ScimConfiguration>, { query: { token, pageSize }, body, method: 'post', ...options });
+  list(
+    params: ScimConfigurationListParams,
+    options?: RequestOptions,
+  ): PagePromise<ScimConfigurationsScimConfigurationsPage, ScimConfiguration> {
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.OrganizationService/ListSCIMConfigurations',
+      ScimConfigurationsPage<ScimConfiguration>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -232,12 +252,15 @@ export class ScimConfigurations extends APIResource {
    *   );
    * ```
    */
-  regenerateToken(body: ScimConfigurationRegenerateTokenParams, options?: RequestOptions): APIPromise<ScimConfigurationRegenerateTokenResponse> {
+  regenerateToken(
+    body: ScimConfigurationRegenerateTokenParams,
+    options?: RequestOptions,
+  ): APIPromise<ScimConfigurationRegenerateTokenResponse> {
     return this._client.post('/gitpod.v1.OrganizationService/RegenerateSCIMToken', { body, ...options });
   }
 }
 
-export type ScimConfigurationsScimConfigurationsPage = ScimConfigurationsPage<ScimConfiguration>
+export type ScimConfigurationsScimConfigurationsPage = ScimConfigurationsPage<ScimConfiguration>;
 
 /**
  * SCIMConfiguration represents a SCIM 2.0 provisioning configuration
@@ -316,7 +339,7 @@ export interface ScimConfigurationUpdateResponse {
   scimConfiguration: ScimConfiguration;
 }
 
-export type ScimConfigurationDeleteResponse = unknown
+export type ScimConfigurationDeleteResponse = unknown;
 
 export interface ScimConfigurationRegenerateTokenResponse {
   /**
@@ -443,6 +466,6 @@ export declare namespace ScimConfigurations {
     type ScimConfigurationUpdateParams as ScimConfigurationUpdateParams,
     type ScimConfigurationListParams as ScimConfigurationListParams,
     type ScimConfigurationDeleteParams as ScimConfigurationDeleteParams,
-    type ScimConfigurationRegenerateTokenParams as ScimConfigurationRegenerateTokenParams
+    type ScimConfigurationRegenerateTokenParams as ScimConfigurationRegenerateTokenParams,
   };
 }

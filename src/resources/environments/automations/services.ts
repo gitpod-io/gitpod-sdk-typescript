@@ -214,8 +214,12 @@ export class Services extends APIResource {
    * ```
    */
   list(params: ServiceListParams, options?: RequestOptions): PagePromise<ServicesServicesPage, Service> {
-    const { token, pageSize, ...body } = params
-    return this._client.getAPIList('/gitpod.v1.EnvironmentAutomationService/ListServices', ServicesPage<Service>, { query: { token, pageSize }, body, method: 'post', ...options });
+    const { token, pageSize, ...body } = params;
+    return this._client.getAPIList(
+      '/gitpod.v1.EnvironmentAutomationService/ListServices',
+      ServicesPage<Service>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -327,7 +331,7 @@ export class Services extends APIResource {
   }
 }
 
-export type ServicesServicesPage = ServicesPage<Service>
+export type ServicesServicesPage = ServicesPage<Service>;
 
 export interface Service {
   id: string;
@@ -383,9 +387,21 @@ export interface ServiceMetadata {
   triggeredBy?: Array<Shared.AutomationTrigger>;
 }
 
-export type ServicePhase = 'SERVICE_PHASE_UNSPECIFIED' | 'SERVICE_PHASE_STARTING' | 'SERVICE_PHASE_RUNNING' | 'SERVICE_PHASE_STOPPING' | 'SERVICE_PHASE_STOPPED' | 'SERVICE_PHASE_FAILED' | 'SERVICE_PHASE_DELETED'
+export type ServicePhase =
+  | 'SERVICE_PHASE_UNSPECIFIED'
+  | 'SERVICE_PHASE_STARTING'
+  | 'SERVICE_PHASE_RUNNING'
+  | 'SERVICE_PHASE_STOPPING'
+  | 'SERVICE_PHASE_STOPPED'
+  | 'SERVICE_PHASE_FAILED'
+  | 'SERVICE_PHASE_DELETED';
 
-export type ServiceRole = 'SERVICE_ROLE_UNSPECIFIED' | 'SERVICE_ROLE_DEFAULT' | 'SERVICE_ROLE_EDITOR' | 'SERVICE_ROLE_AI_AGENT' | 'SERVICE_ROLE_SECURITY_AGENT'
+export type ServiceRole =
+  | 'SERVICE_ROLE_UNSPECIFIED'
+  | 'SERVICE_ROLE_DEFAULT'
+  | 'SERVICE_ROLE_EDITOR'
+  | 'SERVICE_ROLE_AI_AGENT'
+  | 'SERVICE_ROLE_SECURITY_AGENT';
 
 export interface ServiceSpec {
   /**
@@ -513,13 +529,13 @@ export interface ServiceRetrieveResponse {
   service: Service;
 }
 
-export type ServiceUpdateResponse = unknown
+export type ServiceUpdateResponse = unknown;
 
-export type ServiceDeleteResponse = unknown
+export type ServiceDeleteResponse = unknown;
 
-export type ServiceStartResponse = unknown
+export type ServiceStartResponse = unknown;
 
-export type ServiceStopResponse = unknown
+export type ServiceStopResponse = unknown;
 
 export interface ServiceCreateParams {
   environmentId?: string;
@@ -766,6 +782,6 @@ export declare namespace Services {
     type ServiceListParams as ServiceListParams,
     type ServiceDeleteParams as ServiceDeleteParams,
     type ServiceStartParams as ServiceStartParams,
-    type ServiceStopParams as ServiceStopParams
+    type ServiceStopParams as ServiceStopParams,
   };
 }
