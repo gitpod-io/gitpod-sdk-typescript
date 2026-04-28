@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as PoliciesAPI from './policies';
+import * as EnvironmentsAPI from '../environments/environments';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -499,6 +500,14 @@ export interface PolicyUpdateParams {
    * per user
    */
   maximumRunningEnvironmentsPerUser?: string | null;
+
+  /**
+   * max_port_admission_level caps the maximum admission level a user-opened port may
+   * use. UNSPECIFIED means no cap (any AdmissionLevel value is allowed). System
+   * ports (VS Code Browser, agents) are exempt. The legacy port_sharing_disabled
+   * field, when true, takes precedence and blocks all user-initiated port sharing.
+   */
+  maxPortAdmissionLevel?: EnvironmentsAPI.AdmissionLevel | null;
 
   /**
    * members_create_projects controls whether members can create projects

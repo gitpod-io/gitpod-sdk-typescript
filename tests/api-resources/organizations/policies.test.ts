@@ -65,6 +65,7 @@ describe('resource policies', () => {
       maximumEnvironmentsPerUser: '20',
       maximumEnvironmentTimeout: '3600s',
       maximumRunningEnvironmentsPerUser: '5',
+      maxPortAdmissionLevel: 'ADMISSION_LEVEL_UNSPECIFIED',
       membersCreateProjects: true,
       membersRequireProjects: true,
       portSharingDisabled: true,
