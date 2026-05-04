@@ -853,11 +853,6 @@ export interface RunnerCreateResponse {
   runner: Runner;
 
   /**
-   * @deprecated deprecated, will be removed. Use exchange_token instead.
-   */
-  accessToken?: string;
-
-  /**
    * exchange_token is a one-time use token that should be exchanged by the runner
    * for an access token, using the IdentityService.ExchangeToken rpc. The token
    * expires after 24 hours.
@@ -975,11 +970,6 @@ export interface RunnerCreateLogsTokenResponse {
 }
 
 export interface RunnerCreateRunnerTokenResponse {
-  /**
-   * @deprecated deprecated, will be removed. Use exchange_token instead.
-   */
-  accessToken?: string;
-
   /**
    * exchange_token is a one-time use token that should be exchanged by the runner
    * for an access token, using the IdentityService.ExchangeToken rpc. The token
