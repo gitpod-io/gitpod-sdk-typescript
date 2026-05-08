@@ -1009,12 +1009,6 @@ export namespace EnvironmentSpec {
      */
     export interface CredentialProxy {
       /**
-       * format describes how the secret value is encoded. The proxy uses this to decode
-       * the value before injecting it into the header.
-       */
-      format?: 'FORMAT_UNSPECIFIED' | 'FORMAT_PLAIN' | 'FORMAT_BASE64';
-
-      /**
        * header is the HTTP header name to inject (e.g. "Authorization").
        */
       header?: string;
