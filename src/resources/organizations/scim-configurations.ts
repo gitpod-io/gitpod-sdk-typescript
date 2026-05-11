@@ -292,6 +292,13 @@ export interface ScimConfiguration {
   updatedAt: string;
 
   /**
+   * allow_unverified_email_account_linking allows SCIM to link provisioned users to
+   * existing accounts when the identity provider does not mark the email address as
+   * verified
+   */
+  allowUnverifiedEmailAccountLinking?: boolean;
+
+  /**
    * enabled indicates if SCIM provisioning is active
    */
   enabled?: boolean;
@@ -368,6 +375,13 @@ export interface ScimConfigurationCreateParams {
   ssoConfigurationId: string;
 
   /**
+   * allow_unverified_email_account_linking allows SCIM to link provisioned users to
+   * existing accounts when the identity provider does not mark the email address as
+   * verified
+   */
+  allowUnverifiedEmailAccountLinking?: boolean | null;
+
+  /**
    * name is a human-readable name for the SCIM configuration
    */
   name?: string | null;
@@ -391,6 +405,13 @@ export interface ScimConfigurationUpdateParams {
    * scim_configuration_id is the ID of the SCIM configuration to update
    */
   scimConfigurationId: string;
+
+  /**
+   * allow_unverified_email_account_linking allows SCIM to link provisioned users to
+   * existing accounts when the identity provider does not mark the email address as
+   * verified
+   */
+  allowUnverifiedEmailAccountLinking?: boolean | null;
 
   /**
    * enabled controls whether SCIM provisioning is active
