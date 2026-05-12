@@ -66,6 +66,7 @@ import {
   PolicyRetrieveResponse,
   PolicyUpdateParams,
   PolicyUpdateResponse,
+  ProjectCreationDefaults,
   SecurityAgentPolicy,
   VetoExecPolicy,
 } from './policies';
@@ -1063,6 +1064,7 @@ export declare namespace Organizations {
     type CustomSecurityAgent as CustomSecurityAgent,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
+    type ProjectCreationDefaults as ProjectCreationDefaults,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type VetoExecPolicy as VetoExecPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,

@@ -350,6 +350,12 @@ export interface OrganizationPolicies {
   maximumEnvironmentTimeout?: string;
 
   /**
+   * project_creation_defaults contains default settings applied to newly created
+   * projects.
+   */
+  projectCreationDefaults?: ProjectCreationDefaults;
+
+  /**
    * security_agent_policy contains security agent configuration for the
    * organization. When configured, security agents are automatically deployed to all
    * environments.
@@ -375,6 +381,18 @@ export namespace OrganizationPolicies {
      */
     allowedVersions?: Array<string>;
   }
+}
+
+/**
+ * ProjectCreationDefaults contains default settings applied to newly created
+ * projects.
+ */
+export interface ProjectCreationDefaults {
+  /**
+   * insights_enabled controls whether Insights (co-author attribution) is
+   * automatically enabled on newly created projects.
+   */
+  insightsEnabled?: boolean;
 }
 
 /**
@@ -528,6 +546,12 @@ export interface PolicyUpdateParams {
   portSharingDisabled?: boolean | null;
 
   /**
+   * project_creation_defaults contains updates to default settings applied to newly
+   * created projects.
+   */
+  projectCreationDefaults?: PolicyUpdateParams.ProjectCreationDefaults | null;
+
+  /**
    * require_custom_domain_access controls whether users must access via custom
    * domain when one is configured. When true, access via app.gitpod.io is blocked.
    */
@@ -607,6 +631,18 @@ export namespace PolicyUpdateParams {
   }
 
   /**
+   * project_creation_defaults contains updates to default settings applied to newly
+   * created projects.
+   */
+  export interface ProjectCreationDefaults {
+    /**
+     * insights_enabled controls whether Insights (co-author attribution) is
+     * automatically enabled on newly created projects.
+     */
+    insightsEnabled?: boolean | null;
+  }
+
+  /**
    * security_agent_policy contains security agent configuration updates
    */
   export interface SecurityAgentPolicy {
@@ -659,6 +695,7 @@ export declare namespace Policies {
     type CustomSecurityAgent as CustomSecurityAgent,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
+    type ProjectCreationDefaults as ProjectCreationDefaults,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type VetoExecPolicy as VetoExecPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,
