@@ -69,6 +69,7 @@ describe('resource policies', () => {
       membersCreateProjects: true,
       membersRequireProjects: true,
       portSharingDisabled: true,
+      projectCreationDefaults: { insightsEnabled: true },
       requireCustomDomainAccess: true,
       restrictAccountCreationToScim: true,
       securityAgentPolicy: {

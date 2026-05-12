@@ -77,6 +77,7 @@ export {
   type CustomSecurityAgent,
   type KernelControlsAction,
   type OrganizationPolicies,
+  type ProjectCreationDefaults,
   type SecurityAgentPolicy,
   type VetoExecPolicy,
   type PolicyRetrieveResponse,
