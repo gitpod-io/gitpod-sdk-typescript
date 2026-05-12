@@ -802,6 +802,11 @@ export namespace AgentExecution {
       | 'AGENT_EXECUTION_FAILURE_REASON_INTERNAL'
       | 'AGENT_EXECUTION_FAILURE_REASON_AGENT_EXECUTION';
 
+    /**
+     * goal projects the current native Codex thread goal, if any.
+     */
+    goal?: Status.Goal;
+
     inputTokensUsed?: string;
 
     iterations?: string;
@@ -921,6 +926,32 @@ export namespace AgentExecution {
 
         toolName?: string;
       }
+    }
+
+    /**
+     * goal projects the current native Codex thread goal, if any.
+     */
+    export interface Goal {
+      /**
+       * objective is the current goal text tracked by the native Codex thread-goal
+       * subsystem.
+       */
+      objective?: string;
+
+      /**
+       * status is the lifecycle state of the current goal.
+       */
+      status?:
+        | 'GOAL_STATUS_UNSPECIFIED'
+        | 'GOAL_STATUS_ACTIVE'
+        | 'GOAL_STATUS_PAUSED'
+        | 'GOAL_STATUS_COMPLETED'
+        | 'GOAL_STATUS_BUDGET_EXHAUSTED';
+
+      /**
+       * updated_at is the most recent native goal update timestamp, when available.
+       */
+      updatedAt?: string;
     }
 
     /**
