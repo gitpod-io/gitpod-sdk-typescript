@@ -1502,6 +1502,12 @@ export interface AgentListExecutionsParams extends AgentExecutionsPageParams {
 
 export namespace AgentListExecutionsParams {
   export interface Filter {
+    /**
+     * agent_execution_ids filters the response to only the specified executions.
+     * Useful for checking existence of a known set of execution IDs.
+     */
+    agentExecutionIds?: Array<string>;
+
     agentIds?: Array<string>;
 
     /**
