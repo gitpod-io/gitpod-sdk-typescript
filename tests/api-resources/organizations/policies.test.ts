@@ -86,6 +86,7 @@ describe('resource policies', () => {
         enabled: true,
         executables: ['string'],
       },
+      webBrowserDisabled: true,
     });
   });
 });
