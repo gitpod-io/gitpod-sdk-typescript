@@ -316,6 +316,12 @@ export interface OrganizationPolicies {
   restrictAccountCreationToScim: boolean;
 
   /**
+   * web_browser_disabled controls whether users can open the built-in web browser
+   * from environment pages. This does not affect VS Code Browser.
+   */
+  webBrowserDisabled: boolean;
+
+  /**
    * delete_archived_environments_after controls how long archived environments are
    * kept before automatic deletion. 0 means no automatic deletion. Maximum duration
    * is 4 weeks (2419200 seconds).
@@ -573,6 +579,12 @@ export interface PolicyUpdateParams {
    * veto_exec_policy contains the veto exec policy for environments.
    */
   vetoExecPolicy?: VetoExecPolicy | null;
+
+  /**
+   * web_browser_disabled controls whether users can open the built-in web browser
+   * from environment pages. This does not affect VS Code Browser.
+   */
+  webBrowserDisabled?: boolean | null;
 }
 
 export namespace PolicyUpdateParams {
