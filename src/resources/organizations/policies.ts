@@ -268,6 +268,12 @@ export interface OrganizationPolicies {
   defaultEnvironmentImage: string;
 
   /**
+   * disable_from_scratch controls whether non-admin users can create blank
+   * environments without a Git or URL initializer.
+   */
+  disableFromScratch: boolean;
+
+  /**
    * maximum_environments_per_user limits total environments (running or stopped) per
    * user
    */
@@ -487,6 +493,12 @@ export interface PolicyUpdateParams {
    * is 4 weeks (2419200 seconds).
    */
   deleteArchivedEnvironmentsAfter?: string | null;
+
+  /**
+   * disable_from_scratch controls whether non-admin users can create blank
+   * environments without a Git or URL initializer.
+   */
+  disableFromScratch?: boolean | null;
 
   /**
    * editor_version_restrictions restricts which editor versions can be used. Maps
