@@ -60,6 +60,7 @@ describe('resource policies', () => {
       defaultEditorId: 'defaultEditorId',
       defaultEnvironmentImage: 'defaultEnvironmentImage',
       deleteArchivedEnvironmentsAfter: '+9125115.360s',
+      disableFromScratch: true,
       editorVersionRestrictions: { foo: { allowedVersions: ['string'] } },
       maximumEnvironmentLifetime: '+9125115.360s',
       maximumEnvironmentsPerUser: '20',
