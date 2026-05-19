@@ -1374,6 +1374,8 @@ export interface UserInputMetadata {
  * fires. Delivered via SendToAgentExecution as a new oneof variant.
  */
 export interface WakeEvent {
+  devcontainerRebuild?: WakeEvent.DevcontainerRebuild;
+
   environment?: WakeEvent.Environment;
 
   /**
@@ -1387,6 +1389,19 @@ export interface WakeEvent {
 }
 
 export namespace WakeEvent {
+  export interface DevcontainerRebuild {
+    environmentId?: string;
+
+    failureMessage?: Array<string>;
+
+    /**
+     * The devcontainer phase reached by the target session.
+     */
+    phase?: string;
+
+    sessionId?: string;
+  }
+
   export interface Environment {
     environmentId?: string;
 
