@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as PoliciesAPI from './policies';
+import * as Shared from '../shared';
 import * as EnvironmentsAPI from '../environments/environments';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -396,15 +397,136 @@ export namespace OrganizationPolicies {
 }
 
 /**
+ * ProjectCreationDefaultEnvironmentClass configures a single environment class in
+ * the project creation defaults.
+ */
+export interface ProjectCreationDefaultEnvironmentClass {
+  /**
+   * environment_class_id is the ID of the environment class.
+   */
+  environmentClassId?: string;
+
+  /**
+   * order is the priority of this entry (lower = higher priority).
+   */
+  order?: number;
+
+  /**
+   * prebuild controls whether prebuilds are enabled for this environment class on
+   * newly created projects.
+   */
+  prebuild?: boolean;
+
+  /**
+   * warm_pool configures the warm pool for this environment class on newly created
+   * projects. Only meaningful when prebuild is true.
+   */
+  warmPool?: ProjectCreationDefaultEnvironmentClassWarmPool;
+}
+
+/**
+ * ProjectCreationDefaultEnvironmentClassWarmPool configures warm pool defaults for
+ * an environment class in the project creation defaults.
+ */
+export interface ProjectCreationDefaultEnvironmentClassWarmPool {
+  /**
+   * enabled controls whether a warm pool is created for this environment class.
+   */
+  enabled?: boolean;
+
+  /**
+   * max_size is the maximum number of warm instances. Must be >= min_size and <= 20.
+   */
+  maxSize?: number;
+
+  /**
+   * min_size is the minimum number of warm instances. Must be >= 0 and <= max_size.
+   */
+  minSize?: number;
+}
+
+/**
  * ProjectCreationDefaults contains default settings applied to newly created
  * projects.
  */
 export interface ProjectCreationDefaults {
   /**
+   * environment_classes specifies default environment classes and their per-class
+   * settings (order, prebuild, warm pool) for newly created projects. Each entry
+   * must reference an existing, enabled, non-local-runner environment class in the
+   * organization.
+   */
+  environmentClasses?: Array<ProjectCreationDefaultEnvironmentClass>;
+
+  /**
    * insights_enabled controls whether Insights (co-author attribution) is
    * automatically enabled on newly created projects.
    */
   insightsEnabled?: boolean;
+
+  /**
+   * prebuilds configures default prebuild settings for newly created projects. When
+   * set, prebuilds can be enabled per environment class via the environment_classes
+   * entries. When absent, prebuilds are not enabled by default.
+   */
+  prebuilds?: ProjectCreationDefaultsPrebuilds;
+}
+
+/**
+ * ProjectCreationDefaultsPrebuilds configures default prebuild settings. Presence
+ * of this message means prebuilds can be enabled for the default environment
+ * classes.
+ */
+export interface ProjectCreationDefaultsPrebuilds {
+  /**
+   * enable_jetbrains_warmup controls whether JetBrains IDE warmup runs during
+   * prebuilds on newly created projects.
+   */
+  enableJetbrainsWarmup?: boolean;
+
+  /**
+   * prebuild_executor is the service account used to run prebuilds on newly created
+   * projects. Must be a service account (not a user).
+   */
+  prebuildExecutor?: Shared.Subject;
+
+  /**
+   * timeout is the maximum duration allowed for a prebuild to complete. If not
+   * specified, defaults to 1 hour. Must be between 5 minutes and 2 hours.
+   */
+  timeout?: string;
+
+  /**
+   * trigger defines when prebuilds should be created on newly created projects.
+   */
+  trigger?: ProjectCreationDefaultsPrebuilds.Trigger;
+}
+
+export namespace ProjectCreationDefaultsPrebuilds {
+  /**
+   * trigger defines when prebuilds should be created on newly created projects.
+   */
+  export interface Trigger {
+    /**
+     * daily_schedule triggers a prebuild once per day at the specified hour (UTC). The
+     * actual start time may vary slightly to distribute system load.
+     */
+    dailySchedule: Trigger.DailySchedule;
+  }
+
+  export namespace Trigger {
+    /**
+     * daily_schedule triggers a prebuild once per day at the specified hour (UTC). The
+     * actual start time may vary slightly to distribute system load.
+     */
+    export interface DailySchedule {
+      /**
+       * hour_utc is the hour of day (0-23) in UTC when the prebuild should start. The
+       * actual start time may be adjusted by a few minutes to balance system load.
+       */
+      hourUtc?: number;
+    }
+  }
 }
 
 /**
@@ -660,10 +782,23 @@ export namespace PolicyUpdateParams {
    */
   export interface ProjectCreationDefaults {
     /**
+     * environment_classes replaces the full list of default environment classes and
+     * their per-class settings. Send an empty list to clear defaults.
+     */
+    environmentClasses?: Array<PoliciesAPI.ProjectCreationDefaultEnvironmentClass>;
+
+    /**
      * insights_enabled controls whether Insights (co-author attribution) is
      * automatically enabled on newly created projects.
      */
     insightsEnabled?: boolean | null;
+
+    /**
+     * prebuilds configures default prebuild settings for newly created projects. Set
+     * to enable/update prebuild defaults. Prebuilds are disabled by default when this
+     * field is absent.
+     */
+    prebuilds?: PoliciesAPI.ProjectCreationDefaultsPrebuilds | null;
   }
 
   /**
@@ -719,7 +854,10 @@ export declare namespace Policies {
     type CustomSecurityAgent as CustomSecurityAgent,
     type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
+    type ProjectCreationDefaultEnvironmentClass as ProjectCreationDefaultEnvironmentClass,
+    type ProjectCreationDefaultEnvironmentClassWarmPool as ProjectCreationDefaultEnvironmentClassWarmPool,
     type ProjectCreationDefaults as ProjectCreationDefaults,
+    type ProjectCreationDefaultsPrebuilds as ProjectCreationDefaultsPrebuilds,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type VetoExecPolicy as VetoExecPolicy,
     type PolicyRetrieveResponse as PolicyRetrieveResponse,

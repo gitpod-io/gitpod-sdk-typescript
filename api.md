@@ -480,7 +480,10 @@ Types:
 - <code><a href="./src/resources/organizations/policies.ts">CustomSecurityAgent</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ProjectCreationDefaultEnvironmentClass</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ProjectCreationDefaultEnvironmentClassWarmPool</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">ProjectCreationDefaults</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">ProjectCreationDefaultsPrebuilds</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">VetoExecPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">PolicyRetrieveResponse</a></code>
