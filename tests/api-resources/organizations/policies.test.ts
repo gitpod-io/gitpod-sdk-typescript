@@ -85,13 +85,16 @@ describe('resource policies', () => {
         ],
         insightsEnabled: true,
         prebuilds: {
-          enableJetbrainsWarmup: true,
-          prebuildExecutor: {
-            id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            principal: 'PRINCIPAL_UNSPECIFIED',
+          disabled: {},
+          enabled: {
+            enableJetbrainsWarmup: true,
+            prebuildExecutor: {
+              id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+              principal: 'PRINCIPAL_UNSPECIFIED',
+            },
+            timeout: '+9125115.360s',
+            trigger: { dailySchedule: { hourUtc: 23 } },
           },
-          timeout: '+9125115.360s',
-          trigger: { dailySchedule: { hourUtc: 23 } },
         },
       },
       requireCustomDomainAccess: true,
