@@ -794,11 +794,28 @@ export namespace PolicyUpdateParams {
     insightsEnabled?: boolean | null;
 
     /**
-     * prebuilds configures default prebuild settings for newly created projects. Set
-     * to enable/update prebuild defaults. Prebuilds are disabled by default when this
-     * field is absent.
+     * prebuilds updates default prebuild settings for newly created projects. When
+     * absent, prebuild defaults are left unchanged.
      */
-    prebuilds?: PoliciesAPI.ProjectCreationDefaultsPrebuilds | null;
+    prebuilds?: ProjectCreationDefaults.Prebuilds | null;
+  }
+
+  export namespace ProjectCreationDefaults {
+    /**
+     * prebuilds updates default prebuild settings for newly created projects. When
+     * absent, prebuild defaults are left unchanged.
+     */
+    export interface Prebuilds {
+      /**
+       * disabled clears persisted prebuild defaults.
+       */
+      disabled?: unknown;
+
+      /**
+       * enabled sets or updates persisted prebuild defaults.
+       */
+      enabled?: PoliciesAPI.ProjectCreationDefaultsPrebuilds;
+    }
   }
 
   /**
