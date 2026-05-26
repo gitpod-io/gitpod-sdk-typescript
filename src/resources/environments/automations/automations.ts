@@ -250,6 +250,14 @@ export namespace AutomationsFile {
 
     name?: string;
 
+    /**
+     * prebuild_requires_success controls whether a non-successful outcome of this task
+     * should fail the prebuild. When true and the task is triggered by a prebuild
+     * trigger, any terminal phase other than SUCCEEDED will cause the prebuild to
+     * fail. Defaults to false.
+     */
+    prebuildRequiresSuccess?: boolean;
+
     runsOn?: Shared.RunsOn;
 
     triggeredBy?: Array<'manual' | 'postEnvironmentStart' | 'postDevcontainerStart' | 'prebuild'>;

@@ -599,6 +599,15 @@ export interface TaskSpec {
   env?: Array<EnvironmentVariableItem>;
 
   /**
+   * prebuild_requires_success controls whether a non-successful outcome of this task
+   * should fail the prebuild. When true and the task is triggered by a prebuild or
+   * before_snapshot trigger, any terminal phase other than SUCCEEDED (i.e. FAILED or
+   * STOPPED) will cause the prebuild to fail instead of just recording a warning.
+   * Defaults to false (existing behavior: task failures produce warnings only).
+   */
+  prebuildRequiresSuccess?: boolean;
+
+  /**
    * runs_on specifies the environment the task should run on.
    */
   runsOn?: RunsOn;
