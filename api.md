@@ -62,6 +62,9 @@ Types:
 - <code><a href="./src/resources/agents.ts">AgentExecution</a></code>
 - <code><a href="./src/resources/agents.ts">AgentMessage</a></code>
 - <code><a href="./src/resources/agents.ts">AgentMode</a></code>
+- <code><a href="./src/resources/agents.ts">CodexOpenAIModel</a></code>
+- <code><a href="./src/resources/agents.ts">CodexReasoningEffort</a></code>
+- <code><a href="./src/resources/agents.ts">CodexSettings</a></code>
 - <code><a href="./src/resources/agents.ts">Prompt</a></code>
 - <code><a href="./src/resources/agents.ts">PromptMetadata</a></code>
 - <code><a href="./src/resources/agents.ts">PromptSpec</a></code>
