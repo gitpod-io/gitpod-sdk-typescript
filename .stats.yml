@@ -1,4 +1,4 @@
 configured_endpoints: 193
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/gitpod/gitpod-d7b3bf8d6e2b708c1005bdc42b29efac87267eccf2bfb44caaaf2829fac6b4e5.yml
-openapi_spec_hash: 5c3319cc8f56e48c2b0577b8529bb7c1
-config_hash: 88008dd094966101f079469fb8a6c534
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/gitpod/gitpod-89b22be64eae067c30ac3d3a76c51bc319751a8ed14103e286986ee97fa2ddba.yml
+openapi_spec_hash: 1a23e429f782bd4f0d24db8ded1253f6
+config_hash: e4a9b5db357180a70ca33f3a18b2d8be
