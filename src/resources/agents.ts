@@ -1706,6 +1706,11 @@ export interface AgentSendToExecutionParams {
 }
 
 export interface AgentStartExecutionParams {
+  /**
+   * agent_id identifies the agent to start. If omitted, the backend uses the
+   * configured default agent ID, or the Ona in-environment agent when no default is
+   * configured.
+   */
   agentId?: string;
 
   /**
