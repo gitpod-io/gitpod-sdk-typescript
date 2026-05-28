@@ -29,6 +29,7 @@ export {
   type AgentMode,
   type CodexOpenAIModel,
   type CodexReasoningEffort,
+  type CodexServiceTier,
   type CodexSettings,
   type Prompt,
   type PromptMetadata,
