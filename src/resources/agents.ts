@@ -1057,6 +1057,12 @@ export type CodexReasoningEffort =
   | 'CODEX_REASONING_EFFORT_EXTRA_HIGH';
 
 /**
+ * CodexServiceTier is the static allowlist of service tiers supported by the Codex
+ * app runtime.
+ */
+export type CodexServiceTier = 'CODEX_SERVICE_TIER_UNSPECIFIED' | 'CODEX_SERVICE_TIER_FAST';
+
+/**
  * CodexSettings contains settings consumed only by the Codex app agent.
  */
 export interface CodexSettings {
@@ -1071,6 +1077,12 @@ export interface CodexSettings {
    * the Codex app runtime.
    */
   reasoningEffort?: CodexReasoningEffort;
+
+  /**
+   * CodexServiceTier is the static allowlist of service tiers supported by the Codex
+   * app runtime.
+   */
+  serviceTier?: CodexServiceTier;
 }
 
 export interface Prompt {
@@ -1814,6 +1826,7 @@ export declare namespace Agents {
     type AgentMode as AgentMode,
     type CodexOpenAIModel as CodexOpenAIModel,
     type CodexReasoningEffort as CodexReasoningEffort,
+    type CodexServiceTier as CodexServiceTier,
     type CodexSettings as CodexSettings,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
