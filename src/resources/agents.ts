@@ -803,7 +803,7 @@ export namespace AgentExecution {
       | 'AGENT_EXECUTION_FAILURE_REASON_AGENT_EXECUTION';
 
     /**
-     * goal projects the current native Codex thread goal, if any.
+     * goal projects the current agent goal, if any.
      */
     goal?: Status.Goal;
 
@@ -930,12 +930,11 @@ export namespace AgentExecution {
     }
 
     /**
-     * goal projects the current native Codex thread goal, if any.
+     * goal projects the current agent goal, if any.
      */
     export interface Goal {
       /**
-       * objective is the current goal text tracked by the native Codex thread-goal
-       * subsystem.
+       * objective is the current goal text tracked by the agent.
        */
       objective?: string;
 
@@ -950,7 +949,7 @@ export namespace AgentExecution {
         | 'GOAL_STATUS_BUDGET_EXHAUSTED';
 
       /**
-       * updated_at is the most recent native goal update timestamp, when available.
+       * updated_at is the most recent goal update timestamp, when available.
        */
       updatedAt?: string;
     }
@@ -1031,7 +1030,8 @@ export type AgentMode =
   | 'AGENT_MODE_EXECUTION'
   | 'AGENT_MODE_PLANNING'
   | 'AGENT_MODE_RALPH'
-  | 'AGENT_MODE_SPEC';
+  | 'AGENT_MODE_SPEC'
+  | 'AGENT_MODE_GOAL';
 
 /**
  * CodexOpenAIModel is the static allowlist of concrete OpenAI models that the
