@@ -2510,6 +2510,12 @@ export interface AutomationCreateParams {
   action: WorkflowAction;
 
   /**
+   * Codex app agent settings. Only meaningful when agent_id refers to the Codex app
+   * agent.
+   */
+  codexSettings?: Shared.CodexSettings;
+
+  /**
    * Description must be at most 500 characters:
    *
    * ```
@@ -2557,6 +2563,12 @@ export interface AutomationUpdateParams {
    * WorkflowAction defines the actions to be executed in a workflow.
    */
   action?: WorkflowAction | null;
+
+  /**
+   * Codex app agent settings. Only meaningful when agent_id refers to the Codex app
+   * agent.
+   */
+  codexSettings?: Shared.CodexSettings | null;
 
   /**
    * Description must be at most 500 characters:

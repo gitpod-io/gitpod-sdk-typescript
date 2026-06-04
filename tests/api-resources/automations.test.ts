@@ -42,6 +42,11 @@ describe('resource automations', () => {
           },
         ],
       },
+      codexSettings: {
+        model: 'CODEX_OPEN_AI_MODEL_UNSPECIFIED',
+        reasoningEffort: 'CODEX_REASONING_EFFORT_UNSPECIFIED',
+        serviceTier: 'CODEX_SERVICE_TIER_UNSPECIFIED',
+      },
       description: 'description',
       executor: { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', principal: 'PRINCIPAL_UNSPECIFIED' },
       name: 'name',
