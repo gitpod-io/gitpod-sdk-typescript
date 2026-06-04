@@ -149,10 +149,6 @@ import {
   AgentUpdatePromptParams,
   AgentUpdatePromptResponse,
   Agents,
-  CodexOpenAIModel,
-  CodexReasoningEffort,
-  CodexServiceTier,
-  CodexSettings,
   Prompt,
   PromptMetadata,
   PromptSpec,
@@ -1431,10 +1427,6 @@ export declare namespace Gitpod {
     type AgentExecution as AgentExecution,
     type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
-    type CodexOpenAIModel as CodexOpenAIModel,
-    type CodexReasoningEffort as CodexReasoningEffort,
-    type CodexServiceTier as CodexServiceTier,
-    type CodexSettings as CodexSettings,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
@@ -1778,6 +1770,10 @@ export declare namespace Gitpod {
   };
 
   export type AutomationTrigger = API.AutomationTrigger;
+  export type CodexOpenAIModel = API.CodexOpenAIModel;
+  export type CodexReasoningEffort = API.CodexReasoningEffort;
+  export type CodexServiceTier = API.CodexServiceTier;
+  export type CodexSettings = API.CodexSettings;
   export type CountResponseRelation = API.CountResponseRelation;
   export type EnvironmentClass = API.EnvironmentClass;
   export type EnvironmentVariableItem = API.EnvironmentVariableItem;

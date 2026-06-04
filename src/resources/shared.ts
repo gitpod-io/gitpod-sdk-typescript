@@ -39,6 +39,59 @@ export interface AutomationTrigger {
   prebuild?: boolean;
 }
 
+/**
+ * CodexOpenAIModel is the static allowlist of concrete OpenAI models that the
+ * Codex app runtime can select through Ona's Codex picker.
+ */
+export type CodexOpenAIModel =
+  | 'CODEX_OPEN_AI_MODEL_UNSPECIFIED'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_5'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_4'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_4_MINI'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_3_CODEX'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_3_CODEX_SPARK'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_2';
+
+/**
+ * CodexReasoningEffort is the static allowlist of reasoning efforts supported by
+ * the Codex app runtime.
+ */
+export type CodexReasoningEffort =
+  | 'CODEX_REASONING_EFFORT_UNSPECIFIED'
+  | 'CODEX_REASONING_EFFORT_LOW'
+  | 'CODEX_REASONING_EFFORT_MEDIUM'
+  | 'CODEX_REASONING_EFFORT_HIGH'
+  | 'CODEX_REASONING_EFFORT_EXTRA_HIGH';
+
+/**
+ * CodexServiceTier is the static allowlist of service tiers supported by the Codex
+ * app runtime.
+ */
+export type CodexServiceTier = 'CODEX_SERVICE_TIER_UNSPECIFIED' | 'CODEX_SERVICE_TIER_FAST';
+
+/**
+ * CodexSettings contains settings consumed only by the Codex app agent.
+ */
+export interface CodexSettings {
+  /**
+   * CodexOpenAIModel is the static allowlist of concrete OpenAI models that the
+   * Codex app runtime can select through Ona's Codex picker.
+   */
+  model?: CodexOpenAIModel;
+
+  /**
+   * CodexReasoningEffort is the static allowlist of reasoning efforts supported by
+   * the Codex app runtime.
+   */
+  reasoningEffort?: CodexReasoningEffort;
+
+  /**
+   * CodexServiceTier is the static allowlist of service tiers supported by the Codex
+   * app runtime.
+   */
+  serviceTier?: CodexServiceTier;
+}
+
 export type CountResponseRelation =
   | 'COUNT_RESPONSE_RELATION_UNSPECIFIED'
   | 'COUNT_RESPONSE_RELATION_EQ'
