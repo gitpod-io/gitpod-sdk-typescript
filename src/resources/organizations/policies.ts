@@ -116,6 +116,32 @@ export interface AgentPolicy {
   scmToolsDisabled: boolean;
 
   /**
+   * allowed_agent_ids contains the agent IDs users may select when the codex_rollout
+   * feature flag is enabled. Empty means all agents are allowed.
+   */
+  allowedAgentIds?: Array<string>;
+
+  /**
+   * allowed_codex_models contains the Codex models users may select when the
+   * codex_rollout feature flag is enabled. Empty means all Codex models are allowed.
+   */
+  allowedCodexModels?: Array<Shared.CodexOpenAIModel>;
+
+  /**
+   * allowed_codex_reasoning_efforts contains the Codex reasoning efforts users may
+   * select when the codex_rollout feature flag is enabled. Empty means all Codex
+   * reasoning efforts are allowed.
+   */
+  allowedCodexReasoningEfforts?: Array<Shared.CodexReasoningEffort>;
+
+  /**
+   * allowed_codex_service_tiers contains the Codex service tiers users may select
+   * when the codex_rollout feature flag is enabled. Empty means all Codex service
+   * tiers are allowed.
+   */
+  allowedCodexServiceTiers?: Array<Shared.CodexServiceTier>;
+
+  /**
    * conversation_sharing_policy controls whether agent conversations can be shared
    */
   conversationSharingPolicy?: ConversationSharingPolicy;
@@ -726,6 +752,32 @@ export namespace PolicyUpdateParams {
    * agent_policy contains agent-specific policy settings
    */
   export interface AgentPolicy {
+    /**
+     * allowed_agent_ids contains the agent IDs users may select when the codex_rollout
+     * feature flag is enabled. Empty means all agents are allowed.
+     */
+    allowedAgentIds?: Array<string>;
+
+    /**
+     * allowed_codex_models contains the Codex models users may select when the
+     * codex_rollout feature flag is enabled. Empty means all Codex models are allowed.
+     */
+    allowedCodexModels?: Array<Shared.CodexOpenAIModel>;
+
+    /**
+     * allowed_codex_reasoning_efforts contains the Codex reasoning efforts users may
+     * select when the codex_rollout feature flag is enabled. Empty means all Codex
+     * reasoning efforts are allowed.
+     */
+    allowedCodexReasoningEfforts?: Array<Shared.CodexReasoningEffort>;
+
+    /**
+     * allowed_codex_service_tiers contains the Codex service tiers users may select
+     * when the codex_rollout feature flag is enabled. Empty means all Codex service
+     * tiers are allowed.
+     */
+    allowedCodexServiceTiers?: Array<Shared.CodexServiceTier>;
+
     /**
      * command_deny_list contains a list of commands that agents are not allowed to
      * execute
