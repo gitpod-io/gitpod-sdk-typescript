@@ -48,6 +48,10 @@ describe('resource policies', () => {
     const response = await client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       agentPolicy: {
+        allowedAgentIds: ['string'],
+        allowedCodexModels: ['CODEX_OPEN_AI_MODEL_UNSPECIFIED'],
+        allowedCodexReasoningEfforts: ['CODEX_REASONING_EFFORT_UNSPECIFIED'],
+        allowedCodexServiceTiers: ['CODEX_SERVICE_TIER_UNSPECIFIED'],
         commandDenyList: ['string'],
         conversationSharingPolicy: 'CONVERSATION_SHARING_POLICY_UNSPECIFIED',
         maxSubagentsPerEnvironment: 10,
