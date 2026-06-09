@@ -934,6 +934,11 @@ export namespace AgentExecution {
      */
     export interface Goal {
       /**
+       * created_at is when the current goal was created, when available.
+       */
+      createdAt?: string;
+
+      /**
        * objective is the current goal text tracked by the agent.
        */
       objective?: string;
@@ -941,12 +946,23 @@ export namespace AgentExecution {
       /**
        * status is the lifecycle state of the current goal.
        */
-      status?:
-        | 'GOAL_STATUS_UNSPECIFIED'
-        | 'GOAL_STATUS_ACTIVE'
-        | 'GOAL_STATUS_PAUSED'
-        | 'GOAL_STATUS_COMPLETED'
-        | 'GOAL_STATUS_BUDGET_EXHAUSTED';
+      status?: AgentsAPI.GoalStatus;
+
+      /**
+       * time_used is the elapsed wall-clock time reported by the agent for this goal.
+       */
+      timeUsed?: string;
+
+      /**
+       * token_budget is the token budget reported by the agent for this goal, when one
+       * exists.
+       */
+      tokenBudget?: string | null;
+
+      /**
+       * tokens_used is the token usage reported by the agent for this goal.
+       */
+      tokensUsed?: string;
 
       /**
        * updated_at is the most recent goal update timestamp, when available.
@@ -1032,6 +1048,15 @@ export type AgentMode =
   | 'AGENT_MODE_RALPH'
   | 'AGENT_MODE_SPEC'
   | 'AGENT_MODE_GOAL';
+
+export type GoalStatus =
+  | 'GOAL_STATUS_UNSPECIFIED'
+  | 'GOAL_STATUS_ACTIVE'
+  | 'GOAL_STATUS_PAUSED'
+  | 'GOAL_STATUS_COMPLETED'
+  | 'GOAL_STATUS_BUDGET_EXHAUSTED'
+  | 'GOAL_STATUS_BLOCKED'
+  | 'GOAL_STATUS_USAGE_LIMITED';
 
 export interface Prompt {
   id?: string;
@@ -1777,6 +1802,7 @@ export declare namespace Agents {
     type AgentExecution as AgentExecution,
     type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
+    type GoalStatus as GoalStatus,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
