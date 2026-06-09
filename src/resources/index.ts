@@ -27,6 +27,7 @@ export {
   type AgentExecution,
   type AgentMessage,
   type AgentMode,
+  type GoalStatus,
   type Prompt,
   type PromptMetadata,
   type PromptSpec,
