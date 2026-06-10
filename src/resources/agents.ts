@@ -730,8 +730,6 @@ export namespace AgentExecution {
 
     limits?: Spec.Limits;
 
-    loopConditions?: Array<Spec.LoopCondition>;
-
     session?: string;
 
     /**
@@ -749,14 +747,6 @@ export namespace AgentExecution {
       maxIterations?: string;
 
       maxOutputTokens?: string;
-    }
-
-    export interface LoopCondition {
-      id?: string;
-
-      description?: string;
-
-      expression?: string;
     }
   }
 
