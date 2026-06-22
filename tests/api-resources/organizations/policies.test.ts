@@ -74,33 +74,6 @@ describe('resource policies', () => {
       membersCreateProjects: true,
       membersRequireProjects: true,
       portSharingDisabled: true,
-      projectCreationDefaults: {
-        environmentClasses: [
-          {
-            environmentClassId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            order: 0,
-            prebuild: true,
-            warmPool: {
-              enabled: true,
-              maxSize: 20,
-              minSize: 20,
-            },
-          },
-        ],
-        insightsEnabled: true,
-        prebuilds: {
-          disabled: {},
-          enabled: {
-            enableJetbrainsWarmup: true,
-            prebuildExecutor: {
-              id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              principal: 'PRINCIPAL_UNSPECIFIED',
-            },
-            timeout: '+9125115.360s',
-            trigger: { dailySchedule: { hourUtc: 23 } },
-          },
-        },
-      },
       requireCustomDomainAccess: true,
       restrictAccountCreationToScim: true,
       securityAgentPolicy: {
