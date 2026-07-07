@@ -797,10 +797,37 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/usage.ts">AgentTraceModelBreakdown</a></code>
+- <code><a href="./src/resources/usage.ts">AgentTraceSummary</a></code>
+- <code><a href="./src/resources/usage.ts">AgentTraceTimeBucket</a></code>
+- <code><a href="./src/resources/usage.ts">CoAuthorSummary</a></code>
+- <code><a href="./src/resources/usage.ts">CoAuthorTimeBucket</a></code>
+- <code><a href="./src/resources/usage.ts">CoAuthorTool</a></code>
+- <code><a href="./src/resources/usage.ts">DateRange</a></code>
 - <code><a href="./src/resources/usage.ts">EnvironmentUsageRecord</a></code>
+- <code><a href="./src/resources/usage.ts">PrSummary</a></code>
+- <code><a href="./src/resources/usage.ts">PrTimeBucket</a></code>
+- <code><a href="./src/resources/usage.ts">Resolution</a></code>
+- <code><a href="./src/resources/usage.ts">SupportedModel</a></code>
+- <code><a href="./src/resources/usage.ts">TimeSeriesPoint</a></code>
+- <code><a href="./src/resources/usage.ts">ToolBreakdown</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetAdoptionUsageSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetAgentTraceSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetAgentTraceTimeSeriesResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetCoAuthorSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetCoAuthorTimeSeriesResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetPrSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetPrTimeSeriesResponse</a></code>
 
 Methods:
 
+- <code title="post /gitpod.v1.UsageService/GetAdoptionUsageSummary">client.usage.<a href="./src/resources/usage.ts">getAdoptionUsageSummary</a>({ ...params }) -> UsageGetAdoptionUsageSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetAgentTraceSummary">client.usage.<a href="./src/resources/usage.ts">getAgentTraceSummary</a>({ ...params }) -> UsageGetAgentTraceSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetAgentTraceTimeSeries">client.usage.<a href="./src/resources/usage.ts">getAgentTraceTimeSeries</a>({ ...params }) -> UsageGetAgentTraceTimeSeriesResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetCoAuthorSummary">client.usage.<a href="./src/resources/usage.ts">getCoAuthorSummary</a>({ ...params }) -> UsageGetCoAuthorSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetCoAuthorTimeSeries">client.usage.<a href="./src/resources/usage.ts">getCoAuthorTimeSeries</a>({ ...params }) -> UsageGetCoAuthorTimeSeriesResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetPrSummary">client.usage.<a href="./src/resources/usage.ts">getPrSummary</a>({ ...params }) -> UsageGetPrSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetPrTimeSeries">client.usage.<a href="./src/resources/usage.ts">getPrTimeSeries</a>({ ...params }) -> UsageGetPrTimeSeriesResponse</code>
 - <code title="post /gitpod.v1.UsageService/ListEnvironmentUsageRecords">client.usage.<a href="./src/resources/usage.ts">listEnvironmentRuntimeRecords</a>({ ...params }) -> EnvironmentUsageRecordsRecordsPage</code>
 
 # Users
