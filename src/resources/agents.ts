@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as AgentsAPI from './agents';
 import * as Shared from './shared';
+import * as UsageAPI from './usage';
 import { APIPromise } from '../core/api-promise';
 import {
   AgentExecutionsPage,
@@ -846,32 +847,7 @@ export namespace AgentExecution {
     /**
      * supported_model is the LLM model being used by the agent execution.
      */
-    supportedModel?:
-      | 'SUPPORTED_MODEL_UNSPECIFIED'
-      | 'SUPPORTED_MODEL_SONNET_3_5'
-      | 'SUPPORTED_MODEL_SONNET_3_7'
-      | 'SUPPORTED_MODEL_SONNET_3_7_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_4'
-      | 'SUPPORTED_MODEL_SONNET_4_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_4_5'
-      | 'SUPPORTED_MODEL_SONNET_4_5_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_4_6'
-      | 'SUPPORTED_MODEL_SONNET_4_6_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_5'
-      | 'SUPPORTED_MODEL_OPUS_4'
-      | 'SUPPORTED_MODEL_OPUS_4_EXTENDED'
-      | 'SUPPORTED_MODEL_OPUS_4_5'
-      | 'SUPPORTED_MODEL_OPUS_4_5_EXTENDED'
-      | 'SUPPORTED_MODEL_OPUS_4_6'
-      | 'SUPPORTED_MODEL_OPUS_4_6_EXTENDED'
-      | 'SUPPORTED_MODEL_OPUS_4_7'
-      | 'SUPPORTED_MODEL_OPUS_4_8'
-      | 'SUPPORTED_MODEL_HAIKU_4_5'
-      | 'SUPPORTED_MODEL_OPENAI_4O'
-      | 'SUPPORTED_MODEL_OPENAI_4O_MINI'
-      | 'SUPPORTED_MODEL_OPENAI_O1'
-      | 'SUPPORTED_MODEL_OPENAI_O1_MINI'
-      | 'SUPPORTED_MODEL_OPENAI_AUTO';
+    supportedModel?: UsageAPI.SupportedModel;
 
     /**
      * transcript_url is the URL to the LLM transcript (all messages exchanged between
