@@ -86,8 +86,12 @@ import {
   TaskExecutionsPageResponse,
   type TasksPageParams,
   TasksPageResponse,
+  type TeamUsagePageParams,
+  TeamUsagePageResponse,
   type TokensPageParams,
   TokensPageResponse,
+  type UserUsagePageParams,
+  UserUsagePageResponse,
   type WarmPoolsPageParams,
   WarmPoolsPageResponse,
   type WorkflowExecutionActionsPageParams,
@@ -198,6 +202,51 @@ import {
   WorkflowsWorkflowsPage,
 } from './resources/automations';
 import {
+  AgentExecutionCreditUsage,
+  Billing,
+  BillingCurrency,
+  BillingGetCreditUsageExportParams,
+  BillingGetCreditUsageExportResponse,
+  BillingGetCreditUsageReportParams,
+  BillingGetCreditUsageReportResponse,
+  BillingGetCumulativeCreditUsageParams,
+  BillingGetCumulativeCreditUsageResponse,
+  BillingGetEnterpriseAIUsageSummaryParams,
+  BillingGetEnterpriseAIUsageSummaryResponse,
+  BillingGetEnterpriseAIUsageTimeSeriesParams,
+  BillingGetEnterpriseAIUsageTimeSeriesResponse,
+  BillingListEnterpriseAITeamUsageParams,
+  BillingListEnterpriseAIUserUsageParams,
+  BillingListEnterpriseUserCreditUsageParams,
+  ByokRateCardTokenType,
+  CreditUsageExportGroupBy,
+  CreditUsageReportFilter,
+  CreditsByType,
+  CumulativeCreditUsage,
+  DailyCreditUsage,
+  DailyEnterpriseAIUsage,
+  EnterpriseAITokenUsage,
+  EnterpriseAIUsage,
+  EnterpriseAIUsageBudget,
+  EnterpriseAIUsageBudgetSource,
+  EnterpriseAIUsageByModel,
+  EnterpriseAIUsageByTokenType,
+  EnterpriseAIUsageTimeSeriesFilter,
+  EnterpriseAIUserBudgetPolicySource,
+  EnvironmentCreditUsage,
+  TeamCreditUsage,
+  TeamCumulativeCreditUsage,
+  TeamEnterpriseAIUsage,
+  TeamEnterpriseAIUsagesTeamUsagePage,
+  UsageType,
+  UserCostBudgetUsage,
+  UserCostBudgetUsagesUserUsagePage,
+  UserCreditBudgetUsage,
+  UserCreditBudgetUsagesUserUsagePage,
+  UserCreditUsage,
+  UserEnterpriseAIUsage,
+} from './resources/billing';
+import {
   Editor,
   EditorListParams,
   EditorResolveURLParams,
@@ -298,7 +347,6 @@ import {
   CoAuthorSummary,
   CoAuthorTimeBucket,
   CoAuthorTool,
-  DateRange,
   EnvironmentUsageRecord,
   EnvironmentUsageRecordsRecordsPage,
   PrSummary,
@@ -1220,6 +1268,10 @@ export class Gitpod {
   accounts: API.Accounts = new API.Accounts(this);
   agents: API.Agents = new API.Agents(this);
   automations: API.Automations = new API.Automations(this);
+  /**
+   * BillingService provides billing and subscription management functionality.
+   */
+  billing: API.Billing = new API.Billing(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
   /**
@@ -1250,6 +1302,7 @@ export class Gitpod {
 Gitpod.Accounts = Accounts;
 Gitpod.Agents = Agents;
 Gitpod.Automations = Automations;
+Gitpod.Billing = Billing;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
 Gitpod.Errors = ErrorsAPIErrors;
@@ -1409,8 +1462,20 @@ export declare namespace Gitpod {
   export import TasksPage = Pagination.TasksPage;
   export { type TasksPageParams as TasksPageParams, type TasksPageResponse as TasksPageResponse };
 
+  export import TeamUsagePage = Pagination.TeamUsagePage;
+  export {
+    type TeamUsagePageParams as TeamUsagePageParams,
+    type TeamUsagePageResponse as TeamUsagePageResponse,
+  };
+
   export import TokensPage = Pagination.TokensPage;
   export { type TokensPageParams as TokensPageParams, type TokensPageResponse as TokensPageResponse };
+
+  export import UserUsagePage = Pagination.UserUsagePage;
+  export {
+    type UserUsagePageParams as UserUsagePageParams,
+    type UserUsagePageResponse as UserUsagePageResponse,
+  };
 
   export import WarmPoolsPage = Pagination.WarmPoolsPage;
   export {
@@ -1534,6 +1599,52 @@ export declare namespace Gitpod {
     type AutomationRetrieveExecutionParams as AutomationRetrieveExecutionParams,
     type AutomationRetrieveExecutionActionParams as AutomationRetrieveExecutionActionParams,
     type AutomationStartExecutionParams as AutomationStartExecutionParams,
+  };
+
+  export {
+    Billing as Billing,
+    type AgentExecutionCreditUsage as AgentExecutionCreditUsage,
+    type BillingCurrency as BillingCurrency,
+    type ByokRateCardTokenType as ByokRateCardTokenType,
+    type CreditUsageExportGroupBy as CreditUsageExportGroupBy,
+    type CreditUsageReportFilter as CreditUsageReportFilter,
+    type CreditsByType as CreditsByType,
+    type CumulativeCreditUsage as CumulativeCreditUsage,
+    type DailyCreditUsage as DailyCreditUsage,
+    type DailyEnterpriseAIUsage as DailyEnterpriseAIUsage,
+    type EnterpriseAITokenUsage as EnterpriseAITokenUsage,
+    type EnterpriseAIUsage as EnterpriseAIUsage,
+    type EnterpriseAIUsageBudget as EnterpriseAIUsageBudget,
+    type EnterpriseAIUsageBudgetSource as EnterpriseAIUsageBudgetSource,
+    type EnterpriseAIUsageByModel as EnterpriseAIUsageByModel,
+    type EnterpriseAIUsageByTokenType as EnterpriseAIUsageByTokenType,
+    type EnterpriseAIUsageTimeSeriesFilter as EnterpriseAIUsageTimeSeriesFilter,
+    type EnterpriseAIUserBudgetPolicySource as EnterpriseAIUserBudgetPolicySource,
+    type EnvironmentCreditUsage as EnvironmentCreditUsage,
+    type TeamCreditUsage as TeamCreditUsage,
+    type TeamCumulativeCreditUsage as TeamCumulativeCreditUsage,
+    type TeamEnterpriseAIUsage as TeamEnterpriseAIUsage,
+    type UsageType as UsageType,
+    type UserCostBudgetUsage as UserCostBudgetUsage,
+    type UserCreditBudgetUsage as UserCreditBudgetUsage,
+    type UserCreditUsage as UserCreditUsage,
+    type UserEnterpriseAIUsage as UserEnterpriseAIUsage,
+    type BillingGetCreditUsageExportResponse as BillingGetCreditUsageExportResponse,
+    type BillingGetCreditUsageReportResponse as BillingGetCreditUsageReportResponse,
+    type BillingGetCumulativeCreditUsageResponse as BillingGetCumulativeCreditUsageResponse,
+    type BillingGetEnterpriseAIUsageSummaryResponse as BillingGetEnterpriseAIUsageSummaryResponse,
+    type BillingGetEnterpriseAIUsageTimeSeriesResponse as BillingGetEnterpriseAIUsageTimeSeriesResponse,
+    type TeamEnterpriseAIUsagesTeamUsagePage as TeamEnterpriseAIUsagesTeamUsagePage,
+    type UserCostBudgetUsagesUserUsagePage as UserCostBudgetUsagesUserUsagePage,
+    type UserCreditBudgetUsagesUserUsagePage as UserCreditBudgetUsagesUserUsagePage,
+    type BillingGetCreditUsageExportParams as BillingGetCreditUsageExportParams,
+    type BillingGetCreditUsageReportParams as BillingGetCreditUsageReportParams,
+    type BillingGetCumulativeCreditUsageParams as BillingGetCumulativeCreditUsageParams,
+    type BillingGetEnterpriseAIUsageSummaryParams as BillingGetEnterpriseAIUsageSummaryParams,
+    type BillingGetEnterpriseAIUsageTimeSeriesParams as BillingGetEnterpriseAIUsageTimeSeriesParams,
+    type BillingListEnterpriseAITeamUsageParams as BillingListEnterpriseAITeamUsageParams,
+    type BillingListEnterpriseAIUserUsageParams as BillingListEnterpriseAIUserUsageParams,
+    type BillingListEnterpriseUserCreditUsageParams as BillingListEnterpriseUserCreditUsageParams,
   };
 
   export {
@@ -1794,7 +1905,6 @@ export declare namespace Gitpod {
     type CoAuthorSummary as CoAuthorSummary,
     type CoAuthorTimeBucket as CoAuthorTimeBucket,
     type CoAuthorTool as CoAuthorTool,
-    type DateRange as DateRange,
     type EnvironmentUsageRecord as EnvironmentUsageRecord,
     type PrSummary as PrSummary,
     type PrTimeBucket as PrTimeBucket,
@@ -1839,6 +1949,7 @@ export declare namespace Gitpod {
   export type CodexServiceTier = API.CodexServiceTier;
   export type CodexSettings = API.CodexSettings;
   export type CountResponseRelation = API.CountResponseRelation;
+  export type DateRange = API.DateRange;
   export type EnvironmentClass = API.EnvironmentClass;
   export type EnvironmentVariableItem = API.EnvironmentVariableItem;
   export type EnvironmentVariableSource = API.EnvironmentVariableSource;

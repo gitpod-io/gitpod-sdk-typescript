@@ -50,7 +50,10 @@ export type CodexOpenAIModel =
   | 'CODEX_OPEN_AI_MODEL_GPT_5_4_MINI'
   | 'CODEX_OPEN_AI_MODEL_GPT_5_3_CODEX'
   | 'CODEX_OPEN_AI_MODEL_GPT_5_3_CODEX_SPARK'
-  | 'CODEX_OPEN_AI_MODEL_GPT_5_2';
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_2'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_6_SOL'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_6_TERRA'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_6_LUNA';
 
 /**
  * CodexReasoningEffort is the static allowlist of reasoning efforts supported by
@@ -96,6 +99,21 @@ export type CountResponseRelation =
   | 'COUNT_RESPONSE_RELATION_UNSPECIFIED'
   | 'COUNT_RESPONSE_RELATION_EQ'
   | 'COUNT_RESPONSE_RELATION_GTE';
+
+/**
+ * DateRange specifies a time period for queries.
+ */
+export interface DateRange {
+  /**
+   * End time of the date range (exclusive).
+   */
+  endTime: string;
+
+  /**
+   * Start time of the date range (inclusive).
+   */
+  startTime: string;
+}
 
 export interface EnvironmentClass {
   /**

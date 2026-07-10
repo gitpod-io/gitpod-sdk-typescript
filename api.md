@@ -8,6 +8,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">CodexServiceTier</a></code>
 - <code><a href="./src/resources/shared.ts">CodexSettings</a></code>
 - <code><a href="./src/resources/shared.ts">CountResponseRelation</a></code>
+- <code><a href="./src/resources/shared.ts">DateRange</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableItem</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableSource</a></code>
@@ -138,6 +139,53 @@ Methods:
 - <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecution">client.automations.<a href="./src/resources/automations.ts">retrieveExecution</a>({ ...params }) -> AutomationRetrieveExecutionResponse</code>
 - <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecutionAction">client.automations.<a href="./src/resources/automations.ts">retrieveExecutionAction</a>({ ...params }) -> AutomationRetrieveExecutionActionResponse</code>
 - <code title="post /gitpod.v1.WorkflowService/StartWorkflow">client.automations.<a href="./src/resources/automations.ts">startExecution</a>({ ...params }) -> AutomationStartExecutionResponse</code>
+
+# Billing
+
+Types:
+
+- <code><a href="./src/resources/billing.ts">AgentExecutionCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">BillingCurrency</a></code>
+- <code><a href="./src/resources/billing.ts">ByokRateCardTokenType</a></code>
+- <code><a href="./src/resources/billing.ts">CreditUsageExportGroupBy</a></code>
+- <code><a href="./src/resources/billing.ts">CreditUsageReportFilter</a></code>
+- <code><a href="./src/resources/billing.ts">CreditsByType</a></code>
+- <code><a href="./src/resources/billing.ts">CumulativeCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">DailyCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">DailyEnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAITokenUsage</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageBudget</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageBudgetSource</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageByModel</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageByTokenType</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageTimeSeriesFilter</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUserBudgetPolicySource</a></code>
+- <code><a href="./src/resources/billing.ts">EnvironmentCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">TeamCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">TeamCumulativeCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">TeamEnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UsageType</a></code>
+- <code><a href="./src/resources/billing.ts">UserCostBudgetUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UserCreditBudgetUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UserCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UserEnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetCreditUsageExportResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetCreditUsageReportResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetCumulativeCreditUsageResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetEnterpriseAIUsageSummaryResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetEnterpriseAIUsageTimeSeriesResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.BillingService/GetCreditUsageExport">client.billing.<a href="./src/resources/billing.ts">getCreditUsageExport</a>({ ...params }) -> BillingGetCreditUsageExportResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetCreditUsageReport">client.billing.<a href="./src/resources/billing.ts">getCreditUsageReport</a>({ ...params }) -> BillingGetCreditUsageReportResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetCumulativeCreditUsage">client.billing.<a href="./src/resources/billing.ts">getCumulativeCreditUsage</a>({ ...params }) -> BillingGetCumulativeCreditUsageResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetEnterpriseAIUsageSummary">client.billing.<a href="./src/resources/billing.ts">getEnterpriseAIUsageSummary</a>({ ...params }) -> BillingGetEnterpriseAIUsageSummaryResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetEnterpriseAIUsageTimeSeries">client.billing.<a href="./src/resources/billing.ts">getEnterpriseAIUsageTimeSeries</a>({ ...params }) -> BillingGetEnterpriseAIUsageTimeSeriesResponse</code>
+- <code title="post /gitpod.v1.BillingService/ListEnterpriseAITeamUsage">client.billing.<a href="./src/resources/billing.ts">listEnterpriseAITeamUsage</a>({ ...params }) -> TeamEnterpriseAIUsagesTeamUsagePage</code>
+- <code title="post /gitpod.v1.BillingService/ListEnterpriseAIUserUsage">client.billing.<a href="./src/resources/billing.ts">listEnterpriseAIUserUsage</a>({ ...params }) -> UserCostBudgetUsagesUserUsagePage</code>
+- <code title="post /gitpod.v1.BillingService/ListEnterpriseUserCreditUsage">client.billing.<a href="./src/resources/billing.ts">listEnterpriseUserCreditUsage</a>({ ...params }) -> UserCreditBudgetUsagesUserUsagePage</code>
 
 # Editors
 
@@ -803,7 +851,6 @@ Types:
 - <code><a href="./src/resources/usage.ts">CoAuthorSummary</a></code>
 - <code><a href="./src/resources/usage.ts">CoAuthorTimeBucket</a></code>
 - <code><a href="./src/resources/usage.ts">CoAuthorTool</a></code>
-- <code><a href="./src/resources/usage.ts">DateRange</a></code>
 - <code><a href="./src/resources/usage.ts">EnvironmentUsageRecord</a></code>
 - <code><a href="./src/resources/usage.ts">PrSummary</a></code>
 - <code><a href="./src/resources/usage.ts">PrTimeBucket</a></code>

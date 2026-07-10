@@ -1836,6 +1836,61 @@ export class TasksPage<Item> extends AbstractPage<Item> implements TasksPageResp
   }
 }
 
+export interface TeamUsagePageResponse<Item> {
+  pagination: TeamUsagePageResponse.Pagination;
+
+  teamUsage: Array<Item>;
+}
+
+export namespace TeamUsagePageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface TeamUsagePageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class TeamUsagePage<Item> extends AbstractPage<Item> implements TeamUsagePageResponse<Item> {
+  pagination: TeamUsagePageResponse.Pagination;
+
+  teamUsage: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: TeamUsagePageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.teamUsage = body.teamUsage || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.teamUsage ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface TokensPageResponse<Item> {
   pagination: TokensPageResponse.Pagination;
 
@@ -1873,6 +1928,61 @@ export class TokensPage<Item> extends AbstractPage<Item> implements TokensPageRe
 
   getPaginatedItems(): Item[] {
     return this.tokens ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
+export interface UserUsagePageResponse<Item> {
+  pagination: UserUsagePageResponse.Pagination;
+
+  userUsage: Array<Item>;
+}
+
+export namespace UserUsagePageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface UserUsagePageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class UserUsagePage<Item> extends AbstractPage<Item> implements UserUsagePageResponse<Item> {
+  pagination: UserUsagePageResponse.Pagination;
+
+  userUsage: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: UserUsagePageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.userUsage = body.userUsage || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.userUsage ?? [];
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
