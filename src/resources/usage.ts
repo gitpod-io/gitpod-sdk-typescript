@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as UsageAPI from './usage';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { PagePromise, RecordsPage, type RecordsPageParams } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -541,21 +541,6 @@ export type CoAuthorTool =
   | 'CO_AUTHOR_TOOL_CODEX';
 
 /**
- * DateRange specifies a time period for queries.
- */
-export interface DateRange {
-  /**
-   * End time of the date range (exclusive).
-   */
-  endTime: string;
-
-  /**
-   * Start time of the date range (inclusive).
-   */
-  startTime: string;
-}
-
-/**
  * EnvironmentUsageRecord represents a record of an environment from start to stop.
  */
 export interface EnvironmentUsageRecord {
@@ -882,7 +867,7 @@ export interface UsageGetAdoptionUsageSummaryParams {
   /**
    * Date range to query metrics within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to filter metrics by.
@@ -904,7 +889,7 @@ export interface UsageGetAgentTraceSummaryParams {
   /**
    * Date range to query within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to scope results.
@@ -928,7 +913,7 @@ export interface UsageGetAgentTraceTimeSeriesParams {
   /**
    * Date range to query within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to scope results.
@@ -957,7 +942,7 @@ export interface UsageGetCoAuthorSummaryParams {
   /**
    * Date range to query within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to scope results.
@@ -981,7 +966,7 @@ export interface UsageGetCoAuthorTimeSeriesParams {
   /**
    * Date range to query within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to scope results.
@@ -1010,7 +995,7 @@ export interface UsageGetPrSummaryParams {
   /**
    * Date range to query within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to scope results.
@@ -1034,7 +1019,7 @@ export interface UsageGetPrTimeSeriesParams {
   /**
    * Date range to query within.
    */
-  dateRange: DateRange;
+  dateRange: Shared.DateRange;
 
   /**
    * Optional project ID to scope results.
@@ -1079,7 +1064,7 @@ export namespace UsageListEnvironmentRuntimeRecordsParams {
     /**
      * Date range to query runtime records within.
      */
-    dateRange: UsageAPI.DateRange;
+    dateRange: Shared.DateRange;
 
     /**
      * Optional project ID to filter runtime records by.
@@ -1113,7 +1098,6 @@ export declare namespace Usage {
     type CoAuthorSummary as CoAuthorSummary,
     type CoAuthorTimeBucket as CoAuthorTimeBucket,
     type CoAuthorTool as CoAuthorTool,
-    type DateRange as DateRange,
     type EnvironmentUsageRecord as EnvironmentUsageRecord,
     type PrSummary as PrSummary,
     type PrTimeBucket as PrTimeBucket,
