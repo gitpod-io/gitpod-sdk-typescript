@@ -721,7 +721,8 @@ export type EnvironmentRole =
   | 'ENVIRONMENT_ROLE_UNSPECIFIED'
   | 'ENVIRONMENT_ROLE_DEFAULT'
   | 'ENVIRONMENT_ROLE_PREBUILD'
-  | 'ENVIRONMENT_ROLE_WORKFLOW';
+  | 'ENVIRONMENT_ROLE_WORKFLOW'
+  | 'ENVIRONMENT_ROLE_BASE_SNAPSHOT_BUILD';
 
 /**
  * EnvironmentSpec specifies the configuration of an environment for an environment
