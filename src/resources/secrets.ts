@@ -363,6 +363,11 @@ export interface Secret {
   scope?: SecretScope;
 
   /**
+   * Source of the secret
+   */
+  source?: Secret.Source;
+
+  /**
    * A Timestamp represents a point in time independent of any time zone or local
    * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
    * resolution. The count is relative to an epoch at UTC midnight on January 1,
@@ -476,6 +481,30 @@ export namespace Secret {
      */
     targetHosts?: Array<string>;
   }
+
+  /**
+   * Source of the secret
+   */
+  export interface Source {
+    oidcJfrog?: Source.OidcJfrog;
+
+    verbatim?: boolean;
+  }
+
+  export namespace Source {
+    export interface OidcJfrog {
+      /**
+       * host must be a hostname or IP address with optional port:
+       *
+       * ```
+       * this.matches("^([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?[.])*[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(:([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$")
+       * ```
+       */
+      host?: string;
+
+      providerName?: string;
+    }
+  }
 }
 
 export interface SecretScope {
@@ -566,7 +595,13 @@ export interface SecretCreateParams {
   scope?: SecretScope;
 
   /**
-   * value is the plaintext value of the secret
+   * source is the source of the secret, possibly verbatim value
+   */
+  source?: SecretCreateParams.Source;
+
+  /**
+   * value is the plaintext value of the secret. When set, source must be unset or
+   * verbatim.
    */
   value?: string;
 }
@@ -591,6 +626,30 @@ export namespace SecretCreateParams {
      * "\*.github.com"). Wildcards are subdomain-only and do not match the apex domain.
      */
     targetHosts?: Array<string>;
+  }
+
+  /**
+   * source is the source of the secret, possibly verbatim value
+   */
+  export interface Source {
+    oidcJfrog?: Source.OidcJfrog;
+
+    verbatim?: boolean;
+  }
+
+  export namespace Source {
+    export interface OidcJfrog {
+      /**
+       * host must be a hostname or IP address with optional port:
+       *
+       * ```
+       * this.matches("^([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?[.])*[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(:([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$")
+       * ```
+       */
+      host?: string;
+
+      providerName?: string;
+    }
   }
 }
 
