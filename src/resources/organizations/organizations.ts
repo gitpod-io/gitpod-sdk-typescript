@@ -55,6 +55,7 @@ import {
 import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
+  CodexModelPolicy,
   ConversationSharingPolicy,
   CrowdStrikeConfig,
   CustomAgentEnvMapping,
@@ -1057,6 +1058,7 @@ export declare namespace Organizations {
   export {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
+    type CodexModelPolicy as CodexModelPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type CustomAgentEnvMapping as CustomAgentEnvMapping,

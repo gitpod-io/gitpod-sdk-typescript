@@ -122,8 +122,9 @@ export interface AgentPolicy {
   allowedAgentIds?: Array<string>;
 
   /**
-   * allowed_codex_models contains the Codex models users may select when the
-   * codex_rollout feature flag is enabled. Empty means all Codex models are allowed.
+   * @deprecated Deprecated: use codex_model_policy. This legacy allowlist cannot
+   * distinguish omitted from intentionally empty on update requests. Empty means all
+   * Codex models are allowed.
    */
   allowedCodexModels?: Array<Shared.CodexOpenAIModel>;
 
@@ -142,6 +143,12 @@ export interface AgentPolicy {
   allowedCodexServiceTiers?: Array<Shared.CodexServiceTier>;
 
   /**
+   * codex_model_policy contains explicit per-model Codex availability states.
+   * Missing policy or missing model entries mean allowed.
+   */
+  codexModelPolicy?: CodexModelPolicy;
+
+  /**
    * conversation_sharing_policy controls whether agent conversations can be shared
    */
   conversationSharingPolicy?: ConversationSharingPolicy;
@@ -158,6 +165,22 @@ export interface AgentPolicy {
    * Empty means no restriction (all users can use SCM tools if not disabled).
    */
   scmToolsAllowedGroupId?: string;
+}
+
+/**
+ * CodexModelPolicy controls per-model availability for Codex.
+ */
+export interface CodexModelPolicy {
+  /**
+   * model_states maps CodexOpenAIModel enum names to explicit policy states. Missing
+   * entries are treated as allowed.
+   */
+  modelStates?: {
+    [key: string]:
+      | 'CODEX_MODEL_POLICY_STATE_UNSPECIFIED'
+      | 'CODEX_MODEL_POLICY_STATE_ALLOWED'
+      | 'CODEX_MODEL_POLICY_STATE_DISABLED';
+  };
 }
 
 /**
@@ -614,8 +637,9 @@ export namespace PolicyUpdateParams {
     allowedAgentIds?: Array<string>;
 
     /**
-     * allowed_codex_models contains the Codex models users may select when the
-     * codex_rollout feature flag is enabled. Empty means all Codex models are allowed.
+     * @deprecated Deprecated: use codex_model_policy. This legacy allowlist cannot
+     * distinguish omitted from intentionally empty on update requests. Empty means all
+     * Codex models are allowed.
      */
     allowedCodexModels?: Array<Shared.CodexOpenAIModel>;
 
@@ -632,6 +656,13 @@ export namespace PolicyUpdateParams {
      * tiers are allowed.
      */
     allowedCodexServiceTiers?: Array<Shared.CodexServiceTier>;
+
+    /**
+     * codex_model_policy contains explicit per-model Codex availability states. Omit
+     * to leave the current model policy unchanged. Send an empty policy to clear
+     * explicit model states.
+     */
+    codexModelPolicy?: PoliciesAPI.CodexModelPolicy;
 
     /**
      * command_deny_list contains a list of commands that agents are not allowed to
@@ -730,6 +761,7 @@ export namespace PolicyUpdateParams {
 export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
+    type CodexModelPolicy as CodexModelPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type CustomAgentEnvMapping as CustomAgentEnvMapping,

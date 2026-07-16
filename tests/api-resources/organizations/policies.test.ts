@@ -52,6 +52,7 @@ describe('resource policies', () => {
         allowedCodexModels: ['CODEX_OPEN_AI_MODEL_UNSPECIFIED'],
         allowedCodexReasoningEfforts: ['CODEX_REASONING_EFFORT_UNSPECIFIED'],
         allowedCodexServiceTiers: ['CODEX_SERVICE_TIER_UNSPECIFIED'],
+        codexModelPolicy: { modelStates: { foo: 'CODEX_MODEL_POLICY_STATE_UNSPECIFIED' } },
         commandDenyList: ['string'],
         conversationSharingPolicy: 'CONVERSATION_SHARING_POLICY_UNSPECIFIED',
         maxSubagentsPerEnvironment: 10,
