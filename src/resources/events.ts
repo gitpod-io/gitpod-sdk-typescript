@@ -226,6 +226,12 @@ export interface EventListResponse {
    */
   createdAt?: string;
 
+  /**
+   * AuditLogEntryKind identifies the typed details associated with an audit-log
+   * entry. No concrete kinds are defined yet.
+   */
+  kind?: 'AUDIT_LOG_ENTRY_KIND_UNSPECIFIED';
+
   subjectId?: string;
 
   subjectType?: Shared.ResourceType;
