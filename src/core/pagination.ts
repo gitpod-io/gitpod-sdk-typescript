@@ -1613,6 +1613,64 @@ export class SecretsPage<Item> extends AbstractPage<Item> implements SecretsPage
   }
 }
 
+export interface SecurityPoliciesPageResponse<Item> {
+  pagination: SecurityPoliciesPageResponse.Pagination;
+
+  securityPolicies: Array<Item>;
+}
+
+export namespace SecurityPoliciesPageResponse {
+  export interface Pagination {
+    nextToken?: string;
+  }
+}
+
+export interface SecurityPoliciesPageParams {
+  pageSize?: number;
+
+  token?: string;
+}
+
+export class SecurityPoliciesPage<Item>
+  extends AbstractPage<Item>
+  implements SecurityPoliciesPageResponse<Item>
+{
+  pagination: SecurityPoliciesPageResponse.Pagination;
+
+  securityPolicies: Array<Item>;
+
+  constructor(
+    client: Gitpod,
+    response: Response,
+    body: SecurityPoliciesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.pagination = body.pagination || {};
+    this.securityPolicies = body.securityPolicies || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.securityPolicies ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.pagination?.nextToken;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        token: cursor,
+      },
+    };
+  }
+}
+
 export interface ServicesPageResponse<Item> {
   pagination: ServicesPageResponse.Pagination;
 

@@ -842,6 +842,24 @@ Methods:
 - <code title="post /gitpod.v1.SecretService/GetSecretValue">client.secrets.<a href="./src/resources/secrets.ts">getValue</a>({ ...params }) -> SecretGetValueResponse</code>
 - <code title="post /gitpod.v1.SecretService/UpdateSecretValue">client.secrets.<a href="./src/resources/secrets.ts">updateValue</a>({ ...params }) -> unknown</code>
 
+# SecurityPolicies
+
+Types:
+
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicy</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyCreateResponse</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyRetrieveResponse</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyUpdateResponse</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.SecurityService/CreateSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">create</a>({ ...params }) -> SecurityPolicyCreateResponse</code>
+- <code title="post /gitpod.v1.SecurityService/GetSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">retrieve</a>({ ...params }) -> SecurityPolicyRetrieveResponse</code>
+- <code title="post /gitpod.v1.SecurityService/UpdateSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">update</a>({ ...params }) -> SecurityPolicyUpdateResponse</code>
+- <code title="post /gitpod.v1.SecurityService/ListSecurityPolicies">client.securityPolicies.<a href="./src/resources/security-policies.ts">list</a>({ ...params }) -> SecurityPoliciesSecurityPoliciesPage</code>
+- <code title="post /gitpod.v1.SecurityService/DeleteSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">delete</a>({ ...params }) -> unknown</code>
+
 # Usage
 
 Types:

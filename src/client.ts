@@ -73,6 +73,8 @@ import {
   ScimConfigurationsPageResponse,
   type SecretsPageParams,
   SecretsPageResponse,
+  type SecurityPoliciesPageParams,
+  SecurityPoliciesPageResponse,
   type ServicesPageParams,
   ServicesPageResponse,
   type TaskExecutionsPageParams,
@@ -333,6 +335,20 @@ import {
   Secrets,
   SecretsSecretsPage,
 } from './resources/secrets';
+import {
+  SecurityPolicies,
+  SecurityPoliciesSecurityPoliciesPage,
+  SecurityPolicy,
+  SecurityPolicyCreateParams,
+  SecurityPolicyCreateResponse,
+  SecurityPolicyDeleteParams,
+  SecurityPolicyDeleteResponse,
+  SecurityPolicyListParams,
+  SecurityPolicyRetrieveParams,
+  SecurityPolicyRetrieveResponse,
+  SecurityPolicyUpdateParams,
+  SecurityPolicyUpdateResponse,
+} from './resources/security-policies';
 import {
   AgentTraceModelBreakdown,
   AgentTraceSummary,
@@ -1292,6 +1308,7 @@ export class Gitpod {
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
+  securityPolicies: API.SecurityPolicies = new API.SecurityPolicies(this);
   /**
    * UsageService provides usage information about environments, users, and projects.
    */
@@ -1315,6 +1332,7 @@ Gitpod.Prebuilds = Prebuilds;
 Gitpod.Projects = Projects;
 Gitpod.Runners = Runners;
 Gitpod.Secrets = Secrets;
+Gitpod.SecurityPolicies = SecurityPolicies;
 Gitpod.Usage = Usage;
 Gitpod.Users = Users;
 
@@ -1443,6 +1461,12 @@ export declare namespace Gitpod {
 
   export import SecretsPage = Pagination.SecretsPage;
   export { type SecretsPageParams as SecretsPageParams, type SecretsPageResponse as SecretsPageResponse };
+
+  export import SecurityPoliciesPage = Pagination.SecurityPoliciesPage;
+  export {
+    type SecurityPoliciesPageParams as SecurityPoliciesPageParams,
+    type SecurityPoliciesPageResponse as SecurityPoliciesPageResponse,
+  };
 
   export import ServicesPage = Pagination.ServicesPage;
   export { type ServicesPageParams as ServicesPageParams, type ServicesPageResponse as ServicesPageResponse };
@@ -1895,6 +1919,21 @@ export declare namespace Gitpod {
     type SecretDeleteParams as SecretDeleteParams,
     type SecretGetValueParams as SecretGetValueParams,
     type SecretUpdateValueParams as SecretUpdateValueParams,
+  };
+
+  export {
+    SecurityPolicies as SecurityPolicies,
+    type SecurityPolicy as SecurityPolicy,
+    type SecurityPolicyCreateResponse as SecurityPolicyCreateResponse,
+    type SecurityPolicyRetrieveResponse as SecurityPolicyRetrieveResponse,
+    type SecurityPolicyUpdateResponse as SecurityPolicyUpdateResponse,
+    type SecurityPolicyDeleteResponse as SecurityPolicyDeleteResponse,
+    type SecurityPoliciesSecurityPoliciesPage as SecurityPoliciesSecurityPoliciesPage,
+    type SecurityPolicyCreateParams as SecurityPolicyCreateParams,
+    type SecurityPolicyRetrieveParams as SecurityPolicyRetrieveParams,
+    type SecurityPolicyUpdateParams as SecurityPolicyUpdateParams,
+    type SecurityPolicyListParams as SecurityPolicyListParams,
+    type SecurityPolicyDeleteParams as SecurityPolicyDeleteParams,
   };
 
   export {
