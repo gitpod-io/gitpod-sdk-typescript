@@ -419,6 +419,15 @@ export interface OrganizationPolicies {
   securityAgentPolicy?: SecurityAgentPolicy;
 
   /**
+   * security_policy_id references the Veto Exec SecurityPolicy assigned to newly
+   * created environments. The public GA contract accepts policies that use only
+   * SecurityPolicy.Spec.executables. Assignment validates materializability and
+   * rejects unsupported executable selectors or effects. If empty, new environments
+   * have no SecurityPolicy by default.
+   */
+  securityPolicyId?: string;
+
+  /**
    * veto_exec_policy contains the veto exec policy for environments.
    */
   vetoExecPolicy?: VetoExecPolicy;
@@ -612,6 +621,15 @@ export interface PolicyUpdateParams {
    * security_agent_policy contains security agent configuration updates
    */
   securityAgentPolicy?: PolicyUpdateParams.SecurityAgentPolicy | null;
+
+  /**
+   * security_policy_id assigns a Veto Exec SecurityPolicy to newly created
+   * environments. The public GA contract accepts policies that use only
+   * SecurityPolicy.Spec.executables. Assignment validates materializability and
+   * rejects unsupported executable selectors or effects. Set this field to an empty
+   * string to clear the default assignment.
+   */
+  securityPolicyId?: string | null;
 
   /**
    * veto_exec_policy contains the veto exec policy for environments.
