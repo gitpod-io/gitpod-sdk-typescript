@@ -382,6 +382,20 @@ export {
   type SecretsSecretsPage,
 } from './secrets';
 export {
+  SecurityPolicies,
+  type SecurityPolicy,
+  type SecurityPolicyCreateResponse,
+  type SecurityPolicyRetrieveResponse,
+  type SecurityPolicyUpdateResponse,
+  type SecurityPolicyDeleteResponse,
+  type SecurityPolicyCreateParams,
+  type SecurityPolicyRetrieveParams,
+  type SecurityPolicyUpdateParams,
+  type SecurityPolicyListParams,
+  type SecurityPolicyDeleteParams,
+  type SecurityPoliciesSecurityPoliciesPage,
+} from './security-policies';
+export {
   Usage,
   type AgentTraceModelBreakdown,
   type AgentTraceSummary,
