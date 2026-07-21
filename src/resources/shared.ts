@@ -229,6 +229,14 @@ export interface Gateway {
   region?: string;
 }
 
+/**
+ * KernelControlsAction defines how a kernel-level policy violation is handled.
+ */
+export type KernelControlsAction =
+  | 'KERNEL_CONTROLS_ACTION_UNSPECIFIED'
+  | 'KERNEL_CONTROLS_ACTION_BLOCK'
+  | 'KERNEL_CONTROLS_ACTION_AUDIT';
+
 export type OrganizationRole =
   | 'ORGANIZATION_ROLE_UNSPECIFIED'
   | 'ORGANIZATION_ROLE_ADMIN'

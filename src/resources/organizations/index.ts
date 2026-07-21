@@ -76,7 +76,6 @@ export {
   type CrowdStrikeConfig,
   type CustomAgentEnvMapping,
   type CustomSecurityAgent,
-  type KernelControlsAction,
   type OrganizationPolicies,
   type SecurityAgentPolicy,
   type VetoExecPolicy,

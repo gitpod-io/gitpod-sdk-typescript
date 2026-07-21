@@ -206,9 +206,13 @@ export {
 } from './errors';
 export {
   Events,
+  type AuditLogEntryDetails,
+  type Process,
   type ResourceOperation,
+  type EventRetrieveResponse,
   type EventListResponse,
   type EventWatchResponse,
+  type EventRetrieveParams,
   type EventListParams,
   type EventWatchParams,
   type EventListResponsesEntriesPage,

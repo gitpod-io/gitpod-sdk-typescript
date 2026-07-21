@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as EventsAPI from './events';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { EntriesPage, type EntriesPageParams, PagePromise } from '../core/pagination';
@@ -9,6 +10,33 @@ import { RequestOptions } from '../internal/request-options';
 import { JSONLDecoder } from '../internal/decoders/jsonl';
 
 export class Events extends APIResource {
+  /**
+   * Gets one audit-log entry, including any typed details stored for it.
+   *
+   * Use this method to:
+   *
+   * - Inspect the details of a specific audit-log entry
+   * - Retrieve the evidence associated with a Veto Exec audit event
+   *
+   * ### Examples
+   *
+   * - Get an audit-log entry:
+   *
+   *   ```yaml
+   *   auditLogEntryId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   ```
+   *
+   * @example
+   * ```ts
+   * const event = await client.events.retrieve({
+   *   auditLogEntryId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   * });
+   * ```
+   */
+  retrieve(body: EventRetrieveParams, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
+    return this._client.post('/gitpod.v1.EventService/GetAuditLog', { body, ...options });
+  }
+
   /**
    * Lists audit logs with filtering and pagination options.
    *
@@ -118,12 +146,241 @@ export class Events extends APIResource {
 
 export type EventListResponsesEntriesPage = EntriesPage<EventListResponse>;
 
+/**
+ * AuditLogEntryDetails contains the typed evidence stored with an audit-log entry.
+ */
+export interface AuditLogEntryDetails {
+  /**
+   * veto_exec contains Veto Exec event details without process.cmdline.
+   */
+  vetoExec: AuditLogEntryDetails.VetoExec;
+}
+
+export namespace AuditLogEntryDetails {
+  /**
+   * veto_exec contains Veto Exec event details without process.cmdline.
+   */
+  export interface VetoExec {
+    /**
+     * process contains metadata about the process that triggered the event.
+     */
+    process: EventsAPI.Process;
+
+    /**
+     * timestamp is when the event occurred in the environment.
+     */
+    timestamp: string;
+
+    /**
+     * action is the enforcement action taken (block or audit).
+     */
+    action?: Shared.KernelControlsAction;
+
+    /**
+     * environment_id is the environment where the event occurred.
+     */
+    environmentId?: string;
+
+    /**
+     * executable is the digest of the binary content (e.g., "sha256:a1b2c3d4..."). 256
+     * allows for longer hash algorithms or prefixed identifiers. May be empty when the
+     * event source cannot compute the hash.
+     */
+    executable?: string;
+
+    /**
+     * filename is the kernel-resolved path of the binary. Kernel PATH_MAX = 4096
+     * (include/uapi/linux/limits.h). May be empty if the event source could not
+     * resolve it.
+     */
+    filename?: string;
+  }
+}
+
+/**
+ * Process describes process metadata for a security event.
+ *
+ * PID fields use int32 to match the kernel's pid_t (signed int). Linux PID max is
+ * 4,194,304 (2^22), well within int32 range. Postgres has no unsigned integer
+ * type: Ent maps uint32 to bigint (8 bytes) while int32 maps to integer (4 bytes).
+ * Using int32 aligns proto, Go, and Postgres types without wasting storage.
+ */
+export interface Process {
+  /**
+   * name is the process name (comm). 2x kernel TASK_COMM_LEN=16
+   */
+  name?: string;
+
+  /**
+   * pgid is the process group ID.
+   */
+  pgid?: number;
+
+  /**
+   * pid is the userspace process ID (kernel thread group ID, tgid).
+   */
+  pid?: number;
+
+  /**
+   * ppid is the parent process ID.
+   */
+  ppid?: number;
+
+  /**
+   * sid is the session ID.
+   */
+  sid?: number;
+
+  /**
+   * started_at is when the process started.
+   */
+  startedAt?: string;
+
+  /**
+   * tid is the userspace thread ID (kernel pid).
+   */
+  tid?: number;
+}
+
 export type ResourceOperation =
   | 'RESOURCE_OPERATION_UNSPECIFIED'
   | 'RESOURCE_OPERATION_CREATE'
   | 'RESOURCE_OPERATION_UPDATE'
   | 'RESOURCE_OPERATION_DELETE'
   | 'RESOURCE_OPERATION_UPDATE_STATUS';
+
+export interface EventRetrieveResponse {
+  /**
+   * entry contains the common audit-log fields also returned by ListAuditLogs.
+   */
+  entry: EventRetrieveResponse.Entry;
+
+  /**
+   * details contains typed evidence captured with the audit entry. It is absent when
+   * the entry has no supported, valid details.
+   */
+  details?: AuditLogEntryDetails;
+}
+
+export namespace EventRetrieveResponse {
+  /**
+   * entry contains the common audit-log fields also returned by ListAuditLogs.
+   */
+  export interface Entry {
+    id?: string;
+
+    action?: string;
+
+    actorId?: string;
+
+    actorPrincipal?: Shared.Principal;
+
+    /**
+     * A Timestamp represents a point in time independent of any time zone or local
+     * calendar, encoded as a count of seconds and fractions of seconds at nanosecond
+     * resolution. The count is relative to an epoch at UTC midnight on January 1,
+     * 1970, in the proleptic Gregorian calendar which extends the Gregorian calendar
+     * backwards to year one.
+     *
+     * All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+     * second table is needed for interpretation, using a
+     * [24-hour linear smear](https://developers.google.com/time/smear).
+     *
+     * The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+     * restricting to that range, we ensure that we can convert to and from
+     * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
+     *
+     * # Examples
+     *
+     * Example 1: Compute Timestamp from POSIX `time()`.
+     *
+     *      Timestamp timestamp;
+     *      timestamp.set_seconds(time(NULL));
+     *      timestamp.set_nanos(0);
+     *
+     * Example 2: Compute Timestamp from POSIX `gettimeofday()`.
+     *
+     *      struct timeval tv;
+     *      gettimeofday(&tv, NULL);
+     *
+     *      Timestamp timestamp;
+     *      timestamp.set_seconds(tv.tv_sec);
+     *      timestamp.set_nanos(tv.tv_usec * 1000);
+     *
+     * Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+     *
+     *      FILETIME ft;
+     *      GetSystemTimeAsFileTime(&ft);
+     *      UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+     *
+     *      // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+     *      // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+     *      Timestamp timestamp;
+     *      timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+     *      timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+     *
+     * Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+     *
+     *      long millis = System.currentTimeMillis();
+     *
+     *      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+     *          .setNanos((int) ((millis % 1000) * 1000000)).build();
+     *
+     * Example 5: Compute Timestamp from Java `Instant.now()`.
+     *
+     *      Instant now = Instant.now();
+     *
+     *      Timestamp timestamp =
+     *          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+     *              .setNanos(now.getNano()).build();
+     *
+     * Example 6: Compute Timestamp from current time in Python.
+     *
+     *      timestamp = Timestamp()
+     *      timestamp.GetCurrentTime()
+     *
+     * # JSON Mapping
+     *
+     * In JSON format, the Timestamp type is encoded as a string in the
+     * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the format is
+     * "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z" where {year} is always
+     * expressed using four digits while {month}, {day}, {hour}, {min}, and {sec} are
+     * zero-padded to two digits each. The fractional seconds, which can go up to 9
+     * digits (i.e. up to 1 nanosecond resolution), are optional. The "Z" suffix
+     * indicates the timezone ("UTC"); the timezone is required. A proto3 JSON
+     * serializer should always use UTC (as indicated by "Z") when printing the
+     * Timestamp type and a proto3 JSON parser should be able to accept both UTC and
+     * other timezones (as indicated by an offset).
+     *
+     * For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past 01:30 UTC on
+     * January 15, 2017.
+     *
+     * In JavaScript, one can convert a Date object to this format using the standard
+     * [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+     * method. In Python, a standard `datetime.datetime` object can be converted to
+     * this format using
+     * [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with the
+     * time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use the
+     * Joda Time's
+     * [`ISODateTimeFormat.dateTime()`](<http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()>)
+     * to obtain a formatter capable of generating timestamps in this format.
+     */
+    createdAt?: string;
+
+    /**
+     * AuditLogEntryKind identifies the semantic event represented by an audit-log
+     * entry.
+     */
+    kind?:
+      | 'AUDIT_LOG_ENTRY_KIND_UNSPECIFIED'
+      | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_BLOCKED'
+      | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_AUDITED';
+
+    subjectId?: string;
+
+    subjectType?: Shared.ResourceType;
+  }
+}
 
 export interface EventListResponse {
   id?: string;
@@ -227,10 +484,13 @@ export interface EventListResponse {
   createdAt?: string;
 
   /**
-   * AuditLogEntryKind identifies the typed details associated with an audit-log
-   * entry. No concrete kinds are defined yet.
+   * AuditLogEntryKind identifies the semantic event represented by an audit-log
+   * entry.
    */
-  kind?: 'AUDIT_LOG_ENTRY_KIND_UNSPECIFIED';
+  kind?:
+    | 'AUDIT_LOG_ENTRY_KIND_UNSPECIFIED'
+    | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_BLOCKED'
+    | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_AUDITED';
 
   subjectId?: string;
 
@@ -243,6 +503,13 @@ export interface EventWatchResponse {
   resourceId?: string;
 
   resourceType?: Shared.ResourceType;
+}
+
+export interface EventRetrieveParams {
+  /**
+   * audit_log_entry_id is the ID of the audit-log entry to retrieve.
+   */
+  auditLogEntryId: string;
 }
 
 export interface EventListParams extends EntriesPageParams {
@@ -354,10 +621,14 @@ export namespace EventWatchParams {
 
 export declare namespace Events {
   export {
+    type AuditLogEntryDetails as AuditLogEntryDetails,
+    type Process as Process,
     type ResourceOperation as ResourceOperation,
+    type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventWatchResponse as EventWatchResponse,
     type EventListResponsesEntriesPage as EventListResponsesEntriesPage,
+    type EventRetrieveParams as EventRetrieveParams,
     type EventListParams as EventListParams,
     type EventWatchParams as EventWatchParams,
   };
