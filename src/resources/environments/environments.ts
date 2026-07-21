@@ -5,7 +5,6 @@ import * as EnvironmentsAPI from './environments';
 import * as Shared from '../shared';
 import * as ClassesAPI from './classes';
 import { ClassListParams, Classes } from './classes';
-import * as PoliciesAPI from '../organizations/policies';
 import * as ProjectsAPI from '../projects/projects';
 import * as RunnersAPI from '../runners/runners';
 import * as AutomationsAPI from './automations/automations';
@@ -1582,7 +1581,7 @@ export namespace Veto {
     /**
      * action specifies what action kernel-level controls take on policy violations
      */
-    action?: PoliciesAPI.KernelControlsAction;
+    action?: Shared.KernelControlsAction;
 
     /**
      * denylist is the list of executable paths or names to block

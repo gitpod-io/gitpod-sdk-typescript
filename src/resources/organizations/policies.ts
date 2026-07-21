@@ -279,14 +279,6 @@ export interface CustomSecurityAgent {
   startCommand?: string;
 }
 
-/**
- * KernelControlsAction defines how a kernel-level policy violation is handled.
- */
-export type KernelControlsAction =
-  | 'KERNEL_CONTROLS_ACTION_UNSPECIFIED'
-  | 'KERNEL_CONTROLS_ACTION_BLOCK'
-  | 'KERNEL_CONTROLS_ACTION_AUDIT';
-
 export interface OrganizationPolicies {
   /**
    * agent_policy contains agent-specific policy settings
@@ -467,7 +459,7 @@ export interface VetoExecPolicy {
   /**
    * action specifies what action kernel-level controls take on policy violations
    */
-  action?: KernelControlsAction;
+  action?: Shared.KernelControlsAction;
 
   /**
    * enabled controls whether executable blocking is active
@@ -784,7 +776,6 @@ export declare namespace Policies {
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type CustomAgentEnvMapping as CustomAgentEnvMapping,
     type CustomSecurityAgent as CustomSecurityAgent,
-    type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type VetoExecPolicy as VetoExecPolicy,

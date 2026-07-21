@@ -265,12 +265,16 @@ import {
   StackFrame,
 } from './resources/errors';
 import {
+  AuditLogEntryDetails,
   EventListParams,
   EventListResponse,
   EventListResponsesEntriesPage,
+  EventRetrieveParams,
+  EventRetrieveResponse,
   EventWatchParams,
   EventWatchResponse,
   Events,
+  Process,
   ResourceOperation,
 } from './resources/events';
 import { GatewayListParams, Gateways } from './resources/gateways';
@@ -1737,10 +1741,14 @@ export declare namespace Gitpod {
 
   export {
     Events as Events,
+    type AuditLogEntryDetails as AuditLogEntryDetails,
+    type Process as Process,
     type ResourceOperation as ResourceOperation,
+    type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventWatchResponse as EventWatchResponse,
     type EventListResponsesEntriesPage as EventListResponsesEntriesPage,
+    type EventRetrieveParams as EventRetrieveParams,
     type EventListParams as EventListParams,
     type EventWatchParams as EventWatchParams,
   };
@@ -1995,6 +2003,7 @@ export declare namespace Gitpod {
   export type ErrorCode = API.ErrorCode;
   export type FieldValue = API.FieldValue;
   export type Gateway = API.Gateway;
+  export type KernelControlsAction = API.KernelControlsAction;
   export type OrganizationRole = API.OrganizationRole;
   export type OrganizationTier = API.OrganizationTier;
   export type Principal = API.Principal;

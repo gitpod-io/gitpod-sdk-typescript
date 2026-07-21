@@ -15,6 +15,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ErrorCode</a></code>
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">Gateway</a></code>
+- <code><a href="./src/resources/shared.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
@@ -341,12 +342,16 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/events.ts">AuditLogEntryDetails</a></code>
+- <code><a href="./src/resources/events.ts">Process</a></code>
 - <code><a href="./src/resources/events.ts">ResourceOperation</a></code>
+- <code><a href="./src/resources/events.ts">EventRetrieveResponse</a></code>
 - <code><a href="./src/resources/events.ts">EventListResponse</a></code>
 - <code><a href="./src/resources/events.ts">EventWatchResponse</a></code>
 
 Methods:
 
+- <code title="post /gitpod.v1.EventService/GetAuditLog">client.events.<a href="./src/resources/events.ts">retrieve</a>({ ...params }) -> EventRetrieveResponse</code>
 - <code title="post /gitpod.v1.EventService/ListAuditLogs">client.events.<a href="./src/resources/events.ts">list</a>({ ...params }) -> EventListResponsesEntriesPage</code>
 - <code title="post /gitpod.v1.EventService/WatchEvents">client.events.<a href="./src/resources/events.ts">watch</a>({ ...params }) -> EventWatchResponse</code>
 
@@ -532,7 +537,6 @@ Types:
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CustomAgentEnvMapping</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CustomSecurityAgent</a></code>
-- <code><a href="./src/resources/organizations/policies.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">VetoExecPolicy</a></code>
