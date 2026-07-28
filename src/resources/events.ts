@@ -368,13 +368,16 @@ export namespace EventRetrieveResponse {
     createdAt?: string;
 
     /**
-     * AuditLogEntryKind identifies the semantic event represented by an audit-log
-     * entry.
+     * AuditLogEntryKind identifies the coarse query and rendering family of an
+     * audit-log entry.
      */
     kind?:
       | 'AUDIT_LOG_ENTRY_KIND_UNSPECIFIED'
       | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_BLOCKED'
-      | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_AUDITED';
+      | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_AUDITED'
+      | 'AUDIT_LOG_ENTRY_KIND_RESOURCE_CHANGE'
+      | 'AUDIT_LOG_ENTRY_KIND_CREDENTIAL_ACCESS'
+      | 'AUDIT_LOG_ENTRY_KIND_ENVIRONMENT_VETO';
 
     subjectId?: string;
 
@@ -484,13 +487,16 @@ export interface EventListResponse {
   createdAt?: string;
 
   /**
-   * AuditLogEntryKind identifies the semantic event represented by an audit-log
-   * entry.
+   * AuditLogEntryKind identifies the coarse query and rendering family of an
+   * audit-log entry.
    */
   kind?:
     | 'AUDIT_LOG_ENTRY_KIND_UNSPECIFIED'
     | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_BLOCKED'
-    | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_AUDITED';
+    | 'AUDIT_LOG_ENTRY_KIND_AGENT_SECURITY_EXEC_AUDITED'
+    | 'AUDIT_LOG_ENTRY_KIND_RESOURCE_CHANGE'
+    | 'AUDIT_LOG_ENTRY_KIND_CREDENTIAL_ACCESS'
+    | 'AUDIT_LOG_ENTRY_KIND_ENVIRONMENT_VETO';
 
   subjectId?: string;
 
