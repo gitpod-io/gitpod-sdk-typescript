@@ -321,23 +321,6 @@ Methods:
 
 - <code title="post /gitpod.v1.EnvironmentService/ListEnvironmentClasses">client.environments.classes.<a href="./src/resources/environments/classes.ts">list</a>({ ...params }) -> EnvironmentClassesEnvironmentClassesPage</code>
 
-# Errors
-
-Types:
-
-- <code><a href="./src/resources/errors.ts">Breadcrumb</a></code>
-- <code><a href="./src/resources/errors.ts">ErrorEvent</a></code>
-- <code><a href="./src/resources/errors.ts">ErrorLevel</a></code>
-- <code><a href="./src/resources/errors.ts">ExceptionInfo</a></code>
-- <code><a href="./src/resources/errors.ts">ExceptionMechanism</a></code>
-- <code><a href="./src/resources/errors.ts">RequestInfo</a></code>
-- <code><a href="./src/resources/errors.ts">StackFrame</a></code>
-- <code><a href="./src/resources/errors.ts">ErrorReportErrorsResponse</a></code>
-
-Methods:
-
-- <code title="post /gitpod.v1.ErrorsService/ReportErrors">client.errors.<a href="./src/resources/errors.ts">reportErrors</a>({ ...params }) -> unknown</code>
-
 # Events
 
 Types:

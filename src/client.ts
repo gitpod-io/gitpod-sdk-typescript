@@ -260,18 +260,6 @@ import {
   EditorsEditorsPage,
 } from './resources/editors';
 import {
-  Breadcrumb,
-  ErrorEvent,
-  ErrorLevel,
-  ErrorReportErrorsParams,
-  ErrorReportErrorsResponse,
-  Errors as ErrorsAPIErrors,
-  ExceptionInfo,
-  ExceptionMechanism,
-  RequestInfo as ErrorRequestInfo,
-  StackFrame,
-} from './resources/errors';
-import {
   AuditLogEntryDetails,
   EventListParams,
   EventListResponse,
@@ -1294,11 +1282,6 @@ export class Gitpod {
   billing: API.Billing = new API.Billing(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
-  /**
-   * ErrorsService provides endpoints for clients to report errors
-   *  that will be sent to error reporting systems.
-   */
-  errors: API.Errors = new API.Errors(this);
   events: API.Events = new API.Events(this);
   gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
@@ -1326,7 +1309,6 @@ Gitpod.Automations = Automations;
 Gitpod.Billing = Billing;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
-Gitpod.Errors = ErrorsAPIErrors;
 Gitpod.Events = Events;
 Gitpod.Gateways = Gateways;
 Gitpod.Groups = Groups;
@@ -1724,19 +1706,6 @@ export declare namespace Gitpod {
     type EnvironmentStartParams as EnvironmentStartParams,
     type EnvironmentStopParams as EnvironmentStopParams,
     type EnvironmentUnarchiveParams as EnvironmentUnarchiveParams,
-  };
-
-  export {
-    ErrorsAPIErrors as Errors,
-    type Breadcrumb as Breadcrumb,
-    type ErrorEvent as ErrorEvent,
-    type ErrorLevel as ErrorLevel,
-    type ExceptionInfo as ExceptionInfo,
-    type ExceptionMechanism as ExceptionMechanism,
-    type ErrorRequestInfo as RequestInfo,
-    type StackFrame as StackFrame,
-    type ErrorReportErrorsResponse as ErrorReportErrorsResponse,
-    type ErrorReportErrorsParams as ErrorReportErrorsParams,
   };
 
   export {
