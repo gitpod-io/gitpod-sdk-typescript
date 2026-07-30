@@ -193,18 +193,6 @@ export {
   type EnvironmentsEnvironmentsPage,
 } from './environments/environments';
 export {
-  Errors,
-  type Breadcrumb,
-  type ErrorEvent,
-  type ErrorLevel,
-  type ExceptionInfo,
-  type ExceptionMechanism,
-  type RequestInfo,
-  type StackFrame,
-  type ErrorReportErrorsResponse,
-  type ErrorReportErrorsParams,
-} from './errors';
-export {
   Events,
   type AuditLogEntryDetails,
   type Process,

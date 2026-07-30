@@ -1174,8 +1174,8 @@ export namespace RunnerParseContextURLResponse {
 
 export interface RunnerSearchRepositoriesResponse {
   /**
-   * Deprecated: Use pagination token instead. Total pages can be extracted from
-   * token.
+   * @deprecated Deprecated: Use pagination token instead. Total pages can be
+   * extracted from token.
    */
   lastPage?: number;
 
