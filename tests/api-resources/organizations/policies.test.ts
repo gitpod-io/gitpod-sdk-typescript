@@ -48,6 +48,11 @@ describe('resource policies', () => {
     const response = await client.organizations.policies.update({
       organizationId: 'b0e12f6c-4c67-429d-a4a6-d9838b5da047',
       agentPolicy: {
+        allowedAgentIds: ['string'],
+        allowedCodexModels: ['CODEX_OPEN_AI_MODEL_UNSPECIFIED'],
+        allowedCodexReasoningEfforts: ['CODEX_REASONING_EFFORT_UNSPECIFIED'],
+        allowedCodexServiceTiers: ['CODEX_SERVICE_TIER_UNSPECIFIED'],
+        codexModelPolicy: { modelStates: { foo: 'CODEX_MODEL_POLICY_STATE_UNSPECIFIED' } },
         commandDenyList: ['string'],
         conversationSharingPolicy: 'CONVERSATION_SHARING_POLICY_UNSPECIFIED',
         maxSubagentsPerEnvironment: 10,
@@ -60,11 +65,13 @@ describe('resource policies', () => {
       defaultEditorId: 'defaultEditorId',
       defaultEnvironmentImage: 'defaultEnvironmentImage',
       deleteArchivedEnvironmentsAfter: '+9125115.360s',
+      disableFromScratch: true,
       editorVersionRestrictions: { foo: { allowedVersions: ['string'] } },
       maximumEnvironmentLifetime: '+9125115.360s',
       maximumEnvironmentsPerUser: '20',
       maximumEnvironmentTimeout: '3600s',
       maximumRunningEnvironmentsPerUser: '5',
+      maxPortAdmissionLevel: 'ADMISSION_LEVEL_UNSPECIFIED',
       membersCreateProjects: true,
       membersRequireProjects: true,
       portSharingDisabled: true,
@@ -79,11 +86,13 @@ describe('resource policies', () => {
           tags: 'tags',
         },
       },
+      securityPolicyId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       vetoExecPolicy: {
         action: 'KERNEL_CONTROLS_ACTION_UNSPECIFIED',
         enabled: true,
         executables: ['string'],
       },
+      webBrowserDisabled: true,
     });
   });
 });

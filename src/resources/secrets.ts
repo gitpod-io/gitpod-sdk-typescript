@@ -330,6 +330,16 @@ export interface Secret {
   creator?: Shared.Subject;
 
   /**
+   * credential_proxy configures transparent credential injection via the credential
+   * proxy. When set, the credential proxy intercepts HTTPS traffic to the target
+   * hosts and replaces the dummy mounted value with the real value in the specified
+   * HTTP header. The real secret value is never exposed in the environment. This
+   * field is orthogonal to mount — a secret can be both mounted and proxied at the
+   * same time.
+   */
+  credentialProxy?: Secret.CredentialProxy;
+
+  /**
    * secret will be created as an Environment Variable with the same name as the
    * secret
    */
@@ -351,6 +361,11 @@ export interface Secret {
   projectId?: string;
 
   scope?: SecretScope;
+
+  /**
+   * Source of the secret
+   */
+  source?: Secret.Source;
 
   /**
    * A Timestamp represents a point in time independent of any time zone or local
@@ -445,6 +460,53 @@ export interface Secret {
   updatedAt?: string;
 }
 
+export namespace Secret {
+  /**
+   * credential_proxy configures transparent credential injection via the credential
+   * proxy. When set, the credential proxy intercepts HTTPS traffic to the target
+   * hosts and replaces the dummy mounted value with the real value in the specified
+   * HTTP header. The real secret value is never exposed in the environment. This
+   * field is orthogonal to mount — a secret can be both mounted and proxied at the
+   * same time.
+   */
+  export interface CredentialProxy {
+    /**
+     * header is the HTTP header name to inject (e.g. "Authorization").
+     */
+    header?: string;
+
+    /**
+     * target_hosts lists the hostnames to intercept (for example "github.com" or
+     * "\*.github.com"). Wildcards are subdomain-only and do not match the apex domain.
+     */
+    targetHosts?: Array<string>;
+  }
+
+  /**
+   * Source of the secret
+   */
+  export interface Source {
+    oidcJfrog?: Source.OidcJfrog;
+
+    verbatim?: boolean;
+  }
+
+  export namespace Source {
+    export interface OidcJfrog {
+      /**
+       * host must be a hostname or IP address with optional port:
+       *
+       * ```
+       * this.matches("^([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?[.])*[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(:([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$")
+       * ```
+       */
+      host?: string;
+
+      providerName?: string;
+    }
+  }
+}
+
 export interface SecretScope {
   /**
    * organization_id is the Organization ID this Secret belongs to
@@ -494,6 +556,16 @@ export interface SecretCreateParams {
   containerRegistryBasicAuthHost?: string;
 
   /**
+   * credential_proxy configures transparent credential injection when environments
+   * materialize this secret. When set, the credential proxy intercepts HTTPS traffic
+   * to the target hosts and replaces the dummy mounted value with the real value in
+   * the specified HTTP header. The real secret value is never exposed in the
+   * environment. This field is orthogonal to mount — a secret can be both mounted
+   * and proxied at the same time.
+   */
+  credentialProxy?: SecretCreateParams.CredentialProxy;
+
+  /**
    * secret will be created as an Environment Variable with the same name as the
    * secret
    */
@@ -523,9 +595,62 @@ export interface SecretCreateParams {
   scope?: SecretScope;
 
   /**
-   * value is the plaintext value of the secret
+   * source is the source of the secret, possibly verbatim value
+   */
+  source?: SecretCreateParams.Source;
+
+  /**
+   * value is the plaintext value of the secret. When set, source must be unset or
+   * verbatim.
    */
   value?: string;
+}
+
+export namespace SecretCreateParams {
+  /**
+   * credential_proxy configures transparent credential injection when environments
+   * materialize this secret. When set, the credential proxy intercepts HTTPS traffic
+   * to the target hosts and replaces the dummy mounted value with the real value in
+   * the specified HTTP header. The real secret value is never exposed in the
+   * environment. This field is orthogonal to mount — a secret can be both mounted
+   * and proxied at the same time.
+   */
+  export interface CredentialProxy {
+    /**
+     * header is the HTTP header name to inject (e.g. "Authorization").
+     */
+    header?: string;
+
+    /**
+     * target_hosts lists the hostnames to intercept (for example "github.com" or
+     * "\*.github.com"). Wildcards are subdomain-only and do not match the apex domain.
+     */
+    targetHosts?: Array<string>;
+  }
+
+  /**
+   * source is the source of the secret, possibly verbatim value
+   */
+  export interface Source {
+    oidcJfrog?: Source.OidcJfrog;
+
+    verbatim?: boolean;
+  }
+
+  export namespace Source {
+    export interface OidcJfrog {
+      /**
+       * host must be a hostname or IP address with optional port:
+       *
+       * ```
+       * this.matches("^([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?[.])*[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(:([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$")
+       * ```
+       */
+      host?: string;
+
+      providerName?: string;
+    }
+  }
 }
 
 export interface SecretListParams extends SecretsPageParams {

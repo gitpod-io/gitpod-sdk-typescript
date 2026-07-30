@@ -3,13 +3,19 @@
 Types:
 
 - <code><a href="./src/resources/shared.ts">AutomationTrigger</a></code>
+- <code><a href="./src/resources/shared.ts">CodexOpenAIModel</a></code>
+- <code><a href="./src/resources/shared.ts">CodexReasoningEffort</a></code>
+- <code><a href="./src/resources/shared.ts">CodexServiceTier</a></code>
+- <code><a href="./src/resources/shared.ts">CodexSettings</a></code>
 - <code><a href="./src/resources/shared.ts">CountResponseRelation</a></code>
+- <code><a href="./src/resources/shared.ts">DateRange</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentClass</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableItem</a></code>
 - <code><a href="./src/resources/shared.ts">EnvironmentVariableSource</a></code>
 - <code><a href="./src/resources/shared.ts">ErrorCode</a></code>
 - <code><a href="./src/resources/shared.ts">FieldValue</a></code>
 - <code><a href="./src/resources/shared.ts">Gateway</a></code>
+- <code><a href="./src/resources/shared.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationRole</a></code>
 - <code><a href="./src/resources/shared.ts">OrganizationTier</a></code>
 - <code><a href="./src/resources/shared.ts">Principal</a></code>
@@ -62,12 +68,14 @@ Types:
 - <code><a href="./src/resources/agents.ts">AgentExecution</a></code>
 - <code><a href="./src/resources/agents.ts">AgentMessage</a></code>
 - <code><a href="./src/resources/agents.ts">AgentMode</a></code>
+- <code><a href="./src/resources/agents.ts">GoalStatus</a></code>
 - <code><a href="./src/resources/agents.ts">Prompt</a></code>
 - <code><a href="./src/resources/agents.ts">PromptMetadata</a></code>
 - <code><a href="./src/resources/agents.ts">PromptSpec</a></code>
 - <code><a href="./src/resources/agents.ts">Role</a></code>
 - <code><a href="./src/resources/agents.ts">Type</a></code>
 - <code><a href="./src/resources/agents.ts">UserInputBlock</a></code>
+- <code><a href="./src/resources/agents.ts">UserInputMetadata</a></code>
 - <code><a href="./src/resources/agents.ts">WakeEvent</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreateExecutionConversationTokenResponse</a></code>
 - <code><a href="./src/resources/agents.ts">AgentCreatePromptResponse</a></code>
@@ -132,6 +140,53 @@ Methods:
 - <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecution">client.automations.<a href="./src/resources/automations.ts">retrieveExecution</a>({ ...params }) -> AutomationRetrieveExecutionResponse</code>
 - <code title="post /gitpod.v1.WorkflowService/GetWorkflowExecutionAction">client.automations.<a href="./src/resources/automations.ts">retrieveExecutionAction</a>({ ...params }) -> AutomationRetrieveExecutionActionResponse</code>
 - <code title="post /gitpod.v1.WorkflowService/StartWorkflow">client.automations.<a href="./src/resources/automations.ts">startExecution</a>({ ...params }) -> AutomationStartExecutionResponse</code>
+
+# Billing
+
+Types:
+
+- <code><a href="./src/resources/billing.ts">AgentExecutionCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">BillingCurrency</a></code>
+- <code><a href="./src/resources/billing.ts">ByokRateCardTokenType</a></code>
+- <code><a href="./src/resources/billing.ts">CreditUsageExportGroupBy</a></code>
+- <code><a href="./src/resources/billing.ts">CreditUsageReportFilter</a></code>
+- <code><a href="./src/resources/billing.ts">CreditsByType</a></code>
+- <code><a href="./src/resources/billing.ts">CumulativeCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">DailyCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">DailyEnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAITokenUsage</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageBudget</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageBudgetSource</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageByModel</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageByTokenType</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUsageTimeSeriesFilter</a></code>
+- <code><a href="./src/resources/billing.ts">EnterpriseAIUserBudgetPolicySource</a></code>
+- <code><a href="./src/resources/billing.ts">EnvironmentCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">TeamCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">TeamCumulativeCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">TeamEnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UsageType</a></code>
+- <code><a href="./src/resources/billing.ts">UserCostBudgetUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UserCreditBudgetUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UserCreditUsage</a></code>
+- <code><a href="./src/resources/billing.ts">UserEnterpriseAIUsage</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetCreditUsageExportResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetCreditUsageReportResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetCumulativeCreditUsageResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetEnterpriseAIUsageSummaryResponse</a></code>
+- <code><a href="./src/resources/billing.ts">BillingGetEnterpriseAIUsageTimeSeriesResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.BillingService/GetCreditUsageExport">client.billing.<a href="./src/resources/billing.ts">getCreditUsageExport</a>({ ...params }) -> BillingGetCreditUsageExportResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetCreditUsageReport">client.billing.<a href="./src/resources/billing.ts">getCreditUsageReport</a>({ ...params }) -> BillingGetCreditUsageReportResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetCumulativeCreditUsage">client.billing.<a href="./src/resources/billing.ts">getCumulativeCreditUsage</a>({ ...params }) -> BillingGetCumulativeCreditUsageResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetEnterpriseAIUsageSummary">client.billing.<a href="./src/resources/billing.ts">getEnterpriseAIUsageSummary</a>({ ...params }) -> BillingGetEnterpriseAIUsageSummaryResponse</code>
+- <code title="post /gitpod.v1.BillingService/GetEnterpriseAIUsageTimeSeries">client.billing.<a href="./src/resources/billing.ts">getEnterpriseAIUsageTimeSeries</a>({ ...params }) -> BillingGetEnterpriseAIUsageTimeSeriesResponse</code>
+- <code title="post /gitpod.v1.BillingService/ListEnterpriseAITeamUsage">client.billing.<a href="./src/resources/billing.ts">listEnterpriseAITeamUsage</a>({ ...params }) -> TeamEnterpriseAIUsagesTeamUsagePage</code>
+- <code title="post /gitpod.v1.BillingService/ListEnterpriseAIUserUsage">client.billing.<a href="./src/resources/billing.ts">listEnterpriseAIUserUsage</a>({ ...params }) -> UserCostBudgetUsagesUserUsagePage</code>
+- <code title="post /gitpod.v1.BillingService/ListEnterpriseUserCreditUsage">client.billing.<a href="./src/resources/billing.ts">listEnterpriseUserCreditUsage</a>({ ...params }) -> UserCreditBudgetUsagesUserUsagePage</code>
 
 # Editors
 
@@ -266,33 +321,20 @@ Methods:
 
 - <code title="post /gitpod.v1.EnvironmentService/ListEnvironmentClasses">client.environments.classes.<a href="./src/resources/environments/classes.ts">list</a>({ ...params }) -> EnvironmentClassesEnvironmentClassesPage</code>
 
-# Errors
-
-Types:
-
-- <code><a href="./src/resources/errors.ts">Breadcrumb</a></code>
-- <code><a href="./src/resources/errors.ts">ErrorEvent</a></code>
-- <code><a href="./src/resources/errors.ts">ErrorLevel</a></code>
-- <code><a href="./src/resources/errors.ts">ExceptionInfo</a></code>
-- <code><a href="./src/resources/errors.ts">ExceptionMechanism</a></code>
-- <code><a href="./src/resources/errors.ts">RequestInfo</a></code>
-- <code><a href="./src/resources/errors.ts">StackFrame</a></code>
-- <code><a href="./src/resources/errors.ts">ErrorReportErrorsResponse</a></code>
-
-Methods:
-
-- <code title="post /gitpod.v1.ErrorsService/ReportErrors">client.errors.<a href="./src/resources/errors.ts">reportErrors</a>({ ...params }) -> unknown</code>
-
 # Events
 
 Types:
 
+- <code><a href="./src/resources/events.ts">AuditLogEntryDetails</a></code>
+- <code><a href="./src/resources/events.ts">Process</a></code>
 - <code><a href="./src/resources/events.ts">ResourceOperation</a></code>
+- <code><a href="./src/resources/events.ts">EventRetrieveResponse</a></code>
 - <code><a href="./src/resources/events.ts">EventListResponse</a></code>
 - <code><a href="./src/resources/events.ts">EventWatchResponse</a></code>
 
 Methods:
 
+- <code title="post /gitpod.v1.EventService/GetAuditLog">client.events.<a href="./src/resources/events.ts">retrieve</a>({ ...params }) -> EventRetrieveResponse</code>
 - <code title="post /gitpod.v1.EventService/ListAuditLogs">client.events.<a href="./src/resources/events.ts">list</a>({ ...params }) -> EventListResponsesEntriesPage</code>
 - <code title="post /gitpod.v1.EventService/WatchEvents">client.events.<a href="./src/resources/events.ts">watch</a>({ ...params }) -> EventWatchResponse</code>
 
@@ -473,11 +515,11 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">CodexModelPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">ConversationSharingPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CustomAgentEnvMapping</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CustomSecurityAgent</a></code>
-- <code><a href="./src/resources/organizations/policies.ts">KernelControlsAction</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">OrganizationPolicies</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">SecurityAgentPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">VetoExecPolicy</a></code>
@@ -670,7 +712,7 @@ Methods:
 - <code title="post /gitpod.v1.RunnerService/CheckRepositoryAccess">client.runners.<a href="./src/resources/runners/runners.ts">checkRepositoryAccess</a>({ ...params }) -> RunnerCheckRepositoryAccessResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerLogsToken">client.runners.<a href="./src/resources/runners/runners.ts">createLogsToken</a>({ ...params }) -> RunnerCreateLogsTokenResponse</code>
 - <code title="post /gitpod.v1.RunnerService/CreateRunnerToken">client.runners.<a href="./src/resources/runners/runners.ts">createRunnerToken</a>({ ...params }) -> RunnerCreateRunnerTokenResponse</code>
-- <code title="post /gitpod.v1.RunnerService/ListSCMOrganizations">client.runners.<a href="./src/resources/runners/runners.ts">listScmOrganizations</a>({ ...params }) -> RunnerListScmOrganizationsResponse</code>
+- <code title="post /gitpod.v1.RunnerService/ListSCMOrganizations">client.runners.<a href="./src/resources/runners/runners.ts">listScmOrganizations</a>({ ...params }) -> RunnerListScmOrganizationsResponsesOrganizationsPage</code>
 - <code title="post /gitpod.v1.RunnerService/ParseContextURL">client.runners.<a href="./src/resources/runners/runners.ts">parseContextURL</a>({ ...params }) -> RunnerParseContextURLResponse</code>
 - <code title="post /gitpod.v1.RunnerService/SearchRepositories">client.runners.<a href="./src/resources/runners/runners.ts">searchRepositories</a>({ ...params }) -> RunnerSearchRepositoriesResponse</code>
 
@@ -787,14 +829,58 @@ Methods:
 - <code title="post /gitpod.v1.SecretService/GetSecretValue">client.secrets.<a href="./src/resources/secrets.ts">getValue</a>({ ...params }) -> SecretGetValueResponse</code>
 - <code title="post /gitpod.v1.SecretService/UpdateSecretValue">client.secrets.<a href="./src/resources/secrets.ts">updateValue</a>({ ...params }) -> unknown</code>
 
+# SecurityPolicies
+
+Types:
+
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicy</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyCreateResponse</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyRetrieveResponse</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyUpdateResponse</a></code>
+- <code><a href="./src/resources/security-policies.ts">SecurityPolicyDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /gitpod.v1.SecurityService/CreateSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">create</a>({ ...params }) -> SecurityPolicyCreateResponse</code>
+- <code title="post /gitpod.v1.SecurityService/GetSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">retrieve</a>({ ...params }) -> SecurityPolicyRetrieveResponse</code>
+- <code title="post /gitpod.v1.SecurityService/UpdateSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">update</a>({ ...params }) -> SecurityPolicyUpdateResponse</code>
+- <code title="post /gitpod.v1.SecurityService/ListSecurityPolicies">client.securityPolicies.<a href="./src/resources/security-policies.ts">list</a>({ ...params }) -> SecurityPoliciesSecurityPoliciesPage</code>
+- <code title="post /gitpod.v1.SecurityService/DeleteSecurityPolicy">client.securityPolicies.<a href="./src/resources/security-policies.ts">delete</a>({ ...params }) -> unknown</code>
+
 # Usage
 
 Types:
 
+- <code><a href="./src/resources/usage.ts">AgentTraceModelBreakdown</a></code>
+- <code><a href="./src/resources/usage.ts">AgentTraceSummary</a></code>
+- <code><a href="./src/resources/usage.ts">AgentTraceTimeBucket</a></code>
+- <code><a href="./src/resources/usage.ts">CoAuthorSummary</a></code>
+- <code><a href="./src/resources/usage.ts">CoAuthorTimeBucket</a></code>
+- <code><a href="./src/resources/usage.ts">CoAuthorTool</a></code>
 - <code><a href="./src/resources/usage.ts">EnvironmentUsageRecord</a></code>
+- <code><a href="./src/resources/usage.ts">PrSummary</a></code>
+- <code><a href="./src/resources/usage.ts">PrTimeBucket</a></code>
+- <code><a href="./src/resources/usage.ts">Resolution</a></code>
+- <code><a href="./src/resources/usage.ts">SupportedModel</a></code>
+- <code><a href="./src/resources/usage.ts">TimeSeriesPoint</a></code>
+- <code><a href="./src/resources/usage.ts">ToolBreakdown</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetAdoptionUsageSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetAgentTraceSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetAgentTraceTimeSeriesResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetCoAuthorSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetCoAuthorTimeSeriesResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetPrSummaryResponse</a></code>
+- <code><a href="./src/resources/usage.ts">UsageGetPrTimeSeriesResponse</a></code>
 
 Methods:
 
+- <code title="post /gitpod.v1.UsageService/GetAdoptionUsageSummary">client.usage.<a href="./src/resources/usage.ts">getAdoptionUsageSummary</a>({ ...params }) -> UsageGetAdoptionUsageSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetAgentTraceSummary">client.usage.<a href="./src/resources/usage.ts">getAgentTraceSummary</a>({ ...params }) -> UsageGetAgentTraceSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetAgentTraceTimeSeries">client.usage.<a href="./src/resources/usage.ts">getAgentTraceTimeSeries</a>({ ...params }) -> UsageGetAgentTraceTimeSeriesResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetCoAuthorSummary">client.usage.<a href="./src/resources/usage.ts">getCoAuthorSummary</a>({ ...params }) -> UsageGetCoAuthorSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetCoAuthorTimeSeries">client.usage.<a href="./src/resources/usage.ts">getCoAuthorTimeSeries</a>({ ...params }) -> UsageGetCoAuthorTimeSeriesResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetPrSummary">client.usage.<a href="./src/resources/usage.ts">getPrSummary</a>({ ...params }) -> UsageGetPrSummaryResponse</code>
+- <code title="post /gitpod.v1.UsageService/GetPrTimeSeries">client.usage.<a href="./src/resources/usage.ts">getPrTimeSeries</a>({ ...params }) -> UsageGetPrTimeSeriesResponse</code>
 - <code title="post /gitpod.v1.UsageService/ListEnvironmentUsageRecords">client.usage.<a href="./src/resources/usage.ts">listEnvironmentRuntimeRecords</a>({ ...params }) -> EnvironmentUsageRecordsRecordsPage</code>
 
 # Users

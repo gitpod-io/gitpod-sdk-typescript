@@ -341,6 +341,8 @@ export namespace TaskUpdateParams {
 
     env?: Array<Shared.EnvironmentVariableItem>;
 
+    prebuildRequiresSuccess?: boolean | null;
+
     runsOn?: Shared.RunsOn | null;
   }
 }

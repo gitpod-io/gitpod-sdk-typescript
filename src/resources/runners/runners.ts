@@ -27,7 +27,13 @@ import {
   ScmIntegrationValidationResult,
 } from './configurations/configurations';
 import { APIPromise } from '../../core/api-promise';
-import { PagePromise, RunnersPage, type RunnersPageParams } from '../../core/pagination';
+import {
+  OrganizationsPage,
+  type OrganizationsPageParams,
+  PagePromise,
+  RunnersPage,
+  type RunnersPageParams,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Runners extends APIResource {
@@ -47,12 +53,12 @@ export class Runners extends APIResource {
    *
    * ### Examples
    *
-   * - Create cloud runner:
+   * - Create an AWS runner:
    *
    *   Creates a new runner in AWS EC2.
    *
    *   ```yaml
-   *   name: "Production Runner"
+   *   name: "AWS Runner"
    *   provider: RUNNER_PROVIDER_AWS_EC2
    *   spec:
    *     desiredPhase: RUNNER_PHASE_ACTIVE
@@ -62,9 +68,25 @@ export class Runners extends APIResource {
    *       autoUpdate: true
    *   ```
    *
-   * - Create local runner:
+   * - Create a GCP runner:
    *
-   *   Creates a new local runner on Linux.
+   *   Creates a new runner on Google Cloud Platform.
+   *
+   *   ```yaml
+   *   name: "GCP Runner"
+   *   provider: RUNNER_PROVIDER_GCP
+   *   spec:
+   *     desiredPhase: RUNNER_PHASE_ACTIVE
+   *     configuration:
+   *       region: "us-central1"
+   *       releaseChannel: RUNNER_RELEASE_CHANNEL_STABLE
+   *       autoUpdate: true
+   *   ```
+   *
+   * - Create local runner (deprecated):
+   *
+   *   Creates a new local runner on Linux. Local runners are deprecated; use
+   *   RUNNER_PROVIDER_AWS_EC2 or RUNNER_PROVIDER_GCP instead.
    *
    *   ```yaml
    *   name: "Local Development Runner"
@@ -79,12 +101,12 @@ export class Runners extends APIResource {
    * @example
    * ```ts
    * const runner = await client.runners.create({
-   *   name: 'Production Runner',
-   *   provider: 'RUNNER_PROVIDER_AWS_EC2',
+   *   name: 'GCP Runner',
+   *   provider: 'RUNNER_PROVIDER_GCP',
    *   spec: {
    *     configuration: {
    *       autoUpdate: true,
-   *       region: 'us-west',
+   *       region: 'us-central1',
    *       releaseChannel: 'RUNNER_RELEASE_CHANNEL_STABLE',
    *     },
    *     desiredPhase: 'RUNNER_PHASE_ACTIVE',
@@ -412,24 +434,41 @@ export class Runners extends APIResource {
    *   scmHost: "github.com"
    *   ```
    *
+   * - Search GitLab groups:
+   *
+   *   Returns the first page of GitLab groups matching the substring.
+   *
+   *   ```yaml
+   *   runnerId: "d2c94c27-3b76-4a42-b88c-95a85e392c68"
+   *   scmHost: "gitlab.com"
+   *   query: "platform"
+   *   pagination:
+   *     pageSize: 25
+   *   ```
+   *
    * @example
    * ```ts
-   * const response = await client.runners.listScmOrganizations({
-   *   runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
-   *   scmHost: 'github.com',
-   * });
+   * // Automatically fetches more pages as needed.
+   * for await (const runnerListScmOrganizationsResponse of client.runners.listScmOrganizations(
+   *   {
+   *     runnerId: 'd2c94c27-3b76-4a42-b88c-95a85e392c68',
+   *     scmHost: 'github.com',
+   *   },
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   listScmOrganizations(
     params: RunnerListScmOrganizationsParams,
     options?: RequestOptions,
-  ): APIPromise<RunnerListScmOrganizationsResponse> {
+  ): PagePromise<RunnerListScmOrganizationsResponsesOrganizationsPage, RunnerListScmOrganizationsResponse> {
     const { token, pageSize, ...body } = params;
-    return this._client.post('/gitpod.v1.RunnerService/ListSCMOrganizations', {
-      query: { token, pageSize },
-      body,
-      ...options,
-    });
+    return this._client.getAPIList(
+      '/gitpod.v1.RunnerService/ListSCMOrganizations',
+      OrganizationsPage<RunnerListScmOrganizationsResponse>,
+      { query: { token, pageSize }, body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -520,6 +559,9 @@ export class Runners extends APIResource {
 }
 
 export type RunnersRunnersPage = RunnersPage<Runner>;
+
+export type RunnerListScmOrganizationsResponsesOrganizationsPage =
+  OrganizationsPage<RunnerListScmOrganizationsResponse>;
 
 export interface GatewayInfo {
   /**
@@ -631,7 +673,13 @@ export type RunnerCapability =
   | 'RUNNER_CAPABILITY_CHECK_REPOSITORY_ACCESS'
   | 'RUNNER_CAPABILITY_RUNNER_SIDE_AGENT'
   | 'RUNNER_CAPABILITY_WARM_POOL'
-  | 'RUNNER_CAPABILITY_ASG_WARM_POOL';
+  | 'RUNNER_CAPABILITY_ASG_WARM_POOL'
+  | 'RUNNER_CAPABILITY_PORT_AUTHENTICATION'
+  | 'RUNNER_CAPABILITY_HORIZONTAL_SCALING'
+  | 'RUNNER_CAPABILITY_AGENT_EXECUTION_CNF'
+  | 'RUNNER_CAPABILITY_REDIS_STREAM'
+  | 'RUNNER_CAPABILITY_BASE_SNAPSHOT'
+  | 'RUNNER_CAPABILITY_DYNAMIC_LLM_REQUEST_HEADERS';
 
 export interface RunnerConfiguration {
   /**
@@ -963,29 +1011,25 @@ export interface RunnerCreateRunnerTokenResponse {
 
 export interface RunnerListScmOrganizationsResponse {
   /**
-   * List of organizations the user belongs to
+   * @deprecated Deprecated: this field is unused by all known consumers and is
+   * scheduled for removal in a future release. Do not read it.
+   *
+   * Originally intended to gate organization-level webhook creation in the
+   * dashboard, but that gating was never implemented. Populating this field on the
+   * GitLab path requires a second fully-paginated ListGroups call, which is the main
+   * reason we are deprecating it.
    */
-  organizations?: Array<RunnerListScmOrganizationsResponse.Organization>;
-}
+  isAdmin?: boolean;
 
-export namespace RunnerListScmOrganizationsResponse {
-  export interface Organization {
-    /**
-     * Whether the user has admin permissions in this organization. Admin permissions
-     * typically allow creating organization-level webhooks.
-     */
-    isAdmin?: boolean;
+  /**
+   * Organization name/slug (e.g., "gitpod-io")
+   */
+  name?: string;
 
-    /**
-     * Organization name/slug (e.g., "gitpod-io")
-     */
-    name?: string;
-
-    /**
-     * Organization URL (e.g., "https://github.com/gitpod-io")
-     */
-    url?: string;
-  }
+  /**
+   * Organization URL (e.g., "https://github.com/gitpod-io")
+   */
+  url?: string;
 }
 
 export interface RunnerParseContextURLResponse {
@@ -1130,8 +1174,8 @@ export namespace RunnerParseContextURLResponse {
 
 export interface RunnerSearchRepositoriesResponse {
   /**
-   * Deprecated: Use pagination token instead. Total pages can be extracted from
-   * token.
+   * @deprecated Deprecated: Use pagination token instead. Total pages can be
+   * extracted from token.
    */
   lastPage?: number;
 
@@ -1405,16 +1449,23 @@ export interface RunnerCreateRunnerTokenParams {
   runnerId?: string;
 }
 
-export interface RunnerListScmOrganizationsParams {
+export interface RunnerListScmOrganizationsParams extends OrganizationsPageParams {
   /**
-   * Query param
+   * Body param: Pagination parameters. When unset, defaults to the standard
+   * PaginationRequest defaults (page_size 25, max 100). Tokens are opaque and
+   * provider-specific.
    */
-  token?: string;
+  pagination?: RunnerListScmOrganizationsParams.Pagination;
 
   /**
-   * Query param
+   * Body param: Optional substring filter applied to the organization name.
+   *
+   * - GitLab: forwarded to the upstream `search` parameter (server-side,
+   *   case-insensitive substring on name/path).
+   * - GitHub and Bitbucket: not implemented as they don't support searching Empty
+   *   value means no filter.
    */
-  pageSize?: number;
+  query?: string;
 
   /**
    * Body param
@@ -1426,6 +1477,26 @@ export interface RunnerListScmOrganizationsParams {
    * "gitlab.com")
    */
   scmHost?: string;
+}
+
+export namespace RunnerListScmOrganizationsParams {
+  /**
+   * Pagination parameters. When unset, defaults to the standard PaginationRequest
+   * defaults (page_size 25, max 100). Tokens are opaque and provider-specific.
+   */
+  export interface Pagination {
+    /**
+     * Token for the next set of results that was returned as next_token of a
+     * PaginationResponse
+     */
+    token?: string;
+
+    /**
+     * Page size is the maximum number of results to retrieve per page. Defaults to 25.
+     * Maximum 100.
+     */
+    pageSize?: number;
+  }
 }
 
 export interface RunnerParseContextURLParams {
@@ -1515,6 +1586,7 @@ export declare namespace Runners {
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
     type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
+    type RunnerListScmOrganizationsResponsesOrganizationsPage as RunnerListScmOrganizationsResponsesOrganizationsPage,
     type RunnerCreateParams as RunnerCreateParams,
     type RunnerRetrieveParams as RunnerRetrieveParams,
     type RunnerUpdateParams as RunnerUpdateParams,

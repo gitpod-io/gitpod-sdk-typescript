@@ -5,7 +5,6 @@ import * as EnvironmentsAPI from './environments';
 import * as Shared from '../shared';
 import * as ClassesAPI from './classes';
 import { ClassListParams, Classes } from './classes';
-import * as PoliciesAPI from '../organizations/policies';
 import * as ProjectsAPI from '../projects/projects';
 import * as RunnersAPI from '../runners/runners';
 import * as AutomationsAPI from './automations/automations';
@@ -721,7 +720,8 @@ export type EnvironmentRole =
   | 'ENVIRONMENT_ROLE_UNSPECIFIED'
   | 'ENVIRONMENT_ROLE_DEFAULT'
   | 'ENVIRONMENT_ROLE_PREBUILD'
-  | 'ENVIRONMENT_ROLE_WORKFLOW';
+  | 'ENVIRONMENT_ROLE_WORKFLOW'
+  | 'ENVIRONMENT_ROLE_BASE_SNAPSHOT_BUILD';
 
 /**
  * EnvironmentSpec specifies the configuration of an environment for an environment
@@ -1009,12 +1009,6 @@ export namespace EnvironmentSpec {
      */
     export interface CredentialProxy {
       /**
-       * format describes how the secret value is encoded. The proxy uses this to decode
-       * the value before injecting it into the header.
-       */
-      format?: 'FORMAT_UNSPECIFIED' | 'FORMAT_PLAIN' | 'FORMAT_BASE64';
-
-      /**
        * header is the HTTP header name to inject (e.g. "Authorization").
        */
       header?: string;
@@ -1290,6 +1284,12 @@ export namespace EnvironmentStatus {
           | 'CHANGE_TYPE_COPIED'
           | 'CHANGE_TYPE_UPDATED_BUT_UNMERGED'
           | 'CHANGE_TYPE_UNTRACKED';
+
+        /**
+         * old_path is the previous path of the file before a rename or copy. Only set when
+         * change_type is RENAMED or COPIED.
+         */
+        oldPath?: string;
 
         /**
          * path is the path of the file
@@ -1581,7 +1581,7 @@ export namespace Veto {
     /**
      * action specifies what action kernel-level controls take on policy violations
      */
-    action?: PoliciesAPI.KernelControlsAction;
+    action?: Shared.KernelControlsAction;
 
     /**
      * denylist is the list of executable paths or names to block

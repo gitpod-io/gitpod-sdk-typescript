@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as AgentsAPI from './agents';
 import * as Shared from './shared';
+import * as UsageAPI from './usage';
 import { APIPromise } from '../core/api-promise';
 import {
   AgentExecutionsPage,
@@ -730,8 +731,6 @@ export namespace AgentExecution {
 
     limits?: Spec.Limits;
 
-    loopConditions?: Array<Spec.LoopCondition>;
-
     session?: string;
 
     /**
@@ -749,14 +748,6 @@ export namespace AgentExecution {
       maxIterations?: string;
 
       maxOutputTokens?: string;
-    }
-
-    export interface LoopCondition {
-      id?: string;
-
-      description?: string;
-
-      expression?: string;
     }
   }
 
@@ -801,6 +792,11 @@ export namespace AgentExecution {
       | 'AGENT_EXECUTION_FAILURE_REASON_LLM_INTEGRATION'
       | 'AGENT_EXECUTION_FAILURE_REASON_INTERNAL'
       | 'AGENT_EXECUTION_FAILURE_REASON_AGENT_EXECUTION';
+
+    /**
+     * goal projects the current agent goal, if any.
+     */
+    goal?: Status.Goal;
 
     inputTokensUsed?: string;
 
@@ -851,28 +847,7 @@ export namespace AgentExecution {
     /**
      * supported_model is the LLM model being used by the agent execution.
      */
-    supportedModel?:
-      | 'SUPPORTED_MODEL_UNSPECIFIED'
-      | 'SUPPORTED_MODEL_SONNET_3_5'
-      | 'SUPPORTED_MODEL_SONNET_3_7'
-      | 'SUPPORTED_MODEL_SONNET_3_7_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_4'
-      | 'SUPPORTED_MODEL_SONNET_4_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_4_5'
-      | 'SUPPORTED_MODEL_SONNET_4_5_EXTENDED'
-      | 'SUPPORTED_MODEL_SONNET_4_6'
-      | 'SUPPORTED_MODEL_SONNET_4_6_EXTENDED'
-      | 'SUPPORTED_MODEL_OPUS_4'
-      | 'SUPPORTED_MODEL_OPUS_4_EXTENDED'
-      | 'SUPPORTED_MODEL_OPUS_4_5'
-      | 'SUPPORTED_MODEL_OPUS_4_5_EXTENDED'
-      | 'SUPPORTED_MODEL_OPUS_4_6'
-      | 'SUPPORTED_MODEL_OPUS_4_6_EXTENDED'
-      | 'SUPPORTED_MODEL_HAIKU_4_5'
-      | 'SUPPORTED_MODEL_OPENAI_4O'
-      | 'SUPPORTED_MODEL_OPENAI_4O_MINI'
-      | 'SUPPORTED_MODEL_OPENAI_O1'
-      | 'SUPPORTED_MODEL_OPENAI_O1_MINI';
+    supportedModel?: UsageAPI.SupportedModel;
 
     /**
      * transcript_url is the URL to the LLM transcript (all messages exchanged between
@@ -919,6 +894,47 @@ export namespace AgentExecution {
 
         toolName?: string;
       }
+    }
+
+    /**
+     * goal projects the current agent goal, if any.
+     */
+    export interface Goal {
+      /**
+       * created_at is when the current goal was created, when available.
+       */
+      createdAt?: string;
+
+      /**
+       * objective is the current goal text tracked by the agent.
+       */
+      objective?: string;
+
+      /**
+       * status is the lifecycle state of the current goal.
+       */
+      status?: AgentsAPI.GoalStatus;
+
+      /**
+       * time_used is the elapsed wall-clock time reported by the agent for this goal.
+       */
+      timeUsed?: string;
+
+      /**
+       * token_budget is the token budget reported by the agent for this goal, when one
+       * exists.
+       */
+      tokenBudget?: string | null;
+
+      /**
+       * tokens_used is the token usage reported by the agent for this goal.
+       */
+      tokensUsed?: string;
+
+      /**
+       * updated_at is the most recent goal update timestamp, when available.
+       */
+      updatedAt?: string;
     }
 
     /**
@@ -997,7 +1013,17 @@ export type AgentMode =
   | 'AGENT_MODE_EXECUTION'
   | 'AGENT_MODE_PLANNING'
   | 'AGENT_MODE_RALPH'
-  | 'AGENT_MODE_SPEC';
+  | 'AGENT_MODE_SPEC'
+  | 'AGENT_MODE_GOAL';
+
+export type GoalStatus =
+  | 'GOAL_STATUS_UNSPECIFIED'
+  | 'GOAL_STATUS_ACTIVE'
+  | 'GOAL_STATUS_PAUSED'
+  | 'GOAL_STATUS_COMPLETED'
+  | 'GOAL_STATUS_BUDGET_EXHAUSTED'
+  | 'GOAL_STATUS_BLOCKED'
+  | 'GOAL_STATUS_USAGE_LIMITED';
 
 export interface Prompt {
   id?: string;
@@ -1321,10 +1347,28 @@ export namespace UserInputBlock {
 }
 
 /**
+ * UserInputMetadata carries integration-specific context for a user input.
+ * Internal only — not exposed in public SDKs. External API consumers should not
+ * set these fields; they are populated by integration handlers.
+ */
+export interface UserInputMetadata {
+  /**
+   * Origin of this input — set by integration handlers to their host (e.g.
+   * "github.com", "slack.com"). Empty for non-integration callers. This field drives
+   * emission gating: when set, agent responses are only emitted to the matching
+   * integration. Treated as trusted input from integration handlers; not validated
+   * against registered hosts.
+   */
+  source?: string;
+}
+
+/**
  * WakeEvent is sent by the backend to wake an agent when a registered interest
  * fires. Delivered via SendToAgentExecution as a new oneof variant.
  */
 export interface WakeEvent {
+  devcontainerRebuild?: WakeEvent.DevcontainerRebuild;
+
   environment?: WakeEvent.Environment;
 
   /**
@@ -1338,6 +1382,19 @@ export interface WakeEvent {
 }
 
 export namespace WakeEvent {
+  export interface DevcontainerRebuild {
+    environmentId?: string;
+
+    failureMessage?: Array<string>;
+
+    /**
+     * The devcontainer phase reached by the target session.
+     */
+    phase?: string;
+
+    sessionId?: string;
+  }
+
   export interface Environment {
     environmentId?: string;
 
@@ -1453,6 +1510,12 @@ export interface AgentListExecutionsParams extends AgentExecutionsPageParams {
 
 export namespace AgentListExecutionsParams {
   export interface Filter {
+    /**
+     * agent_execution_ids filters the response to only the specified executions.
+     * Useful for checking existence of a known set of execution IDs.
+     */
+    agentExecutionIds?: Array<string>;
+
     agentIds?: Array<string>;
 
     /**
@@ -1567,6 +1630,12 @@ export interface AgentSendToExecutionParams {
    */
   agentMessage?: AgentMessage;
 
+  /**
+   * codex_settings contains per-turn desired settings for Codex app user_input
+   * sends.
+   */
+  codexSettings?: Shared.CodexSettings;
+
   userInput?: UserInputBlock;
 
   /**
@@ -1577,6 +1646,11 @@ export interface AgentSendToExecutionParams {
 }
 
 export interface AgentStartExecutionParams {
+  /**
+   * agent_id identifies the agent to start. If omitted, the backend uses the
+   * configured default agent ID, or the Ona in-environment agent when no default is
+   * configured.
+   */
   agentId?: string;
 
   /**
@@ -1587,6 +1661,11 @@ export interface AgentStartExecutionParams {
   annotations?: { [key: string]: string };
 
   codeContext?: AgentCodeContext;
+
+  /**
+   * codex_settings contains desired manual settings for the Codex app agent.
+   */
+  codexSettings?: Shared.CodexSettings;
 
   /**
    * mode specifies the operational mode for this agent execution If not specified,
@@ -1690,12 +1769,14 @@ export declare namespace Agents {
     type AgentExecution as AgentExecution,
     type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
+    type GoalStatus as GoalStatus,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
     type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type UserInputMetadata as UserInputMetadata,
     type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,

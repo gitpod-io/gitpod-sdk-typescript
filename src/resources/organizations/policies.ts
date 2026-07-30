@@ -2,6 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as PoliciesAPI from './policies';
+import * as Shared from '../shared';
+import * as EnvironmentsAPI from '../environments/environments';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -114,6 +116,39 @@ export interface AgentPolicy {
   scmToolsDisabled: boolean;
 
   /**
+   * allowed_agent_ids contains the agent IDs users may select when the codex_rollout
+   * feature flag is enabled. Empty means all agents are allowed.
+   */
+  allowedAgentIds?: Array<string>;
+
+  /**
+   * @deprecated Deprecated: use codex_model_policy. This legacy allowlist cannot
+   * distinguish omitted from intentionally empty on update requests. Empty means all
+   * Codex models are allowed.
+   */
+  allowedCodexModels?: Array<Shared.CodexOpenAIModel>;
+
+  /**
+   * allowed_codex_reasoning_efforts contains the Codex reasoning efforts users may
+   * select when the codex_rollout feature flag is enabled. Empty means all Codex
+   * reasoning efforts are allowed.
+   */
+  allowedCodexReasoningEfforts?: Array<Shared.CodexReasoningEffort>;
+
+  /**
+   * allowed_codex_service_tiers contains the Codex service tiers users may select
+   * when the codex_rollout feature flag is enabled. Empty means all Codex service
+   * tiers are allowed.
+   */
+  allowedCodexServiceTiers?: Array<Shared.CodexServiceTier>;
+
+  /**
+   * codex_model_policy contains explicit per-model Codex availability states.
+   * Missing policy or missing model entries mean allowed.
+   */
+  codexModelPolicy?: CodexModelPolicy;
+
+  /**
    * conversation_sharing_policy controls whether agent conversations can be shared
    */
   conversationSharingPolicy?: ConversationSharingPolicy;
@@ -130,6 +165,22 @@ export interface AgentPolicy {
    * Empty means no restriction (all users can use SCM tools if not disabled).
    */
   scmToolsAllowedGroupId?: string;
+}
+
+/**
+ * CodexModelPolicy controls per-model availability for Codex.
+ */
+export interface CodexModelPolicy {
+  /**
+   * model_states maps CodexOpenAIModel enum names to explicit policy states. Missing
+   * entries are treated as allowed.
+   */
+  modelStates?: {
+    [key: string]:
+      | 'CODEX_MODEL_POLICY_STATE_UNSPECIFIED'
+      | 'CODEX_MODEL_POLICY_STATE_ALLOWED'
+      | 'CODEX_MODEL_POLICY_STATE_DISABLED';
+  };
 }
 
 /**
@@ -228,14 +279,6 @@ export interface CustomSecurityAgent {
   startCommand?: string;
 }
 
-/**
- * KernelControlsAction defines how a kernel-level policy violation is handled.
- */
-export type KernelControlsAction =
-  | 'KERNEL_CONTROLS_ACTION_UNSPECIFIED'
-  | 'KERNEL_CONTROLS_ACTION_BLOCK'
-  | 'KERNEL_CONTROLS_ACTION_AUDIT';
-
 export interface OrganizationPolicies {
   /**
    * agent_policy contains agent-specific policy settings
@@ -265,6 +308,12 @@ export interface OrganizationPolicies {
    * repo
    */
   defaultEnvironmentImage: string;
+
+  /**
+   * disable_from_scratch controls whether non-admin users can create blank
+   * environments without a Git or URL initializer.
+   */
+  disableFromScratch: boolean;
 
   /**
    * maximum_environments_per_user limits total environments (running or stopped) per
@@ -315,6 +364,12 @@ export interface OrganizationPolicies {
   restrictAccountCreationToScim: boolean;
 
   /**
+   * web_browser_disabled controls whether users can open the built-in web browser
+   * from environment pages. This does not affect VS Code Browser.
+   */
+  webBrowserDisabled: boolean;
+
+  /**
    * delete_archived_environments_after controls how long archived environments are
    * kept before automatic deletion. 0 means no automatic deletion. Maximum duration
    * is 4 weeks (2419200 seconds).
@@ -356,6 +411,15 @@ export interface OrganizationPolicies {
   securityAgentPolicy?: SecurityAgentPolicy;
 
   /**
+   * security_policy_id references the Veto Exec SecurityPolicy assigned to newly
+   * created environments. The public GA contract accepts policies that use only
+   * SecurityPolicy.Spec.executables. Assignment validates materializability and
+   * rejects unsupported executable selectors or effects. If empty, new environments
+   * have no SecurityPolicy by default.
+   */
+  securityPolicyId?: string;
+
+  /**
    * veto_exec_policy contains the veto exec policy for environments.
    */
   vetoExecPolicy?: VetoExecPolicy;
@@ -395,7 +459,7 @@ export interface VetoExecPolicy {
   /**
    * action specifies what action kernel-level controls take on policy violations
    */
-  action?: KernelControlsAction;
+  action?: Shared.KernelControlsAction;
 
   /**
    * enabled controls whether executable blocking is active
@@ -464,6 +528,12 @@ export interface PolicyUpdateParams {
   deleteArchivedEnvironmentsAfter?: string | null;
 
   /**
+   * disable_from_scratch controls whether non-admin users can create blank
+   * environments without a Git or URL initializer.
+   */
+  disableFromScratch?: boolean | null;
+
+  /**
    * editor_version_restrictions restricts which editor versions can be used. Maps
    * editor ID to version policy with allowed major versions.
    */
@@ -499,6 +569,14 @@ export interface PolicyUpdateParams {
    * per user
    */
   maximumRunningEnvironmentsPerUser?: string | null;
+
+  /**
+   * max_port_admission_level caps the maximum admission level a user-opened port may
+   * use. UNSPECIFIED means no cap (any AdmissionLevel value is allowed). System
+   * ports (VS Code Browser, agents) are exempt. The legacy port_sharing_disabled
+   * field, when true, takes precedence and blocks all user-initiated port sharing.
+   */
+  maxPortAdmissionLevel?: EnvironmentsAPI.AdmissionLevel | null;
 
   /**
    * members_create_projects controls whether members can create projects
@@ -537,9 +615,24 @@ export interface PolicyUpdateParams {
   securityAgentPolicy?: PolicyUpdateParams.SecurityAgentPolicy | null;
 
   /**
+   * security_policy_id assigns a Veto Exec SecurityPolicy to newly created
+   * environments. The public GA contract accepts policies that use only
+   * SecurityPolicy.Spec.executables. Assignment validates materializability and
+   * rejects unsupported executable selectors or effects. Set this field to an empty
+   * string to clear the default assignment.
+   */
+  securityPolicyId?: string | null;
+
+  /**
    * veto_exec_policy contains the veto exec policy for environments.
    */
   vetoExecPolicy?: VetoExecPolicy | null;
+
+  /**
+   * web_browser_disabled controls whether users can open the built-in web browser
+   * from environment pages. This does not affect VS Code Browser.
+   */
+  webBrowserDisabled?: boolean | null;
 }
 
 export namespace PolicyUpdateParams {
@@ -547,6 +640,40 @@ export namespace PolicyUpdateParams {
    * agent_policy contains agent-specific policy settings
    */
   export interface AgentPolicy {
+    /**
+     * allowed_agent_ids contains the agent IDs users may select when the codex_rollout
+     * feature flag is enabled. Empty means all agents are allowed.
+     */
+    allowedAgentIds?: Array<string>;
+
+    /**
+     * @deprecated Deprecated: use codex_model_policy. This legacy allowlist cannot
+     * distinguish omitted from intentionally empty on update requests. Empty means all
+     * Codex models are allowed.
+     */
+    allowedCodexModels?: Array<Shared.CodexOpenAIModel>;
+
+    /**
+     * allowed_codex_reasoning_efforts contains the Codex reasoning efforts users may
+     * select when the codex_rollout feature flag is enabled. Empty means all Codex
+     * reasoning efforts are allowed.
+     */
+    allowedCodexReasoningEfforts?: Array<Shared.CodexReasoningEffort>;
+
+    /**
+     * allowed_codex_service_tiers contains the Codex service tiers users may select
+     * when the codex_rollout feature flag is enabled. Empty means all Codex service
+     * tiers are allowed.
+     */
+    allowedCodexServiceTiers?: Array<Shared.CodexServiceTier>;
+
+    /**
+     * codex_model_policy contains explicit per-model Codex availability states. Omit
+     * to leave the current model policy unchanged. Send an empty policy to clear
+     * explicit model states.
+     */
+    codexModelPolicy?: PoliciesAPI.CodexModelPolicy;
+
     /**
      * command_deny_list contains a list of commands that agents are not allowed to
      * execute
@@ -644,11 +771,11 @@ export namespace PolicyUpdateParams {
 export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
+    type CodexModelPolicy as CodexModelPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type CustomAgentEnvMapping as CustomAgentEnvMapping,
     type CustomSecurityAgent as CustomSecurityAgent,
-    type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type VetoExecPolicy as VetoExecPolicy,

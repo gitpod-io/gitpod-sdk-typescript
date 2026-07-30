@@ -7,10 +7,10 @@ import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/uti
 import { sleep } from './internal/utils/sleep';
 import {
   type Logger,
-  type LogLevel as LogLevelClient,
-  parseLogLevel,
-  loggerFor,
-  formatRequestDetails,
+type LogLevel as LogLevelClient,
+parseLogLevel,
+loggerFor,
+formatRequestDetails,
 } from './internal/utils/log';
 export type { Logger, LogLevel as LogLevelClient } from './internal/utils/log';
 import { castToError, isAbortError } from './internal/errors';
@@ -52,6 +52,8 @@ import {
   LoginsPageResponse,
   type MembersPageParams,
   MembersPageResponse,
+  type OrganizationsPageParams,
+  OrganizationsPageResponse,
   type OutputsPageParams,
   OutputsPageResponse,
   type PersonalAccessTokensPageParams,
@@ -78,14 +80,20 @@ import {
   ScimConfigurationsPageResponse,
   type SecretsPageParams,
   SecretsPageResponse,
+  type SecurityPoliciesPageParams,
+  SecurityPoliciesPageResponse,
   type ServicesPageParams,
   ServicesPageResponse,
   type TaskExecutionsPageParams,
   TaskExecutionsPageResponse,
   type TasksPageParams,
   TasksPageResponse,
+  type TeamUsagePageParams,
+  TeamUsagePageResponse,
   type TokensPageParams,
   TokensPageResponse,
+  type UserUsagePageParams,
+  UserUsagePageResponse,
   type WarmPoolsPageParams,
   WarmPoolsPageResponse,
   type WorkflowExecutionActionsPageParams,
@@ -147,6 +155,7 @@ import {
   AgentUpdatePromptParams,
   AgentUpdatePromptResponse,
   Agents,
+  GoalStatus,
   Prompt,
   PromptMetadata,
   PromptSpec,
@@ -154,6 +163,7 @@ import {
   Role,
   Type,
   UserInputBlock,
+  UserInputMetadata,
   WakeEvent,
 } from './resources/agents';
 import {
@@ -194,6 +204,51 @@ import {
   WorkflowsWorkflowsPage,
 } from './resources/automations';
 import {
+  AgentExecutionCreditUsage,
+  Billing,
+  BillingCurrency,
+  BillingGetCreditUsageExportParams,
+  BillingGetCreditUsageExportResponse,
+  BillingGetCreditUsageReportParams,
+  BillingGetCreditUsageReportResponse,
+  BillingGetCumulativeCreditUsageParams,
+  BillingGetCumulativeCreditUsageResponse,
+  BillingGetEnterpriseAIUsageSummaryParams,
+  BillingGetEnterpriseAIUsageSummaryResponse,
+  BillingGetEnterpriseAIUsageTimeSeriesParams,
+  BillingGetEnterpriseAIUsageTimeSeriesResponse,
+  BillingListEnterpriseAITeamUsageParams,
+  BillingListEnterpriseAIUserUsageParams,
+  BillingListEnterpriseUserCreditUsageParams,
+  ByokRateCardTokenType,
+  CreditUsageExportGroupBy,
+  CreditUsageReportFilter,
+  CreditsByType,
+  CumulativeCreditUsage,
+  DailyCreditUsage,
+  DailyEnterpriseAIUsage,
+  EnterpriseAITokenUsage,
+  EnterpriseAIUsage,
+  EnterpriseAIUsageBudget,
+  EnterpriseAIUsageBudgetSource,
+  EnterpriseAIUsageByModel,
+  EnterpriseAIUsageByTokenType,
+  EnterpriseAIUsageTimeSeriesFilter,
+  EnterpriseAIUserBudgetPolicySource,
+  EnvironmentCreditUsage,
+  TeamCreditUsage,
+  TeamCumulativeCreditUsage,
+  TeamEnterpriseAIUsage,
+  TeamEnterpriseAIUsagesTeamUsagePage,
+  UsageType,
+  UserCostBudgetUsage,
+  UserCostBudgetUsagesUserUsagePage,
+  UserCreditBudgetUsage,
+  UserCreditBudgetUsagesUserUsagePage,
+  UserCreditUsage,
+  UserEnterpriseAIUsage,
+} from './resources/billing';
+import {
   Editor,
   EditorListParams,
   EditorResolveURLParams,
@@ -205,24 +260,16 @@ import {
   EditorsEditorsPage,
 } from './resources/editors';
 import {
-  Breadcrumb,
-  ErrorEvent,
-  ErrorLevel,
-  ErrorReportErrorsParams,
-  ErrorReportErrorsResponse,
-  Errors as ErrorsAPIErrors,
-  ExceptionInfo,
-  ExceptionMechanism,
-  RequestInfo as ErrorRequestInfo,
-  StackFrame,
-} from './resources/errors';
-import {
+  AuditLogEntryDetails,
   EventListParams,
   EventListResponse,
   EventListResponsesEntriesPage,
+  EventRetrieveParams,
+  EventRetrieveResponse,
   EventWatchParams,
   EventWatchResponse,
   Events,
+  Process,
   ResourceOperation,
 } from './resources/events';
 import { GatewayListParams, Gateways } from './resources/gateways';
@@ -288,9 +335,49 @@ import {
   SecretsSecretsPage,
 } from './resources/secrets';
 import {
+  SecurityPolicies,
+  SecurityPoliciesSecurityPoliciesPage,
+  SecurityPolicy,
+  SecurityPolicyCreateParams,
+  SecurityPolicyCreateResponse,
+  SecurityPolicyDeleteParams,
+  SecurityPolicyDeleteResponse,
+  SecurityPolicyListParams,
+  SecurityPolicyRetrieveParams,
+  SecurityPolicyRetrieveResponse,
+  SecurityPolicyUpdateParams,
+  SecurityPolicyUpdateResponse,
+} from './resources/security-policies';
+import {
+  AgentTraceModelBreakdown,
+  AgentTraceSummary,
+  AgentTraceTimeBucket,
+  CoAuthorSummary,
+  CoAuthorTimeBucket,
+  CoAuthorTool,
   EnvironmentUsageRecord,
   EnvironmentUsageRecordsRecordsPage,
+  PrSummary,
+  PrTimeBucket,
+  Resolution,
+  SupportedModel,
+  TimeSeriesPoint,
+  ToolBreakdown,
   Usage,
+  UsageGetAdoptionUsageSummaryParams,
+  UsageGetAdoptionUsageSummaryResponse,
+  UsageGetAgentTraceSummaryParams,
+  UsageGetAgentTraceSummaryResponse,
+  UsageGetAgentTraceTimeSeriesParams,
+  UsageGetAgentTraceTimeSeriesResponse,
+  UsageGetCoAuthorSummaryParams,
+  UsageGetCoAuthorSummaryResponse,
+  UsageGetCoAuthorTimeSeriesParams,
+  UsageGetCoAuthorTimeSeriesResponse,
+  UsageGetPrSummaryParams,
+  UsageGetPrSummaryResponse,
+  UsageGetPrTimeSeriesParams,
+  UsageGetPrTimeSeriesResponse,
   UsageListEnvironmentRuntimeRecordsParams,
 } from './resources/usage';
 import {
@@ -417,6 +504,7 @@ import {
   RunnerListParams,
   RunnerListScmOrganizationsParams,
   RunnerListScmOrganizationsResponse,
+  RunnerListScmOrganizationsResponsesOrganizationsPage,
   RunnerParseContextURLParams,
   RunnerParseContextURLResponse,
   RunnerPhase,
@@ -590,6 +678,18 @@ export class Gitpod {
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
+
+    const customHeadersEnv = readEnv('GITPOD_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: Record<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
 
     this._options = options;
 
@@ -1101,11 +1201,19 @@ export class Gitpod {
     return () => controller.abort();
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -1168,13 +1276,12 @@ export class Gitpod {
   accounts: API.Accounts = new API.Accounts(this);
   agents: API.Agents = new API.Agents(this);
   automations: API.Automations = new API.Automations(this);
+  /**
+   * BillingService provides billing and subscription management functionality.
+   */
+  billing: API.Billing = new API.Billing(this);
   editors: API.Editors = new API.Editors(this);
   environments: API.Environments = new API.Environments(this);
-  /**
-   * ErrorsService provides endpoints for clients to report errors
-   *  that will be sent to error reporting systems.
-   */
-  errors: API.Errors = new API.Errors(this);
   events: API.Events = new API.Events(this);
   gateways: API.Gateways = new API.Gateways(this);
   groups: API.Groups = new API.Groups(this);
@@ -1188,6 +1295,7 @@ export class Gitpod {
   projects: API.Projects = new API.Projects(this);
   runners: API.Runners = new API.Runners(this);
   secrets: API.Secrets = new API.Secrets(this);
+  securityPolicies: API.SecurityPolicies = new API.SecurityPolicies(this);
   /**
    * UsageService provides usage information about environments, users, and projects.
    */
@@ -1198,9 +1306,9 @@ export class Gitpod {
 Gitpod.Accounts = Accounts;
 Gitpod.Agents = Agents;
 Gitpod.Automations = Automations;
+Gitpod.Billing = Billing;
 Gitpod.Editors = Editors;
 Gitpod.Environments = Environments;
-Gitpod.Errors = ErrorsAPIErrors;
 Gitpod.Events = Events;
 Gitpod.Gateways = Gateways;
 Gitpod.Groups = Groups;
@@ -1210,6 +1318,7 @@ Gitpod.Prebuilds = Prebuilds;
 Gitpod.Projects = Projects;
 Gitpod.Runners = Runners;
 Gitpod.Secrets = Secrets;
+Gitpod.SecurityPolicies = SecurityPolicies;
 Gitpod.Usage = Usage;
 Gitpod.Users = Users;
 
@@ -1282,6 +1391,12 @@ export declare namespace Gitpod {
   export import MembersPage = Pagination.MembersPage;
   export { type MembersPageParams as MembersPageParams, type MembersPageResponse as MembersPageResponse };
 
+  export import OrganizationsPage = Pagination.OrganizationsPage;
+  export {
+    type OrganizationsPageParams as OrganizationsPageParams,
+    type OrganizationsPageResponse as OrganizationsPageResponse,
+  };
+
   export import OutputsPage = Pagination.OutputsPage;
   export { type OutputsPageParams as OutputsPageParams, type OutputsPageResponse as OutputsPageResponse };
 
@@ -1333,6 +1448,12 @@ export declare namespace Gitpod {
   export import SecretsPage = Pagination.SecretsPage;
   export { type SecretsPageParams as SecretsPageParams, type SecretsPageResponse as SecretsPageResponse };
 
+  export import SecurityPoliciesPage = Pagination.SecurityPoliciesPage;
+  export {
+    type SecurityPoliciesPageParams as SecurityPoliciesPageParams,
+    type SecurityPoliciesPageResponse as SecurityPoliciesPageResponse,
+  };
+
   export import ServicesPage = Pagination.ServicesPage;
   export { type ServicesPageParams as ServicesPageParams, type ServicesPageResponse as ServicesPageResponse };
 
@@ -1351,8 +1472,20 @@ export declare namespace Gitpod {
   export import TasksPage = Pagination.TasksPage;
   export { type TasksPageParams as TasksPageParams, type TasksPageResponse as TasksPageResponse };
 
+  export import TeamUsagePage = Pagination.TeamUsagePage;
+  export {
+    type TeamUsagePageParams as TeamUsagePageParams,
+    type TeamUsagePageResponse as TeamUsagePageResponse,
+  };
+
   export import TokensPage = Pagination.TokensPage;
   export { type TokensPageParams as TokensPageParams, type TokensPageResponse as TokensPageResponse };
+
+  export import UserUsagePage = Pagination.UserUsagePage;
+  export {
+    type UserUsagePageParams as UserUsagePageParams,
+    type UserUsagePageResponse as UserUsagePageResponse,
+  };
 
   export import WarmPoolsPage = Pagination.WarmPoolsPage;
   export {
@@ -1405,12 +1538,14 @@ export declare namespace Gitpod {
     type AgentExecution as AgentExecution,
     type AgentMessage as AgentMessage,
     type AgentMode as AgentMode,
+    type GoalStatus as GoalStatus,
     type Prompt as Prompt,
     type PromptMetadata as PromptMetadata,
     type PromptSpec as PromptSpec,
     type Role as Role,
     type Type as Type,
     type UserInputBlock as UserInputBlock,
+    type UserInputMetadata as UserInputMetadata,
     type WakeEvent as WakeEvent,
     type AgentCreateExecutionConversationTokenResponse as AgentCreateExecutionConversationTokenResponse,
     type AgentCreatePromptResponse as AgentCreatePromptResponse,
@@ -1477,6 +1612,52 @@ export declare namespace Gitpod {
   };
 
   export {
+    Billing as Billing,
+    type AgentExecutionCreditUsage as AgentExecutionCreditUsage,
+    type BillingCurrency as BillingCurrency,
+    type ByokRateCardTokenType as ByokRateCardTokenType,
+    type CreditUsageExportGroupBy as CreditUsageExportGroupBy,
+    type CreditUsageReportFilter as CreditUsageReportFilter,
+    type CreditsByType as CreditsByType,
+    type CumulativeCreditUsage as CumulativeCreditUsage,
+    type DailyCreditUsage as DailyCreditUsage,
+    type DailyEnterpriseAIUsage as DailyEnterpriseAIUsage,
+    type EnterpriseAITokenUsage as EnterpriseAITokenUsage,
+    type EnterpriseAIUsage as EnterpriseAIUsage,
+    type EnterpriseAIUsageBudget as EnterpriseAIUsageBudget,
+    type EnterpriseAIUsageBudgetSource as EnterpriseAIUsageBudgetSource,
+    type EnterpriseAIUsageByModel as EnterpriseAIUsageByModel,
+    type EnterpriseAIUsageByTokenType as EnterpriseAIUsageByTokenType,
+    type EnterpriseAIUsageTimeSeriesFilter as EnterpriseAIUsageTimeSeriesFilter,
+    type EnterpriseAIUserBudgetPolicySource as EnterpriseAIUserBudgetPolicySource,
+    type EnvironmentCreditUsage as EnvironmentCreditUsage,
+    type TeamCreditUsage as TeamCreditUsage,
+    type TeamCumulativeCreditUsage as TeamCumulativeCreditUsage,
+    type TeamEnterpriseAIUsage as TeamEnterpriseAIUsage,
+    type UsageType as UsageType,
+    type UserCostBudgetUsage as UserCostBudgetUsage,
+    type UserCreditBudgetUsage as UserCreditBudgetUsage,
+    type UserCreditUsage as UserCreditUsage,
+    type UserEnterpriseAIUsage as UserEnterpriseAIUsage,
+    type BillingGetCreditUsageExportResponse as BillingGetCreditUsageExportResponse,
+    type BillingGetCreditUsageReportResponse as BillingGetCreditUsageReportResponse,
+    type BillingGetCumulativeCreditUsageResponse as BillingGetCumulativeCreditUsageResponse,
+    type BillingGetEnterpriseAIUsageSummaryResponse as BillingGetEnterpriseAIUsageSummaryResponse,
+    type BillingGetEnterpriseAIUsageTimeSeriesResponse as BillingGetEnterpriseAIUsageTimeSeriesResponse,
+    type TeamEnterpriseAIUsagesTeamUsagePage as TeamEnterpriseAIUsagesTeamUsagePage,
+    type UserCostBudgetUsagesUserUsagePage as UserCostBudgetUsagesUserUsagePage,
+    type UserCreditBudgetUsagesUserUsagePage as UserCreditBudgetUsagesUserUsagePage,
+    type BillingGetCreditUsageExportParams as BillingGetCreditUsageExportParams,
+    type BillingGetCreditUsageReportParams as BillingGetCreditUsageReportParams,
+    type BillingGetCumulativeCreditUsageParams as BillingGetCumulativeCreditUsageParams,
+    type BillingGetEnterpriseAIUsageSummaryParams as BillingGetEnterpriseAIUsageSummaryParams,
+    type BillingGetEnterpriseAIUsageTimeSeriesParams as BillingGetEnterpriseAIUsageTimeSeriesParams,
+    type BillingListEnterpriseAITeamUsageParams as BillingListEnterpriseAITeamUsageParams,
+    type BillingListEnterpriseAIUserUsageParams as BillingListEnterpriseAIUserUsageParams,
+    type BillingListEnterpriseUserCreditUsageParams as BillingListEnterpriseUserCreditUsageParams,
+  };
+
+  export {
     Editors as Editors,
     type Editor as Editor,
     type EditorVersion as EditorVersion,
@@ -1528,24 +1709,15 @@ export declare namespace Gitpod {
   };
 
   export {
-    ErrorsAPIErrors as Errors,
-    type Breadcrumb as Breadcrumb,
-    type ErrorEvent as ErrorEvent,
-    type ErrorLevel as ErrorLevel,
-    type ExceptionInfo as ExceptionInfo,
-    type ExceptionMechanism as ExceptionMechanism,
-    type ErrorRequestInfo as RequestInfo,
-    type StackFrame as StackFrame,
-    type ErrorReportErrorsResponse as ErrorReportErrorsResponse,
-    type ErrorReportErrorsParams as ErrorReportErrorsParams,
-  };
-
-  export {
     Events as Events,
+    type AuditLogEntryDetails as AuditLogEntryDetails,
+    type Process as Process,
     type ResourceOperation as ResourceOperation,
+    type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventWatchResponse as EventWatchResponse,
     type EventListResponsesEntriesPage as EventListResponsesEntriesPage,
+    type EventRetrieveParams as EventRetrieveParams,
     type EventListParams as EventListParams,
     type EventWatchParams as EventWatchParams,
   };
@@ -1695,6 +1867,7 @@ export declare namespace Gitpod {
     type RunnerParseContextURLResponse as RunnerParseContextURLResponse,
     type RunnerSearchRepositoriesResponse as RunnerSearchRepositoriesResponse,
     type RunnersRunnersPage as RunnersRunnersPage,
+    type RunnerListScmOrganizationsResponsesOrganizationsPage as RunnerListScmOrganizationsResponsesOrganizationsPage,
     type RunnerCreateParams as RunnerCreateParams,
     type RunnerRetrieveParams as RunnerRetrieveParams,
     type RunnerUpdateParams as RunnerUpdateParams,
@@ -1726,9 +1899,50 @@ export declare namespace Gitpod {
   };
 
   export {
+    SecurityPolicies as SecurityPolicies,
+    type SecurityPolicy as SecurityPolicy,
+    type SecurityPolicyCreateResponse as SecurityPolicyCreateResponse,
+    type SecurityPolicyRetrieveResponse as SecurityPolicyRetrieveResponse,
+    type SecurityPolicyUpdateResponse as SecurityPolicyUpdateResponse,
+    type SecurityPolicyDeleteResponse as SecurityPolicyDeleteResponse,
+    type SecurityPoliciesSecurityPoliciesPage as SecurityPoliciesSecurityPoliciesPage,
+    type SecurityPolicyCreateParams as SecurityPolicyCreateParams,
+    type SecurityPolicyRetrieveParams as SecurityPolicyRetrieveParams,
+    type SecurityPolicyUpdateParams as SecurityPolicyUpdateParams,
+    type SecurityPolicyListParams as SecurityPolicyListParams,
+    type SecurityPolicyDeleteParams as SecurityPolicyDeleteParams,
+  };
+
+  export {
     Usage as Usage,
+    type AgentTraceModelBreakdown as AgentTraceModelBreakdown,
+    type AgentTraceSummary as AgentTraceSummary,
+    type AgentTraceTimeBucket as AgentTraceTimeBucket,
+    type CoAuthorSummary as CoAuthorSummary,
+    type CoAuthorTimeBucket as CoAuthorTimeBucket,
+    type CoAuthorTool as CoAuthorTool,
     type EnvironmentUsageRecord as EnvironmentUsageRecord,
+    type PrSummary as PrSummary,
+    type PrTimeBucket as PrTimeBucket,
+    type Resolution as Resolution,
+    type SupportedModel as SupportedModel,
+    type TimeSeriesPoint as TimeSeriesPoint,
+    type ToolBreakdown as ToolBreakdown,
+    type UsageGetAdoptionUsageSummaryResponse as UsageGetAdoptionUsageSummaryResponse,
+    type UsageGetAgentTraceSummaryResponse as UsageGetAgentTraceSummaryResponse,
+    type UsageGetAgentTraceTimeSeriesResponse as UsageGetAgentTraceTimeSeriesResponse,
+    type UsageGetCoAuthorSummaryResponse as UsageGetCoAuthorSummaryResponse,
+    type UsageGetCoAuthorTimeSeriesResponse as UsageGetCoAuthorTimeSeriesResponse,
+    type UsageGetPrSummaryResponse as UsageGetPrSummaryResponse,
+    type UsageGetPrTimeSeriesResponse as UsageGetPrTimeSeriesResponse,
     type EnvironmentUsageRecordsRecordsPage as EnvironmentUsageRecordsRecordsPage,
+    type UsageGetAdoptionUsageSummaryParams as UsageGetAdoptionUsageSummaryParams,
+    type UsageGetAgentTraceSummaryParams as UsageGetAgentTraceSummaryParams,
+    type UsageGetAgentTraceTimeSeriesParams as UsageGetAgentTraceTimeSeriesParams,
+    type UsageGetCoAuthorSummaryParams as UsageGetCoAuthorSummaryParams,
+    type UsageGetCoAuthorTimeSeriesParams as UsageGetCoAuthorTimeSeriesParams,
+    type UsageGetPrSummaryParams as UsageGetPrSummaryParams,
+    type UsageGetPrTimeSeriesParams as UsageGetPrTimeSeriesParams,
     type UsageListEnvironmentRuntimeRecordsParams as UsageListEnvironmentRuntimeRecordsParams,
   };
 
@@ -1746,13 +1960,19 @@ export declare namespace Gitpod {
   };
 
   export type AutomationTrigger = API.AutomationTrigger;
+  export type CodexOpenAIModel = API.CodexOpenAIModel;
+  export type CodexReasoningEffort = API.CodexReasoningEffort;
+  export type CodexServiceTier = API.CodexServiceTier;
+  export type CodexSettings = API.CodexSettings;
   export type CountResponseRelation = API.CountResponseRelation;
+  export type DateRange = API.DateRange;
   export type EnvironmentClass = API.EnvironmentClass;
   export type EnvironmentVariableItem = API.EnvironmentVariableItem;
   export type EnvironmentVariableSource = API.EnvironmentVariableSource;
   export type ErrorCode = API.ErrorCode;
   export type FieldValue = API.FieldValue;
   export type Gateway = API.Gateway;
+  export type KernelControlsAction = API.KernelControlsAction;
   export type OrganizationRole = API.OrganizationRole;
   export type OrganizationTier = API.OrganizationTier;
   export type Principal = API.Principal;

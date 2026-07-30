@@ -55,11 +55,11 @@ import {
 import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
+  CodexModelPolicy,
   ConversationSharingPolicy,
   CrowdStrikeConfig,
   CustomAgentEnvMapping,
   CustomSecurityAgent,
-  KernelControlsAction,
   OrganizationPolicies,
   Policies,
   PolicyRetrieveParams,
@@ -1057,11 +1057,11 @@ export declare namespace Organizations {
   export {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
+    type CodexModelPolicy as CodexModelPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
     type CustomAgentEnvMapping as CustomAgentEnvMapping,
     type CustomSecurityAgent as CustomSecurityAgent,
-    type KernelControlsAction as KernelControlsAction,
     type OrganizationPolicies as OrganizationPolicies,
     type SecurityAgentPolicy as SecurityAgentPolicy,
     type VetoExecPolicy as VetoExecPolicy,

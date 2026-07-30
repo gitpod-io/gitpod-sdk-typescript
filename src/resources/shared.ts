@@ -22,8 +22,8 @@ import {
  * automation during a prebuild of an environment. This phase does not have user
  * secrets available. The `before_snapshot` field triggers the automation after all
  * prebuild tasks complete but before the snapshot is taken. This is used for tasks
- * that need to run last during prebuilds, such as IDE warmup. Note: The prebuild
- * and before_snapshot triggers can only be used with tasks, not services.
+ * that need to run last during prebuilds, such as IDE warmup. Note: The
+ * before_snapshot trigger can only be used with tasks, not services.
  */
 export interface AutomationTrigger {
   beforeSnapshot?: boolean;
@@ -39,10 +39,81 @@ export interface AutomationTrigger {
   prebuild?: boolean;
 }
 
+/**
+ * CodexOpenAIModel is the static allowlist of concrete OpenAI models that the
+ * Codex app runtime can select through Ona's Codex picker.
+ */
+export type CodexOpenAIModel =
+  | 'CODEX_OPEN_AI_MODEL_UNSPECIFIED'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_5'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_4'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_4_MINI'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_3_CODEX'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_3_CODEX_SPARK'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_2'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_6_SOL'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_6_TERRA'
+  | 'CODEX_OPEN_AI_MODEL_GPT_5_6_LUNA';
+
+/**
+ * CodexReasoningEffort is the static allowlist of reasoning efforts supported by
+ * the Codex app runtime.
+ */
+export type CodexReasoningEffort =
+  | 'CODEX_REASONING_EFFORT_UNSPECIFIED'
+  | 'CODEX_REASONING_EFFORT_LOW'
+  | 'CODEX_REASONING_EFFORT_MEDIUM'
+  | 'CODEX_REASONING_EFFORT_HIGH'
+  | 'CODEX_REASONING_EFFORT_EXTRA_HIGH';
+
+/**
+ * CodexServiceTier is the static allowlist of service tiers supported by the Codex
+ * app runtime.
+ */
+export type CodexServiceTier = 'CODEX_SERVICE_TIER_UNSPECIFIED' | 'CODEX_SERVICE_TIER_FAST';
+
+/**
+ * CodexSettings contains settings consumed only by the Codex app agent.
+ */
+export interface CodexSettings {
+  /**
+   * CodexOpenAIModel is the static allowlist of concrete OpenAI models that the
+   * Codex app runtime can select through Ona's Codex picker.
+   */
+  model?: CodexOpenAIModel;
+
+  /**
+   * CodexReasoningEffort is the static allowlist of reasoning efforts supported by
+   * the Codex app runtime.
+   */
+  reasoningEffort?: CodexReasoningEffort;
+
+  /**
+   * CodexServiceTier is the static allowlist of service tiers supported by the Codex
+   * app runtime.
+   */
+  serviceTier?: CodexServiceTier;
+}
+
 export type CountResponseRelation =
   | 'COUNT_RESPONSE_RELATION_UNSPECIFIED'
   | 'COUNT_RESPONSE_RELATION_EQ'
   | 'COUNT_RESPONSE_RELATION_GTE';
+
+/**
+ * DateRange specifies a time period for queries.
+ */
+export interface DateRange {
+  /**
+   * End time of the date range (exclusive).
+   */
+  endTime: string;
+
+  /**
+   * Start time of the date range (inclusive).
+   */
+  startTime: string;
+}
 
 export interface EnvironmentClass {
   /**
@@ -158,6 +229,14 @@ export interface Gateway {
   region?: string;
 }
 
+/**
+ * KernelControlsAction defines how a kernel-level policy violation is handled.
+ */
+export type KernelControlsAction =
+  | 'KERNEL_CONTROLS_ACTION_UNSPECIFIED'
+  | 'KERNEL_CONTROLS_ACTION_BLOCK'
+  | 'KERNEL_CONTROLS_ACTION_AUDIT';
+
 export type OrganizationRole =
   | 'ORGANIZATION_ROLE_UNSPECIFIED'
   | 'ORGANIZATION_ROLE_ADMIN'
@@ -209,7 +288,11 @@ export type ResourceRole =
   | 'RESOURCE_ROLE_ORG_PROJECTS_ADMIN'
   | 'RESOURCE_ROLE_ORG_AUTOMATIONS_ADMIN'
   | 'RESOURCE_ROLE_ORG_GROUPS_ADMIN'
+  | 'RESOURCE_ROLE_ORG_ENVIRONMENTS_READER'
   | 'RESOURCE_ROLE_ORG_AUDIT_LOG_READER'
+  | 'RESOURCE_ROLE_ORG_BILLING_VIEWER'
+  | 'RESOURCE_ROLE_ORG_INSIGHTS_VIEWER'
+  | 'RESOURCE_ROLE_ORG_SECURITY_ADMIN'
   | 'RESOURCE_ROLE_GROUP_ADMIN'
   | 'RESOURCE_ROLE_GROUP_VIEWER'
   | 'RESOURCE_ROLE_USER_IDENTITY'
@@ -263,7 +346,9 @@ export type ResourceRole =
   | 'RESOURCE_ROLE_SESSION_ADMIN'
   | 'RESOURCE_ROLE_SESSION_USER'
   | 'RESOURCE_ROLE_TEAM_ADMIN'
-  | 'RESOURCE_ROLE_TEAM_VIEWER';
+  | 'RESOURCE_ROLE_TEAM_VIEWER'
+  | 'RESOURCE_ROLE_SECURITY_POLICY_ADMIN'
+  | 'RESOURCE_ROLE_SECURITY_POLICY_VIEWER';
 
 export type ResourceType =
   | 'RESOURCE_TYPE_UNSPECIFIED'
@@ -315,7 +400,10 @@ export type ResourceType =
   | 'RESOURCE_TYPE_SERVICE_ACCOUNT_TOKEN'
   | 'RESOURCE_TYPE_ROLE_ASSIGNMENT'
   | 'RESOURCE_TYPE_WARM_POOL'
-  | 'RESOURCE_TYPE_NOTIFICATION';
+  | 'RESOURCE_TYPE_NOTIFICATION'
+  | 'RESOURCE_TYPE_SECURITY_POLICY'
+  | 'RESOURCE_TYPE_BASE_SNAPSHOT'
+  | 'RESOURCE_TYPE_BASE_SNAPSHOT_CONFIG';
 
 export interface RunsOn {
   docker?: RunsOn.Docker;
@@ -324,12 +412,6 @@ export interface RunsOn {
    * Machine runs the service/task directly on the VM/machine level.
    */
   machine?: unknown;
-
-  /**
-   * Terminal runs the service inside a managed PTY terminal in the devcontainer.
-   * Users can attach to the terminal interactively via the terminal API.
-   */
-  terminal?: unknown;
 }
 
 export namespace RunsOn {
@@ -602,6 +684,15 @@ export interface TaskSpec {
    * env specifies environment variables for the task.
    */
   env?: Array<EnvironmentVariableItem>;
+
+  /**
+   * prebuild_requires_success controls whether a non-successful outcome of this task
+   * should fail the prebuild. When true and the task is triggered by a prebuild or
+   * before_snapshot trigger, any terminal phase other than SUCCEEDED (i.e. FAILED or
+   * STOPPED) will cause the prebuild to fail instead of just recording a warning.
+   * Defaults to false (existing behavior: task failures produce warnings only).
+   */
+  prebuildRequiresSuccess?: boolean;
 
   /**
    * runs_on specifies the environment the task should run on.

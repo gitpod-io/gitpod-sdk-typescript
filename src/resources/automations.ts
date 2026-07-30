@@ -2144,8 +2144,6 @@ export interface WorkflowStep {
    */
   pullRequest?: WorkflowStep.PullRequest;
 
-  report?: WorkflowStep.Report;
-
   /**
    * WorkflowTaskStep represents a task step that executes a command.
    */
@@ -2201,21 +2199,6 @@ export namespace WorkflowStep {
     title?: string;
   }
 
-  export interface Report {
-    /**
-     * Report must have at least one output:
-     *
-     * ```
-     * size(this) >= 1
-     * ```
-     */
-    outputs?: Array<Report.Output>;
-  }
-
-  export namespace Report {
-    export interface Output {}
-  }
-
   /**
    * WorkflowTaskStep represents a task step that executes a command.
    */
@@ -2264,6 +2247,8 @@ export interface WorkflowTrigger {
    * - Manual: Can use any context type
    * - Time: Typically uses Projects or Repositories context
    * - PullRequest: Can use any context, FromTrigger uses PR repository context
+   * - Incident: Typically uses Projects or Repositories context (no inherent repo
+   *   context)
    */
   context: WorkflowTriggerContext;
 
@@ -2300,7 +2285,15 @@ export namespace WorkflowTrigger {
       | 'PULL_REQUEST_EVENT_MERGED'
       | 'PULL_REQUEST_EVENT_CLOSED'
       | 'PULL_REQUEST_EVENT_READY_FOR_REVIEW'
+      | 'PULL_REQUEST_EVENT_REVIEW_REQUESTED'
     >;
+
+    /**
+     * integration_id is the optional ID of an integration that acts as the source of
+     * webhook events. When set, the trigger will be activated when the webhook
+     * receives events.
+     */
+    integrationId?: string | null;
 
     /**
      * webhook_id is the optional ID of a webhook that this trigger is bound to. When
@@ -2341,6 +2334,8 @@ export namespace WorkflowTrigger {
  * - Manual: Can use any context type
  * - Time: Typically uses Projects or Repositories context
  * - PullRequest: Can use any context, FromTrigger uses PR repository context
+ * - Incident: Typically uses Projects or Repositories context (no inherent repo
+ *   context)
  */
 export interface WorkflowTriggerContext {
   /**
@@ -2515,6 +2510,12 @@ export interface AutomationCreateParams {
   action: WorkflowAction;
 
   /**
+   * Codex app agent settings. Only meaningful when agent_id refers to the Codex app
+   * agent.
+   */
+  codexSettings?: Shared.CodexSettings;
+
+  /**
    * Description must be at most 500 characters:
    *
    * ```
@@ -2562,6 +2563,12 @@ export interface AutomationUpdateParams {
    * WorkflowAction defines the actions to be executed in a workflow.
    */
   action?: WorkflowAction | null;
+
+  /**
+   * Codex app agent settings. Only meaningful when agent_id refers to the Codex app
+   * agent.
+   */
+  codexSettings?: Shared.CodexSettings | null;
 
   /**
    * Description must be at most 500 characters:
