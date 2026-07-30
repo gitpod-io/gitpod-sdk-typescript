@@ -1,5 +1,109 @@
 # Changelog
 
+## 0.15.0 (2026-07-30)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.14.0...v0.15.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** narrow public SDK surface
+* **agent:** remove loop condition mechanism
+
+### Features
+
+* add base snapshot resource types ([d0a4934](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d0a4934b242a2c2c386422ec199716c615aba496))
+* **agent:** add devcontainer rebuild wait schema ([066ffb9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/066ffb92c77c42e6c5d0dc623067818e72da4308))
+* **agents:** add native goal set control ([2815518](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/281551871b8e3715aaa18530718e5201ccad5706))
+* **api:** add accessToken field to runners response types ([90fa2a8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/90fa2a8c112f3717cd08c0cc25a64cfe0d880534))
+* **api:** add agent turn controls ([609765a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/609765accf046ca934fc7532d55f7b2dff52abc0))
+* **api:** add agent_execution_cnf capability to runners ([e96ca1a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e96ca1a49605a2ddfccd4288862f5721d1d91ceb))
+* **api:** add agentExecutionIds filter to agents list executions ([ffdedcb](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ffdedcbcbb2d505e195f18ea1f9c3e26fb654cc8))
+* **api:** add allowUnverifiedEmailScimFallbackMatch to scim_configurations ([0c94086](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0c940860f8be53265078463c9ef17a3a2d70b234))
+* **api:** add base snapshot build environment role ([af79956](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/af7995656b6e9a9757dfe2e026f8938b8f4478bf))
+* **api:** add base snapshot runner capability ([6ac2747](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/6ac2747beb4c1631370bd9636244f45aca6544ec))
+* **api:** add Claude Sonnet 5 model enum ([d6b48d0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d6b48d0e0008b69338e9c706bcfe5f1f62d0ed91))
+* **api:** add Codex agent settings shape ([dd159ea](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/dd159ea0bf200eee8b14194ddd68ebde631a1461))
+* **api:** add Codex fast mode setting ([c994c17](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c994c1712b19d34287dc691426e22d1d76da47f4))
+* **api:** add codex model policy states ([34dcdba](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/34dcdba3dcc47d30366d0ac578d904d80df0cc96))
+* **api:** add Codex policy allowlists ([5024cc9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/5024cc955226c2b8fc01f6e7c2e13037a54c509a))
+* **api:** add credential_proxy to secrets, remove format from environments ([1e6190f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1e6190f898a3bfd82c6431734bea4adad3c1ae37))
+* **api:** add default environment class IDs to project creation defaults ([b13d13c](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b13d13c8779c7ecc6feff816a6d3e7518c5f1c48))
+* **api:** add disableFromScratch field to organization policies ([e46e4a6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e46e4a69e1dfb9ae210187ac062906700b4cf42d))
+* **api:** add dynamic LLM header contracts ([a7def94](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a7def948b098bceb2b70baba34c5ae285359469e))
+* **api:** add goal field to agent execution status ([af7aefc](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/af7aefc796d2bebbcac50136ea1cafd9c21a85c5))
+* **api:** add incident trigger to WorkflowTrigger and WorkflowExecution ([eb856ef](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/eb856efd3fbac51d1c8556faef976e9a6f8dd09b))
+* **api:** add integration_id, update webhook_id in WorkflowTrigger ([e1591e6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e1591e617c7e29729f6ada19f03fa53a4161a1c3))
+* **api:** add maxPortAdmissionLevel to organization policies ([9fc32dc](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9fc32dcfbf9aab465f71b2d84227318826e589ee))
+* **api:** add oldPath field to EnvironmentStatus file changes ([e179ba6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e179ba6bb9bc0ca5a37262a15235e5f9185a98f6))
+* **api:** add OPENAI_AUTO model option to agents ([ae690a1](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/ae690a1a744c174030a9679206f02372fd06af90))
+* **api:** add opus 4.7 model support to agent execution ([27772ea](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/27772ea9c32c3336e654df4675500ec83ab01f6a))
+* **api:** add Opus 4.8 supported model ([d790282](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/d79028234621972d25619575f3b6f776a532c2c1))
+* **api:** add pagination and search to runners listScmOrganizations method ([6a6e0a8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/6a6e0a84e2a9daf23db95877e0b0c015fb51a9c4))
+* **api:** add port_authentication capability to RunnerCapability ([c8eb1d6](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c8eb1d63e97c6570e5156f90c58e29141ed1e68c))
+* **api:** add prebuild trigger value to automations ([452d5e0](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/452d5e08209708511f3505402a1b9bd883f59721))
+* **api:** add prebuild_requires_success field to TaskSpec ([e7c0df3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e7c0df38a2ae7e22676dd674cb1ecb0d133c185c))
+* **api:** add project_creation_defaults field to organization policies ([7d70a05](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7d70a050bf8bd1a320c67df55d4c0816a71fbe8d))
+* **api:** add PULL_REQUEST_EVENT_REVIEW_REQUESTED event type to WorkflowTrigger ([a7fe947](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a7fe947b77f988afdc6e93d77e7629991b6709f3))
+* **api:** add readinessTimeout to automations and services ([3e90e74](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3e90e745e1a3929292bef99678be2b6e18363b4b))
+* **api:** add REDIS_STREAM to RunnerCapability enum in runners ([8d9be56](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/8d9be566a38463088be5e43ead0e5c6b566efec0))
+* **api:** add RESOURCE_ROLE_ORG_ENVIRONMENTS_READER to ResourceRole ([9f9f219](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9f9f21920fe179fcce2d9166f777449d011f1b74))
+* **api:** add security policy CRUD ([494ff81](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/494ff81d98636b3d2760c4cefd2d55084faaa834))
+* **api:** add UserInputMetadata type to agents ([6c834b9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/6c834b99652dd3da17781e08d5449480cd835fcd))
+* **api:** add webBrowserDisabled field to organizations policies ([1a8ae44](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1a8ae4474aa07bc54f258733c768068dbdb022de))
+* **api:** expose audit log entry kind ([b0d348a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b0d348a92d8222855a630d1a7648cc625e734548))
+* **api:** expose default security policy assignment ([438a4fe](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/438a4fe4996d8e4fd7c90dc38df7d0ed7055ca9b))
+* **api:** expose usage insights API ([fa80ce9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fa80ce9e9ffc891932e0dbc2fd47f02bfeb0bdf8))
+* **api:** expose Veto Exec security policies ([0044e8a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0044e8ab1c6029e7fab6e7b967fa7523dd0a2e70))
+* **api:** remove terminal field from RunsOn ([85d6ef2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/85d6ef2d704eb140512d7edf3c1e6495f1da12d5))
+* **audit:** curate audit events at their producers ([13532de](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/13532de2fac6af62633fe4d35ef778b6284ac413))
+* **audit:** store and retrieve Veto Exec details ([0120ae7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0120ae7829b82b840fbbe5ba8d763fa3570ef7e9))
+* **automations:** pin agent and Codex model per automation ([83d82a3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/83d82a37eaae42c2e2298d58187ba492dec8070e))
+* **billing:** add Enterprise AI user budget APIs ([66e7496](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/66e749662e88bd5c3e3899bc07421e17a029e584))
+* **codex:** add GPT-5.6 model selection ([3138ce8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/3138ce83141c309bedfbaa7a86a114d870002267))
+* **rbac:** add billing viewer role ([9370c07](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9370c0774f8b3717d0524e97ef82da56ab236664))
+* **rbac:** add insights viewer role ([a1eb0d9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a1eb0d9242f7ad81dd7613395286bbbbf4868209))
+* **secrets:** support JFrog OIDC secret sources ([2cbf05b](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2cbf05b577b3d73bc5122582255561c032928392))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([4bbecf5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/4bbecf52a1cbcbc8b354d060cf856416f9fdc2e6))
+* support setting headers via env ([bed4904](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/bed49045e5f23a7f683a8b8603cf1b50a2f7a433))
+* **types:** add Report and related schema types to automations ([f9c394a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f9c394ab4ed90dcea009c21471bbeeec3871bdd6))
+
+
+### Bug Fixes
+
+* **api:** narrow public SDK surface ([94558de](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/94558de6ea076bba9115b589393ccade2dd2f496))
+* **api:** wrap prebuild default updates ([5eed720](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/5eed7206580b4c1900a7728372f32a5dcafcd2b8))
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([1396c15](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/1396c15bd264e9eee7152ea2e9217557cb78d8fe))
+* **client:** send content-type header for requests with an omitted optional body ([14526e5](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/14526e53fb6c4b755634c4ed5ab598195f844872))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([44ea48e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/44ea48e8129ec5e7af0a643d35378e1b8536c8f4))
+
+
+### Chores
+
+* **format:** run eslint and prettier separately ([0782de2](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/0782de2e4cc157507a34c43a5db1a8f1700db98c))
+* **formatter:** run prettier and eslint separately ([e354bf8](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/e354bf849b97e421b9694b55a1d7b0f41e7ba4fe))
+* **internal:** codegen related update ([f0055f7](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/f0055f7c6bb9420bc0ae3c6267651393832213f3))
+* **internal:** codegen related update ([afd15ee](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/afd15eebed86ae40238ac2e8a34c448e48097aed))
+* **internal:** codegen related update ([cfd1e9a](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/cfd1e9a15f844e398d089cfc9189b604628b9c33))
+* **internal:** more robust bootstrap script ([306e1fa](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/306e1fa51525f0ba764898ed4ee57a4ccb002d8c))
+* **internal:** regenerate SDK with no functional changes ([c67a192](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c67a192f31447d27e1a5b077ea123cf9f18b402f))
+* redact api-key headers in debug logs ([2598350](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2598350538c8203fdb338f4fa41b1e81addd485b))
+* **tests:** remove redundant File import ([253359f](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/253359feedb1230ed9c7c34cb98e393473220f0c))
+* **types:** remove deprecated accessToken from runners response types ([c521a3e](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/c521a3efa0f39ccea79c239fa8ffe208c901309a))
+
+
+### Documentation
+
+* **api:** add customer-facing descriptions to runner enums and fix CreateRunner examples ([9d1ff23](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/9d1ff23c474adb238e5b9dac965cd6dfaf136c29))
+* **types:** clarify trigger restrictions in AutomationTrigger ([fadafca](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/fadafca48ec3301694befe6e3d71f14321642500))
+* **types:** deprecate isAdmin in runners organization response ([7aa6263](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7aa6263936e7a45c43801dc818e384d43e1249c5))
+
+
+### Refactors
+
+* **agent:** remove loop condition mechanism ([a22d444](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/a22d444d5f1c13d2ac6243aa740729415094b7ad))
+* **api:** default StartAgent agent ID ([7155c62](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/7155c62889ece19a8f3367f8d5cc1b3ee0394536))
+* **api:** remove project defaults API surface ([2a335c3](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/2a335c36b73fc0449e0403333130d63a5c3776a2))
+
 ## 0.14.0 (2026-04-02)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.13.0...v0.14.0)
