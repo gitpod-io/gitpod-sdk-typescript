@@ -515,6 +515,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/organizations/policies.ts">AgentPolicy</a></code>
+- <code><a href="./src/resources/organizations/policies.ts">AutomationPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CodexModelPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">ConversationSharingPolicy</a></code>
 - <code><a href="./src/resources/organizations/policies.ts">CrowdStrikeConfig</a></code>

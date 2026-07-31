@@ -71,6 +71,7 @@ export {
 export {
   Policies,
   type AgentPolicy,
+  type AutomationPolicy,
   type CodexModelPolicy,
   type ConversationSharingPolicy,
   type CrowdStrikeConfig,
