@@ -168,6 +168,26 @@ export interface AgentPolicy {
 }
 
 /**
+ * AutomationPolicy contains organization limits for self-service Automations.
+ */
+export interface AutomationPolicy {
+  /**
+   * max_automations_per_user is the ownership quota for each user.
+   */
+  maxAutomationsPerUser?: number;
+
+  /**
+   * max_parallel_actions is the concurrent-action limit for each Automation.
+   */
+  maxParallelActions?: number;
+
+  /**
+   * max_projects_per_automation is the project-selection limit for each Automation.
+   */
+  maxProjectsPerAutomation?: number;
+}
+
+/**
  * CodexModelPolicy controls per-model availability for Codex.
  */
 export interface CodexModelPolicy {
@@ -771,6 +791,7 @@ export namespace PolicyUpdateParams {
 export declare namespace Policies {
   export {
     type AgentPolicy as AgentPolicy,
+    type AutomationPolicy as AutomationPolicy,
     type CodexModelPolicy as CodexModelPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,

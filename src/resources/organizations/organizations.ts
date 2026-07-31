@@ -55,6 +55,7 @@ import {
 import * as PoliciesAPI from './policies';
 import {
   AgentPolicy,
+  AutomationPolicy,
   CodexModelPolicy,
   ConversationSharingPolicy,
   CrowdStrikeConfig,
@@ -1057,6 +1058,7 @@ export declare namespace Organizations {
   export {
     Policies as Policies,
     type AgentPolicy as AgentPolicy,
+    type AutomationPolicy as AutomationPolicy,
     type CodexModelPolicy as CodexModelPolicy,
     type ConversationSharingPolicy as ConversationSharingPolicy,
     type CrowdStrikeConfig as CrowdStrikeConfig,
