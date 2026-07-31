@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.16.0 (2026-07-31)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **automations:** add organization policy defaults ([b6024e9](https://github.com/gitpod-io/gitpod-sdk-typescript/commit/b6024e90aef9fef44e6188ff6f5c50e1cf67534b))
+
 ## 0.15.0 (2026-07-30)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/gitpod-io/gitpod-sdk-typescript/compare/v0.14.0...v0.15.0)
