@@ -1,40 +1,65 @@
-# This workflow is triggered when a GitHub release is created.
-# It can also be run manually to re-publish to NPM in case it failed for some reason.
-# You can run this workflow by navigating to https://www.github.com/gitpod-io/gitpod-sdk-typescript/actions/workflows/publish-npm.yml
-name: Publish NPM
-
-permissions:
-  id-token: write  # Required for OIDC
-  contents: read
+name: Publish npm package
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
 
-  release:
-    types: [published]
+permissions:
+  contents: read
 
 jobs:
   publish:
-    name: publish
+    name: Publish @gitpod/sdk
     runs-on: ubuntu-latest
     environment: release
     permissions:
       contents: read
       id-token: write
-
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      - name: Checkout tagged release
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # pin@v6.0.2
 
-      - name: Set up Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - name: Set up Node.js for npm trusted publishing
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # pin@v6.3.0
         with:
-          node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: 24.6.0
 
-      - name: Install dependencies
+      - name: Validate release identity
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
-          yarn install --frozen-lockfile --ignore-scripts
+          node - <<'NODE'
+          const { readFileSync } = require("node:fs");
+          const metadata = JSON.parse(readFileSync("package.json", "utf8"));
+          const tag = process.env.TAG;
+          if (metadata.name !== "@gitpod/sdk" || tag !== `v${metadata.version}`) {
+            throw new Error(`tag ${tag} does not match ${metadata.name}@${metadata.version}`);
+          }
+          NODE
 
-      - name: Publish to NPM
+      - name: Pack and check for an identical existing release
+        id: release
+        env:
+          VERSION: ${{ github.ref_name }}
         run: |
-          bash ./bin/publish-npm
+          version="${VERSION#v}"
+          pack_json="$(npm pack . --json --pack-destination "${RUNNER_TEMP}")"
+          artifact="${RUNNER_TEMP}/$(node -e 'const input=JSON.parse(process.argv[1]); process.stdout.write(input[0].filename)' "${pack_json}")"
+          local_integrity="$(node -e 'const input=JSON.parse(process.argv[1]); process.stdout.write(input[0].integrity)' "${pack_json}")"
+          echo "artifact=${artifact}" >> "${GITHUB_OUTPUT}"
+          if npm view "@gitpod/sdk@${version}" dist.integrity --json > npm-view.json 2> npm-view.err; then
+            existing="$(tr -d '"' < npm-view.json)"
+          elif grep -q '^npm error code E404$' npm-view.err; then
+            echo "publish=true" >> "${GITHUB_OUTPUT}"
+            exit 0
+          else
+            cat npm-view.err >&2
+            exit 1
+          fi
+          test "${existing}" = "${local_integrity}"
+          echo "publish=false" >> "${GITHUB_OUTPUT}"
+
+      - name: Publish @gitpod/sdk
+        if: steps.release.outputs.publish == 'true'
+        run: npm publish "${{ steps.release.outputs.artifact }}" --access public --provenance
