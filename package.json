@@ -1,12 +1,11 @@
 {
   "name": "@gitpod/sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Public TypeScript SDK for Ona.",
   "license": "Apache-2.0",
   "private": false,
   "main": "./lib/index.js",
   "module": "./lib/esm/index.js",
-  "readme": "README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/gitpod-io/gitpod-sdk-typescript.git"
@@ -66,5 +65,5 @@
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1"
   },
-  "gitHead": "f3f8967ba3ac4ebd898f6bbae43020afb194df64"
+  "gitHead": "acab733b7887489eeb5deab42a001e94db13faf7"
 }
