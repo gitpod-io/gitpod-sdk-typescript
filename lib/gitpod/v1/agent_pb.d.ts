@@ -3721,7 +3721,15 @@ export declare enum CodexReasoningEffort {
     /**
      * @generated from enum value: CODEX_REASONING_EFFORT_EXTRA_HIGH = 4;
      */
-    EXTRA_HIGH = 4
+    EXTRA_HIGH = 4,
+    /**
+     * @generated from enum value: CODEX_REASONING_EFFORT_MAX = 5;
+     */
+    MAX = 5,
+    /**
+     * @generated from enum value: CODEX_REASONING_EFFORT_ULTRA = 6;
+     */
+    ULTRA = 6
 }
 /**
  * Describes the enum gitpod.v1.CodexReasoningEffort.
@@ -3780,6 +3788,7 @@ export declare enum LLMDisabledCapability {
      * Disables native Codex goal mode.
      *
      * Disables Codex's Responses Lite request shape for provider compatibility.
+     * Disables Codex's Ultra reasoning effort for providers that only support Max.
      *
      * @generated from enum value: LLM_DISABLED_CAPABILITY_GOAL_MODE = 4;
      */
