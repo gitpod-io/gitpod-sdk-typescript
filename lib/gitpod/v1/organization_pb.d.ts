@@ -2,6 +2,7 @@ import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobu
 import type { CodexOpenAIModel, CodexReasoningEffort, CodexServiceTier } from "./agent_pb";
 import type { CountRequest, CountResponse } from "./count_pb";
 import type { AdmissionLevel, KernelControlsAction, VetoFileBlockDevicesPolicy, VetoFilePathPolicy } from "./environment_pb";
+import type { LoginProviderKind } from "./login_provider_pb";
 import type { PaginationRequest, PaginationResponse, SortOrder } from "./pagination_pb";
 import type { UserStatus } from "./user_pb";
 import type { Duration, Timestamp } from "@bufbuild/protobuf/wkt";
@@ -314,6 +315,18 @@ export type ListMembersRequest_Filter = Message<"gitpod.v1.ListMembersRequest.Fi
      * @generated from field: bool exclude_members_in_any_team = 6;
      */
     excludeMembersInAnyTeam: boolean;
+    /**
+     * email filters members by exact email address, matched case-insensitively
+     *
+     * @generated from field: string email = 7;
+     */
+    email: string;
+    /**
+     * login_provider filters members by the exact provider they use to sign in
+     *
+     * @generated from field: gitpod.v1.LoginProviderKind login_provider = 8;
+     */
+    loginProvider: LoginProviderKind;
 };
 /**
  * Describes the message gitpod.v1.ListMembersRequest.Filter.

@@ -2056,7 +2056,8 @@ export declare const EnvironmentStatus_SSHPublicKeySchema: GenMessage<Environmen
  */
 export type EnvironmentStatus_AutomationsFile = Message<"gitpod.v1.EnvironmentStatus.AutomationsFile"> & {
     /**
-     * session is the automations file session that is currently applied in the environment.
+     * session identifies the automations file reconciliation request reflected by this status.
+     * A matching session does not imply completion; use phase to determine whether reconciliation finished.
      *
      * @generated from field: string session = 1;
      */

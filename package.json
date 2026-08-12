@@ -1,6 +1,6 @@
 {
   "name": "@gitpod/sdk",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Public TypeScript SDK for Ona.",
   "license": "Apache-2.0",
   "private": false,
@@ -65,5 +65,5 @@
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1"
   },
-  "gitHead": "ff132a83447f64324a3f3d873f0ff52600a2614f"
+  "gitHead": "0ced4c3bd0a417f5ac8e4a4827047915543e4fd8"
 }
